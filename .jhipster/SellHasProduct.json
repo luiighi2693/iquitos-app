@@ -1,0 +1,47 @@
+{
+    "name": "SellHasProduct",
+    "fields": [
+        {
+            "fieldName": "quantity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "discount",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "sell",
+            "otherEntityName": "sell",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "sellHasProduct"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "variant",
+            "otherEntityName": "variant",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "sellHasProduct"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "product",
+            "otherEntityName": "product",
+            "otherEntityRelationshipName": "sellHasProduct"
+        }
+    ],
+    "changelogDate": "20181023012748",
+    "entityTableName": "sell_has_product",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

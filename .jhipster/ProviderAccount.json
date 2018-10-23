@@ -1,0 +1,48 @@
+{
+    "name": "ProviderAccount",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "ProviderStatus",
+            "fieldValues": "ACTIVO,INACTIVO"
+        },
+        {
+            "fieldName": "bank",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "accountName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "accountNumber",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "initDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "provider",
+            "otherEntityName": "provider",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181023012750",
+    "entityTableName": "provider_account",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

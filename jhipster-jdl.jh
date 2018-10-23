@@ -1,0 +1,314 @@
+
+entity Amortization {
+	amountToPay Double,
+	amountPayed Double,
+    emissionDate LocalDate,
+    documentCode String,
+    gloss String,
+}
+
+entity Sell {
+	code String,
+	subTotalAmount Double,
+    taxAmount Double,
+    totalAmount Double,
+    date LocalDate,
+    status SellStatus,
+    gloss String,
+}
+
+entity Credit {
+	amount Double,
+	emissionDate LocalDate,
+    paymentMode Double,
+    creditNumber Integer,
+    totalAmount Double,
+    limitDate LocalDate,
+    creditNote String,
+}
+
+entity Client {
+	name String,
+	code String,
+    address String,
+    email String,
+    cellphone String,
+    birthday LocalDate, 
+    sex Sex,
+    civilStatus CivilStatus,
+    image ImageBlob,
+    clientType ClientType,
+}
+
+entity Employee {
+	firstName String,
+	lastName String,
+    dni Integer,
+    address String,
+    email String,
+    birthday LocalDate, 
+    sex Sex,
+    cellphone Integer,
+    image ImageBlob,
+    employeeRole EmployeeRole,
+}
+
+entity Product {
+	code String,
+	description String,
+    dni Integer,
+    expirationDate LocalDate,
+    isFavorite Boolean,
+    visibleToSell Boolean, 
+    image ImageBlob,
+    stock Integer,
+    stockLimitNotification Integer,
+    productType ProductType
+}
+
+entity Variant {
+	name String,
+	description String,
+    priceSell Double,
+    privePurchase Double,
+}
+
+entity Category {
+	name String,
+	countProducts Integer,
+}
+
+entity SellHasProduct {
+	quantity Integer,
+	discount Double,
+}
+
+entity Provider {
+	code String,
+	socialReason String,
+    address String,
+    email String,
+    cellphone Integer,
+}
+
+entity ProviderAccount {
+	code String,
+	status ProviderStatus,
+    bank String,
+    accountName String,
+    accountNumber Integer,
+    initDate LocalDate,
+    
+}
+
+entity ProviderPayment {
+	amountToPay Double,
+	amountPayed Double,
+    emissionDate LocalDate,
+    documentCode String,
+    glosa String,
+    image ImageBlob,
+}
+
+entity Purchase {
+	date LocalDate,
+	remisionGuide String,
+    documentNumber String,
+    location PurchaseLocation,
+    totalAmount Double,
+    correlative String, //OCT2018-00001
+    paymentPurchaseType PaymentPurchaseType,
+}
+
+entity PurchaseHasProduct {
+	quantity Integer,
+	tax Double,
+    datePurchase LocalDate
+}
+
+entity Box {
+	initAmount Double,
+	actualAmount Double,
+    initDate LocalDate,
+    endDate LocalDate,
+}
+
+entity Operation {
+    initDate LocalDate,
+    gloss String,
+    amount Double,
+    operationType OperationType,
+}
+
+entity User {
+    dni Integer,
+    pin Integer,
+    email String,
+}
+
+entity DocumentType { //DNI, RUC
+	value String,
+	metaData String,
+}
+
+entity PaymentType { //Efectivo, Visa, Cheque, Deposito_en_Cuenta
+	value String,
+	metaData String,
+}
+
+entity DocumentTypeSell { //ticket de ingreso - factura
+	value String,
+	metaData String,
+}
+
+entity ProductsDeliveredStatus { //Por Entregar, En Proceso, Entregado
+	value String,
+	metaData String,
+}
+
+entity UnitMeasurement { //LITRO, KILO, UNIDAD
+	value String,
+	metaData String,
+}
+
+entity DocumentTypePurchase { //Boleta electronica, factura electronica, nota de credito, nota de debito, recibo de ingreso, recibo de egreso, ticket de ingreso
+	value String,
+	metaData String,
+}
+
+entity PurchaseStatus { //Pendiente, En proceso, Completado
+	value String,
+	metaData String,
+}
+
+entity ConceptOperationInput { //devolucion de caja chica, ingreso desde bancos
+	value String,
+	metaData String,
+}
+
+entity ConceptOperationOutput { //otros, depositos desde bancos
+	value String,
+	metaData String,
+}
+
+enum Sex {
+    MASCULINO, FEMENINO
+}
+
+enum SellStatus {
+    PENDIENTE, COMPLETADO
+}
+
+enum CivilStatus {
+    SOLTERO, CASADO
+}
+
+enum ClientType {
+    NATURAL, JURIDICO
+}
+
+enum EmployeeRole {
+    VENDEDOR
+}
+
+enum ProductType {
+    BIENES, SERVICIOS
+}
+
+enum ProviderStatus {
+    ACTIVO, INACTIVO
+}
+
+enum PurchaseLocation {
+    TIENDA
+}
+
+enum PaymentPurchaseType {
+    CONTADO, CREDITO
+}
+
+enum OperationType {
+    INGRESO, EGRESO
+}
+
+relationship ManyToOne {
+	Amortization{documentTypeSell} to DocumentTypeSell,
+    Amortization{paymentType} to PaymentType,
+    
+    Sell{documentTypeSell} to DocumentTypeSell,
+    Sell{paymentType} to PaymentType,
+    Sell{productsDeliveredStatus} to ProductsDeliveredStatus,
+    
+    Client{documentType} to DocumentType,
+    
+    Product{unitMeasurement} to UnitMeasurement,
+    Product{category} to Category,
+    
+    Product{vartiant} to Variant,
+    
+    Credit{sell} to Sell,
+    Credit{purchase} to Purchase,
+    
+    ProviderPayment{documentTypePurchase} to DocumentTypePurchase,
+    ProviderPayment{paymentType} to PaymentType,
+    
+    Operation{box} to Box,
+    Operation{paymentType} to PaymentType,
+    Operation{conceptOperationInput} to ConceptOperationInput
+    Operation{conceptOperationOutput} to ConceptOperationOutput
+}
+
+relationship OneToMany {
+	Sell{amortization} to Amortization,
+    
+    Variant{product} to Product,
+    
+    SellHasProduct{product} to Product,
+    
+    Provider{providerAccount} to ProviderAccount,
+    
+    PurchaseHasProduct{product} to Product,
+}
+
+relationship OneToOne {
+	Sell{client} to Client,
+    Sell{employee} to Employee,
+    
+    Purchase{provider} to Provider,
+    Purchase{documentTypePurchase} to DocumentTypePurchase,
+    Purchase{purchaseStatus} to PurchaseStatus,
+    
+    PurchaseHasProduct{purchase} to Purchase
+    
+    Sell{box} to Box,
+    Purchase{box} to Box,
+    Box{box} to Box,
+    
+    SellHasProduct{sell} to Sell,
+    SellHasProduct{variant} to Variant,
+    
+    PurchaseHasProduct{purchase} to Purchase,
+    
+    Client{user} to User,
+    Employee{user} to User,
+}
+
+
+
+
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+paginate * with pagination
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Employee, Job
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
+
+search * with elasticsearch

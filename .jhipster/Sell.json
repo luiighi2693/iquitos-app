@@ -1,0 +1,94 @@
+{
+    "name": "Sell",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subTotalAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "taxAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "totalAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "SellStatus",
+            "fieldValues": "PENDIENTE,COMPLETADO"
+        },
+        {
+            "fieldName": "gloss",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "sell"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "employee",
+            "otherEntityName": "employee",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "sell"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "box",
+            "otherEntityName": "box",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "sell"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "amortization",
+            "otherEntityName": "amortization",
+            "otherEntityRelationshipName": "sell"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "documentTypeSell",
+            "otherEntityName": "documentTypeSell",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "paymentType",
+            "otherEntityName": "paymentType",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "productsDeliveredStatus",
+            "otherEntityName": "productsDeliveredStatus",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181023012741",
+    "entityTableName": "sell",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

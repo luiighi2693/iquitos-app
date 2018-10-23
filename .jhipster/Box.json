@@ -1,0 +1,41 @@
+{
+    "name": "Box",
+    "fields": [
+        {
+            "fieldName": "initAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "actualAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "initDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "box",
+            "otherEntityName": "box",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "box"
+        }
+    ],
+    "changelogDate": "20181023012754",
+    "entityTableName": "box",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

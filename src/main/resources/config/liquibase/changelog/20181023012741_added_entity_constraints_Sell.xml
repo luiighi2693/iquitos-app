@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Sell.
+    -->
+    <changeSet id="20181023012741-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="sell"
+                                 constraintName="fk_sell_client_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="client"/>
+
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="sell"
+                                 constraintName="fk_sell_employee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="box_id"
+                                 baseTableName="sell"
+                                 constraintName="fk_sell_box_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="box"/>
+
+        <addForeignKeyConstraint baseColumnNames="document_type_sell_id"
+                                 baseTableName="sell"
+                                 constraintName="fk_sell_document_type_sell_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="document_type_sell"/>
+
+        <addForeignKeyConstraint baseColumnNames="payment_type_id"
+                                 baseTableName="sell"
+                                 constraintName="fk_sell_payment_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="payment_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="products_delivered_status_id"
+                                 baseTableName="sell"
+                                 constraintName="fk_sell_products_delivered_status_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="products_delivered_status"/>
+
+    </changeSet>
+</databaseChangeLog>

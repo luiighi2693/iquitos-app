@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="box">
+            <h2><span>Box</span> {{box.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Init Amount</span></dt>
+                <dd>
+                    <span>{{box.initAmount}}</span>
+                </dd>
+                <dt><span>Actual Amount</span></dt>
+                <dd>
+                    <span>{{box.actualAmount}}</span>
+                </dd>
+                <dt><span>Init Date</span></dt>
+                <dd>
+                    <span>{{box.initDate}}</span>
+                </dd>
+                <dt><span>End Date</span></dt>
+                <dd>
+                    <span>{{box.endDate}}</span>
+                </dd>
+                <dt><span>Box</span></dt>
+                <dd>
+                    <div *ngIf="box.boxId">
+                        <a [routerLink]="['/box', box.boxId, 'view']">{{box.boxId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/box', box.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+package pe.com.iquitos.app.service.mapper;
+
+import pe.com.iquitos.app.domain.*;
+import pe.com.iquitos.app.service.dto.CategoryDTO;
+
+import org.mapstruct.*;
+
+/**
+ * Mapper for the entity Category and its DTO CategoryDTO.
+ */
+@Mapper(componentModel = "spring", uses = {})
+public interface CategoryMapper extends EntityMapper<CategoryDTO, Category> {
+
+
+
+    default Category fromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Category category = new Category();
+        category.setId(id);
+        return category;
+    }
+}

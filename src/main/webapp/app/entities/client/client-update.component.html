@@ -1,0 +1,111 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-client-heading">Create or edit a Client</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!client.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="client.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="client.name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                        [(ngModel)]="client.code" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_address">Address</label>
+                    <input type="text" class="form-control" name="address" id="field_address"
+                        [(ngModel)]="client.address" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                        [(ngModel)]="client.email" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cellphone">Cellphone</label>
+                    <input type="text" class="form-control" name="cellphone" id="field_cellphone"
+                        [(ngModel)]="client.cellphone" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_birthday">Birthday</label>
+                    <div class="input-group">
+                        <input id="field_birthday" type="text" class="form-control" name="birthday" ngbDatepicker  #birthdayDp="ngbDatepicker" [(ngModel)]="client.birthday"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="birthdayDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sex">Sex</label>
+                    <select class="form-control" name="sex" [(ngModel)]="client.sex" id="field_sex" >
+                        <option value="MASCULINO">MASCULINO</option>
+                        <option value="FEMENINO">FEMENINO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_civilStatus">Civil Status</label>
+                    <select class="form-control" name="civilStatus" [(ngModel)]="client.civilStatus" id="field_civilStatus" >
+                        <option value="SOLTERO">SOLTERO</option>
+                        <option value="CASADO">CASADO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_image">Image</label>
+                    <div>
+                        <img [src]="'data:' + client.imageContentType + ';base64,' + client.image" style="max-height: 100px;" *ngIf="client.image" alt="client image"/>
+                        <div *ngIf="client.image" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{client.imageContentType}}, {{byteSize(client.image)}}</span>
+                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_image" (change)="setFileData($event, client, 'image', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="image" id="field_image"
+                        [(ngModel)]="client.image" />
+                    <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                        [(ngModel)]="client.imageContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_clientType">Client Type</label>
+                    <select class="form-control" name="clientType" [(ngModel)]="client.clientType" id="field_clientType" >
+                        <option value="NATURAL">NATURAL</option>
+                        <option value="JURIDICO">JURIDICO</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="client.userId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_documentType">Document Type</label>
+                    <select class="form-control" id="field_documentType" name="documentType" [(ngModel)]="client.documentTypeId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="documentTypeOption.id" *ngFor="let documentTypeOption of documenttypes; trackBy: trackDocumentTypeById">{{documentTypeOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

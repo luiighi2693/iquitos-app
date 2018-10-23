@@ -1,0 +1,54 @@
+{
+    "name": "ProviderPayment",
+    "fields": [
+        {
+            "fieldName": "amountToPay",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "amountPayed",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "emissionDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "documentCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "glosa",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "documentTypePurchase",
+            "otherEntityName": "documentTypePurchase",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "paymentType",
+            "otherEntityName": "paymentType",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181023012751",
+    "entityTableName": "provider_payment",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

@@ -1,0 +1,95 @@
+{
+    "name": "Product",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dni",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "expirationDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "isFavorite",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "visibleToSell",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "stock",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "stockLimitNotification",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "productType",
+            "fieldType": "ProductType",
+            "fieldValues": "BIENES,SERVICIOS"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "unitMeasurement",
+            "otherEntityName": "unitMeasurement",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "category",
+            "otherEntityName": "category",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "vartiant",
+            "otherEntityName": "variant",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "variant",
+            "otherEntityName": "variant",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "sellHasProduct",
+            "otherEntityName": "sellHasProduct",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "purchaseHasProduct",
+            "otherEntityName": "purchaseHasProduct",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181023012745",
+    "entityTableName": "product",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

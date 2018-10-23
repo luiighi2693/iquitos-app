@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-amortization-heading">Create or edit a Amortization</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!amortization.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="amortization.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_amountToPay">Amount To Pay</label>
+                    <input type="number" class="form-control" name="amountToPay" id="field_amountToPay"
+                        [(ngModel)]="amortization.amountToPay" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_amountPayed">Amount Payed</label>
+                    <input type="number" class="form-control" name="amountPayed" id="field_amountPayed"
+                        [(ngModel)]="amortization.amountPayed" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_emissionDate">Emission Date</label>
+                    <div class="input-group">
+                        <input id="field_emissionDate" type="text" class="form-control" name="emissionDate" ngbDatepicker  #emissionDateDp="ngbDatepicker" [(ngModel)]="amortization.emissionDate"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="emissionDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_documentCode">Document Code</label>
+                    <input type="text" class="form-control" name="documentCode" id="field_documentCode"
+                        [(ngModel)]="amortization.documentCode" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gloss">Gloss</label>
+                    <input type="text" class="form-control" name="gloss" id="field_gloss"
+                        [(ngModel)]="amortization.gloss" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_documentTypeSell">Document Type Sell</label>
+                    <select class="form-control" id="field_documentTypeSell" name="documentTypeSell" [(ngModel)]="amortization.documentTypeSellId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="documentTypeSellOption.id" *ngFor="let documentTypeSellOption of documenttypesells; trackBy: trackDocumentTypeSellById">{{documentTypeSellOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_paymentType">Payment Type</label>
+                    <select class="form-control" id="field_paymentType" name="paymentType" [(ngModel)]="amortization.paymentTypeId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="paymentTypeOption.id" *ngFor="let paymentTypeOption of paymenttypes; trackBy: trackPaymentTypeById">{{paymentTypeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sell">Sell</label>
+                    <select class="form-control" id="field_sell" name="sell" [(ngModel)]="amortization.sellId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="sellOption.id" *ngFor="let sellOption of sells; trackBy: trackSellById">{{sellOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+{
+    "name": "Purchase",
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "remisionGuide",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "documentNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "PurchaseLocation",
+            "fieldValues": "TIENDA"
+        },
+        {
+            "fieldName": "totalAmount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "correlative",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "paymentPurchaseType",
+            "fieldType": "PaymentPurchaseType",
+            "fieldValues": "CONTADO,CREDITO"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "provider",
+            "otherEntityName": "provider",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "purchase"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "documentTypePurchase",
+            "otherEntityName": "documentTypePurchase",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "purchase"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "purchaseStatus",
+            "otherEntityName": "purchaseStatus",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "purchase"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "box",
+            "otherEntityName": "box",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "purchase"
+        }
+    ],
+    "changelogDate": "20181023012752",
+    "entityTableName": "purchase",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}
