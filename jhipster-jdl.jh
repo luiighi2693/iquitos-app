@@ -70,7 +70,7 @@ entity Variant {
 	name String,
 	description String,
     priceSell Double,
-    privePurchase Double,
+    pricePurchase Double,
 }
 
 entity Category {
@@ -140,11 +140,22 @@ entity Operation {
     operationType OperationType,
 }
 
-entity User {
+entity UserLogin {
     dni Integer,
     pin Integer,
     email String,
 }
+
+entity OrderProduct {
+    note String,
+    guide String,
+    orderStatus OrderStatus,
+    metaData String, //aqui va la cantidad de productos
+}
+
+//entity OrdersHasProduct {
+//	quantity Integer,
+//}
 
 entity DocumentType { //DNI, RUC
 	value String,
@@ -231,6 +242,10 @@ enum OperationType {
     INGRESO, EGRESO
 }
 
+enum OrderStatus {
+    CREADO, CANCELADO, ENVIADO_EN_PROCESO, ENVIADO_CANCELADO, ENTREGADO, ENTREGADO_ERROR
+}
+
 relationship ManyToOne {
 	Amortization{documentTypeSell} to DocumentTypeSell,
     Amortization{paymentType} to PaymentType,
@@ -243,8 +258,9 @@ relationship ManyToOne {
     
     Product{unitMeasurement} to UnitMeasurement,
     Product{category} to Category,
-    
-    Product{vartiant} to Variant,
+
+    //Product{variant} to Variant,
+    //Variant{product} to Product,
     
     Credit{sell} to Sell,
     Credit{purchase} to Purchase,
@@ -260,14 +276,17 @@ relationship ManyToOne {
 
 relationship OneToMany {
 	Sell{amortization} to Amortization,
-    
-    Variant{product} to Product,
+
+    //Variant{product} to Product,
+    //Product{variant} to Variant,
     
     SellHasProduct{product} to Product,
     
     Provider{providerAccount} to ProviderAccount,
     
     PurchaseHasProduct{product} to Product,
+
+    //ProductOrdersHasProduct{product} to Product,
 }
 
 relationship OneToOne {
@@ -291,11 +310,16 @@ relationship OneToOne {
     
     Client{user} to User,
     Employee{user} to User,
+
+    OrderProduct{provider} to Provider,
 }
 
+relationship ManyToMany {
+    OrderProduct{products} to Product,
 
-
-
+    Product{variants} to Variant,
+    Variant{products} to Product,
+}
 
 // Set pagination options
 //paginate JobHistory, Employee with infinite-scroll

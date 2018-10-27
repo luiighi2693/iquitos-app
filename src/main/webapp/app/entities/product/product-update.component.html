@@ -94,17 +94,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_vartiant">Vartiant</label>
-                    <select class="form-control" id="field_vartiant" name="vartiant" [(ngModel)]="product.vartiantId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="variantOption.id" *ngFor="let variantOption of variants; trackBy: trackVariantById">{{variantOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_variant">Variant</label>
-                    <select class="form-control" id="field_variant" name="variant" [(ngModel)]="product.variantId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="variantOption.id" *ngFor="let variantOption of variants; trackBy: trackVariantById">{{variantOption.id}}</option>
+                    <label for="field_variants">Variants</label>
+                    <select class="form-control" id="field_variants" multiple name="variants" [(ngModel)]="product.variants">
+                        <option [ngValue]="getSelected(product.variants, variantOption)" *ngFor="let variantOption of variants; trackBy: trackVariantById">{{variantOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">

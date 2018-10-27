@@ -9,6 +9,8 @@ import javax.persistence.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import pe.com.iquitos.app.domain.enumeration.ProductType;
@@ -71,13 +73,12 @@ public class Product implements Serializable {
     @JsonIgnoreProperties("")
     private Category category;
 
-    @ManyToOne
-    @JsonIgnoreProperties("")
-    private Variant vartiant;
-
-    @ManyToOne
-    @JsonIgnoreProperties("products")
-    private Variant variant;
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "product_variants",
+               joinColumns = @JoinColumn(name = "products_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "variants_id", referencedColumnName = "id"))
+    private Set<Variant> variants = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("products")
@@ -265,30 +266,27 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Variant getVartiant() {
-        return vartiant;
+    public Set<Variant> getVariants() {
+        return variants;
     }
 
-    public Product vartiant(Variant variant) {
-        this.vartiant = variant;
+    public Product variants(Set<Variant> variants) {
+        this.variants = variants;
         return this;
     }
 
-    public void setVartiant(Variant variant) {
-        this.vartiant = variant;
-    }
-
-    public Variant getVariant() {
-        return variant;
-    }
-
-    public Product variant(Variant variant) {
-        this.variant = variant;
+    public Product addVariants(Variant variant) {
+        this.variants.add(variant);
         return this;
     }
 
-    public void setVariant(Variant variant) {
-        this.variant = variant;
+    public Product removeVariants(Variant variant) {
+        this.variants.remove(variant);
+        return this;
+    }
+
+    public void setVariants(Set<Variant> variants) {
+        this.variants = variants;
     }
 
     public SellHasProduct getSellHasProduct() {

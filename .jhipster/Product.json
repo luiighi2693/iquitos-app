@@ -58,16 +58,12 @@
             "otherEntityField": "id"
         },
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "vartiant",
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "variants",
             "otherEntityName": "variant",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipName": "variant",
-            "otherEntityName": "variant",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "ownerSide": true
         },
         {
             "relationshipName": "sellHasProduct",

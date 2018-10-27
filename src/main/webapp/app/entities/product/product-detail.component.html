@@ -62,17 +62,11 @@
                         <a [routerLink]="['/category', product.categoryId, 'view']">{{product.categoryId}}</a>
                     </div>
                 </dd>
-                <dt><span>Vartiant</span></dt>
+                <dt><span>Variants</span></dt>
                 <dd>
-                    <div *ngIf="product.vartiantId">
-                        <a [routerLink]="['/variant', product.vartiantId, 'view']">{{product.vartiantId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Variant</span></dt>
-                <dd>
-                    <div *ngIf="product.variantId">
-                        <a [routerLink]="['/variant', product.variantId, 'view']">{{product.variantId}}</a>
-                    </div>
+                    <span *ngFor="let variants of product.variants; let last = last">
+                        <a [routerLink]="['/variant', variants?.id, 'view' ]">{{variants.id}}</a>{{last ? '' : ', '}}
+                    </span>
                 </dd>
                 <dt><span>Sell Has Product</span></dt>
                 <dd>

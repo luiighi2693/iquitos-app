@@ -29,7 +29,8 @@ export class VariantUpdatePage {
     nameInput = element(by.id('field_name'));
     descriptionInput = element(by.id('field_description'));
     priceSellInput = element(by.id('field_priceSell'));
-    privePurchaseInput = element(by.id('field_privePurchase'));
+    pricePurchaseInput = element(by.id('field_pricePurchase'));
+    productsSelect = element(by.id('field_products'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -59,12 +60,31 @@ export class VariantUpdatePage {
         return this.priceSellInput.getAttribute('value');
     }
 
-    async setPrivePurchaseInput(privePurchase) {
-        await this.privePurchaseInput.sendKeys(privePurchase);
+    async setPricePurchaseInput(pricePurchase) {
+        await this.pricePurchaseInput.sendKeys(pricePurchase);
     }
 
-    async getPrivePurchaseInput() {
-        return this.privePurchaseInput.getAttribute('value');
+    async getPricePurchaseInput() {
+        return this.pricePurchaseInput.getAttribute('value');
+    }
+
+    async productsSelectLastOption() {
+        await this.productsSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async productsSelectOption(option) {
+        await this.productsSelect.sendKeys(option);
+    }
+
+    getProductsSelect(): ElementFinder {
+        return this.productsSelect;
+    }
+
+    async getProductsSelectedOption() {
+        return this.productsSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

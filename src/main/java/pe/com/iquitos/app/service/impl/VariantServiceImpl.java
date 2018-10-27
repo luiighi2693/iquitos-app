@@ -70,6 +70,15 @@ public class VariantServiceImpl implements VariantService {
             .map(variantMapper::toDto);
     }
 
+    /**
+     * Get all the Variant with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    public Page<VariantDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return variantRepository.findAllWithEagerRelationships(pageable).map(variantMapper::toDto);
+    }
+    
 
     /**
      * Get one variant by id.
@@ -81,7 +90,7 @@ public class VariantServiceImpl implements VariantService {
     @Transactional(readOnly = true)
     public Optional<VariantDTO> findOne(Long id) {
         log.debug("Request to get Variant : {}", id);
-        return variantRepository.findById(id)
+        return variantRepository.findOneWithEagerRelationships(id)
             .map(variantMapper::toDto);
     }
 

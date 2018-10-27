@@ -42,8 +42,6 @@
             <th jhiSortBy="productType"><span>Product Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="unitMeasurementId"><span>Unit Measurement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="categoryId"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="vartiantId"><span>Vartiant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="variantId"><span>Variant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="sellHasProductId"><span>Sell Has Product</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="purchaseHasProductId"><span>Purchase Has Product</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -75,16 +73,6 @@
                 <td>
                     <div *ngIf="product.categoryId">
                         <a [routerLink]="['../category', product.categoryId , 'view' ]" >{{product.categoryId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="product.vartiantId">
-                        <a [routerLink]="['../variant', product.vartiantId , 'view' ]" >{{product.vartiantId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="product.variantId">
-                        <a [routerLink]="['../variant', product.variantId , 'view' ]" >{{product.variantId}}</a>
                     </div>
                 </td>
                 <td>

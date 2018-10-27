@@ -38,8 +38,7 @@ export class ProductUpdatePage {
     productTypeSelect = element(by.id('field_productType'));
     unitMeasurementSelect = element(by.id('field_unitMeasurement'));
     categorySelect = element(by.id('field_category'));
-    vartiantSelect = element(by.id('field_vartiant'));
-    variantSelect = element(by.id('field_variant'));
+    variantsSelect = element(by.id('field_variants'));
     sellHasProductSelect = element(by.id('field_sellHasProduct'));
     purchaseHasProductSelect = element(by.id('field_purchaseHasProduct'));
 
@@ -162,42 +161,23 @@ export class ProductUpdatePage {
         return this.categorySelect.element(by.css('option:checked')).getText();
     }
 
-    async vartiantSelectLastOption() {
-        await this.vartiantSelect
+    async variantsSelectLastOption() {
+        await this.variantsSelect
             .all(by.tagName('option'))
             .last()
             .click();
     }
 
-    async vartiantSelectOption(option) {
-        await this.vartiantSelect.sendKeys(option);
+    async variantsSelectOption(option) {
+        await this.variantsSelect.sendKeys(option);
     }
 
-    getVartiantSelect(): ElementFinder {
-        return this.vartiantSelect;
+    getVariantsSelect(): ElementFinder {
+        return this.variantsSelect;
     }
 
-    async getVartiantSelectedOption() {
-        return this.vartiantSelect.element(by.css('option:checked')).getText();
-    }
-
-    async variantSelectLastOption() {
-        await this.variantSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async variantSelectOption(option) {
-        await this.variantSelect.sendKeys(option);
-    }
-
-    getVariantSelect(): ElementFinder {
-        return this.variantSelect;
-    }
-
-    async getVariantSelectedOption() {
-        return this.variantSelect.element(by.css('option:checked')).getText();
+    async getVariantsSelectedOption() {
+        return this.variantsSelect.element(by.css('option:checked')).getText();
     }
 
     async sellHasProductSelectLastOption() {

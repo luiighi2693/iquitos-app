@@ -25,6 +25,8 @@ import { IquitosAppDocumentTypePurchaseModule } from './document-type-purchase/d
 import { IquitosAppPurchaseStatusModule } from './purchase-status/purchase-status.module';
 import { IquitosAppConceptOperationInputModule } from './concept-operation-input/concept-operation-input.module';
 import { IquitosAppConceptOperationOutputModule } from './concept-operation-output/concept-operation-output.module';
+import { IquitosAppOrderProductModule } from './order-product/order-product.module';
+import { IquitosAppUserLoginModule } from './user-login/user-login.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -55,6 +57,8 @@ import { IquitosAppConceptOperationOutputModule } from './concept-operation-outp
         IquitosAppPurchaseStatusModule,
         IquitosAppConceptOperationInputModule,
         IquitosAppConceptOperationOutputModule,
+        IquitosAppOrderProductModule,
+        IquitosAppUserLoginModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -88,14 +88,20 @@ public class ProductResource {
      * GET  /products : get all the products.
      *
      * @param pageable the pagination information
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of products in body
      */
     @GetMapping("/products")
     @Timed
-    public ResponseEntity<List<ProductDTO>> getAllProducts(Pageable pageable) {
+    public ResponseEntity<List<ProductDTO>> getAllProducts(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Products");
-        Page<ProductDTO> page = productService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
+        Page<ProductDTO> page;
+        if (eagerload) {
+            page = productService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = productService.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/products?eagerload=%b", eagerload));
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

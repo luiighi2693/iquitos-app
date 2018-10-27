@@ -8,12 +8,10 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Variant and its DTO VariantDTO.
  */
-@Mapper(componentModel = "spring", uses = {})
+@Mapper(componentModel = "spring", uses = {ProductMapper.class})
 public interface VariantMapper extends EntityMapper<VariantDTO, Variant> {
 
 
-    @Mapping(target = "products", ignore = true)
-    Variant toEntity(VariantDTO variantDTO);
 
     default Variant fromId(Long id) {
         if (id == null) {

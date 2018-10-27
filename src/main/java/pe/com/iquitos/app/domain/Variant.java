@@ -1,6 +1,5 @@
 package pe.com.iquitos.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -36,12 +35,16 @@ public class Variant implements Serializable {
     @Column(name = "price_sell")
     private Double priceSell;
 
-    @Column(name = "prive_purchase")
-    private Double privePurchase;
+    @Column(name = "price_purchase")
+    private Double pricePurchase;
 
-    @OneToMany(mappedBy = "variant")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "variant_products",
+               joinColumns = @JoinColumn(name = "variants_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "products_id", referencedColumnName = "id"))
     private Set<Product> products = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -90,17 +93,17 @@ public class Variant implements Serializable {
         this.priceSell = priceSell;
     }
 
-    public Double getPrivePurchase() {
-        return privePurchase;
+    public Double getPricePurchase() {
+        return pricePurchase;
     }
 
-    public Variant privePurchase(Double privePurchase) {
-        this.privePurchase = privePurchase;
+    public Variant pricePurchase(Double pricePurchase) {
+        this.pricePurchase = pricePurchase;
         return this;
     }
 
-    public void setPrivePurchase(Double privePurchase) {
-        this.privePurchase = privePurchase;
+    public void setPricePurchase(Double pricePurchase) {
+        this.pricePurchase = pricePurchase;
     }
 
     public Set<Product> getProducts() {
@@ -112,15 +115,13 @@ public class Variant implements Serializable {
         return this;
     }
 
-    public Variant addProduct(Product product) {
+    public Variant addProducts(Product product) {
         this.products.add(product);
-        product.setVariant(this);
         return this;
     }
 
-    public Variant removeProduct(Product product) {
+    public Variant removeProducts(Product product) {
         this.products.remove(product);
-        product.setVariant(null);
         return this;
     }
 
@@ -156,7 +157,7 @@ public class Variant implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", priceSell=" + getPriceSell() +
-            ", privePurchase=" + getPrivePurchase() +
+            ", pricePurchase=" + getPricePurchase() +
             "}";
     }
 }

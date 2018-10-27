@@ -2,6 +2,8 @@ package pe.com.iquitos.app.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 import javax.persistence.Lob;
 import pe.com.iquitos.app.domain.enumeration.ProductType;
@@ -39,9 +41,7 @@ public class ProductDTO implements Serializable {
 
     private Long categoryId;
 
-    private Long vartiantId;
-
-    private Long variantId;
+    private Set<VariantDTO> variants = new HashSet<>();
 
     private Long sellHasProductId;
 
@@ -159,20 +159,12 @@ public class ProductDTO implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Long getVartiantId() {
-        return vartiantId;
+    public Set<VariantDTO> getVariants() {
+        return variants;
     }
 
-    public void setVartiantId(Long variantId) {
-        this.vartiantId = variantId;
-    }
-
-    public Long getVariantId() {
-        return variantId;
-    }
-
-    public void setVariantId(Long variantId) {
-        this.variantId = variantId;
+    public void setVariants(Set<VariantDTO> variants) {
+        this.variants = variants;
     }
 
     public Long getSellHasProductId() {
@@ -228,8 +220,6 @@ public class ProductDTO implements Serializable {
             ", productType='" + getProductType() + "'" +
             ", unitMeasurement=" + getUnitMeasurementId() +
             ", category=" + getCategoryId() +
-            ", vartiant=" + getVartiantId() +
-            ", variant=" + getVariantId() +
             ", sellHasProduct=" + getSellHasProductId() +
             ", purchaseHasProduct=" + getPurchaseHasProductId() +
             "}";

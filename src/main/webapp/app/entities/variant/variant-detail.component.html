@@ -17,9 +17,15 @@
                 <dd>
                     <span>{{variant.priceSell}}</span>
                 </dd>
-                <dt><span>Prive Purchase</span></dt>
+                <dt><span>Price Purchase</span></dt>
                 <dd>
-                    <span>{{variant.privePurchase}}</span>
+                    <span>{{variant.pricePurchase}}</span>
+                </dd>
+                <dt><span>Products</span></dt>
+                <dd>
+                    <span *ngFor="let products of variant.products; let last = last">
+                        <a [routerLink]="['/product', products?.id, 'view' ]">{{products.id}}</a>{{last ? '' : ', '}}
+                    </span>
                 </dd>
             </dl>
 

@@ -1,0 +1,50 @@
+{
+    "name": "OrderProduct",
+    "fields": [
+        {
+            "fieldName": "note",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "guide",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "orderStatus",
+            "fieldType": "OrderStatus",
+            "fieldValues": "CREADO,CANCELADO,ENVIADO_EN_PROCESO,ENVIADO_CANCELADO,ENTREGADO,ENTREGADO_ERROR"
+        },
+        {
+            "fieldName": "metaData",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "provider",
+            "otherEntityName": "provider",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "orderProduct"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "products",
+            "otherEntityName": "product",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20181027021416",
+    "entityTableName": "order_product",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

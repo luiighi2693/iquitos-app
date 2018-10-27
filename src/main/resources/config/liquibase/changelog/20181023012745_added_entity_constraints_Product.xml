@@ -20,18 +20,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="category"/>
 
-        <addForeignKeyConstraint baseColumnNames="vartiant_id"
-                                 baseTableName="product"
-                                 constraintName="fk_product_vartiant_id"
+        <addForeignKeyConstraint baseColumnNames="products_id"
+                                 baseTableName="product_variants"
+                                 constraintName="fk_product_variants_products_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+        <addForeignKeyConstraint baseColumnNames="variants_id"
+                                 baseTableName="product_variants"
+                                 constraintName="fk_product_variants_variants_id"
                                  referencedColumnNames="id"
                                  referencedTableName="variant"/>
-
-        <addForeignKeyConstraint baseColumnNames="variant_id"
-                                 baseTableName="product"
-                                 constraintName="fk_product_variant_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="variant"/>
-
+        
         <addForeignKeyConstraint baseColumnNames="sell_has_product_id"
                                  baseTableName="product"
                                  constraintName="fk_product_sell_has_product_id"

@@ -5,7 +5,7 @@ export interface IVariant {
     name?: string;
     description?: string;
     priceSell?: number;
-    privePurchase?: number;
+    pricePurchase?: number;
     products?: IProduct[];
 }
 
@@ -15,7 +15,7 @@ export class Variant implements IVariant {
         public name?: string,
         public description?: string,
         public priceSell?: number,
-        public privePurchase?: number,
+        public pricePurchase?: number,
         public products?: IProduct[]
     ) {}
 }

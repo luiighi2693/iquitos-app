@@ -13,6 +13,7 @@ import pe.com.iquitos.app.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +31,7 @@ import org.springframework.util.Base64Utils;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,9 +89,16 @@ public class ProductResourceIntTest {
     @Autowired
     private ProductRepository productRepository;
 
+    @Mock
+    private ProductRepository productRepositoryMock;
+
     @Autowired
     private ProductMapper productMapper;
     
+
+    @Mock
+    private ProductService productServiceMock;
+
     @Autowired
     private ProductService productService;
 
@@ -234,6 +243,37 @@ public class ProductResourceIntTest {
             .andExpect(jsonPath("$.[*].productType").value(hasItem(DEFAULT_PRODUCT_TYPE.toString())));
     }
     
+    public void getAllProductsWithEagerRelationshipsIsEnabled() throws Exception {
+        ProductResource productResource = new ProductResource(productServiceMock);
+        when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restProductMockMvc.perform(get("/api/products?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllProductsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        ProductResource productResource = new ProductResource(productServiceMock);
+            when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restProductMockMvc.perform(get("/api/products?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getProduct() throws Exception {

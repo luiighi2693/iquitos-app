@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="orderProduct">
+            <h2><span>Order Product</span> {{orderProduct.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Note</span></dt>
+                <dd>
+                    <span>{{orderProduct.note}}</span>
+                </dd>
+                <dt><span>Guide</span></dt>
+                <dd>
+                    <span>{{orderProduct.guide}}</span>
+                </dd>
+                <dt><span>Order Status</span></dt>
+                <dd>
+                    <span>{{orderProduct.orderStatus}}</span>
+                </dd>
+                <dt><span>Meta Data</span></dt>
+                <dd>
+                    <span>{{orderProduct.metaData}}</span>
+                </dd>
+                <dt><span>Provider</span></dt>
+                <dd>
+                    <div *ngIf="orderProduct.providerId">
+                        <a [routerLink]="['/provider', orderProduct.providerId, 'view']">{{orderProduct.providerId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Products</span></dt>
+                <dd>
+                    <span *ngFor="let products of orderProduct.products; let last = last">
+                        <a [routerLink]="['/product', products?.id, 'view' ]">{{products.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/order-product', orderProduct.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -28,7 +28,13 @@ public interface VariantService {
      */
     Page<VariantDTO> findAll(Pageable pageable);
 
-
+    /**
+     * Get all the Variant with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    Page<VariantDTO> findAllWithEagerRelationships(Pageable pageable);
+    
     /**
      * Get the "id" variant.
      *

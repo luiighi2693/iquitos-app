@@ -34,12 +34,23 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="prive_purchase" type="double">
+            <column name="price_purchase" type="double">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="variant_products">
+            <column name="products_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="variants_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="variants_id, products_id" tableName="variant_products"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

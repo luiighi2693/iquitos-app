@@ -53,8 +53,7 @@ describe('Product e2e test', () => {
             productUpdatePage.productTypeSelectLastOption(),
             productUpdatePage.unitMeasurementSelectLastOption(),
             productUpdatePage.categorySelectLastOption(),
-            productUpdatePage.vartiantSelectLastOption(),
-            productUpdatePage.variantSelectLastOption(),
+            // productUpdatePage.variantsSelectLastOption(),
             productUpdatePage.sellHasProductSelectLastOption(),
             productUpdatePage.purchaseHasProductSelectLastOption()
         ]);

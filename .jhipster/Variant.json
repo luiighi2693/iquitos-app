@@ -14,16 +14,18 @@
             "fieldType": "Double"
         },
         {
-            "fieldName": "privePurchase",
+            "fieldName": "pricePurchase",
             "fieldType": "Double"
         }
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "product",
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "products",
             "otherEntityName": "product",
-            "otherEntityRelationshipName": "variant"
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20181023012746",

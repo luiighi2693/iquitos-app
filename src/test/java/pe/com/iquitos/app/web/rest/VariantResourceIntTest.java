@@ -13,6 +13,7 @@ import pe.com.iquitos.app.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,15 +59,22 @@ public class VariantResourceIntTest {
     private static final Double DEFAULT_PRICE_SELL = 1D;
     private static final Double UPDATED_PRICE_SELL = 2D;
 
-    private static final Double DEFAULT_PRIVE_PURCHASE = 1D;
-    private static final Double UPDATED_PRIVE_PURCHASE = 2D;
+    private static final Double DEFAULT_PRICE_PURCHASE = 1D;
+    private static final Double UPDATED_PRICE_PURCHASE = 2D;
 
     @Autowired
     private VariantRepository variantRepository;
 
+    @Mock
+    private VariantRepository variantRepositoryMock;
+
     @Autowired
     private VariantMapper variantMapper;
     
+
+    @Mock
+    private VariantService variantServiceMock;
+
     @Autowired
     private VariantService variantService;
 
@@ -115,7 +124,7 @@ public class VariantResourceIntTest {
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
             .priceSell(DEFAULT_PRICE_SELL)
-            .privePurchase(DEFAULT_PRIVE_PURCHASE);
+            .pricePurchase(DEFAULT_PRICE_PURCHASE);
         return variant;
     }
 
@@ -143,7 +152,7 @@ public class VariantResourceIntTest {
         assertThat(testVariant.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testVariant.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testVariant.getPriceSell()).isEqualTo(DEFAULT_PRICE_SELL);
-        assertThat(testVariant.getPrivePurchase()).isEqualTo(DEFAULT_PRIVE_PURCHASE);
+        assertThat(testVariant.getPricePurchase()).isEqualTo(DEFAULT_PRICE_PURCHASE);
 
         // Validate the Variant in Elasticsearch
         verify(mockVariantSearchRepository, times(1)).save(testVariant);
@@ -186,9 +195,40 @@ public class VariantResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].priceSell").value(hasItem(DEFAULT_PRICE_SELL.doubleValue())))
-            .andExpect(jsonPath("$.[*].privePurchase").value(hasItem(DEFAULT_PRIVE_PURCHASE.doubleValue())));
+            .andExpect(jsonPath("$.[*].pricePurchase").value(hasItem(DEFAULT_PRICE_PURCHASE.doubleValue())));
     }
     
+    public void getAllVariantsWithEagerRelationshipsIsEnabled() throws Exception {
+        VariantResource variantResource = new VariantResource(variantServiceMock);
+        when(variantServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restVariantMockMvc = MockMvcBuilders.standaloneSetup(variantResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restVariantMockMvc.perform(get("/api/variants?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(variantServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllVariantsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        VariantResource variantResource = new VariantResource(variantServiceMock);
+            when(variantServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restVariantMockMvc = MockMvcBuilders.standaloneSetup(variantResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restVariantMockMvc.perform(get("/api/variants?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(variantServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getVariant() throws Exception {
@@ -203,7 +243,7 @@ public class VariantResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.priceSell").value(DEFAULT_PRICE_SELL.doubleValue()))
-            .andExpect(jsonPath("$.privePurchase").value(DEFAULT_PRIVE_PURCHASE.doubleValue()));
+            .andExpect(jsonPath("$.pricePurchase").value(DEFAULT_PRICE_PURCHASE.doubleValue()));
     }
 
     @Test
@@ -230,7 +270,7 @@ public class VariantResourceIntTest {
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
             .priceSell(UPDATED_PRICE_SELL)
-            .privePurchase(UPDATED_PRIVE_PURCHASE);
+            .pricePurchase(UPDATED_PRICE_PURCHASE);
         VariantDTO variantDTO = variantMapper.toDto(updatedVariant);
 
         restVariantMockMvc.perform(put("/api/variants")
@@ -245,7 +285,7 @@ public class VariantResourceIntTest {
         assertThat(testVariant.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testVariant.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testVariant.getPriceSell()).isEqualTo(UPDATED_PRICE_SELL);
-        assertThat(testVariant.getPrivePurchase()).isEqualTo(UPDATED_PRIVE_PURCHASE);
+        assertThat(testVariant.getPricePurchase()).isEqualTo(UPDATED_PRICE_PURCHASE);
 
         // Validate the Variant in Elasticsearch
         verify(mockVariantSearchRepository, times(1)).save(testVariant);
@@ -309,7 +349,7 @@ public class VariantResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].priceSell").value(hasItem(DEFAULT_PRICE_SELL.doubleValue())))
-            .andExpect(jsonPath("$.[*].privePurchase").value(hasItem(DEFAULT_PRIVE_PURCHASE.doubleValue())));
+            .andExpect(jsonPath("$.[*].pricePurchase").value(hasItem(DEFAULT_PRICE_PURCHASE.doubleValue())));
     }
 
     @Test

@@ -1,6 +1,8 @@
 package pe.com.iquitos.app.service.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -16,7 +18,9 @@ public class VariantDTO implements Serializable {
 
     private Double priceSell;
 
-    private Double privePurchase;
+    private Double pricePurchase;
+
+    private Set<ProductDTO> products = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -50,12 +54,20 @@ public class VariantDTO implements Serializable {
         this.priceSell = priceSell;
     }
 
-    public Double getPrivePurchase() {
-        return privePurchase;
+    public Double getPricePurchase() {
+        return pricePurchase;
     }
 
-    public void setPrivePurchase(Double privePurchase) {
-        this.privePurchase = privePurchase;
+    public void setPricePurchase(Double pricePurchase) {
+        this.pricePurchase = pricePurchase;
+    }
+
+    public Set<ProductDTO> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<ProductDTO> products) {
+        this.products = products;
     }
 
     @Override
@@ -86,7 +98,7 @@ public class VariantDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", priceSell=" + getPriceSell() +
-            ", privePurchase=" + getPrivePurchase() +
+            ", pricePurchase=" + getPricePurchase() +
             "}";
     }
 }

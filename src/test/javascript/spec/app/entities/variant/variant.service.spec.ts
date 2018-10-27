@@ -58,7 +58,7 @@ describe('Service Tests', () => {
                         name: 'BBBBBB',
                         description: 'BBBBBB',
                         priceSell: 1,
-                        privePurchase: 1
+                        pricePurchase: 1
                     },
                     elemDefault
                 );
@@ -78,7 +78,7 @@ describe('Service Tests', () => {
                         name: 'BBBBBB',
                         description: 'BBBBBB',
                         priceSell: 1,
-                        privePurchase: 1
+                        pricePurchase: 1
                     },
                     elemDefault
                 );

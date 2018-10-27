@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IVariant } from 'app/shared/model//variant.model';
 
 export const enum ProductType {
     BIENES = 'BIENES',
@@ -20,8 +21,7 @@ export interface IProduct {
     productType?: ProductType;
     unitMeasurementId?: number;
     categoryId?: number;
-    vartiantId?: number;
-    variantId?: number;
+    variants?: IVariant[];
     sellHasProductId?: number;
     purchaseHasProductId?: number;
 }
@@ -42,8 +42,7 @@ export class Product implements IProduct {
         public productType?: ProductType,
         public unitMeasurementId?: number,
         public categoryId?: number,
-        public vartiantId?: number,
-        public variantId?: number,
+        public variants?: IVariant[],
         public sellHasProductId?: number,
         public purchaseHasProductId?: number
     ) {
