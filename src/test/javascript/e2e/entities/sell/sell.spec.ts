@@ -46,12 +46,14 @@ describe('Sell e2e test', () => {
             sellUpdatePage.setDateInput('2000-12-31'),
             sellUpdatePage.statusSelectLastOption(),
             sellUpdatePage.setGlossInput('gloss'),
+            sellUpdatePage.setMetaDataInput('metaData'),
             sellUpdatePage.clientSelectLastOption(),
             sellUpdatePage.employeeSelectLastOption(),
             sellUpdatePage.boxSelectLastOption(),
             sellUpdatePage.documentTypeSellSelectLastOption(),
             sellUpdatePage.paymentTypeSelectLastOption(),
             sellUpdatePage.productsDeliveredStatusSelectLastOption()
+            // sellUpdatePage.productsSelectLastOption(),
         ]);
         expect(await sellUpdatePage.getCodeInput()).to.eq('code');
         expect(await sellUpdatePage.getSubTotalAmountInput()).to.eq('5');
@@ -59,6 +61,7 @@ describe('Sell e2e test', () => {
         expect(await sellUpdatePage.getTotalAmountInput()).to.eq('5');
         expect(await sellUpdatePage.getDateInput()).to.eq('2000-12-31');
         expect(await sellUpdatePage.getGlossInput()).to.eq('gloss');
+        expect(await sellUpdatePage.getMetaDataInput()).to.eq('metaData');
         await sellUpdatePage.save();
         expect(await sellUpdatePage.getSaveButton().isPresent()).to.be.false;
 

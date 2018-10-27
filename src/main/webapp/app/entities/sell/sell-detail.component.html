@@ -33,6 +33,10 @@
                 <dd>
                     <span>{{sell.gloss}}</span>
                 </dd>
+                <dt><span>Meta Data</span></dt>
+                <dd>
+                    <span>{{sell.metaData}}</span>
+                </dd>
                 <dt><span>Client</span></dt>
                 <dd>
                     <div *ngIf="sell.clientId">
@@ -68,6 +72,12 @@
                     <div *ngIf="sell.productsDeliveredStatusId">
                         <a [routerLink]="['/products-delivered-status', sell.productsDeliveredStatusId, 'view']">{{sell.productsDeliveredStatusId}}</a>
                     </div>
+                </dd>
+                <dt><span>Products</span></dt>
+                <dd>
+                    <span *ngFor="let products of sell.products; let last = last">
+                        <a [routerLink]="['/product', products?.id, 'view' ]">{{products.id}}</a>{{last ? '' : ', '}}
+                    </span>
                 </dd>
             </dl>
 

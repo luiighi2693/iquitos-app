@@ -33,7 +33,8 @@ describe('Service Tests', () => {
                 PurchaseLocation.TIENDA,
                 0,
                 'AAAAAAA',
-                PaymentPurchaseType.CONTADO
+                PaymentPurchaseType.CONTADO,
+                'AAAAAAA'
             );
         });
 
@@ -85,7 +86,8 @@ describe('Service Tests', () => {
                         location: 'BBBBBB',
                         totalAmount: 1,
                         correlative: 'BBBBBB',
-                        paymentPurchaseType: 'BBBBBB'
+                        paymentPurchaseType: 'BBBBBB',
+                        metaData: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -113,7 +115,8 @@ describe('Service Tests', () => {
                         location: 'BBBBBB',
                         totalAmount: 1,
                         correlative: 'BBBBBB',
-                        paymentPurchaseType: 'BBBBBB'
+                        paymentPurchaseType: 'BBBBBB',
+                        metaData: 'BBBBBB'
                     },
                     elemDefault
                 );

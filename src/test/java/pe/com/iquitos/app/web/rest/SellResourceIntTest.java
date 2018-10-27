@@ -13,6 +13,7 @@ import pe.com.iquitos.app.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -72,12 +74,22 @@ public class SellResourceIntTest {
     private static final String DEFAULT_GLOSS = "AAAAAAAAAA";
     private static final String UPDATED_GLOSS = "BBBBBBBBBB";
 
+    private static final String DEFAULT_META_DATA = "AAAAAAAAAA";
+    private static final String UPDATED_META_DATA = "BBBBBBBBBB";
+
     @Autowired
     private SellRepository sellRepository;
+
+    @Mock
+    private SellRepository sellRepositoryMock;
 
     @Autowired
     private SellMapper sellMapper;
     
+
+    @Mock
+    private SellService sellServiceMock;
+
     @Autowired
     private SellService sellService;
 
@@ -130,7 +142,8 @@ public class SellResourceIntTest {
             .totalAmount(DEFAULT_TOTAL_AMOUNT)
             .date(DEFAULT_DATE)
             .status(DEFAULT_STATUS)
-            .gloss(DEFAULT_GLOSS);
+            .gloss(DEFAULT_GLOSS)
+            .metaData(DEFAULT_META_DATA);
         return sell;
     }
 
@@ -162,6 +175,7 @@ public class SellResourceIntTest {
         assertThat(testSell.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testSell.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testSell.getGloss()).isEqualTo(DEFAULT_GLOSS);
+        assertThat(testSell.getMetaData()).isEqualTo(DEFAULT_META_DATA);
 
         // Validate the Sell in Elasticsearch
         verify(mockSellSearchRepository, times(1)).save(testSell);
@@ -207,9 +221,41 @@ public class SellResourceIntTest {
             .andExpect(jsonPath("$.[*].totalAmount").value(hasItem(DEFAULT_TOTAL_AMOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].gloss").value(hasItem(DEFAULT_GLOSS.toString())));
+            .andExpect(jsonPath("$.[*].gloss").value(hasItem(DEFAULT_GLOSS.toString())))
+            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
     }
     
+    public void getAllSellsWithEagerRelationshipsIsEnabled() throws Exception {
+        SellResource sellResource = new SellResource(sellServiceMock);
+        when(sellServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restSellMockMvc = MockMvcBuilders.standaloneSetup(sellResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restSellMockMvc.perform(get("/api/sells?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(sellServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllSellsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        SellResource sellResource = new SellResource(sellServiceMock);
+            when(sellServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restSellMockMvc = MockMvcBuilders.standaloneSetup(sellResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restSellMockMvc.perform(get("/api/sells?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(sellServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getSell() throws Exception {
@@ -227,7 +273,8 @@ public class SellResourceIntTest {
             .andExpect(jsonPath("$.totalAmount").value(DEFAULT_TOTAL_AMOUNT.doubleValue()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.gloss").value(DEFAULT_GLOSS.toString()));
+            .andExpect(jsonPath("$.gloss").value(DEFAULT_GLOSS.toString()))
+            .andExpect(jsonPath("$.metaData").value(DEFAULT_META_DATA.toString()));
     }
 
     @Test
@@ -257,7 +304,8 @@ public class SellResourceIntTest {
             .totalAmount(UPDATED_TOTAL_AMOUNT)
             .date(UPDATED_DATE)
             .status(UPDATED_STATUS)
-            .gloss(UPDATED_GLOSS);
+            .gloss(UPDATED_GLOSS)
+            .metaData(UPDATED_META_DATA);
         SellDTO sellDTO = sellMapper.toDto(updatedSell);
 
         restSellMockMvc.perform(put("/api/sells")
@@ -276,6 +324,7 @@ public class SellResourceIntTest {
         assertThat(testSell.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testSell.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testSell.getGloss()).isEqualTo(UPDATED_GLOSS);
+        assertThat(testSell.getMetaData()).isEqualTo(UPDATED_META_DATA);
 
         // Validate the Sell in Elasticsearch
         verify(mockSellSearchRepository, times(1)).save(testSell);
@@ -342,7 +391,8 @@ public class SellResourceIntTest {
             .andExpect(jsonPath("$.[*].totalAmount").value(hasItem(DEFAULT_TOTAL_AMOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].gloss").value(hasItem(DEFAULT_GLOSS.toString())));
+            .andExpect(jsonPath("$.[*].gloss").value(hasItem(DEFAULT_GLOSS.toString())))
+            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
     }
 
     @Test

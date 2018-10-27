@@ -52,10 +52,8 @@ describe('Product e2e test', () => {
             productUpdatePage.setStockLimitNotificationInput('5'),
             productUpdatePage.productTypeSelectLastOption(),
             productUpdatePage.unitMeasurementSelectLastOption(),
-            productUpdatePage.categorySelectLastOption(),
+            productUpdatePage.categorySelectLastOption()
             // productUpdatePage.variantsSelectLastOption(),
-            productUpdatePage.sellHasProductSelectLastOption(),
-            productUpdatePage.purchaseHasProductSelectLastOption()
         ]);
         expect(await productUpdatePage.getCodeInput()).to.eq('code');
         expect(await productUpdatePage.getDescriptionInput()).to.eq('description');

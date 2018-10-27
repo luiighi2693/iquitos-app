@@ -13,10 +13,6 @@ import { ICategory } from 'app/shared/model/category.model';
 import { CategoryService } from 'app/entities/category';
 import { IVariant } from 'app/shared/model/variant.model';
 import { VariantService } from 'app/entities/variant';
-import { ISellHasProduct } from 'app/shared/model/sell-has-product.model';
-import { SellHasProductService } from 'app/entities/sell-has-product';
-import { IPurchaseHasProduct } from 'app/shared/model/purchase-has-product.model';
-import { PurchaseHasProductService } from 'app/entities/purchase-has-product';
 
 @Component({
     selector: 'jhi-product-update',
@@ -31,10 +27,6 @@ export class ProductUpdateComponent implements OnInit {
     categories: ICategory[];
 
     variants: IVariant[];
-
-    sellhasproducts: ISellHasProduct[];
-
-    purchasehasproducts: IPurchaseHasProduct[];
     expirationDateDp: any;
 
     constructor(
@@ -44,8 +36,6 @@ export class ProductUpdateComponent implements OnInit {
         private unitMeasurementService: UnitMeasurementService,
         private categoryService: CategoryService,
         private variantService: VariantService,
-        private sellHasProductService: SellHasProductService,
-        private purchaseHasProductService: PurchaseHasProductService,
         private elementRef: ElementRef,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -70,18 +60,6 @@ export class ProductUpdateComponent implements OnInit {
         this.variantService.query().subscribe(
             (res: HttpResponse<IVariant[]>) => {
                 this.variants = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.sellHasProductService.query().subscribe(
-            (res: HttpResponse<ISellHasProduct[]>) => {
-                this.sellhasproducts = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.purchaseHasProductService.query().subscribe(
-            (res: HttpResponse<IPurchaseHasProduct[]>) => {
-                this.purchasehasproducts = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -142,14 +120,6 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     trackVariantById(index: number, item: IVariant) {
-        return item.id;
-    }
-
-    trackSellHasProductById(index: number, item: ISellHasProduct) {
-        return item.id;
-    }
-
-    trackPurchaseHasProductById(index: number, item: IPurchaseHasProduct) {
         return item.id;
     }
 

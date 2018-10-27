@@ -28,7 +28,7 @@
     <div class="table-responsive" *ngIf="products">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="code"><span>Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -42,12 +42,10 @@
             <th jhiSortBy="productType"><span>Product Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="unitMeasurementId"><span>Unit Measurement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="categoryId"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="sellHasProductId"><span>Sell Has Product</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="purchaseHasProductId"><span>Purchase Has Product</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let product of products ;trackBy: trackId">
                 <td><a [routerLink]="['/product', product.id, 'view' ]">{{product.id}}</a></td>
                 <td>{{product.code}}</td>
@@ -73,16 +71,6 @@
                 <td>
                     <div *ngIf="product.categoryId">
                         <a [routerLink]="['../category', product.categoryId , 'view' ]" >{{product.categoryId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="product.sellHasProductId">
-                        <a [routerLink]="['../sell-has-product', product.sellHasProductId , 'view' ]" >{{product.sellHasProductId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="product.purchaseHasProductId">
-                        <a [routerLink]="['../purchase-has-product', product.purchaseHasProductId , 'view' ]" >{{product.purchaseHasProductId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -112,13 +100,5 @@
             </tr>
             </tbody>
         </table>
-    </div>
-    <div *ngIf="products && products.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
     </div>
 </div>

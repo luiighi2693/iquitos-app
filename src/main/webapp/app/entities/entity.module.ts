@@ -8,12 +8,10 @@ import { IquitosAppEmployeeModule } from './employee/employee.module';
 import { IquitosAppProductModule } from './product/product.module';
 import { IquitosAppVariantModule } from './variant/variant.module';
 import { IquitosAppCategoryModule } from './category/category.module';
-import { IquitosAppSellHasProductModule } from './sell-has-product/sell-has-product.module';
 import { IquitosAppProviderModule } from './provider/provider.module';
 import { IquitosAppProviderAccountModule } from './provider-account/provider-account.module';
 import { IquitosAppProviderPaymentModule } from './provider-payment/provider-payment.module';
 import { IquitosAppPurchaseModule } from './purchase/purchase.module';
-import { IquitosAppPurchaseHasProductModule } from './purchase-has-product/purchase-has-product.module';
 import { IquitosAppBoxModule } from './box/box.module';
 import { IquitosAppOperationModule } from './operation/operation.module';
 import { IquitosAppDocumentTypeModule } from './document-type/document-type.module';
@@ -40,12 +38,10 @@ import { IquitosAppUserLoginModule } from './user-login/user-login.module';
         IquitosAppProductModule,
         IquitosAppVariantModule,
         IquitosAppCategoryModule,
-        IquitosAppSellHasProductModule,
         IquitosAppProviderModule,
         IquitosAppProviderAccountModule,
         IquitosAppProviderPaymentModule,
         IquitosAppPurchaseModule,
-        IquitosAppPurchaseHasProductModule,
         IquitosAppBoxModule,
         IquitosAppOperationModule,
         IquitosAppDocumentTypeModule,

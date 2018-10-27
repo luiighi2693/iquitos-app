@@ -88,14 +88,20 @@ public class SellResource {
      * GET  /sells : get all the sells.
      *
      * @param pageable the pagination information
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of sells in body
      */
     @GetMapping("/sells")
     @Timed
-    public ResponseEntity<List<SellDTO>> getAllSells(Pageable pageable) {
+    public ResponseEntity<List<SellDTO>> getAllSells(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Sells");
-        Page<SellDTO> page = sellService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/sells");
+        Page<SellDTO> page;
+        if (eagerload) {
+            page = sellService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = sellService.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/sells?eagerload=%b", eagerload));
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

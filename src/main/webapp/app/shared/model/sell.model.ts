@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { IAmortization } from 'app/shared/model//amortization.model';
+import { IProduct } from 'app/shared/model//product.model';
 
 export const enum SellStatus {
     PENDIENTE = 'PENDIENTE',
@@ -15,6 +16,7 @@ export interface ISell {
     date?: Moment;
     status?: SellStatus;
     gloss?: string;
+    metaData?: string;
     clientId?: number;
     employeeId?: number;
     boxId?: number;
@@ -22,6 +24,7 @@ export interface ISell {
     documentTypeSellId?: number;
     paymentTypeId?: number;
     productsDeliveredStatusId?: number;
+    products?: IProduct[];
 }
 
 export class Sell implements ISell {
@@ -34,12 +37,14 @@ export class Sell implements ISell {
         public date?: Moment,
         public status?: SellStatus,
         public gloss?: string,
+        public metaData?: string,
         public clientId?: number,
         public employeeId?: number,
         public boxId?: number,
         public amortizations?: IAmortization[],
         public documentTypeSellId?: number,
         public paymentTypeId?: number,
-        public productsDeliveredStatusId?: number
+        public productsDeliveredStatusId?: number,
+        public products?: IProduct[]
     ) {}
 }

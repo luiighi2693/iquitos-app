@@ -33,10 +33,12 @@ export class PurchaseUpdatePage {
     totalAmountInput = element(by.id('field_totalAmount'));
     correlativeInput = element(by.id('field_correlative'));
     paymentPurchaseTypeSelect = element(by.id('field_paymentPurchaseType'));
+    metaDataInput = element(by.id('field_metaData'));
     providerSelect = element(by.id('field_provider'));
     documentTypePurchaseSelect = element(by.id('field_documentTypePurchase'));
     purchaseStatusSelect = element(by.id('field_purchaseStatus'));
     boxSelect = element(by.id('field_box'));
+    productsSelect = element(by.id('field_products'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -110,6 +112,14 @@ export class PurchaseUpdatePage {
             .all(by.tagName('option'))
             .last()
             .click();
+    }
+
+    async setMetaDataInput(metaData) {
+        await this.metaDataInput.sendKeys(metaData);
+    }
+
+    async getMetaDataInput() {
+        return this.metaDataInput.getAttribute('value');
     }
 
     async providerSelectLastOption() {
@@ -186,6 +196,25 @@ export class PurchaseUpdatePage {
 
     async getBoxSelectedOption() {
         return this.boxSelect.element(by.css('option:checked')).getText();
+    }
+
+    async productsSelectLastOption() {
+        await this.productsSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async productsSelectOption(option) {
+        await this.productsSelect.sendKeys(option);
+    }
+
+    getProductsSelect(): ElementFinder {
+        return this.productsSelect;
+    }
+
+    async getProductsSelectedOption() {
+        return this.productsSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

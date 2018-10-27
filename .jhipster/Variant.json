@@ -31,7 +31,7 @@
     "changelogDate": "20181023012746",
     "entityTableName": "variant",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

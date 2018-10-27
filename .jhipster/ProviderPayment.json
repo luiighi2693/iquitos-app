@@ -44,7 +44,7 @@
     "changelogDate": "20181023012751",
     "entityTableName": "provider_payment",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

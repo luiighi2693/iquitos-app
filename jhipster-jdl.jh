@@ -15,6 +15,7 @@ entity Sell {
     date LocalDate,
     status SellStatus,
     gloss String,
+    metaData String, //quantity, discount, variantId
 }
 
 entity Credit {
@@ -78,11 +79,6 @@ entity Category {
 	countProducts Integer,
 }
 
-entity SellHasProduct {
-	quantity Integer,
-	discount Double,
-}
-
 entity Provider {
 	code String,
 	socialReason String,
@@ -118,12 +114,7 @@ entity Purchase {
     totalAmount Double,
     correlative String, //OCT2018-00001
     paymentPurchaseType PaymentPurchaseType,
-}
-
-entity PurchaseHasProduct {
-	quantity Integer,
-	tax Double,
-    datePurchase LocalDate
+    metaData String, //quantity, tax
 }
 
 entity Box {
@@ -152,10 +143,6 @@ entity OrderProduct {
     orderStatus OrderStatus,
     metaData String, //aqui va la cantidad de productos
 }
-
-//entity OrdersHasProduct {
-//	quantity Integer,
-//}
 
 entity DocumentType { //DNI, RUC
 	value String,
@@ -259,9 +246,6 @@ relationship ManyToOne {
     Product{unitMeasurement} to UnitMeasurement,
     Product{category} to Category,
 
-    //Product{variant} to Variant,
-    //Variant{product} to Product,
-    
     Credit{sell} to Sell,
     Credit{purchase} to Purchase,
     
@@ -277,16 +261,7 @@ relationship ManyToOne {
 relationship OneToMany {
 	Sell{amortization} to Amortization,
 
-    //Variant{product} to Product,
-    //Product{variant} to Variant,
-    
-    SellHasProduct{product} to Product,
-    
     Provider{providerAccount} to ProviderAccount,
-    
-    PurchaseHasProduct{product} to Product,
-
-    //ProductOrdersHasProduct{product} to Product,
 }
 
 relationship OneToOne {
@@ -297,16 +272,9 @@ relationship OneToOne {
     Purchase{documentTypePurchase} to DocumentTypePurchase,
     Purchase{purchaseStatus} to PurchaseStatus,
     
-    PurchaseHasProduct{purchase} to Purchase
-    
     Sell{box} to Box,
     Purchase{box} to Box,
     Box{box} to Box,
-    
-    SellHasProduct{sell} to Sell,
-    SellHasProduct{variant} to Variant,
-    
-    PurchaseHasProduct{purchase} to Purchase,
     
     Client{user} to User,
     Employee{user} to User,
@@ -319,11 +287,13 @@ relationship ManyToMany {
 
     Product{variants} to Variant,
     Variant{products} to Product,
+    Sell{products} to Product,
+    Purchase{products} to Product,
 }
 
 // Set pagination options
-//paginate JobHistory, Employee with infinite-scroll
-paginate * with pagination
+paginate * with infinite-scroll
+//paginate * with pagination
 
 // Use Data Transfert Objects (DTO)
 dto * with mapstruct

@@ -53,6 +53,9 @@ public class Sell implements Serializable {
     @Column(name = "gloss")
     private String gloss;
 
+    @Column(name = "meta_data")
+    private String metaData;
+
     @OneToOne    @JoinColumn(unique = true)
     private Client client;
 
@@ -76,6 +79,13 @@ public class Sell implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("")
     private ProductsDeliveredStatus productsDeliveredStatus;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "sell_products",
+               joinColumns = @JoinColumn(name = "sells_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "products_id", referencedColumnName = "id"))
+    private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -175,6 +185,19 @@ public class Sell implements Serializable {
 
     public void setGloss(String gloss) {
         this.gloss = gloss;
+    }
+
+    public String getMetaData() {
+        return metaData;
+    }
+
+    public Sell metaData(String metaData) {
+        this.metaData = metaData;
+        return this;
+    }
+
+    public void setMetaData(String metaData) {
+        this.metaData = metaData;
     }
 
     public Client getClient() {
@@ -279,6 +302,29 @@ public class Sell implements Serializable {
     public void setProductsDeliveredStatus(ProductsDeliveredStatus productsDeliveredStatus) {
         this.productsDeliveredStatus = productsDeliveredStatus;
     }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public Sell products(Set<Product> products) {
+        this.products = products;
+        return this;
+    }
+
+    public Sell addProducts(Product product) {
+        this.products.add(product);
+        return this;
+    }
+
+    public Sell removeProducts(Product product) {
+        this.products.remove(product);
+        return this;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -312,6 +358,7 @@ public class Sell implements Serializable {
             ", date='" + getDate() + "'" +
             ", status='" + getStatus() + "'" +
             ", gloss='" + getGloss() + "'" +
+            ", metaData='" + getMetaData() + "'" +
             "}";
     }
 }

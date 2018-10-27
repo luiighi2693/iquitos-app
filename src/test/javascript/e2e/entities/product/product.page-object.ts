@@ -39,8 +39,6 @@ export class ProductUpdatePage {
     unitMeasurementSelect = element(by.id('field_unitMeasurement'));
     categorySelect = element(by.id('field_category'));
     variantsSelect = element(by.id('field_variants'));
-    sellHasProductSelect = element(by.id('field_sellHasProduct'));
-    purchaseHasProductSelect = element(by.id('field_purchaseHasProduct'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -178,44 +176,6 @@ export class ProductUpdatePage {
 
     async getVariantsSelectedOption() {
         return this.variantsSelect.element(by.css('option:checked')).getText();
-    }
-
-    async sellHasProductSelectLastOption() {
-        await this.sellHasProductSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async sellHasProductSelectOption(option) {
-        await this.sellHasProductSelect.sendKeys(option);
-    }
-
-    getSellHasProductSelect(): ElementFinder {
-        return this.sellHasProductSelect;
-    }
-
-    async getSellHasProductSelectedOption() {
-        return this.sellHasProductSelect.element(by.css('option:checked')).getText();
-    }
-
-    async purchaseHasProductSelectLastOption() {
-        await this.purchaseHasProductSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async purchaseHasProductSelectOption(option) {
-        await this.purchaseHasProductSelect.sendKeys(option);
-    }
-
-    getPurchaseHasProductSelect(): ElementFinder {
-        return this.purchaseHasProductSelect;
-    }
-
-    async getPurchaseHasProductSelectedOption() {
-        return this.purchaseHasProductSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

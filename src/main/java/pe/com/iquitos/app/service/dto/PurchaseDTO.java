@@ -2,6 +2,8 @@ package pe.com.iquitos.app.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 import pe.com.iquitos.app.domain.enumeration.PurchaseLocation;
 import pe.com.iquitos.app.domain.enumeration.PaymentPurchaseType;
@@ -27,6 +29,8 @@ public class PurchaseDTO implements Serializable {
 
     private PaymentPurchaseType paymentPurchaseType;
 
+    private String metaData;
+
     private Long providerId;
 
     private Long documentTypePurchaseId;
@@ -34,6 +38,8 @@ public class PurchaseDTO implements Serializable {
     private Long purchaseStatusId;
 
     private Long boxId;
+
+    private Set<ProductDTO> products = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -99,6 +105,14 @@ public class PurchaseDTO implements Serializable {
         this.paymentPurchaseType = paymentPurchaseType;
     }
 
+    public String getMetaData() {
+        return metaData;
+    }
+
+    public void setMetaData(String metaData) {
+        this.metaData = metaData;
+    }
+
     public Long getProviderId() {
         return providerId;
     }
@@ -129,6 +143,14 @@ public class PurchaseDTO implements Serializable {
 
     public void setBoxId(Long boxId) {
         this.boxId = boxId;
+    }
+
+    public Set<ProductDTO> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<ProductDTO> products) {
+        this.products = products;
     }
 
     @Override
@@ -163,6 +185,7 @@ public class PurchaseDTO implements Serializable {
             ", totalAmount=" + getTotalAmount() +
             ", correlative='" + getCorrelative() + "'" +
             ", paymentPurchaseType='" + getPaymentPurchaseType() + "'" +
+            ", metaData='" + getMetaData() + "'" +
             ", provider=" + getProviderId() +
             ", documentTypePurchase=" + getDocumentTypePurchaseId() +
             ", purchaseStatus=" + getPurchaseStatusId() +

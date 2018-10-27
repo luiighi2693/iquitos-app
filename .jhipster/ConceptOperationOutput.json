@@ -14,7 +14,7 @@
     "changelogDate": "20181023012805",
     "entityTableName": "concept_operation_output",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

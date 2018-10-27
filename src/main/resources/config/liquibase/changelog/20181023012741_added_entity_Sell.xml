@@ -49,6 +49,10 @@
             <column name="gloss" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+
+            <column name="meta_data" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="client_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_sell_client_id" />
             </column>            <column name="employee_id" type="bigint">
@@ -70,6 +74,17 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        
+        <createTable tableName="sell_products">
+            <column name="products_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sells_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="sells_id, products_id" tableName="sell_products"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

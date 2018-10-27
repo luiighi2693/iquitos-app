@@ -33,6 +33,10 @@
                 <dd>
                     <span>{{purchase.paymentPurchaseType}}</span>
                 </dd>
+                <dt><span>Meta Data</span></dt>
+                <dd>
+                    <span>{{purchase.metaData}}</span>
+                </dd>
                 <dt><span>Provider</span></dt>
                 <dd>
                     <div *ngIf="purchase.providerId">
@@ -56,6 +60,12 @@
                     <div *ngIf="purchase.boxId">
                         <a [routerLink]="['/box', purchase.boxId, 'view']">{{purchase.boxId}}</a>
                     </div>
+                </dd>
+                <dt><span>Products</span></dt>
+                <dd>
+                    <span *ngFor="let products of purchase.products; let last = last">
+                        <a [routerLink]="['/product', products?.id, 'view' ]">{{products.id}}</a>{{last ? '' : ', '}}
+                    </span>
                 </dd>
             </dl>
 

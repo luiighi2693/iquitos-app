@@ -180,16 +180,3 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [Protractor]: https://angular.github.io/protractor/
 [Leaflet]: http://leafletjs.com/
 [DefinitelyTyped]: http://definitelytyped.org/
-
-
-commands (refrash changes):
-if you want a delete a entity, you must delere all coincidences
-
-delete changelog items folder
-
-jhipster --with-entities --force
-
-jhipster import-jdl  jhipster-jdl.jh --force
-
-mvn install -DskipTests
-

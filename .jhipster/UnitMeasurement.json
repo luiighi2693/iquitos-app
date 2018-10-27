@@ -14,7 +14,7 @@
     "changelogDate": "20181023012801",
     "entityTableName": "unit_measurement",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

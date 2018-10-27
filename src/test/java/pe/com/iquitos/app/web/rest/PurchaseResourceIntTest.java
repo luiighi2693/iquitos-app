@@ -13,6 +13,7 @@ import pe.com.iquitos.app.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -73,12 +75,22 @@ public class PurchaseResourceIntTest {
     private static final PaymentPurchaseType DEFAULT_PAYMENT_PURCHASE_TYPE = PaymentPurchaseType.CONTADO;
     private static final PaymentPurchaseType UPDATED_PAYMENT_PURCHASE_TYPE = PaymentPurchaseType.CREDITO;
 
+    private static final String DEFAULT_META_DATA = "AAAAAAAAAA";
+    private static final String UPDATED_META_DATA = "BBBBBBBBBB";
+
     @Autowired
     private PurchaseRepository purchaseRepository;
+
+    @Mock
+    private PurchaseRepository purchaseRepositoryMock;
 
     @Autowired
     private PurchaseMapper purchaseMapper;
     
+
+    @Mock
+    private PurchaseService purchaseServiceMock;
+
     @Autowired
     private PurchaseService purchaseService;
 
@@ -131,7 +143,8 @@ public class PurchaseResourceIntTest {
             .location(DEFAULT_LOCATION)
             .totalAmount(DEFAULT_TOTAL_AMOUNT)
             .correlative(DEFAULT_CORRELATIVE)
-            .paymentPurchaseType(DEFAULT_PAYMENT_PURCHASE_TYPE);
+            .paymentPurchaseType(DEFAULT_PAYMENT_PURCHASE_TYPE)
+            .metaData(DEFAULT_META_DATA);
         return purchase;
     }
 
@@ -163,6 +176,7 @@ public class PurchaseResourceIntTest {
         assertThat(testPurchase.getTotalAmount()).isEqualTo(DEFAULT_TOTAL_AMOUNT);
         assertThat(testPurchase.getCorrelative()).isEqualTo(DEFAULT_CORRELATIVE);
         assertThat(testPurchase.getPaymentPurchaseType()).isEqualTo(DEFAULT_PAYMENT_PURCHASE_TYPE);
+        assertThat(testPurchase.getMetaData()).isEqualTo(DEFAULT_META_DATA);
 
         // Validate the Purchase in Elasticsearch
         verify(mockPurchaseSearchRepository, times(1)).save(testPurchase);
@@ -208,9 +222,41 @@ public class PurchaseResourceIntTest {
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION.toString())))
             .andExpect(jsonPath("$.[*].totalAmount").value(hasItem(DEFAULT_TOTAL_AMOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].correlative").value(hasItem(DEFAULT_CORRELATIVE.toString())))
-            .andExpect(jsonPath("$.[*].paymentPurchaseType").value(hasItem(DEFAULT_PAYMENT_PURCHASE_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].paymentPurchaseType").value(hasItem(DEFAULT_PAYMENT_PURCHASE_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
     }
     
+    public void getAllPurchasesWithEagerRelationshipsIsEnabled() throws Exception {
+        PurchaseResource purchaseResource = new PurchaseResource(purchaseServiceMock);
+        when(purchaseServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restPurchaseMockMvc = MockMvcBuilders.standaloneSetup(purchaseResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restPurchaseMockMvc.perform(get("/api/purchases?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(purchaseServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    public void getAllPurchasesWithEagerRelationshipsIsNotEnabled() throws Exception {
+        PurchaseResource purchaseResource = new PurchaseResource(purchaseServiceMock);
+            when(purchaseServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restPurchaseMockMvc = MockMvcBuilders.standaloneSetup(purchaseResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restPurchaseMockMvc.perform(get("/api/purchases?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(purchaseServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getPurchase() throws Exception {
@@ -228,7 +274,8 @@ public class PurchaseResourceIntTest {
             .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION.toString()))
             .andExpect(jsonPath("$.totalAmount").value(DEFAULT_TOTAL_AMOUNT.doubleValue()))
             .andExpect(jsonPath("$.correlative").value(DEFAULT_CORRELATIVE.toString()))
-            .andExpect(jsonPath("$.paymentPurchaseType").value(DEFAULT_PAYMENT_PURCHASE_TYPE.toString()));
+            .andExpect(jsonPath("$.paymentPurchaseType").value(DEFAULT_PAYMENT_PURCHASE_TYPE.toString()))
+            .andExpect(jsonPath("$.metaData").value(DEFAULT_META_DATA.toString()));
     }
 
     @Test
@@ -258,7 +305,8 @@ public class PurchaseResourceIntTest {
             .location(UPDATED_LOCATION)
             .totalAmount(UPDATED_TOTAL_AMOUNT)
             .correlative(UPDATED_CORRELATIVE)
-            .paymentPurchaseType(UPDATED_PAYMENT_PURCHASE_TYPE);
+            .paymentPurchaseType(UPDATED_PAYMENT_PURCHASE_TYPE)
+            .metaData(UPDATED_META_DATA);
         PurchaseDTO purchaseDTO = purchaseMapper.toDto(updatedPurchase);
 
         restPurchaseMockMvc.perform(put("/api/purchases")
@@ -277,6 +325,7 @@ public class PurchaseResourceIntTest {
         assertThat(testPurchase.getTotalAmount()).isEqualTo(UPDATED_TOTAL_AMOUNT);
         assertThat(testPurchase.getCorrelative()).isEqualTo(UPDATED_CORRELATIVE);
         assertThat(testPurchase.getPaymentPurchaseType()).isEqualTo(UPDATED_PAYMENT_PURCHASE_TYPE);
+        assertThat(testPurchase.getMetaData()).isEqualTo(UPDATED_META_DATA);
 
         // Validate the Purchase in Elasticsearch
         verify(mockPurchaseSearchRepository, times(1)).save(testPurchase);
@@ -343,7 +392,8 @@ public class PurchaseResourceIntTest {
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION.toString())))
             .andExpect(jsonPath("$.[*].totalAmount").value(hasItem(DEFAULT_TOTAL_AMOUNT.doubleValue())))
             .andExpect(jsonPath("$.[*].correlative").value(hasItem(DEFAULT_CORRELATIVE.toString())))
-            .andExpect(jsonPath("$.[*].paymentPurchaseType").value(hasItem(DEFAULT_PAYMENT_PURCHASE_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].paymentPurchaseType").value(hasItem(DEFAULT_PAYMENT_PURCHASE_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
     }
 
     @Test

@@ -28,7 +28,7 @@
     <div class="table-responsive" *ngIf="orderProducts">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="note"><span>Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="guide"><span>Guide</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -38,7 +38,7 @@
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let orderProduct of orderProducts ;trackBy: trackId">
                 <td><a [routerLink]="['/order-product', orderProduct.id, 'view' ]">{{orderProduct.id}}</a></td>
                 <td>{{orderProduct.note}}</td>
@@ -77,13 +77,5 @@
             </tr>
             </tbody>
         </table>
-    </div>
-    <div *ngIf="orderProducts && orderProducts.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
     </div>
 </div>

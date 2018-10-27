@@ -31,17 +31,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="variant"/>
         
-        <addForeignKeyConstraint baseColumnNames="sell_has_product_id"
-                                 baseTableName="product"
-                                 constraintName="fk_product_sell_has_product_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="sell_has_product"/>
-
-        <addForeignKeyConstraint baseColumnNames="purchase_has_product_id"
-                                 baseTableName="product"
-                                 constraintName="fk_product_purchase_has_product_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="purchase_has_product"/>
-
     </changeSet>
 </databaseChangeLog>

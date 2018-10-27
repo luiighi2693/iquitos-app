@@ -18,7 +18,7 @@
     "changelogDate": "20181027144826",
     "entityTableName": "user_login",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

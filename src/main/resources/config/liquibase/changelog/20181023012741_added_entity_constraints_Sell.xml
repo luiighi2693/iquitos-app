@@ -44,5 +44,16 @@
                                  referencedColumnNames="id"
                                  referencedTableName="products_delivered_status"/>
 
+        <addForeignKeyConstraint baseColumnNames="sells_id"
+                                 baseTableName="sell_products"
+                                 constraintName="fk_sell_products_sells_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sell"/>
+        <addForeignKeyConstraint baseColumnNames="products_id"
+                                 baseTableName="sell_products"
+                                 constraintName="fk_sell_products_products_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+        
     </changeSet>
 </databaseChangeLog>

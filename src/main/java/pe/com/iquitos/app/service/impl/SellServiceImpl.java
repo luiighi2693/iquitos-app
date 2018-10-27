@@ -70,6 +70,15 @@ public class SellServiceImpl implements SellService {
             .map(sellMapper::toDto);
     }
 
+    /**
+     * Get all the Sell with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    public Page<SellDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return sellRepository.findAllWithEagerRelationships(pageable).map(sellMapper::toDto);
+    }
+    
 
     /**
      * Get one sell by id.
@@ -81,7 +90,7 @@ public class SellServiceImpl implements SellService {
     @Transactional(readOnly = true)
     public Optional<SellDTO> findOne(Long id) {
         log.debug("Request to get Sell : {}", id);
-        return sellRepository.findById(id)
+        return sellRepository.findOneWithEagerRelationships(id)
             .map(sellMapper::toDto);
     }
 

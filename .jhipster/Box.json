@@ -31,7 +31,7 @@
     "changelogDate": "20181023012754",
     "entityTableName": "box",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

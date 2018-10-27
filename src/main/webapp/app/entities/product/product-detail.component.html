@@ -68,18 +68,6 @@
                         <a [routerLink]="['/variant', variants?.id, 'view' ]">{{variants.id}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
-                <dt><span>Sell Has Product</span></dt>
-                <dd>
-                    <div *ngIf="product.sellHasProductId">
-                        <a [routerLink]="['/sell-has-product', product.sellHasProductId, 'view']">{{product.sellHasProductId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Purchase Has Product</span></dt>
-                <dd>
-                    <div *ngIf="product.purchaseHasProductId">
-                        <a [routerLink]="['/purchase-has-product', product.purchaseHasProductId, 'view']">{{product.purchaseHasProductId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

@@ -19,6 +19,8 @@ import { IPaymentType } from 'app/shared/model/payment-type.model';
 import { PaymentTypeService } from 'app/entities/payment-type';
 import { IProductsDeliveredStatus } from 'app/shared/model/products-delivered-status.model';
 import { ProductsDeliveredStatusService } from 'app/entities/products-delivered-status';
+import { IProduct } from 'app/shared/model/product.model';
+import { ProductService } from 'app/entities/product';
 
 @Component({
     selector: 'jhi-sell-update',
@@ -39,6 +41,8 @@ export class SellUpdateComponent implements OnInit {
     paymenttypes: IPaymentType[];
 
     productsdeliveredstatuses: IProductsDeliveredStatus[];
+
+    products: IProduct[];
     dateDp: any;
 
     constructor(
@@ -50,6 +54,7 @@ export class SellUpdateComponent implements OnInit {
         private documentTypeSellService: DocumentTypeSellService,
         private paymentTypeService: PaymentTypeService,
         private productsDeliveredStatusService: ProductsDeliveredStatusService,
+        private productService: ProductService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -121,6 +126,12 @@ export class SellUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.productService.query().subscribe(
+            (res: HttpResponse<IProduct[]>) => {
+                this.products = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -175,5 +186,20 @@ export class SellUpdateComponent implements OnInit {
 
     trackProductsDeliveredStatusById(index: number, item: IProductsDeliveredStatus) {
         return item.id;
+    }
+
+    trackProductById(index: number, item: IProduct) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }

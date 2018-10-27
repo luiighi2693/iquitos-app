@@ -29,6 +29,10 @@
         {
             "fieldName": "gloss",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "metaData",
+            "fieldType": "String"
         }
     ],
     "relationships": [
@@ -79,12 +83,20 @@
             "relationshipName": "productsDeliveredStatus",
             "otherEntityName": "productsDeliveredStatus",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "products",
+            "otherEntityName": "product",
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20181023012741",
     "entityTableName": "sell",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

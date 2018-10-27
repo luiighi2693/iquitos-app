@@ -28,7 +28,7 @@
     <div class="table-responsive" *ngIf="sells">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="code"><span>Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="subTotalAmount"><span>Sub Total Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -37,6 +37,7 @@
             <th jhiSortBy="date"><span>Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="gloss"><span>Gloss</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="metaData"><span>Meta Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="clientId"><span>Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="employeeId"><span>Employee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="boxId"><span>Box</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -46,7 +47,7 @@
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let sell of sells ;trackBy: trackId">
                 <td><a [routerLink]="['/sell', sell.id, 'view' ]">{{sell.id}}</a></td>
                 <td>{{sell.code}}</td>
@@ -56,6 +57,7 @@
                 <td>{{sell.date | date:'mediumDate'}}</td>
                 <td>{{sell.status}}</td>
                 <td>{{sell.gloss}}</td>
+                <td>{{sell.metaData}}</td>
                 <td>
                     <div *ngIf="sell.clientId">
                         <a [routerLink]="['../client', sell.clientId , 'view' ]" >{{sell.clientId}}</a>
@@ -113,13 +115,5 @@
             </tr>
             </tbody>
         </table>
-    </div>
-    <div *ngIf="sells && sells.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
     </div>
 </div>

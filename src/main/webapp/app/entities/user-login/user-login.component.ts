@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
@@ -15,38 +15,34 @@ import { UserLoginService } from './user-login.service';
     templateUrl: './user-login.component.html'
 })
 export class UserLoginComponent implements OnInit, OnDestroy {
-    currentAccount: any;
     userLogins: IUserLogin[];
-    error: any;
-    success: any;
+    currentAccount: any;
     eventSubscriber: Subscription;
-    currentSearch: string;
-    routeData: any;
+    itemsPerPage: number;
     links: any;
-    totalItems: any;
-    queryCount: any;
-    itemsPerPage: any;
     page: any;
     predicate: any;
-    previousPage: any;
+    queryCount: any;
     reverse: any;
+    totalItems: number;
+    currentSearch: string;
 
     constructor(
         private userLoginService: UserLoginService,
-        private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
-        private principal: Principal,
+        private eventManager: JhiEventManager,
+        private parseLinks: JhiParseLinks,
         private activatedRoute: ActivatedRoute,
-        private router: Router,
-        private eventManager: JhiEventManager
+        private principal: Principal
     ) {
+        this.userLogins = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data.pagingParams.page;
-            this.previousPage = data.pagingParams.page;
-            this.reverse = data.pagingParams.ascending;
-            this.predicate = data.pagingParams.predicate;
-        });
+        this.page = 0;
+        this.links = {
+            last: 0
+        };
+        this.predicate = 'id';
+        this.reverse = true;
         this.currentSearch =
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
@@ -57,8 +53,8 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         if (this.currentSearch) {
             this.userLoginService
                 .search({
-                    page: this.page - 1,
                     query: this.currentSearch,
+                    page: this.page,
                     size: this.itemsPerPage,
                     sort: this.sort()
                 })
@@ -70,7 +66,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         }
         this.userLoginService
             .query({
-                page: this.page - 1,
+                page: this.page,
                 size: this.itemsPerPage,
                 sort: this.sort()
             })
@@ -80,35 +76,26 @@ export class UserLoginComponent implements OnInit, OnDestroy {
             );
     }
 
-    loadPage(page: number) {
-        if (page !== this.previousPage) {
-            this.previousPage = page;
-            this.transition();
-        }
+    reset() {
+        this.page = 0;
+        this.userLogins = [];
+        this.loadAll();
     }
 
-    transition() {
-        this.router.navigate(['/user-login'], {
-            queryParams: {
-                page: this.page,
-                size: this.itemsPerPage,
-                search: this.currentSearch,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        });
+    loadPage(page) {
+        this.page = page;
         this.loadAll();
     }
 
     clear() {
+        this.userLogins = [];
+        this.links = {
+            last: 0
+        };
         this.page = 0;
+        this.predicate = 'id';
+        this.reverse = true;
         this.currentSearch = '';
-        this.router.navigate([
-            '/user-login',
-            {
-                page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        ]);
         this.loadAll();
     }
 
@@ -116,16 +103,14 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         if (!query) {
             return this.clear();
         }
+        this.userLogins = [];
+        this.links = {
+            last: 0
+        };
         this.page = 0;
+        this.predicate = '_score';
+        this.reverse = false;
         this.currentSearch = query;
-        this.router.navigate([
-            '/user-login',
-            {
-                search: this.currentSearch,
-                page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        ]);
         this.loadAll();
     }
 
@@ -146,7 +131,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInUserLogins() {
-        this.eventSubscriber = this.eventManager.subscribe('userLoginListModification', response => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('userLoginListModification', response => this.reset());
     }
 
     sort() {
@@ -160,8 +145,9 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     private paginateUserLogins(data: IUserLogin[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        this.queryCount = this.totalItems;
-        this.userLogins = data;
+        for (let i = 0; i < data.length; i++) {
+            this.userLogins.push(data[i]);
+        }
     }
 
     private onError(errorMessage: string) {

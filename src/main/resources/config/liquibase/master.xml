@@ -13,12 +13,10 @@
     <include file="config/liquibase/changelog/20181023012745_added_entity_Product.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012746_added_entity_Variant.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012747_added_entity_Category.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181023012748_added_entity_SellHasProduct.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012749_added_entity_Provider.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012750_added_entity_ProviderAccount.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012751_added_entity_ProviderPayment.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012752_added_entity_Purchase.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181023012753_added_entity_PurchaseHasProduct.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012754_added_entity_Box.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012755_added_entity_Operation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012757_added_entity_DocumentType.xml" relativeToChangelogFile="false"/>
@@ -39,14 +37,12 @@
     <include file="config/liquibase/changelog/20181023012743_added_entity_constraints_Client.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012744_added_entity_constraints_Employee.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012745_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181023012748_added_entity_constraints_SellHasProduct.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181023012746_added_entity_constraints_Variant.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012750_added_entity_constraints_ProviderAccount.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012751_added_entity_constraints_ProviderPayment.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012752_added_entity_constraints_Purchase.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181023012753_added_entity_constraints_PurchaseHasProduct.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012754_added_entity_constraints_Box.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181023012755_added_entity_constraints_Operation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181027021416_added_entity_constraints_OrderProduct.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181023012746_added_entity_constraints_Variant.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

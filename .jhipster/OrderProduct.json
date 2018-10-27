@@ -40,7 +40,7 @@
     "changelogDate": "20181027021416",
     "entityTableName": "order_product",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

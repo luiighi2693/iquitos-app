@@ -33,7 +33,7 @@
     "changelogDate": "20181023012749",
     "entityTableName": "provider",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

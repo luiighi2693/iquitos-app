@@ -28,7 +28,7 @@
     <div class="table-responsive" *ngIf="operations">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="initDate"><span>Init Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="gloss"><span>Gloss</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -41,7 +41,7 @@
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let operation of operations ;trackBy: trackId">
                 <td><a [routerLink]="['/operation', operation.id, 'view' ]">{{operation.id}}</a></td>
                 <td>{{operation.initDate | date:'mediumDate'}}</td>
@@ -95,13 +95,5 @@
             </tr>
             </tbody>
         </table>
-    </div>
-    <div *ngIf="operations && operations.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
     </div>
 </div>

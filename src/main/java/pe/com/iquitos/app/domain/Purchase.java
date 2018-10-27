@@ -8,6 +8,8 @@ import javax.persistence.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import pe.com.iquitos.app.domain.enumeration.PurchaseLocation;
@@ -52,6 +54,9 @@ public class Purchase implements Serializable {
     @Column(name = "payment_purchase_type")
     private PaymentPurchaseType paymentPurchaseType;
 
+    @Column(name = "meta_data")
+    private String metaData;
+
     @OneToOne    @JoinColumn(unique = true)
     private Provider provider;
 
@@ -63,6 +68,13 @@ public class Purchase implements Serializable {
 
     @OneToOne    @JoinColumn(unique = true)
     private Box box;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "purchase_products",
+               joinColumns = @JoinColumn(name = "purchases_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "products_id", referencedColumnName = "id"))
+    private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -164,6 +176,19 @@ public class Purchase implements Serializable {
         this.paymentPurchaseType = paymentPurchaseType;
     }
 
+    public String getMetaData() {
+        return metaData;
+    }
+
+    public Purchase metaData(String metaData) {
+        this.metaData = metaData;
+        return this;
+    }
+
+    public void setMetaData(String metaData) {
+        this.metaData = metaData;
+    }
+
     public Provider getProvider() {
         return provider;
     }
@@ -215,6 +240,29 @@ public class Purchase implements Serializable {
     public void setBox(Box box) {
         this.box = box;
     }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public Purchase products(Set<Product> products) {
+        this.products = products;
+        return this;
+    }
+
+    public Purchase addProducts(Product product) {
+        this.products.add(product);
+        return this;
+    }
+
+    public Purchase removeProducts(Product product) {
+        this.products.remove(product);
+        return this;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -248,6 +296,7 @@ public class Purchase implements Serializable {
             ", totalAmount=" + getTotalAmount() +
             ", correlative='" + getCorrelative() + "'" +
             ", paymentPurchaseType='" + getPaymentPurchaseType() + "'" +
+            ", metaData='" + getMetaData() + "'" +
             "}";
     }
 }

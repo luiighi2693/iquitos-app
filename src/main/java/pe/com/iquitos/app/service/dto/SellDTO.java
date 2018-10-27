@@ -2,6 +2,8 @@ package pe.com.iquitos.app.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 import pe.com.iquitos.app.domain.enumeration.SellStatus;
 
@@ -26,6 +28,8 @@ public class SellDTO implements Serializable {
 
     private String gloss;
 
+    private String metaData;
+
     private Long clientId;
 
     private Long employeeId;
@@ -37,6 +41,8 @@ public class SellDTO implements Serializable {
     private Long paymentTypeId;
 
     private Long productsDeliveredStatusId;
+
+    private Set<ProductDTO> products = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -102,6 +108,14 @@ public class SellDTO implements Serializable {
         this.gloss = gloss;
     }
 
+    public String getMetaData() {
+        return metaData;
+    }
+
+    public void setMetaData(String metaData) {
+        this.metaData = metaData;
+    }
+
     public Long getClientId() {
         return clientId;
     }
@@ -150,6 +164,14 @@ public class SellDTO implements Serializable {
         this.productsDeliveredStatusId = productsDeliveredStatusId;
     }
 
+    public Set<ProductDTO> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<ProductDTO> products) {
+        this.products = products;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -182,6 +204,7 @@ public class SellDTO implements Serializable {
             ", date='" + getDate() + "'" +
             ", status='" + getStatus() + "'" +
             ", gloss='" + getGloss() + "'" +
+            ", metaData='" + getMetaData() + "'" +
             ", client=" + getClientId() +
             ", employee=" + getEmployeeId() +
             ", box=" + getBoxId() +

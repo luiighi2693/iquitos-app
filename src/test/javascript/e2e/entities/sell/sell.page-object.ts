@@ -33,12 +33,14 @@ export class SellUpdatePage {
     dateInput = element(by.id('field_date'));
     statusSelect = element(by.id('field_status'));
     glossInput = element(by.id('field_gloss'));
+    metaDataInput = element(by.id('field_metaData'));
     clientSelect = element(by.id('field_client'));
     employeeSelect = element(by.id('field_employee'));
     boxSelect = element(by.id('field_box'));
     documentTypeSellSelect = element(by.id('field_documentTypeSell'));
     paymentTypeSelect = element(by.id('field_paymentType'));
     productsDeliveredStatusSelect = element(by.id('field_productsDeliveredStatus'));
+    productsSelect = element(by.id('field_products'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -105,6 +107,14 @@ export class SellUpdatePage {
 
     async getGlossInput() {
         return this.glossInput.getAttribute('value');
+    }
+
+    async setMetaDataInput(metaData) {
+        await this.metaDataInput.sendKeys(metaData);
+    }
+
+    async getMetaDataInput() {
+        return this.metaDataInput.getAttribute('value');
     }
 
     async clientSelectLastOption() {
@@ -219,6 +229,25 @@ export class SellUpdatePage {
 
     async getProductsDeliveredStatusSelectedOption() {
         return this.productsDeliveredStatusSelect.element(by.css('option:checked')).getText();
+    }
+
+    async productsSelectLastOption() {
+        await this.productsSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async productsSelectOption(option) {
+        await this.productsSelect.sendKeys(option);
+    }
+
+    getProductsSelect(): ElementFinder {
+        return this.productsSelect;
+    }
+
+    async getProductsSelectedOption() {
+        return this.productsSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

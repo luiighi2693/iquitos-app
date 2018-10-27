@@ -46,16 +46,19 @@ describe('Purchase e2e test', () => {
             purchaseUpdatePage.setTotalAmountInput('5'),
             purchaseUpdatePage.setCorrelativeInput('correlative'),
             purchaseUpdatePage.paymentPurchaseTypeSelectLastOption(),
+            purchaseUpdatePage.setMetaDataInput('metaData'),
             purchaseUpdatePage.providerSelectLastOption(),
             purchaseUpdatePage.documentTypePurchaseSelectLastOption(),
             purchaseUpdatePage.purchaseStatusSelectLastOption(),
             purchaseUpdatePage.boxSelectLastOption()
+            // purchaseUpdatePage.productsSelectLastOption(),
         ]);
         expect(await purchaseUpdatePage.getDateInput()).to.eq('2000-12-31');
         expect(await purchaseUpdatePage.getRemisionGuideInput()).to.eq('remisionGuide');
         expect(await purchaseUpdatePage.getDocumentNumberInput()).to.eq('documentNumber');
         expect(await purchaseUpdatePage.getTotalAmountInput()).to.eq('5');
         expect(await purchaseUpdatePage.getCorrelativeInput()).to.eq('correlative');
+        expect(await purchaseUpdatePage.getMetaDataInput()).to.eq('metaData');
         await purchaseUpdatePage.save();
         expect(await purchaseUpdatePage.getSaveButton().isPresent()).to.be.false;
 

@@ -14,7 +14,7 @@
     "changelogDate": "20181023012759",
     "entityTableName": "document_type_sell",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

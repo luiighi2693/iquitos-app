@@ -22,8 +22,6 @@ export interface IProduct {
     unitMeasurementId?: number;
     categoryId?: number;
     variants?: IVariant[];
-    sellHasProductId?: number;
-    purchaseHasProductId?: number;
 }
 
 export class Product implements IProduct {
@@ -42,9 +40,7 @@ export class Product implements IProduct {
         public productType?: ProductType,
         public unitMeasurementId?: number,
         public categoryId?: number,
-        public variants?: IVariant[],
-        public sellHasProductId?: number,
-        public purchaseHasProductId?: number
+        public variants?: IVariant[]
     ) {
         this.isFavorite = this.isFavorite || false;
         this.visibleToSell = this.visibleToSell || false;

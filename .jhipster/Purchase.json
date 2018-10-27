@@ -30,6 +30,10 @@
             "fieldName": "paymentPurchaseType",
             "fieldType": "PaymentPurchaseType",
             "fieldValues": "CONTADO,CREDITO"
+        },
+        {
+            "fieldName": "metaData",
+            "fieldType": "String"
         }
     ],
     "relationships": [
@@ -64,12 +68,20 @@
             "otherEntityField": "id",
             "ownerSide": true,
             "otherEntityRelationshipName": "purchase"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "products",
+            "otherEntityName": "product",
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20181023012752",
     "entityTableName": "purchase",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

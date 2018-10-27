@@ -43,10 +43,6 @@ public class ProductDTO implements Serializable {
 
     private Set<VariantDTO> variants = new HashSet<>();
 
-    private Long sellHasProductId;
-
-    private Long purchaseHasProductId;
-
     public Long getId() {
         return id;
     }
@@ -167,22 +163,6 @@ public class ProductDTO implements Serializable {
         this.variants = variants;
     }
 
-    public Long getSellHasProductId() {
-        return sellHasProductId;
-    }
-
-    public void setSellHasProductId(Long sellHasProductId) {
-        this.sellHasProductId = sellHasProductId;
-    }
-
-    public Long getPurchaseHasProductId() {
-        return purchaseHasProductId;
-    }
-
-    public void setPurchaseHasProductId(Long purchaseHasProductId) {
-        this.purchaseHasProductId = purchaseHasProductId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -220,8 +200,6 @@ public class ProductDTO implements Serializable {
             ", productType='" + getProductType() + "'" +
             ", unitMeasurement=" + getUnitMeasurementId() +
             ", category=" + getCategoryId() +
-            ", sellHasProduct=" + getSellHasProductId() +
-            ", purchaseHasProduct=" + getPurchaseHasProductId() +
             "}";
     }
 }

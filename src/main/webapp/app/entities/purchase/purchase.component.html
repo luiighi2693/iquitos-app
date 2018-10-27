@@ -28,7 +28,7 @@
     <div class="table-responsive" *ngIf="purchases">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="date"><span>Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="remisionGuide"><span>Remision Guide</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -37,6 +37,7 @@
             <th jhiSortBy="totalAmount"><span>Total Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="correlative"><span>Correlative</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="paymentPurchaseType"><span>Payment Purchase Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="metaData"><span>Meta Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="providerId"><span>Provider</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="documentTypePurchaseId"><span>Document Type Purchase</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="purchaseStatusId"><span>Purchase Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -44,7 +45,7 @@
             <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let purchase of purchases ;trackBy: trackId">
                 <td><a [routerLink]="['/purchase', purchase.id, 'view' ]">{{purchase.id}}</a></td>
                 <td>{{purchase.date | date:'mediumDate'}}</td>
@@ -54,6 +55,7 @@
                 <td>{{purchase.totalAmount}}</td>
                 <td>{{purchase.correlative}}</td>
                 <td>{{purchase.paymentPurchaseType}}</td>
+                <td>{{purchase.metaData}}</td>
                 <td>
                     <div *ngIf="purchase.providerId">
                         <a [routerLink]="['../provider', purchase.providerId , 'view' ]" >{{purchase.providerId}}</a>
@@ -101,13 +103,5 @@
             </tr>
             </tbody>
         </table>
-    </div>
-    <div *ngIf="purchases && purchases.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
     </div>
 </div>

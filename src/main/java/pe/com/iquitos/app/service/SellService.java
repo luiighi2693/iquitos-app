@@ -28,7 +28,13 @@ public interface SellService {
      */
     Page<SellDTO> findAll(Pageable pageable);
 
-
+    /**
+     * Get all the Sell with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    Page<SellDTO> findAllWithEagerRelationships(Pageable pageable);
+    
     /**
      * Get the "id" sell.
      *

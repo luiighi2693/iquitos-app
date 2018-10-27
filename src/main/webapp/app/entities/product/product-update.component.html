@@ -99,20 +99,6 @@
                         <option [ngValue]="getSelected(product.variants, variantOption)" *ngFor="let variantOption of variants; trackBy: trackVariantById">{{variantOption.id}}</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_sellHasProduct">Sell Has Product</label>
-                    <select class="form-control" id="field_sellHasProduct" name="sellHasProduct" [(ngModel)]="product.sellHasProductId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="sellHasProductOption.id" *ngFor="let sellHasProductOption of sellhasproducts; trackBy: trackSellHasProductById">{{sellHasProductOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_purchaseHasProduct">Purchase Has Product</label>
-                    <select class="form-control" id="field_purchaseHasProduct" name="purchaseHasProduct" [(ngModel)]="product.purchaseHasProductId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="purchaseHasProductOption.id" *ngFor="let purchaseHasProductOption of purchasehasproducts; trackBy: trackPurchaseHasProductById">{{purchaseHasProductOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

@@ -70,6 +70,15 @@ public class PurchaseServiceImpl implements PurchaseService {
             .map(purchaseMapper::toDto);
     }
 
+    /**
+     * Get all the Purchase with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    public Page<PurchaseDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return purchaseRepository.findAllWithEagerRelationships(pageable).map(purchaseMapper::toDto);
+    }
+    
 
     /**
      * Get one purchase by id.
@@ -81,7 +90,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Transactional(readOnly = true)
     public Optional<PurchaseDTO> findOne(Long id) {
         log.debug("Request to get Purchase : {}", id);
-        return purchaseRepository.findById(id)
+        return purchaseRepository.findOneWithEagerRelationships(id)
             .map(purchaseMapper::toDto);
     }
 

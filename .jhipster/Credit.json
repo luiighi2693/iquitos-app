@@ -47,7 +47,7 @@
     "changelogDate": "20181023012742",
     "entityTableName": "credit",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

@@ -64,24 +64,12 @@
             "otherEntityName": "variant",
             "otherEntityField": "id",
             "ownerSide": true
-        },
-        {
-            "relationshipName": "sellHasProduct",
-            "otherEntityName": "sellHasProduct",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipName": "purchaseHasProduct",
-            "otherEntityName": "purchaseHasProduct",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20181023012745",
     "entityTableName": "product",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

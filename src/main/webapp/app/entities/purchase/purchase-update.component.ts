@@ -15,6 +15,8 @@ import { IPurchaseStatus } from 'app/shared/model/purchase-status.model';
 import { PurchaseStatusService } from 'app/entities/purchase-status';
 import { IBox } from 'app/shared/model/box.model';
 import { BoxService } from 'app/entities/box';
+import { IProduct } from 'app/shared/model/product.model';
+import { ProductService } from 'app/entities/product';
 
 @Component({
     selector: 'jhi-purchase-update',
@@ -31,6 +33,8 @@ export class PurchaseUpdateComponent implements OnInit {
     purchasestatuses: IPurchaseStatus[];
 
     boxes: IBox[];
+
+    products: IProduct[];
     dateDp: any;
 
     constructor(
@@ -40,6 +44,7 @@ export class PurchaseUpdateComponent implements OnInit {
         private documentTypePurchaseService: DocumentTypePurchaseService,
         private purchaseStatusService: PurchaseStatusService,
         private boxService: BoxService,
+        private productService: ProductService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -108,6 +113,12 @@ export class PurchaseUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.productService.query().subscribe(
+            (res: HttpResponse<IProduct[]>) => {
+                this.products = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -154,5 +165,20 @@ export class PurchaseUpdateComponent implements OnInit {
 
     trackBoxById(index: number, item: IBox) {
         return item.id;
+    }
+
+    trackProductById(index: number, item: IProduct) {
+        return item.id;
+    }
+
+    getSelected(selectedVals: Array<any>, option: any) {
+        if (selectedVals) {
+            for (let i = 0; i < selectedVals.length; i++) {
+                if (option.id === selectedVals[i].id) {
+                    return selectedVals[i];
+                }
+            }
+        }
+        return option;
     }
 }

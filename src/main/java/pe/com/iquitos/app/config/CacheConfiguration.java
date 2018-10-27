@@ -41,6 +41,7 @@ public class CacheConfiguration {
             cm.createCache(pe.com.iquitos.app.domain.Amortization.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Sell.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Sell.class.getName() + ".amortizations", jcacheConfiguration);
+            cm.createCache(pe.com.iquitos.app.domain.Sell.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Credit.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Client.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Employee.class.getName(), jcacheConfiguration);
@@ -49,15 +50,12 @@ public class CacheConfiguration {
             cm.createCache(pe.com.iquitos.app.domain.Variant.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Variant.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Category.class.getName(), jcacheConfiguration);
-            cm.createCache(pe.com.iquitos.app.domain.SellHasProduct.class.getName(), jcacheConfiguration);
-            cm.createCache(pe.com.iquitos.app.domain.SellHasProduct.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Provider.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Provider.class.getName() + ".providerAccounts", jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.ProviderAccount.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.ProviderPayment.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Purchase.class.getName(), jcacheConfiguration);
-            cm.createCache(pe.com.iquitos.app.domain.PurchaseHasProduct.class.getName(), jcacheConfiguration);
-            cm.createCache(pe.com.iquitos.app.domain.PurchaseHasProduct.class.getName() + ".products", jcacheConfiguration);
+            cm.createCache(pe.com.iquitos.app.domain.Purchase.class.getName() + ".products", jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Box.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Operation.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.DocumentType.class.getName(), jcacheConfiguration);

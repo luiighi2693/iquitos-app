@@ -80,14 +80,6 @@ public class Product implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "variants_id", referencedColumnName = "id"))
     private Set<Variant> variants = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("products")
-    private SellHasProduct sellHasProduct;
-
-    @ManyToOne
-    @JsonIgnoreProperties("products")
-    private PurchaseHasProduct purchaseHasProduct;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -287,32 +279,6 @@ public class Product implements Serializable {
 
     public void setVariants(Set<Variant> variants) {
         this.variants = variants;
-    }
-
-    public SellHasProduct getSellHasProduct() {
-        return sellHasProduct;
-    }
-
-    public Product sellHasProduct(SellHasProduct sellHasProduct) {
-        this.sellHasProduct = sellHasProduct;
-        return this;
-    }
-
-    public void setSellHasProduct(SellHasProduct sellHasProduct) {
-        this.sellHasProduct = sellHasProduct;
-    }
-
-    public PurchaseHasProduct getPurchaseHasProduct() {
-        return purchaseHasProduct;
-    }
-
-    public Product purchaseHasProduct(PurchaseHasProduct purchaseHasProduct) {
-        this.purchaseHasProduct = purchaseHasProduct;
-        return this;
-    }
-
-    public void setPurchaseHasProduct(PurchaseHasProduct purchaseHasProduct) {
-        this.purchaseHasProduct = purchaseHasProduct;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

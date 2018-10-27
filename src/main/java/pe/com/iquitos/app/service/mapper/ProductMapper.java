@@ -8,19 +8,15 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Product and its DTO ProductDTO.
  */
-@Mapper(componentModel = "spring", uses = {UnitMeasurementMapper.class, CategoryMapper.class, VariantMapper.class, SellHasProductMapper.class, PurchaseHasProductMapper.class})
+@Mapper(componentModel = "spring", uses = {UnitMeasurementMapper.class, CategoryMapper.class, VariantMapper.class})
 public interface ProductMapper extends EntityMapper<ProductDTO, Product> {
 
     @Mapping(source = "unitMeasurement.id", target = "unitMeasurementId")
     @Mapping(source = "category.id", target = "categoryId")
-    @Mapping(source = "sellHasProduct.id", target = "sellHasProductId")
-    @Mapping(source = "purchaseHasProduct.id", target = "purchaseHasProductId")
     ProductDTO toDto(Product product);
 
     @Mapping(source = "unitMeasurementId", target = "unitMeasurement")
     @Mapping(source = "categoryId", target = "category")
-    @Mapping(source = "sellHasProductId", target = "sellHasProduct")
-    @Mapping(source = "purchaseHasProductId", target = "purchaseHasProduct")
     Product toEntity(ProductDTO productDTO);
 
     default Product fromId(Long id) {

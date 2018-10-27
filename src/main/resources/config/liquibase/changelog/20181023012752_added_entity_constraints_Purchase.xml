@@ -32,5 +32,16 @@
                                  referencedColumnNames="id"
                                  referencedTableName="box"/>
 
+        <addForeignKeyConstraint baseColumnNames="purchases_id"
+                                 baseTableName="purchase_products"
+                                 constraintName="fk_purchase_products_purchases_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="purchase"/>
+        <addForeignKeyConstraint baseColumnNames="products_id"
+                                 baseTableName="purchase_products"
+                                 constraintName="fk_purchase_products_products_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+        
     </changeSet>
 </databaseChangeLog>

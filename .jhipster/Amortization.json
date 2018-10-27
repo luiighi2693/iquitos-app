@@ -45,7 +45,7 @@
     "changelogDate": "20181023012740",
     "entityTableName": "amortization",
     "dto": "mapstruct",
-    "pagination": "pagination",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
