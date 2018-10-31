@@ -1,192 +1,186 @@
+DEFAULT_MIN_LENGTH_MONEY = 1
+DEFAULT_MAX_LENGTH_MONEY = 1000000
+DEFAULT_MAX_LENGTH_STRING = 150
+DEFAULT_MAX_LENGTH_DESCRIPTION = 1000
+DEFAULT_MAX_LENGTH_METADATA = 5000
 
-entity Amortization {
-	amountToPay Double,
-	amountPayed Double,
-    emissionDate LocalDate,
-    documentCode String,
-    gloss String,
+entity Amortizacion {
+	monto Double required,
+	montoPagado Double required,
+    fecha LocalDate,
+    codigoDocumento String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    glosa String maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),
 }
 
-entity Sell {
-	code String,
-	subTotalAmount Double,
-    taxAmount Double,
-    totalAmount Double,
-    date LocalDate,
-    status SellStatus,
-    gloss String,
-    metaData String, //quantity, discount, variantId
+entity Venta {
+	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	subTotal Double required,
+    impuesto Double required,
+    montoTotal Double required,
+    fecha LocalDate,
+    estatus SellStatus,
+    glosa String maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),
+    metaData String required maxlength(DEFAULT_MAX_LENGTH_METADATA), //quantity, discount, variantId
 }
 
-entity Credit {
-	amount Double,
-	emissionDate LocalDate,
-    paymentMode Double,
-    creditNumber Integer,
-    totalAmount Double,
-    limitDate LocalDate,
-    creditNote String,
+entity Credito {
+	monto Double required,
+	fecha LocalDate,
+    modoDePago Double required,
+    numero Integer, //correlativo
+    montoTotal Double required,
+    fechaLimite LocalDate,
+    notaDeCredito String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity Client {
-	name String,
-	code String,
-    address String,
-    email String,
-    cellphone String,
-    birthday LocalDate, 
-    sex Sex,
-    civilStatus CivilStatus,
-    image ImageBlob,
-    clientType ClientType,
+entity Cliente {
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    direccion String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    correo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    telefono String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    fechaDeNacimiento LocalDate,
+    sexo Sex,
+    estatusCivil CivilStatus,
+    imagen ImageBlob,
+    tipoDeCliente ClientType,
 }
 
-entity Employee {
-	firstName String,
-	lastName String,
-    dni Integer,
-    address String,
-    email String,
-    birthday LocalDate, 
-    sex Sex,
-    cellphone Integer,
-    image ImageBlob,
-    employeeRole EmployeeRole,
+entity Empleado {
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	apellido String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    dni Integer required,
+    direccion String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    correo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    fechaDeNacimiento LocalDate,
+    sexo Sex,
+    telefono String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    imagen ImageBlob,
+    RolEmpleado EmployeeRole,
 }
 
-entity Product {
-	code String,
-	description String,
-    dni Integer,
-    expirationDate LocalDate,
-    isFavorite Boolean,
-    visibleToSell Boolean, 
-    image ImageBlob,
-    stock Integer,
-    stockLimitNotification Integer,
-    productType ProductType
+entity Producto {
+	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	descripcion String maxlength(DEFAULT_MAX_LENGTH_STRING),
+    fechaExpiracion LocalDate,
+    esFavorito Boolean,
+    visibleParaLaVenta Boolean,
+    imagen ImageBlob,
+    stock Integer required,
+    notificacionDeLimiteDeStock Integer,
+    tipoDeProducto ProductType
 }
 
-entity Variant {
-	name String,
-	description String,
-    priceSell Double,
-    pricePurchase Double,
+entity Variante {
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	descripcion String maxlength(DEFAULT_MAX_LENGTH_STRING),
+    precioVenta Double required,
+    precioCompra Double required,
 }
 
-entity Category {
-	name String,
-	countProducts Integer,
+entity Categoria {
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	numeroProductos Integer,
 }
 
-entity Provider {
-	code String,
-	socialReason String,
-    address String,
-    email String,
-    cellphone Integer,
+entity Proveedor {
+	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	razonSocial String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    direccion String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    correo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    telefono String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity ProviderAccount {
-	code String,
-	status ProviderStatus,
-    bank String,
-    accountName String,
-    accountNumber Integer,
-    initDate LocalDate,
+entity CuentaProveedor {
+	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	estatus ProviderStatus,
+    banco String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    nombreCuenta String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    numeroDeCuenta Integer,
+    fecha LocalDate,
     
 }
 
-entity ProviderPayment {
-	amountToPay Double,
-	amountPayed Double,
-    emissionDate LocalDate,
-    documentCode String,
-    glosa String,
-    image ImageBlob,
+entity PagoDeProveedor {
+	monto Double required,
+	montoPagado Double required,
+    fecha LocalDate,
+    codigoDeDocumento String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    glosa String maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),
+    imagen ImageBlob,
 }
 
-entity Purchase {
-	date LocalDate,
-	remisionGuide String,
-    documentNumber String,
-    location PurchaseLocation,
-    totalAmount Double,
-    correlative String, //OCT2018-00001
-    paymentPurchaseType PaymentPurchaseType,
-    metaData String, //quantity, tax
+entity Compra {
+	fecha LocalDate,
+	guiaRemision String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    numeroDeDocumento String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    ubicacion PurchaseLocation,
+    montoTotal Double required,
+    correlativo String required maxlength(DEFAULT_MAX_LENGTH_STRING), //OCT2018-00001
+    tipoDePagoDeCompra PaymentPurchaseType,
+    metaData String required maxlength(DEFAULT_MAX_LENGTH_METADATA), //quantity, tax
 }
 
-entity Box {
-	initAmount Double,
-	actualAmount Double,
-    initDate LocalDate,
-    endDate LocalDate,
+entity Caja {
+	monto Double required,
+	montoActual Double required,
+    fechaInicial LocalDate,
+    fechaFinal LocalDate,
 }
 
-entity Operation {
-    initDate LocalDate,
-    gloss String,
-    amount Double,
-    operationType OperationType,
+entity Operacion {
+    fecha LocalDate,
+    glosa String maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),
+    monto Double required,
+    tipoDeOperacion OperationType,
 }
 
-entity UserLogin {
-    dni Integer,
-    pin Integer,
-    email String,
+entity UsuarioExterno {
+    dni Integer required,
+    pin Integer required,
 }
 
-entity OrderProduct {
-    note String,
-    guide String,
-    orderStatus OrderStatus,
-    metaData String, //aqui va la cantidad de productos
+entity Pedido {
+    nota String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    guia String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    estatus OrderStatus,
+    metaData String required maxlength(DEFAULT_MAX_LENGTH_METADATA), //aqui va la cantidad de productos
 }
 
-entity DocumentType { //DNI, RUC
-	value String,
-	metaData String,
+entity TipoDeDocumento { //DNI, RUC
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity PaymentType { //Efectivo, Visa, Cheque, Deposito_en_Cuenta
-	value String,
-	metaData String,
+entity TipoDePago { //Efectivo, Visa, Cheque, Deposito_en_Cuenta
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity DocumentTypeSell { //ticket de ingreso - factura
-	value String,
-	metaData String,
+entity TipoDeDocumentoDeVenta { //ticket de ingreso - factura
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity ProductsDeliveredStatus { //Por Entregar, En Proceso, Entregado
-	value String,
-	metaData String,
+entity EstatusDeProductoEntregado { //Por Entregar, En Proceso, Entregado
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity UnitMeasurement { //LITRO, KILO, UNIDAD
-	value String,
-	metaData String,
+entity UnidadDeMedida { //LITRO, KILO, UNIDAD
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity DocumentTypePurchase { //Boleta electronica, factura electronica, nota de credito, nota de debito, recibo de ingreso, recibo de egreso, ticket de ingreso
-	value String,
-	metaData String,
+entity TipoDeDocumentoDeCompra { //Boleta electronica, factura electronica, nota de credito, nota de debito, recibo de ingreso, recibo de egreso, ticket de ingreso
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity PurchaseStatus { //Pendiente, En proceso, Completado
-	value String,
-	metaData String,
+entity EstatusDeCompra { //Pendiente, En proceso, Completado
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity ConceptOperationInput { //devolucion de caja chica, ingreso desde bancos
-	value String,
-	metaData String,
+entity TipoDeOperacionDeIngreso { //devolucion de caja chica, ingreso desde bancos
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity ConceptOperationOutput { //otros, depositos desde bancos
-	value String,
-	metaData String,
+entity TipoDeOperacionDeGasto { //otros, depositos desde bancos
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
 enum Sex {
@@ -234,61 +228,63 @@ enum OrderStatus {
 }
 
 relationship ManyToOne {
-	Amortization{documentTypeSell} to DocumentTypeSell,
-    Amortization{paymentType} to PaymentType,
+	Amortizacion{tipoDeDocumentoDeVenta(nombre)} to TipoDeDocumentoDeVenta,
+    Amortizacion{tipoDePago(nombre)} to TipoDePago,
     
-    Sell{documentTypeSell} to DocumentTypeSell,
-    Sell{paymentType} to PaymentType,
-    Sell{productsDeliveredStatus} to ProductsDeliveredStatus,
+    Venta{tipoDeDocumentoDeVenta(nombre)} to TipoDeDocumentoDeVenta,
+    Venta{tipoDePago(nombre)} to TipoDePago,
+    Venta{estatusDeProductoEntregado(nombre)} to EstatusDeProductoEntregado,
     
-    Client{documentType} to DocumentType,
+    Cliente{tipoDeDocumento(nombre)} to TipoDeDocumento,
     
-    Product{unitMeasurement} to UnitMeasurement,
-    Product{category} to Category,
+    Producto{unidadDeMedida(nombre)} to UnidadDeMedida,
+    Producto{categoria(nombre)} to Categoria,
 
-    Credit{sell} to Sell,
-    Credit{purchase} to Purchase,
+    Credito{venta} to Venta,
+    Credito{compra} to Compra,
     
-    ProviderPayment{documentTypePurchase} to DocumentTypePurchase,
-    ProviderPayment{paymentType} to PaymentType,
+    PagoDeProveedor{tipoDeDocumentoDeCompra(nombre)} to TipoDeDocumentoDeCompra,
+    PagoDeProveedor{tipoDePago(nombre)} to TipoDePago,
     
-    Operation{box} to Box,
-    Operation{paymentType} to PaymentType,
-    Operation{conceptOperationInput} to ConceptOperationInput
-    Operation{conceptOperationOutput} to ConceptOperationOutput
+    Operacion{caja} to Caja,
+    Operacion{tipoDePago(nombre)} to TipoDePago,
+    Operacion{tipoDeOperacionDeIngreso(nombre)} to TipoDeOperacionDeIngreso
+    Operacion{tipoDeOperacionDeGasto(nombre)} to TipoDeOperacionDeGasto
 }
 
 relationship OneToMany {
-	Sell{amortization} to Amortization,
+	Venta{amortizacion} to Amortizacion,
 
-    Provider{providerAccount} to ProviderAccount,
+    Proveedor{cuentaProveedor(codigo)} to CuentaProveedor,
 }
 
 relationship OneToOne {
-	Sell{client} to Client,
-    Sell{employee} to Employee,
+	Venta{cliente(nombre)} to Cliente,
+    Venta{empleado(nombre)} to Empleado,
     
-    Purchase{provider} to Provider,
-    Purchase{documentTypePurchase} to DocumentTypePurchase,
-    Purchase{purchaseStatus} to PurchaseStatus,
+    Compra{proveedor} to Proveedor,
+    Compra{tipoDeDocumentoDeCompra(nombre)} to TipoDeDocumentoDeCompra,
+    Compra{estatusDeCompra(nombre)} to EstatusDeCompra,
     
-    Sell{box} to Box,
-    Purchase{box} to Box,
-    Box{box} to Box,
+    Venta{caja} to Caja,
+    Compra{caja} to Caja,
+    Caja{caja} to Caja,
     
-    Client{user} to User,
-    Employee{user} to User,
+    Cliente{usuario(dni)} to UsuarioExterno,
+    Empleado{usuario(dni)} to UsuarioExterno,
 
-    OrderProduct{provider} to Provider,
+    Pedido{proveedor(razonSocial)} to Proveedor,
+
+    UsuarioExterno{usuario(login)} to User,
 }
 
 relationship ManyToMany {
-    OrderProduct{products} to Product,
+    Pedido{productos(codigo)} to Producto,
 
-    Product{variants} to Variant,
-    Variant{products} to Product,
-    Sell{products} to Product,
-    Purchase{products} to Product,
+    Producto{variantes(nombre)} to Variante,
+    Variante{productos(codigo)} to Producto,
+    Venta{productos(codigo)} to Producto,
+    Compra{productos(codigo)} to Producto,
 }
 
 // Set pagination options

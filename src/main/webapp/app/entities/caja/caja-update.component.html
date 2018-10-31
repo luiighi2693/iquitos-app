@@ -1,0 +1,81 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-caja-heading">Create or edit a Caja</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!caja.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="caja.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_monto">Monto</label>
+                    <input type="number" class="form-control" name="monto" id="field_monto"
+                        [(ngModel)]="caja.monto" required/>
+                    <div [hidden]="!(editForm.controls.monto?.dirty && editForm.controls.monto?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.monto?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.monto?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_montoActual">Monto Actual</label>
+                    <input type="number" class="form-control" name="montoActual" id="field_montoActual"
+                        [(ngModel)]="caja.montoActual" required/>
+                    <div [hidden]="!(editForm.controls.montoActual?.dirty && editForm.controls.montoActual?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.montoActual?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.montoActual?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fechaInicial">Fecha Inicial</label>
+                    <div class="input-group">
+                        <input id="field_fechaInicial" type="text" class="form-control" name="fechaInicial" ngbDatepicker  #fechaInicialDp="ngbDatepicker" [(ngModel)]="caja.fechaInicial"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaInicialDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fechaFinal">Fecha Final</label>
+                    <div class="input-group">
+                        <input id="field_fechaFinal" type="text" class="form-control" name="fechaFinal" ngbDatepicker  #fechaFinalDp="ngbDatepicker" [(ngModel)]="caja.fechaFinal"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaFinalDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_caja">Caja</label>
+                    <select class="form-control" id="field_caja" name="caja" [(ngModel)]="caja.cajaId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cajaOption.id" *ngFor="let cajaOption of cajas; trackBy: trackCajaById">{{cajaOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

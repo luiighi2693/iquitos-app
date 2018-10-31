@@ -1,0 +1,87 @@
+{
+    "name": "Producto",
+    "fields": [
+        {
+            "fieldName": "codigo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "fechaExpiracion",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "esFavorito",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "visibleParaLaVenta",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "imagen",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "stock",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "notificacionDeLimiteDeStock",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "tipoDeProducto",
+            "fieldType": "ProductType",
+            "fieldValues": "BIENES,SERVICIOS"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "unidadDeMedida",
+            "otherEntityName": "unidadDeMedida",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "categoria",
+            "otherEntityName": "categoria",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "variantes",
+            "otherEntityName": "variante",
+            "otherEntityField": "nombre",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20181031175912",
+    "entityTableName": "producto",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

@@ -1,0 +1,114 @@
+{
+    "name": "Compra",
+    "fields": [
+        {
+            "fieldName": "fecha",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "guiaRemision",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "numeroDeDocumento",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "ubicacion",
+            "fieldType": "PurchaseLocation",
+            "fieldValues": "TIENDA"
+        },
+        {
+            "fieldName": "montoTotal",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "correlativo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "tipoDePagoDeCompra",
+            "fieldType": "PaymentPurchaseType",
+            "fieldValues": "CONTADO,CREDITO"
+        },
+        {
+            "fieldName": "metaData",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 5000
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "proveedor",
+            "otherEntityName": "proveedor",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "compra"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "tipoDeDocumentoDeCompra",
+            "otherEntityName": "tipoDeDocumentoDeCompra",
+            "otherEntityField": "nombre",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "compra"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "estatusDeCompra",
+            "otherEntityName": "estatusDeCompra",
+            "otherEntityField": "nombre",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "compra"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "caja",
+            "otherEntityName": "caja",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "compra"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "productos",
+            "otherEntityName": "producto",
+            "otherEntityField": "codigo",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20181031175918",
+    "entityTableName": "compra",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

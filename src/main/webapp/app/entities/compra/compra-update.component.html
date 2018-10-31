@@ -1,0 +1,156 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-compra-heading">Create or edit a Compra</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!compra.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="compra.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fecha">Fecha</label>
+                    <div class="input-group">
+                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="compra.fecha"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_guiaRemision">Guia Remision</label>
+                    <input type="text" class="form-control" name="guiaRemision" id="field_guiaRemision"
+                        [(ngModel)]="compra.guiaRemision" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.guiaRemision?.dirty && editForm.controls.guiaRemision?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.guiaRemision?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.guiaRemision?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_numeroDeDocumento">Numero De Documento</label>
+                    <input type="text" class="form-control" name="numeroDeDocumento" id="field_numeroDeDocumento"
+                        [(ngModel)]="compra.numeroDeDocumento" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.numeroDeDocumento?.dirty && editForm.controls.numeroDeDocumento?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numeroDeDocumento?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numeroDeDocumento?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ubicacion">Ubicacion</label>
+                    <select class="form-control" name="ubicacion" [(ngModel)]="compra.ubicacion" id="field_ubicacion" >
+                        <option value="TIENDA">TIENDA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_montoTotal">Monto Total</label>
+                    <input type="number" class="form-control" name="montoTotal" id="field_montoTotal"
+                        [(ngModel)]="compra.montoTotal" required/>
+                    <div [hidden]="!(editForm.controls.montoTotal?.dirty && editForm.controls.montoTotal?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.montoTotal?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.montoTotal?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_correlativo">Correlativo</label>
+                    <input type="text" class="form-control" name="correlativo" id="field_correlativo"
+                        [(ngModel)]="compra.correlativo" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.correlativo?.dirty && editForm.controls.correlativo?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.correlativo?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.correlativo?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDePagoDeCompra">Tipo De Pago De Compra</label>
+                    <select class="form-control" name="tipoDePagoDeCompra" [(ngModel)]="compra.tipoDePagoDeCompra" id="field_tipoDePagoDeCompra" >
+                        <option value="CONTADO">CONTADO</option>
+                        <option value="CREDITO">CREDITO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_metaData">Meta Data</label>
+                    <input type="text" class="form-control" name="metaData" id="field_metaData"
+                        [(ngModel)]="compra.metaData" required maxlength="5000"/>
+                    <div [hidden]="!(editForm.controls.metaData?.dirty && editForm.controls.metaData?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.metaData?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.metaData?.errors?.maxlength">
+                        This field cannot be longer than 5000 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_proveedor">Proveedor</label>
+                    <select class="form-control" id="field_proveedor" name="proveedor" [(ngModel)]="compra.proveedorId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="proveedorOption.id" *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById">{{proveedorOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDeDocumentoDeCompra">Tipo De Documento De Compra</label>
+                    <select class="form-control" id="field_tipoDeDocumentoDeCompra" name="tipoDeDocumentoDeCompra" [(ngModel)]="compra.tipoDeDocumentoDeCompraId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tipoDeDocumentoDeCompraOption.id" *ngFor="let tipoDeDocumentoDeCompraOption of tipodedocumentodecompras; trackBy: trackTipoDeDocumentoDeCompraById">{{tipoDeDocumentoDeCompraOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_estatusDeCompra">Estatus De Compra</label>
+                    <select class="form-control" id="field_estatusDeCompra" name="estatusDeCompra" [(ngModel)]="compra.estatusDeCompraId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="estatusDeCompraOption.id" *ngFor="let estatusDeCompraOption of estatusdecompras; trackBy: trackEstatusDeCompraById">{{estatusDeCompraOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_caja">Caja</label>
+                    <select class="form-control" id="field_caja" name="caja" [(ngModel)]="compra.cajaId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cajaOption.id" *ngFor="let cajaOption of cajas; trackBy: trackCajaById">{{cajaOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_productos">Productos</label>
+                    <select class="form-control" id="field_productos" multiple name="productos" [(ngModel)]="compra.productos">
+                        <option [ngValue]="getSelected(compra.productos, productoOption)" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.codigo}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

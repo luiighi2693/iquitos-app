@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Compra.
+    -->
+    <changeSet id="20181031175918-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="proveedor_id"
+                                 baseTableName="compra"
+                                 constraintName="fk_compra_proveedor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="proveedor"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_de_documento_de_compra_id"
+                                 baseTableName="compra"
+                                 constraintName="fk_compra_tipo_de_documento_de_compra_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_de_documento_de_compra"/>
+
+        <addForeignKeyConstraint baseColumnNames="estatus_de_compra_id"
+                                 baseTableName="compra"
+                                 constraintName="fk_compra_estatus_de_compra_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="estatus_de_compra"/>
+
+        <addForeignKeyConstraint baseColumnNames="caja_id"
+                                 baseTableName="compra"
+                                 constraintName="fk_compra_caja_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caja"/>
+
+        <addForeignKeyConstraint baseColumnNames="compras_id"
+                                 baseTableName="compra_productos"
+                                 constraintName="fk_compra_productos_compras_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="compra"/>
+        <addForeignKeyConstraint baseColumnNames="productos_id"
+                                 baseTableName="compra_productos"
+                                 constraintName="fk_compra_productos_productos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="producto"/>
+        
+    </changeSet>
+</databaseChangeLog>

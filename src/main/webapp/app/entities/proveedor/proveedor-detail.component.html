@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="proveedor">
+            <h2><span>Proveedor</span> {{proveedor.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Codigo</span></dt>
+                <dd>
+                    <span>{{proveedor.codigo}}</span>
+                </dd>
+                <dt><span>Razon Social</span></dt>
+                <dd>
+                    <span>{{proveedor.razonSocial}}</span>
+                </dd>
+                <dt><span>Direccion</span></dt>
+                <dd>
+                    <span>{{proveedor.direccion}}</span>
+                </dd>
+                <dt><span>Correo</span></dt>
+                <dd>
+                    <span>{{proveedor.correo}}</span>
+                </dd>
+                <dt><span>Telefono</span></dt>
+                <dd>
+                    <span>{{proveedor.telefono}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/proveedor', proveedor.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

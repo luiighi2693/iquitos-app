@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="variante">
+            <h2><span>Variante</span> {{variante.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Nombre</span></dt>
+                <dd>
+                    <span>{{variante.nombre}}</span>
+                </dd>
+                <dt><span>Descripcion</span></dt>
+                <dd>
+                    <span>{{variante.descripcion}}</span>
+                </dd>
+                <dt><span>Precio Venta</span></dt>
+                <dd>
+                    <span>{{variante.precioVenta}}</span>
+                </dd>
+                <dt><span>Precio Compra</span></dt>
+                <dd>
+                    <span>{{variante.precioCompra}}</span>
+                </dd>
+                <dt><span>Productos</span></dt>
+                <dd>
+                    <span *ngFor="let productos of variante.productos; let last = last">
+                        <a [routerLink]="['/producto', productos?.id, 'view' ]">{{productos.codigo}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/variante', variante.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

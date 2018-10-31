@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="empleado">
+            <h2><span>Empleado</span> {{empleado.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Nombre</span></dt>
+                <dd>
+                    <span>{{empleado.nombre}}</span>
+                </dd>
+                <dt><span>Apellido</span></dt>
+                <dd>
+                    <span>{{empleado.apellido}}</span>
+                </dd>
+                <dt><span>Dni</span></dt>
+                <dd>
+                    <span>{{empleado.dni}}</span>
+                </dd>
+                <dt><span>Direccion</span></dt>
+                <dd>
+                    <span>{{empleado.direccion}}</span>
+                </dd>
+                <dt><span>Correo</span></dt>
+                <dd>
+                    <span>{{empleado.correo}}</span>
+                </dd>
+                <dt><span>Fecha De Nacimiento</span></dt>
+                <dd>
+                    <span>{{empleado.fechaDeNacimiento}}</span>
+                </dd>
+                <dt><span>Sexo</span></dt>
+                <dd>
+                    <span>{{empleado.sexo}}</span>
+                </dd>
+                <dt><span>Telefono</span></dt>
+                <dd>
+                    <span>{{empleado.telefono}}</span>
+                </dd>
+                <dt><span>Imagen</span></dt>
+                <dd>
+                    <div *ngIf="empleado.imagen">
+                        <a (click)="openFile(empleado.imagenContentType, empleado.imagen)">
+                            <img [src]="'data:' + empleado.imagenContentType + ';base64,' + empleado.imagen" style="max-width: 100%;" alt="empleado image"/>
+                        </a>
+                        {{empleado.imagenContentType}}, {{byteSize(empleado.imagen)}}
+                    </div>
+                </dd>
+                <dt><span>Rol Empleado</span></dt>
+                <dd>
+                    <span>{{empleado.rolEmpleado}}</span>
+                </dd>
+                <dt><span>Usuario</span></dt>
+                <dd>
+                    <div *ngIf="empleado.usuarioId">
+                        <a [routerLink]="['/usuario-externo', empleado.usuarioId, 'view']">{{empleado.usuarioDni}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/empleado', empleado.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

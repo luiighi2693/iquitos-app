@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Amortizacion.
+    -->
+    <changeSet id="20181031175907-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="tipo_de_documento_de_venta_id"
+                                 baseTableName="amortizacion"
+                                 constraintName="fk_amortizacion_tipo_de_documento_de_venta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_de_documento_de_venta"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_de_pago_id"
+                                 baseTableName="amortizacion"
+                                 constraintName="fk_amortizacion_tipo_de_pago_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_de_pago"/>
+
+        <addForeignKeyConstraint baseColumnNames="venta_id"
+                                 baseTableName="amortizacion"
+                                 constraintName="fk_amortizacion_venta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venta"/>
+
+    </changeSet>
+</databaseChangeLog>
