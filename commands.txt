@@ -1,0 +1,10 @@
+commands (refresh changes):
+if you want a delete a entity, you must delere all coincidences
+
+delete changelog items folder
+
+jhipster --with-entities --force
+
+jhipster import-jdl  jhipster-jdl.jh --force
+
+mvn install -DskipTests
