@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { TipoDeDocumentoDeVenta } from 'app/shared/model/tipo-de-documento-de-venta.model';
 import { TipoDeDocumentoDeVentaService } from './tipo-de-documento-de-venta.service';
 import { TipoDeDocumentoDeVentaComponent } from './tipo-de-documento-de-venta.component';
@@ -16,12 +16,13 @@ import { ITipoDeDocumentoDeVenta } from 'app/shared/model/tipo-de-documento-de-v
 export class TipoDeDocumentoDeVentaResolve implements Resolve<ITipoDeDocumentoDeVenta> {
     constructor(private service: TipoDeDocumentoDeVentaService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<TipoDeDocumentoDeVenta> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service
-                .find(id)
-                .pipe(map((tipoDeDocumentoDeVenta: HttpResponse<TipoDeDocumentoDeVenta>) => tipoDeDocumentoDeVenta.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<TipoDeDocumentoDeVenta>) => response.ok),
+                map((tipoDeDocumentoDeVenta: HttpResponse<TipoDeDocumentoDeVenta>) => tipoDeDocumentoDeVenta.body)
+            );
         }
         return of(new TipoDeDocumentoDeVenta());
     }

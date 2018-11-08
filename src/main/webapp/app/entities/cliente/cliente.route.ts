@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Cliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from './cliente.service';
 import { ClienteComponent } from './cliente.component';
@@ -16,10 +16,13 @@ import { ICliente } from 'app/shared/model/cliente.model';
 export class ClienteResolve implements Resolve<ICliente> {
     constructor(private service: ClienteService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Cliente> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((cliente: HttpResponse<Cliente>) => cliente.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Cliente>) => response.ok),
+                map((cliente: HttpResponse<Cliente>) => cliente.body)
+            );
         }
         return of(new Cliente());
     }

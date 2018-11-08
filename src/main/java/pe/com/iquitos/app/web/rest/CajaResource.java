@@ -37,7 +37,7 @@ public class CajaResource {
 
     private static final String ENTITY_NAME = "caja";
 
-    private CajaService cajaService;
+    private final CajaService cajaService;
 
     public CajaResource(CajaService cajaService) {
         this.cajaService = cajaService;
@@ -97,7 +97,7 @@ public class CajaResource {
         log.debug("REST request to get a page of Cajas");
         Page<CajaDTO> page = cajaService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cajas");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

@@ -71,7 +71,6 @@ public class PedidoResourceIntTest {
 
     @Autowired
     private PedidoMapper pedidoMapper;
-    
 
     @Mock
     private PedidoService pedidoServiceMock;
@@ -256,6 +255,7 @@ public class PedidoResourceIntTest {
             .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
     }
     
+    @SuppressWarnings({"unchecked"})
     public void getAllPedidosWithEagerRelationshipsIsEnabled() throws Exception {
         PedidoResource pedidoResource = new PedidoResource(pedidoServiceMock);
         when(pedidoServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -272,6 +272,7 @@ public class PedidoResourceIntTest {
         verify(pedidoServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
+    @SuppressWarnings({"unchecked"})
     public void getAllPedidosWithEagerRelationshipsIsNotEnabled() throws Exception {
         PedidoResource pedidoResource = new PedidoResource(pedidoServiceMock);
             when(pedidoServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -404,10 +405,10 @@ public class PedidoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(pedido.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nota").value(hasItem(DEFAULT_NOTA.toString())))
-            .andExpect(jsonPath("$.[*].guia").value(hasItem(DEFAULT_GUIA.toString())))
+            .andExpect(jsonPath("$.[*].nota").value(hasItem(DEFAULT_NOTA)))
+            .andExpect(jsonPath("$.[*].guia").value(hasItem(DEFAULT_GUIA)))
             .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
-            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
+            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA)));
     }
 
     @Test

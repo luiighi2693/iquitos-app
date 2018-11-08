@@ -27,11 +27,11 @@ public class VentaServiceImpl implements VentaService {
 
     private final Logger log = LoggerFactory.getLogger(VentaServiceImpl.class);
 
-    private VentaRepository ventaRepository;
+    private final VentaRepository ventaRepository;
 
-    private VentaMapper ventaMapper;
+    private final VentaMapper ventaMapper;
 
-    private VentaSearchRepository ventaSearchRepository;
+    private final VentaSearchRepository ventaSearchRepository;
 
     public VentaServiceImpl(VentaRepository ventaRepository, VentaMapper ventaMapper, VentaSearchRepository ventaSearchRepository) {
         this.ventaRepository = ventaRepository;

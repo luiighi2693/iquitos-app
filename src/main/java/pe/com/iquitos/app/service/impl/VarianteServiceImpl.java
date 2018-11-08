@@ -27,11 +27,11 @@ public class VarianteServiceImpl implements VarianteService {
 
     private final Logger log = LoggerFactory.getLogger(VarianteServiceImpl.class);
 
-    private VarianteRepository varianteRepository;
+    private final VarianteRepository varianteRepository;
 
-    private VarianteMapper varianteMapper;
+    private final VarianteMapper varianteMapper;
 
-    private VarianteSearchRepository varianteSearchRepository;
+    private final VarianteSearchRepository varianteSearchRepository;
 
     public VarianteServiceImpl(VarianteRepository varianteRepository, VarianteMapper varianteMapper, VarianteSearchRepository varianteSearchRepository) {
         this.varianteRepository = varianteRepository;

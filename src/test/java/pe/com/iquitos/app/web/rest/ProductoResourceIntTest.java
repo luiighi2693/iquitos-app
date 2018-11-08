@@ -91,7 +91,6 @@ public class ProductoResourceIntTest {
 
     @Autowired
     private ProductoMapper productoMapper;
-    
 
     @Mock
     private ProductoService productoServiceMock;
@@ -275,6 +274,7 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())));
     }
     
+    @SuppressWarnings({"unchecked"})
     public void getAllProductosWithEagerRelationshipsIsEnabled() throws Exception {
         ProductoResource productoResource = new ProductoResource(productoServiceMock);
         when(productoServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -291,6 +291,7 @@ public class ProductoResourceIntTest {
         verify(productoServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
+    @SuppressWarnings({"unchecked"})
     public void getAllProductosWithEagerRelationshipsIsNotEnabled() throws Exception {
         ProductoResource productoResource = new ProductoResource(productoServiceMock);
             when(productoServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -441,8 +442,8 @@ public class ProductoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(producto.getId().intValue())))
-            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
+            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
+            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].fechaExpiracion").value(hasItem(DEFAULT_FECHA_EXPIRACION.toString())))
             .andExpect(jsonPath("$.[*].esFavorito").value(hasItem(DEFAULT_ES_FAVORITO.booleanValue())))
             .andExpect(jsonPath("$.[*].visibleParaLaVenta").value(hasItem(DEFAULT_VISIBLE_PARA_LA_VENTA.booleanValue())))

@@ -27,11 +27,11 @@ public class CuentaProveedorServiceImpl implements CuentaProveedorService {
 
     private final Logger log = LoggerFactory.getLogger(CuentaProveedorServiceImpl.class);
 
-    private CuentaProveedorRepository cuentaProveedorRepository;
+    private final CuentaProveedorRepository cuentaProveedorRepository;
 
-    private CuentaProveedorMapper cuentaProveedorMapper;
+    private final CuentaProveedorMapper cuentaProveedorMapper;
 
-    private CuentaProveedorSearchRepository cuentaProveedorSearchRepository;
+    private final CuentaProveedorSearchRepository cuentaProveedorSearchRepository;
 
     public CuentaProveedorServiceImpl(CuentaProveedorRepository cuentaProveedorRepository, CuentaProveedorMapper cuentaProveedorMapper, CuentaProveedorSearchRepository cuentaProveedorSearchRepository) {
         this.cuentaProveedorRepository = cuentaProveedorRepository;

@@ -27,11 +27,11 @@ public class UnidadDeMedidaServiceImpl implements UnidadDeMedidaService {
 
     private final Logger log = LoggerFactory.getLogger(UnidadDeMedidaServiceImpl.class);
 
-    private UnidadDeMedidaRepository unidadDeMedidaRepository;
+    private final UnidadDeMedidaRepository unidadDeMedidaRepository;
 
-    private UnidadDeMedidaMapper unidadDeMedidaMapper;
+    private final UnidadDeMedidaMapper unidadDeMedidaMapper;
 
-    private UnidadDeMedidaSearchRepository unidadDeMedidaSearchRepository;
+    private final UnidadDeMedidaSearchRepository unidadDeMedidaSearchRepository;
 
     public UnidadDeMedidaServiceImpl(UnidadDeMedidaRepository unidadDeMedidaRepository, UnidadDeMedidaMapper unidadDeMedidaMapper, UnidadDeMedidaSearchRepository unidadDeMedidaSearchRepository) {
         this.unidadDeMedidaRepository = unidadDeMedidaRepository;

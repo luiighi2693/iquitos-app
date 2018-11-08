@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { EstatusDeProductoEntregado } from 'app/shared/model/estatus-de-producto-entregado.model';
 import { EstatusDeProductoEntregadoService } from './estatus-de-producto-entregado.service';
 import { EstatusDeProductoEntregadoComponent } from './estatus-de-producto-entregado.component';
@@ -16,12 +16,13 @@ import { IEstatusDeProductoEntregado } from 'app/shared/model/estatus-de-product
 export class EstatusDeProductoEntregadoResolve implements Resolve<IEstatusDeProductoEntregado> {
     constructor(private service: EstatusDeProductoEntregadoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<EstatusDeProductoEntregado> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service
-                .find(id)
-                .pipe(map((estatusDeProductoEntregado: HttpResponse<EstatusDeProductoEntregado>) => estatusDeProductoEntregado.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<EstatusDeProductoEntregado>) => response.ok),
+                map((estatusDeProductoEntregado: HttpResponse<EstatusDeProductoEntregado>) => estatusDeProductoEntregado.body)
+            );
         }
         return of(new EstatusDeProductoEntregado());
     }

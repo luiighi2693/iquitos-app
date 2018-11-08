@@ -67,7 +67,7 @@ public class CajaResourceIntTest {
 
     @Autowired
     private CajaMapper cajaMapper;
-    
+
     @Autowired
     private CajaService cajaService;
 

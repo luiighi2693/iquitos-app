@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { UnidadDeMedida } from 'app/shared/model/unidad-de-medida.model';
 import { UnidadDeMedidaService } from './unidad-de-medida.service';
 import { UnidadDeMedidaComponent } from './unidad-de-medida.component';
@@ -16,10 +16,13 @@ import { IUnidadDeMedida } from 'app/shared/model/unidad-de-medida.model';
 export class UnidadDeMedidaResolve implements Resolve<IUnidadDeMedida> {
     constructor(private service: UnidadDeMedidaService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<UnidadDeMedida> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((unidadDeMedida: HttpResponse<UnidadDeMedida>) => unidadDeMedida.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<UnidadDeMedida>) => response.ok),
+                map((unidadDeMedida: HttpResponse<UnidadDeMedida>) => unidadDeMedida.body)
+            );
         }
         return of(new UnidadDeMedida());
     }

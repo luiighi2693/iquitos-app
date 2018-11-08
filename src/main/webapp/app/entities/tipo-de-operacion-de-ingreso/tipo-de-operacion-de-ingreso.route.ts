@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { TipoDeOperacionDeIngreso } from 'app/shared/model/tipo-de-operacion-de-ingreso.model';
 import { TipoDeOperacionDeIngresoService } from './tipo-de-operacion-de-ingreso.service';
 import { TipoDeOperacionDeIngresoComponent } from './tipo-de-operacion-de-ingreso.component';
@@ -16,12 +16,13 @@ import { ITipoDeOperacionDeIngreso } from 'app/shared/model/tipo-de-operacion-de
 export class TipoDeOperacionDeIngresoResolve implements Resolve<ITipoDeOperacionDeIngreso> {
     constructor(private service: TipoDeOperacionDeIngresoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<TipoDeOperacionDeIngreso> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service
-                .find(id)
-                .pipe(map((tipoDeOperacionDeIngreso: HttpResponse<TipoDeOperacionDeIngreso>) => tipoDeOperacionDeIngreso.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<TipoDeOperacionDeIngreso>) => response.ok),
+                map((tipoDeOperacionDeIngreso: HttpResponse<TipoDeOperacionDeIngreso>) => tipoDeOperacionDeIngreso.body)
+            );
         }
         return of(new TipoDeOperacionDeIngreso());
     }

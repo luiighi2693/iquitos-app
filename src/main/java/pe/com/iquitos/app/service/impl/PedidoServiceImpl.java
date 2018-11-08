@@ -27,11 +27,11 @@ public class PedidoServiceImpl implements PedidoService {
 
     private final Logger log = LoggerFactory.getLogger(PedidoServiceImpl.class);
 
-    private PedidoRepository pedidoRepository;
+    private final PedidoRepository pedidoRepository;
 
-    private PedidoMapper pedidoMapper;
+    private final PedidoMapper pedidoMapper;
 
-    private PedidoSearchRepository pedidoSearchRepository;
+    private final PedidoSearchRepository pedidoSearchRepository;
 
     public PedidoServiceImpl(PedidoRepository pedidoRepository, PedidoMapper pedidoMapper, PedidoSearchRepository pedidoSearchRepository) {
         this.pedidoRepository = pedidoRepository;

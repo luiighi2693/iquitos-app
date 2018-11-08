@@ -27,11 +27,11 @@ public class TipoDeOperacionDeGastoServiceImpl implements TipoDeOperacionDeGasto
 
     private final Logger log = LoggerFactory.getLogger(TipoDeOperacionDeGastoServiceImpl.class);
 
-    private TipoDeOperacionDeGastoRepository tipoDeOperacionDeGastoRepository;
+    private final TipoDeOperacionDeGastoRepository tipoDeOperacionDeGastoRepository;
 
-    private TipoDeOperacionDeGastoMapper tipoDeOperacionDeGastoMapper;
+    private final TipoDeOperacionDeGastoMapper tipoDeOperacionDeGastoMapper;
 
-    private TipoDeOperacionDeGastoSearchRepository tipoDeOperacionDeGastoSearchRepository;
+    private final TipoDeOperacionDeGastoSearchRepository tipoDeOperacionDeGastoSearchRepository;
 
     public TipoDeOperacionDeGastoServiceImpl(TipoDeOperacionDeGastoRepository tipoDeOperacionDeGastoRepository, TipoDeOperacionDeGastoMapper tipoDeOperacionDeGastoMapper, TipoDeOperacionDeGastoSearchRepository tipoDeOperacionDeGastoSearchRepository) {
         this.tipoDeOperacionDeGastoRepository = tipoDeOperacionDeGastoRepository;

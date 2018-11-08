@@ -37,7 +37,7 @@ public class VentaResource {
 
     private static final String ENTITY_NAME = "venta";
 
-    private VentaService ventaService;
+    private final VentaService ventaService;
 
     public VentaResource(VentaService ventaService) {
         this.ventaService = ventaService;
@@ -103,7 +103,7 @@ public class VentaResource {
             page = ventaService.findAll(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/ventas?eagerload=%b", eagerload));
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

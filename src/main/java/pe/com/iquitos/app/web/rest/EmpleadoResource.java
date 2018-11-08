@@ -37,7 +37,7 @@ public class EmpleadoResource {
 
     private static final String ENTITY_NAME = "empleado";
 
-    private EmpleadoService empleadoService;
+    private final EmpleadoService empleadoService;
 
     public EmpleadoResource(EmpleadoService empleadoService) {
         this.empleadoService = empleadoService;
@@ -97,7 +97,7 @@ public class EmpleadoResource {
         log.debug("REST request to get a page of Empleados");
         Page<EmpleadoDTO> page = empleadoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/empleados");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

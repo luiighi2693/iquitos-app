@@ -37,7 +37,7 @@ public class CategoriaResource {
 
     private static final String ENTITY_NAME = "categoria";
 
-    private CategoriaService categoriaService;
+    private final CategoriaService categoriaService;
 
     public CategoriaResource(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
@@ -97,7 +97,7 @@ public class CategoriaResource {
         log.debug("REST request to get a page of Categorias");
         Page<CategoriaDTO> page = categoriaService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/categorias");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

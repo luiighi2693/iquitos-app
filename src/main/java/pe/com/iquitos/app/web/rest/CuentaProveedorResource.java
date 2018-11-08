@@ -37,7 +37,7 @@ public class CuentaProveedorResource {
 
     private static final String ENTITY_NAME = "cuentaProveedor";
 
-    private CuentaProveedorService cuentaProveedorService;
+    private final CuentaProveedorService cuentaProveedorService;
 
     public CuentaProveedorResource(CuentaProveedorService cuentaProveedorService) {
         this.cuentaProveedorService = cuentaProveedorService;
@@ -97,7 +97,7 @@ public class CuentaProveedorResource {
         log.debug("REST request to get a page of CuentaProveedors");
         Page<CuentaProveedorDTO> page = cuentaProveedorService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cuenta-proveedors");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

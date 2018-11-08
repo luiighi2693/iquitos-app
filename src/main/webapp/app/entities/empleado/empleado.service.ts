@@ -57,7 +57,7 @@ export class EmpleadoService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(empleado: IEmpleado): IEmpleado {
+    protected convertDateFromClient(empleado: IEmpleado): IEmpleado {
         const copy: IEmpleado = Object.assign({}, empleado, {
             fechaDeNacimiento:
                 empleado.fechaDeNacimiento != null && empleado.fechaDeNacimiento.isValid()
@@ -67,15 +67,19 @@ export class EmpleadoService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fechaDeNacimiento = res.body.fechaDeNacimiento != null ? moment(res.body.fechaDeNacimiento) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fechaDeNacimiento = res.body.fechaDeNacimiento != null ? moment(res.body.fechaDeNacimiento) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((empleado: IEmpleado) => {
-            empleado.fechaDeNacimiento = empleado.fechaDeNacimiento != null ? moment(empleado.fechaDeNacimiento) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((empleado: IEmpleado) => {
+                empleado.fechaDeNacimiento = empleado.fechaDeNacimiento != null ? moment(empleado.fechaDeNacimiento) : null;
+            });
+        }
         return res;
     }
 }

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { CuentaProveedor } from 'app/shared/model/cuenta-proveedor.model';
 import { CuentaProveedorService } from './cuenta-proveedor.service';
 import { CuentaProveedorComponent } from './cuenta-proveedor.component';
@@ -16,10 +16,13 @@ import { ICuentaProveedor } from 'app/shared/model/cuenta-proveedor.model';
 export class CuentaProveedorResolve implements Resolve<ICuentaProveedor> {
     constructor(private service: CuentaProveedorService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<CuentaProveedor> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((cuentaProveedor: HttpResponse<CuentaProveedor>) => cuentaProveedor.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<CuentaProveedor>) => response.ok),
+                map((cuentaProveedor: HttpResponse<CuentaProveedor>) => cuentaProveedor.body)
+            );
         }
         return of(new CuentaProveedor());
     }

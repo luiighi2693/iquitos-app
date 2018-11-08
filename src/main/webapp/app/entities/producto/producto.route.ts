@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Producto } from 'app/shared/model/producto.model';
 import { ProductoService } from './producto.service';
 import { ProductoComponent } from './producto.component';
@@ -16,10 +16,13 @@ import { IProducto } from 'app/shared/model/producto.model';
 export class ProductoResolve implements Resolve<IProducto> {
     constructor(private service: ProductoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Producto> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((producto: HttpResponse<Producto>) => producto.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Producto>) => response.ok),
+                map((producto: HttpResponse<Producto>) => producto.body)
+            );
         }
         return of(new Producto());
     }

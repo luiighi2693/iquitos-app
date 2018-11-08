@@ -85,7 +85,6 @@ public class VentaResourceIntTest {
 
     @Autowired
     private VentaMapper ventaMapper;
-    
 
     @Mock
     private VentaService ventaServiceMock;
@@ -320,6 +319,7 @@ public class VentaResourceIntTest {
             .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
     }
     
+    @SuppressWarnings({"unchecked"})
     public void getAllVentasWithEagerRelationshipsIsEnabled() throws Exception {
         VentaResource ventaResource = new VentaResource(ventaServiceMock);
         when(ventaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -336,6 +336,7 @@ public class VentaResourceIntTest {
         verify(ventaServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
+    @SuppressWarnings({"unchecked"})
     public void getAllVentasWithEagerRelationshipsIsNotEnabled() throws Exception {
         VentaResource ventaResource = new VentaResource(ventaServiceMock);
             when(ventaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -480,14 +481,14 @@ public class VentaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(venta.getId().intValue())))
-            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
+            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
             .andExpect(jsonPath("$.[*].subTotal").value(hasItem(DEFAULT_SUB_TOTAL.doubleValue())))
             .andExpect(jsonPath("$.[*].impuesto").value(hasItem(DEFAULT_IMPUESTO.doubleValue())))
             .andExpect(jsonPath("$.[*].montoTotal").value(hasItem(DEFAULT_MONTO_TOTAL.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
-            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA.toString())))
-            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
+            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA)))
+            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA)));
     }
 
     @Test

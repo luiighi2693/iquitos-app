@@ -27,11 +27,11 @@ public class ProductoServiceImpl implements ProductoService {
 
     private final Logger log = LoggerFactory.getLogger(ProductoServiceImpl.class);
 
-    private ProductoRepository productoRepository;
+    private final ProductoRepository productoRepository;
 
-    private ProductoMapper productoMapper;
+    private final ProductoMapper productoMapper;
 
-    private ProductoSearchRepository productoSearchRepository;
+    private final ProductoSearchRepository productoSearchRepository;
 
     public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper, ProductoSearchRepository productoSearchRepository) {
         this.productoRepository = productoRepository;

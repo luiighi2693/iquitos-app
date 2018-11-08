@@ -37,7 +37,7 @@ public class UsuarioExternoResource {
 
     private static final String ENTITY_NAME = "usuarioExterno";
 
-    private UsuarioExternoService usuarioExternoService;
+    private final UsuarioExternoService usuarioExternoService;
 
     public UsuarioExternoResource(UsuarioExternoService usuarioExternoService) {
         this.usuarioExternoService = usuarioExternoService;
@@ -97,7 +97,7 @@ public class UsuarioExternoResource {
         log.debug("REST request to get a page of UsuarioExternos");
         Page<UsuarioExternoDTO> page = usuarioExternoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/usuario-externos");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

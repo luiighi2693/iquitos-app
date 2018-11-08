@@ -56,7 +56,7 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
 
     @Autowired
     private TipoDeDocumentoDeVentaMapper tipoDeDocumentoDeVentaMapper;
-    
+
     @Autowired
     private TipoDeDocumentoDeVentaService tipoDeDocumentoDeVentaService;
 
@@ -298,7 +298,7 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tipoDeDocumentoDeVenta.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)));
     }
 
     @Test

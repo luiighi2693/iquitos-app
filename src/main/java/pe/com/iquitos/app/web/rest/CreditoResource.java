@@ -37,7 +37,7 @@ public class CreditoResource {
 
     private static final String ENTITY_NAME = "credito";
 
-    private CreditoService creditoService;
+    private final CreditoService creditoService;
 
     public CreditoResource(CreditoService creditoService) {
         this.creditoService = creditoService;
@@ -97,7 +97,7 @@ public class CreditoResource {
         log.debug("REST request to get a page of Creditos");
         Page<CreditoDTO> page = creditoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/creditos");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

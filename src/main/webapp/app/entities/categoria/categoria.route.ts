@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Categoria } from 'app/shared/model/categoria.model';
 import { CategoriaService } from './categoria.service';
 import { CategoriaComponent } from './categoria.component';
@@ -16,10 +16,13 @@ import { ICategoria } from 'app/shared/model/categoria.model';
 export class CategoriaResolve implements Resolve<ICategoria> {
     constructor(private service: CategoriaService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Categoria> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((categoria: HttpResponse<Categoria>) => categoria.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Categoria>) => response.ok),
+                map((categoria: HttpResponse<Categoria>) => categoria.body)
+            );
         }
         return of(new Categoria());
     }

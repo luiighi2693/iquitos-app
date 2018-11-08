@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { TipoDeOperacionDeGasto } from 'app/shared/model/tipo-de-operacion-de-gasto.model';
 import { TipoDeOperacionDeGastoService } from './tipo-de-operacion-de-gasto.service';
 import { TipoDeOperacionDeGastoComponent } from './tipo-de-operacion-de-gasto.component';
@@ -16,12 +16,13 @@ import { ITipoDeOperacionDeGasto } from 'app/shared/model/tipo-de-operacion-de-g
 export class TipoDeOperacionDeGastoResolve implements Resolve<ITipoDeOperacionDeGasto> {
     constructor(private service: TipoDeOperacionDeGastoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<TipoDeOperacionDeGasto> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service
-                .find(id)
-                .pipe(map((tipoDeOperacionDeGasto: HttpResponse<TipoDeOperacionDeGasto>) => tipoDeOperacionDeGasto.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<TipoDeOperacionDeGasto>) => response.ok),
+                map((tipoDeOperacionDeGasto: HttpResponse<TipoDeOperacionDeGasto>) => tipoDeOperacionDeGasto.body)
+            );
         }
         return of(new TipoDeOperacionDeGasto());
     }

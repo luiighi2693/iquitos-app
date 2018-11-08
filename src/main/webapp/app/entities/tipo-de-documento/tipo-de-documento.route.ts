@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { TipoDeDocumento } from 'app/shared/model/tipo-de-documento.model';
 import { TipoDeDocumentoService } from './tipo-de-documento.service';
 import { TipoDeDocumentoComponent } from './tipo-de-documento.component';
@@ -16,10 +16,13 @@ import { ITipoDeDocumento } from 'app/shared/model/tipo-de-documento.model';
 export class TipoDeDocumentoResolve implements Resolve<ITipoDeDocumento> {
     constructor(private service: TipoDeDocumentoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<TipoDeDocumento> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((tipoDeDocumento: HttpResponse<TipoDeDocumento>) => tipoDeDocumento.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<TipoDeDocumento>) => response.ok),
+                map((tipoDeDocumento: HttpResponse<TipoDeDocumento>) => tipoDeDocumento.body)
+            );
         }
         return of(new TipoDeDocumento());
     }

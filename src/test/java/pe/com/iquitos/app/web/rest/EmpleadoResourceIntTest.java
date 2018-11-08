@@ -90,7 +90,7 @@ public class EmpleadoResourceIntTest {
 
     @Autowired
     private EmpleadoMapper empleadoMapper;
-    
+
     @Autowired
     private EmpleadoService empleadoService;
 
@@ -487,14 +487,14 @@ public class EmpleadoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(empleado.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
-            .andExpect(jsonPath("$.[*].apellido").value(hasItem(DEFAULT_APELLIDO.toString())))
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
+            .andExpect(jsonPath("$.[*].apellido").value(hasItem(DEFAULT_APELLIDO)))
             .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI)))
-            .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION.toString())))
-            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO.toString())))
+            .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION)))
+            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)))
             .andExpect(jsonPath("$.[*].fechaDeNacimiento").value(hasItem(DEFAULT_FECHA_DE_NACIMIENTO.toString())))
             .andExpect(jsonPath("$.[*].sexo").value(hasItem(DEFAULT_SEXO.toString())))
-            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())))
+            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].rolEmpleado").value(hasItem(DEFAULT_ROL_EMPLEADO.toString())));

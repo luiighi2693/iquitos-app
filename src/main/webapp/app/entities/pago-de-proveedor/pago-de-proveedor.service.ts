@@ -57,22 +57,26 @@ export class PagoDeProveedorService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(pagoDeProveedor: IPagoDeProveedor): IPagoDeProveedor {
+    protected convertDateFromClient(pagoDeProveedor: IPagoDeProveedor): IPagoDeProveedor {
         const copy: IPagoDeProveedor = Object.assign({}, pagoDeProveedor, {
             fecha: pagoDeProveedor.fecha != null && pagoDeProveedor.fecha.isValid() ? pagoDeProveedor.fecha.format(DATE_FORMAT) : null
         });
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((pagoDeProveedor: IPagoDeProveedor) => {
-            pagoDeProveedor.fecha = pagoDeProveedor.fecha != null ? moment(pagoDeProveedor.fecha) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((pagoDeProveedor: IPagoDeProveedor) => {
+                pagoDeProveedor.fecha = pagoDeProveedor.fecha != null ? moment(pagoDeProveedor.fecha) : null;
+            });
+        }
         return res;
     }
 }

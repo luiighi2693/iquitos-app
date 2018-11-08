@@ -57,22 +57,26 @@ export class AmortizacionService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(amortizacion: IAmortizacion): IAmortizacion {
+    protected convertDateFromClient(amortizacion: IAmortizacion): IAmortizacion {
         const copy: IAmortizacion = Object.assign({}, amortizacion, {
             fecha: amortizacion.fecha != null && amortizacion.fecha.isValid() ? amortizacion.fecha.format(DATE_FORMAT) : null
         });
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((amortizacion: IAmortizacion) => {
-            amortizacion.fecha = amortizacion.fecha != null ? moment(amortizacion.fecha) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((amortizacion: IAmortizacion) => {
+                amortizacion.fecha = amortizacion.fecha != null ? moment(amortizacion.fecha) : null;
+            });
+        }
         return res;
     }
 }

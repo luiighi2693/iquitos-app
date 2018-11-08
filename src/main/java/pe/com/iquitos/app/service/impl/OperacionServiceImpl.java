@@ -27,11 +27,11 @@ public class OperacionServiceImpl implements OperacionService {
 
     private final Logger log = LoggerFactory.getLogger(OperacionServiceImpl.class);
 
-    private OperacionRepository operacionRepository;
+    private final OperacionRepository operacionRepository;
 
-    private OperacionMapper operacionMapper;
+    private final OperacionMapper operacionMapper;
 
-    private OperacionSearchRepository operacionSearchRepository;
+    private final OperacionSearchRepository operacionSearchRepository;
 
     public OperacionServiceImpl(OperacionRepository operacionRepository, OperacionMapper operacionMapper, OperacionSearchRepository operacionSearchRepository) {
         this.operacionRepository = operacionRepository;

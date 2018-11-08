@@ -57,22 +57,26 @@ export class CuentaProveedorService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(cuentaProveedor: ICuentaProveedor): ICuentaProveedor {
+    protected convertDateFromClient(cuentaProveedor: ICuentaProveedor): ICuentaProveedor {
         const copy: ICuentaProveedor = Object.assign({}, cuentaProveedor, {
             fecha: cuentaProveedor.fecha != null && cuentaProveedor.fecha.isValid() ? cuentaProveedor.fecha.format(DATE_FORMAT) : null
         });
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((cuentaProveedor: ICuentaProveedor) => {
-            cuentaProveedor.fecha = cuentaProveedor.fecha != null ? moment(cuentaProveedor.fecha) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((cuentaProveedor: ICuentaProveedor) => {
+                cuentaProveedor.fecha = cuentaProveedor.fecha != null ? moment(cuentaProveedor.fecha) : null;
+            });
+        }
         return res;
     }
 }

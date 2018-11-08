@@ -27,11 +27,11 @@ public class EstatusDeCompraServiceImpl implements EstatusDeCompraService {
 
     private final Logger log = LoggerFactory.getLogger(EstatusDeCompraServiceImpl.class);
 
-    private EstatusDeCompraRepository estatusDeCompraRepository;
+    private final EstatusDeCompraRepository estatusDeCompraRepository;
 
-    private EstatusDeCompraMapper estatusDeCompraMapper;
+    private final EstatusDeCompraMapper estatusDeCompraMapper;
 
-    private EstatusDeCompraSearchRepository estatusDeCompraSearchRepository;
+    private final EstatusDeCompraSearchRepository estatusDeCompraSearchRepository;
 
     public EstatusDeCompraServiceImpl(EstatusDeCompraRepository estatusDeCompraRepository, EstatusDeCompraMapper estatusDeCompraMapper, EstatusDeCompraSearchRepository estatusDeCompraSearchRepository) {
         this.estatusDeCompraRepository = estatusDeCompraRepository;

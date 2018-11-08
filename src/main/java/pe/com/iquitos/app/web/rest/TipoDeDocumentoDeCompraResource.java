@@ -37,7 +37,7 @@ public class TipoDeDocumentoDeCompraResource {
 
     private static final String ENTITY_NAME = "tipoDeDocumentoDeCompra";
 
-    private TipoDeDocumentoDeCompraService tipoDeDocumentoDeCompraService;
+    private final TipoDeDocumentoDeCompraService tipoDeDocumentoDeCompraService;
 
     public TipoDeDocumentoDeCompraResource(TipoDeDocumentoDeCompraService tipoDeDocumentoDeCompraService) {
         this.tipoDeDocumentoDeCompraService = tipoDeDocumentoDeCompraService;
@@ -97,7 +97,7 @@ public class TipoDeDocumentoDeCompraResource {
         log.debug("REST request to get a page of TipoDeDocumentoDeCompras");
         Page<TipoDeDocumentoDeCompraDTO> page = tipoDeDocumentoDeCompraService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tipo-de-documento-de-compras");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

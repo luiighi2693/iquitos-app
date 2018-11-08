@@ -37,7 +37,7 @@ public class TipoDeOperacionDeGastoResource {
 
     private static final String ENTITY_NAME = "tipoDeOperacionDeGasto";
 
-    private TipoDeOperacionDeGastoService tipoDeOperacionDeGastoService;
+    private final TipoDeOperacionDeGastoService tipoDeOperacionDeGastoService;
 
     public TipoDeOperacionDeGastoResource(TipoDeOperacionDeGastoService tipoDeOperacionDeGastoService) {
         this.tipoDeOperacionDeGastoService = tipoDeOperacionDeGastoService;
@@ -97,7 +97,7 @@ public class TipoDeOperacionDeGastoResource {
         log.debug("REST request to get a page of TipoDeOperacionDeGastos");
         Page<TipoDeOperacionDeGastoDTO> page = tipoDeOperacionDeGastoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tipo-de-operacion-de-gastos");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
