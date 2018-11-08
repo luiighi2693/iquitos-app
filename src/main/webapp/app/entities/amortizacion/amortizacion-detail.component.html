@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="amortizacion">
+            <h2><span>Amortizacion</span> {{amortizacion.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Monto</span></dt>
+                <dd>
+                    <span>{{amortizacion.monto}}</span>
+                </dd>
+                <dt><span>Monto Pagado</span></dt>
+                <dd>
+                    <span>{{amortizacion.montoPagado}}</span>
+                </dd>
+                <dt><span>Fecha</span></dt>
+                <dd>
+                    <span>{{amortizacion.fecha}}</span>
+                </dd>
+                <dt><span>Codigo Documento</span></dt>
+                <dd>
+                    <span>{{amortizacion.codigoDocumento}}</span>
+                </dd>
+                <dt><span>Glosa</span></dt>
+                <dd>
+                    <span>{{amortizacion.glosa}}</span>
+                </dd>
+                <dt><span>Tipo De Documento De Venta</span></dt>
+                <dd>
+                    <div *ngIf="amortizacion.tipoDeDocumentoDeVentaId">
+                        <a [routerLink]="['/tipo-de-documento-de-venta', amortizacion.tipoDeDocumentoDeVentaId, 'view']">{{amortizacion.tipoDeDocumentoDeVentaNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Pago</span></dt>
+                <dd>
+                    <div *ngIf="amortizacion.tipoDePagoId">
+                        <a [routerLink]="['/tipo-de-pago', amortizacion.tipoDePagoId, 'view']">{{amortizacion.tipoDePagoNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Venta</span></dt>
+                <dd>
+                    <div *ngIf="amortizacion.ventaId">
+                        <a [routerLink]="['/venta', amortizacion.ventaId, 'view']">{{amortizacion.ventaId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/amortizacion', amortizacion.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

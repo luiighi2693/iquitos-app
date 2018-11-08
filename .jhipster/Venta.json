@@ -1,0 +1,129 @@
+{
+    "name": "Venta",
+    "fields": [
+        {
+            "fieldName": "codigo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "subTotal",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "impuesto",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "montoTotal",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fecha",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "estatus",
+            "fieldType": "SellStatus",
+            "fieldValues": "PENDIENTE,COMPLETADO"
+        },
+        {
+            "fieldName": "glosa",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 1000
+        },
+        {
+            "fieldName": "metaData",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 5000
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "cliente",
+            "otherEntityName": "cliente",
+            "otherEntityField": "nombre",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "venta"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "empleado",
+            "otherEntityName": "empleado",
+            "otherEntityField": "nombre",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "venta"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "caja",
+            "otherEntityName": "caja",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "venta"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "amortizacion",
+            "otherEntityName": "amortizacion",
+            "otherEntityRelationshipName": "venta"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tipoDeDocumentoDeVenta",
+            "otherEntityName": "tipoDeDocumentoDeVenta",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tipoDePago",
+            "otherEntityName": "tipoDePago",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "estatusDeProductoEntregado",
+            "otherEntityName": "estatusDeProductoEntregado",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "productos",
+            "otherEntityName": "producto",
+            "otherEntityField": "codigo",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20181031175908",
+    "entityTableName": "venta",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

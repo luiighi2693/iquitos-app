@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Operacion.
+    -->
+    <changeSet id="20181031175920-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="caja_id"
+                                 baseTableName="operacion"
+                                 constraintName="fk_operacion_caja_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="caja"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_de_pago_id"
+                                 baseTableName="operacion"
+                                 constraintName="fk_operacion_tipo_de_pago_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_de_pago"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_de_operacion_de_ingreso_id"
+                                 baseTableName="operacion"
+                                 constraintName="fk_operacion_tipo_de_operacion_de_ingreso_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_de_operacion_de_ingreso"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_de_operacion_de_gasto_id"
+                                 baseTableName="operacion"
+                                 constraintName="fk_operacion_tipo_de_operacion_de_gasto_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_de_operacion_de_gasto"/>
+
+    </changeSet>
+</databaseChangeLog>

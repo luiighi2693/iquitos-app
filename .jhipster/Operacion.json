@@ -1,0 +1,65 @@
+{
+    "name": "Operacion",
+    "fields": [
+        {
+            "fieldName": "fecha",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "glosa",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 1000
+        },
+        {
+            "fieldName": "monto",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "tipoDeOperacion",
+            "fieldType": "OperationType",
+            "fieldValues": "INGRESO,EGRESO"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "caja",
+            "otherEntityName": "caja",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tipoDePago",
+            "otherEntityName": "tipoDePago",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tipoDeOperacionDeIngreso",
+            "otherEntityName": "tipoDeOperacionDeIngreso",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tipoDeOperacionDeGasto",
+            "otherEntityName": "tipoDeOperacionDeGasto",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "changelogDate": "20181031175920",
+    "entityTableName": "operacion",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

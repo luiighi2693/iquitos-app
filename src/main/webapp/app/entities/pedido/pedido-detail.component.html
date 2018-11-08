@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="pedido">
+            <h2><span>Pedido</span> {{pedido.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Nota</span></dt>
+                <dd>
+                    <span>{{pedido.nota}}</span>
+                </dd>
+                <dt><span>Guia</span></dt>
+                <dd>
+                    <span>{{pedido.guia}}</span>
+                </dd>
+                <dt><span>Estatus</span></dt>
+                <dd>
+                    <span>{{pedido.estatus}}</span>
+                </dd>
+                <dt><span>Meta Data</span></dt>
+                <dd>
+                    <span>{{pedido.metaData}}</span>
+                </dd>
+                <dt><span>Proveedor</span></dt>
+                <dd>
+                    <div *ngIf="pedido.proveedorId">
+                        <a [routerLink]="['/proveedor', pedido.proveedorId, 'view']">{{pedido.proveedorRazonSocial}}</a>
+                    </div>
+                </dd>
+                <dt><span>Productos</span></dt>
+                <dd>
+                    <span *ngFor="let productos of pedido.productos; let last = last">
+                        <a [routerLink]="['/producto', productos?.id, 'view' ]">{{productos.codigo}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/pedido', pedido.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

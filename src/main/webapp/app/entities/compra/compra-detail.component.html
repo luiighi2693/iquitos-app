@@ -1,0 +1,85 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="compra">
+            <h2><span>Compra</span> {{compra.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Fecha</span></dt>
+                <dd>
+                    <span>{{compra.fecha}}</span>
+                </dd>
+                <dt><span>Guia Remision</span></dt>
+                <dd>
+                    <span>{{compra.guiaRemision}}</span>
+                </dd>
+                <dt><span>Numero De Documento</span></dt>
+                <dd>
+                    <span>{{compra.numeroDeDocumento}}</span>
+                </dd>
+                <dt><span>Ubicacion</span></dt>
+                <dd>
+                    <span>{{compra.ubicacion}}</span>
+                </dd>
+                <dt><span>Monto Total</span></dt>
+                <dd>
+                    <span>{{compra.montoTotal}}</span>
+                </dd>
+                <dt><span>Correlativo</span></dt>
+                <dd>
+                    <span>{{compra.correlativo}}</span>
+                </dd>
+                <dt><span>Tipo De Pago De Compra</span></dt>
+                <dd>
+                    <span>{{compra.tipoDePagoDeCompra}}</span>
+                </dd>
+                <dt><span>Meta Data</span></dt>
+                <dd>
+                    <span>{{compra.metaData}}</span>
+                </dd>
+                <dt><span>Proveedor</span></dt>
+                <dd>
+                    <div *ngIf="compra.proveedorId">
+                        <a [routerLink]="['/proveedor', compra.proveedorId, 'view']">{{compra.proveedorId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Documento De Compra</span></dt>
+                <dd>
+                    <div *ngIf="compra.tipoDeDocumentoDeCompraId">
+                        <a [routerLink]="['/tipo-de-documento-de-compra', compra.tipoDeDocumentoDeCompraId, 'view']">{{compra.tipoDeDocumentoDeCompraNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Estatus De Compra</span></dt>
+                <dd>
+                    <div *ngIf="compra.estatusDeCompraId">
+                        <a [routerLink]="['/estatus-de-compra', compra.estatusDeCompraId, 'view']">{{compra.estatusDeCompraNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Caja</span></dt>
+                <dd>
+                    <div *ngIf="compra.cajaId">
+                        <a [routerLink]="['/caja', compra.cajaId, 'view']">{{compra.cajaId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Productos</span></dt>
+                <dd>
+                    <span *ngFor="let productos of compra.productos; let last = last">
+                        <a [routerLink]="['/producto', productos?.id, 'view' ]">{{productos.codigo}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/compra', compra.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

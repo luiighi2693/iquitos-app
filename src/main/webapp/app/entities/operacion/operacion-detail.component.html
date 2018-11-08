@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="operacion">
+            <h2><span>Operacion</span> {{operacion.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Fecha</span></dt>
+                <dd>
+                    <span>{{operacion.fecha}}</span>
+                </dd>
+                <dt><span>Glosa</span></dt>
+                <dd>
+                    <span>{{operacion.glosa}}</span>
+                </dd>
+                <dt><span>Monto</span></dt>
+                <dd>
+                    <span>{{operacion.monto}}</span>
+                </dd>
+                <dt><span>Tipo De Operacion</span></dt>
+                <dd>
+                    <span>{{operacion.tipoDeOperacion}}</span>
+                </dd>
+                <dt><span>Caja</span></dt>
+                <dd>
+                    <div *ngIf="operacion.cajaId">
+                        <a [routerLink]="['/caja', operacion.cajaId, 'view']">{{operacion.cajaId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Pago</span></dt>
+                <dd>
+                    <div *ngIf="operacion.tipoDePagoId">
+                        <a [routerLink]="['/tipo-de-pago', operacion.tipoDePagoId, 'view']">{{operacion.tipoDePagoNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Operacion De Ingreso</span></dt>
+                <dd>
+                    <div *ngIf="operacion.tipoDeOperacionDeIngresoId">
+                        <a [routerLink]="['/tipo-de-operacion-de-ingreso', operacion.tipoDeOperacionDeIngresoId, 'view']">{{operacion.tipoDeOperacionDeIngresoNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Operacion De Gasto</span></dt>
+                <dd>
+                    <div *ngIf="operacion.tipoDeOperacionDeGastoId">
+                        <a [routerLink]="['/tipo-de-operacion-de-gasto', operacion.tipoDeOperacionDeGastoId, 'view']">{{operacion.tipoDeOperacionDeGastoNombre}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/operacion', operacion.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

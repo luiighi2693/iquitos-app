@@ -1,0 +1,85 @@
+<div>
+    <h2 id="page-heading">
+        <span>Cuenta Proveedors</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cuenta-proveedor" [routerLink]="['/cuenta-proveedor/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create new Cuenta Proveedor
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="cuentaProveedors">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="codigo"><span>Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estatus"><span>Estatus</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="banco"><span>Banco</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nombreCuenta"><span>Nombre Cuenta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numeroDeCuenta"><span>Numero De Cuenta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fecha"><span>Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="proveedorId"><span>Proveedor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let cuentaProveedor of cuentaProveedors ;trackBy: trackId">
+                <td><a [routerLink]="['/cuenta-proveedor', cuentaProveedor.id, 'view' ]">{{cuentaProveedor.id}}</a></td>
+                <td>{{cuentaProveedor.codigo}}</td>
+                <td>{{cuentaProveedor.estatus}}</td>
+                <td>{{cuentaProveedor.banco}}</td>
+                <td>{{cuentaProveedor.nombreCuenta}}</td>
+                <td>{{cuentaProveedor.numeroDeCuenta}}</td>
+                <td>{{cuentaProveedor.fecha | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="cuentaProveedor.proveedorId">
+                        <a [routerLink]="['../proveedor', cuentaProveedor.proveedorId , 'view' ]" >{{cuentaProveedor.proveedorId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/cuenta-proveedor', cuentaProveedor.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/cuenta-proveedor', cuentaProveedor.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'cuenta-proveedor/'+ cuentaProveedor.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

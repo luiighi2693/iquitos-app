@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Venta.
+    -->
+    <changeSet id="20181031175908-1" author="jhipster">
+        <createTable tableName="venta">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="codigo" type="varchar(150)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="sub_total" type="double">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="impuesto" type="double">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="monto_total" type="double">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="fecha" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="estatus" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="glosa" type="varchar(1000)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="meta_data" type="varchar(5000)">
+                <constraints nullable="false" />
+            </column>
+            <column name="cliente_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_venta_cliente_id" />
+            </column>            <column name="empleado_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_venta_empleado_id" />
+            </column>            <column name="caja_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_venta_caja_id" />
+            </column>
+            <column name="tipo_de_documento_de_venta_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tipo_de_pago_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="estatus_de_producto_entregado_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+        <createTable tableName="venta_productos">
+            <column name="productos_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ventas_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="ventas_id, productos_id" tableName="venta_productos"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

@@ -1,0 +1,100 @@
+{
+    "name": "Cliente",
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "codigo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "direccion",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "correo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "telefono",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "fechaDeNacimiento",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "sexo",
+            "fieldType": "Sex",
+            "fieldValues": "MASCULINO,FEMENINO"
+        },
+        {
+            "fieldName": "estatusCivil",
+            "fieldType": "CivilStatus",
+            "fieldValues": "SOLTERO,CASADO"
+        },
+        {
+            "fieldName": "imagen",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "tipoDeCliente",
+            "fieldType": "ClientType",
+            "fieldValues": "NATURAL,JURIDICO"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "usuario",
+            "otherEntityName": "usuarioExterno",
+            "otherEntityField": "dni",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "cliente"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tipoDeDocumento",
+            "otherEntityName": "tipoDeDocumento",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "changelogDate": "20181031175910",
+    "entityTableName": "cliente",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

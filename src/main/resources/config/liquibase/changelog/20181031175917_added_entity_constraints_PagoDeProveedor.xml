@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity PagoDeProveedor.
+    -->
+    <changeSet id="20181031175917-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="tipo_de_documento_de_compra_id"
+                                 baseTableName="pago_de_proveedor"
+                                 constraintName="fk_pago_de_proveedor_tipo_de_documento_de_compra_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_de_documento_de_compra"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_de_pago_id"
+                                 baseTableName="pago_de_proveedor"
+                                 constraintName="fk_pago_de_proveedor_tipo_de_pago_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo_de_pago"/>
+
+    </changeSet>
+</databaseChangeLog>
