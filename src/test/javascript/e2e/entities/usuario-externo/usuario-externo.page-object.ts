@@ -28,7 +28,6 @@ export class UsuarioExternoUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     dniInput = element(by.id('field_dni'));
     pinInput = element(by.id('field_pin'));
-    usuarioSelect = element(by.id('field_usuario'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -48,25 +47,6 @@ export class UsuarioExternoUpdatePage {
 
     async getPinInput() {
         return this.pinInput.getAttribute('value');
-    }
-
-    async usuarioSelectLastOption() {
-        await this.usuarioSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async usuarioSelectOption(option) {
-        await this.usuarioSelect.sendKeys(option);
-    }
-
-    getUsuarioSelect(): ElementFinder {
-        return this.usuarioSelect;
-    }
-
-    async getUsuarioSelectedOption() {
-        return this.usuarioSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

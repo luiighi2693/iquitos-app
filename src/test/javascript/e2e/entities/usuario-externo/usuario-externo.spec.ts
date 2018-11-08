@@ -38,11 +38,7 @@ describe('UsuarioExterno e2e test', () => {
         const nbButtonsBeforeCreate = await usuarioExternoComponentsPage.countDeleteButtons();
 
         await usuarioExternoComponentsPage.clickOnCreateButton();
-        await promise.all([
-            usuarioExternoUpdatePage.setDniInput('5'),
-            usuarioExternoUpdatePage.setPinInput('5'),
-            usuarioExternoUpdatePage.usuarioSelectLastOption()
-        ]);
+        await promise.all([usuarioExternoUpdatePage.setDniInput('5'), usuarioExternoUpdatePage.setPinInput('5')]);
         expect(await usuarioExternoUpdatePage.getDniInput()).to.eq('5');
         expect(await usuarioExternoUpdatePage.getPinInput()).to.eq('5');
         await usuarioExternoUpdatePage.save();

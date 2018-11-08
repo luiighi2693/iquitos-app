@@ -43,7 +43,6 @@
     <include file="config/liquibase/changelog/20181031175918_added_entity_constraints_Compra.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181031175919_added_entity_constraints_Caja.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181031175920_added_entity_constraints_Operacion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20181031175921_added_entity_constraints_UsuarioExterno.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181031175922_added_entity_constraints_Pedido.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

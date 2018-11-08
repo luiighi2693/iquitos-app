@@ -275,7 +275,7 @@ relationship OneToOne {
 
     Pedido{proveedor(razonSocial)} to Proveedor,
 
-    UsuarioExterno{usuario(login)} to User,
+    // UsuarioExterno{usuario(login)} to User,
 }
 
 relationship ManyToMany {

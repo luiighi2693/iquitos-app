@@ -32,7 +32,6 @@
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dni"><span>Dni</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="pin"><span>Pin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="usuarioLogin"><span>Usuario</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -41,9 +40,6 @@
                 <td><a [routerLink]="['/usuario-externo', usuarioExterno.id, 'view' ]">{{usuarioExterno.id}}</a></td>
                 <td>{{usuarioExterno.dni}}</td>
                 <td>{{usuarioExterno.pin}}</td>
-                <td>
-                    {{usuarioExterno.usuarioLogin}}
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

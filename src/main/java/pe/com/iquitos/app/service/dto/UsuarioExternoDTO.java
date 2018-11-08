@@ -17,10 +17,6 @@ public class UsuarioExternoDTO implements Serializable {
     @NotNull
     private Integer pin;
 
-    private Long usuarioId;
-
-    private String usuarioLogin;
-
     public Long getId() {
         return id;
     }
@@ -43,22 +39,6 @@ public class UsuarioExternoDTO implements Serializable {
 
     public void setPin(Integer pin) {
         this.pin = pin;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long userId) {
-        this.usuarioId = userId;
-    }
-
-    public String getUsuarioLogin() {
-        return usuarioLogin;
-    }
-
-    public void setUsuarioLogin(String userLogin) {
-        this.usuarioLogin = userLogin;
     }
 
     @Override
@@ -88,8 +68,6 @@ public class UsuarioExternoDTO implements Serializable {
             "id=" + getId() +
             ", dni=" + getDni() +
             ", pin=" + getPin() +
-            ", usuario=" + getUsuarioId() +
-            ", usuario='" + getUsuarioLogin() + "'" +
             "}";
     }
 }

@@ -16,16 +16,7 @@
             ]
         }
     ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-one",
-            "relationshipName": "usuario",
-            "otherEntityName": "user",
-            "otherEntityField": "login",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "usuarioExterno"
-        }
-    ],
+    "relationships": [],
     "changelogDate": "20181031175921",
     "entityTableName": "usuario_externo",
     "dto": "mapstruct",

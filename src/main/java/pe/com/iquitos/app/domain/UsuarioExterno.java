@@ -33,9 +33,6 @@ public class UsuarioExterno implements Serializable {
     @Column(name = "pin", nullable = false)
     private Integer pin;
 
-    @OneToOne    @JoinColumn(unique = true)
-    private User usuario;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -69,19 +66,6 @@ public class UsuarioExterno implements Serializable {
 
     public void setPin(Integer pin) {
         this.pin = pin;
-    }
-
-    public User getUsuario() {
-        return usuario;
-    }
-
-    public UsuarioExterno usuario(User user) {
-        this.usuario = user;
-        return this;
-    }
-
-    public void setUsuario(User user) {
-        this.usuario = user;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
