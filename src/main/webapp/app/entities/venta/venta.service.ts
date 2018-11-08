@@ -57,22 +57,26 @@ export class VentaService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(venta: IVenta): IVenta {
+    protected convertDateFromClient(venta: IVenta): IVenta {
         const copy: IVenta = Object.assign({}, venta, {
             fecha: venta.fecha != null && venta.fecha.isValid() ? venta.fecha.format(DATE_FORMAT) : null
         });
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((venta: IVenta) => {
-            venta.fecha = venta.fecha != null ? moment(venta.fecha) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((venta: IVenta) => {
+                venta.fecha = venta.fecha != null ? moment(venta.fecha) : null;
+            });
+        }
         return res;
     }
 }

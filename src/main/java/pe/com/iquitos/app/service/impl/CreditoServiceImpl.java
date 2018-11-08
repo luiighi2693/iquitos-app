@@ -27,11 +27,11 @@ public class CreditoServiceImpl implements CreditoService {
 
     private final Logger log = LoggerFactory.getLogger(CreditoServiceImpl.class);
 
-    private CreditoRepository creditoRepository;
+    private final CreditoRepository creditoRepository;
 
-    private CreditoMapper creditoMapper;
+    private final CreditoMapper creditoMapper;
 
-    private CreditoSearchRepository creditoSearchRepository;
+    private final CreditoSearchRepository creditoSearchRepository;
 
     public CreditoServiceImpl(CreditoRepository creditoRepository, CreditoMapper creditoMapper, CreditoSearchRepository creditoSearchRepository) {
         this.creditoRepository = creditoRepository;

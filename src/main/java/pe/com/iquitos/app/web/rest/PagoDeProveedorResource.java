@@ -37,7 +37,7 @@ public class PagoDeProveedorResource {
 
     private static final String ENTITY_NAME = "pagoDeProveedor";
 
-    private PagoDeProveedorService pagoDeProveedorService;
+    private final PagoDeProveedorService pagoDeProveedorService;
 
     public PagoDeProveedorResource(PagoDeProveedorService pagoDeProveedorService) {
         this.pagoDeProveedorService = pagoDeProveedorService;
@@ -97,7 +97,7 @@ public class PagoDeProveedorResource {
         log.debug("REST request to get a page of PagoDeProveedors");
         Page<PagoDeProveedorDTO> page = pagoDeProveedorService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pago-de-proveedors");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

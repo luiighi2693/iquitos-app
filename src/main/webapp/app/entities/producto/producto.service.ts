@@ -57,7 +57,7 @@ export class ProductoService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(producto: IProducto): IProducto {
+    protected convertDateFromClient(producto: IProducto): IProducto {
         const copy: IProducto = Object.assign({}, producto, {
             fechaExpiracion:
                 producto.fechaExpiracion != null && producto.fechaExpiracion.isValid() ? producto.fechaExpiracion.format(DATE_FORMAT) : null
@@ -65,15 +65,19 @@ export class ProductoService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fechaExpiracion = res.body.fechaExpiracion != null ? moment(res.body.fechaExpiracion) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fechaExpiracion = res.body.fechaExpiracion != null ? moment(res.body.fechaExpiracion) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((producto: IProducto) => {
-            producto.fechaExpiracion = producto.fechaExpiracion != null ? moment(producto.fechaExpiracion) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((producto: IProducto) => {
+                producto.fechaExpiracion = producto.fechaExpiracion != null ? moment(producto.fechaExpiracion) : null;
+            });
+        }
         return res;
     }
 }

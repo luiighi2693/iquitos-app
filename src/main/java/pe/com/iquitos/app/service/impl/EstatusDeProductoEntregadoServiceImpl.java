@@ -27,11 +27,11 @@ public class EstatusDeProductoEntregadoServiceImpl implements EstatusDeProductoE
 
     private final Logger log = LoggerFactory.getLogger(EstatusDeProductoEntregadoServiceImpl.class);
 
-    private EstatusDeProductoEntregadoRepository estatusDeProductoEntregadoRepository;
+    private final EstatusDeProductoEntregadoRepository estatusDeProductoEntregadoRepository;
 
-    private EstatusDeProductoEntregadoMapper estatusDeProductoEntregadoMapper;
+    private final EstatusDeProductoEntregadoMapper estatusDeProductoEntregadoMapper;
 
-    private EstatusDeProductoEntregadoSearchRepository estatusDeProductoEntregadoSearchRepository;
+    private final EstatusDeProductoEntregadoSearchRepository estatusDeProductoEntregadoSearchRepository;
 
     public EstatusDeProductoEntregadoServiceImpl(EstatusDeProductoEntregadoRepository estatusDeProductoEntregadoRepository, EstatusDeProductoEntregadoMapper estatusDeProductoEntregadoMapper, EstatusDeProductoEntregadoSearchRepository estatusDeProductoEntregadoSearchRepository) {
         this.estatusDeProductoEntregadoRepository = estatusDeProductoEntregadoRepository;

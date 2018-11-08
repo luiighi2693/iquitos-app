@@ -27,11 +27,11 @@ public class TipoDeDocumentoDeCompraServiceImpl implements TipoDeDocumentoDeComp
 
     private final Logger log = LoggerFactory.getLogger(TipoDeDocumentoDeCompraServiceImpl.class);
 
-    private TipoDeDocumentoDeCompraRepository tipoDeDocumentoDeCompraRepository;
+    private final TipoDeDocumentoDeCompraRepository tipoDeDocumentoDeCompraRepository;
 
-    private TipoDeDocumentoDeCompraMapper tipoDeDocumentoDeCompraMapper;
+    private final TipoDeDocumentoDeCompraMapper tipoDeDocumentoDeCompraMapper;
 
-    private TipoDeDocumentoDeCompraSearchRepository tipoDeDocumentoDeCompraSearchRepository;
+    private final TipoDeDocumentoDeCompraSearchRepository tipoDeDocumentoDeCompraSearchRepository;
 
     public TipoDeDocumentoDeCompraServiceImpl(TipoDeDocumentoDeCompraRepository tipoDeDocumentoDeCompraRepository, TipoDeDocumentoDeCompraMapper tipoDeDocumentoDeCompraMapper, TipoDeDocumentoDeCompraSearchRepository tipoDeDocumentoDeCompraSearchRepository) {
         this.tipoDeDocumentoDeCompraRepository = tipoDeDocumentoDeCompraRepository;

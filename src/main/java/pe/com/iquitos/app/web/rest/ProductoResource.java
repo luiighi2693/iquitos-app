@@ -37,7 +37,7 @@ public class ProductoResource {
 
     private static final String ENTITY_NAME = "producto";
 
-    private ProductoService productoService;
+    private final ProductoService productoService;
 
     public ProductoResource(ProductoService productoService) {
         this.productoService = productoService;
@@ -103,7 +103,7 @@ public class ProductoResource {
             page = productoService.findAll(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/productos?eagerload=%b", eagerload));
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

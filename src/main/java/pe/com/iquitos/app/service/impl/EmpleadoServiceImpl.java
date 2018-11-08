@@ -27,11 +27,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
     private final Logger log = LoggerFactory.getLogger(EmpleadoServiceImpl.class);
 
-    private EmpleadoRepository empleadoRepository;
+    private final EmpleadoRepository empleadoRepository;
 
-    private EmpleadoMapper empleadoMapper;
+    private final EmpleadoMapper empleadoMapper;
 
-    private EmpleadoSearchRepository empleadoSearchRepository;
+    private final EmpleadoSearchRepository empleadoSearchRepository;
 
     public EmpleadoServiceImpl(EmpleadoRepository empleadoRepository, EmpleadoMapper empleadoMapper, EmpleadoSearchRepository empleadoSearchRepository) {
         this.empleadoRepository = empleadoRepository;

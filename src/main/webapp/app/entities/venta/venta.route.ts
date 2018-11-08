@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Venta } from 'app/shared/model/venta.model';
 import { VentaService } from './venta.service';
 import { VentaComponent } from './venta.component';
@@ -16,10 +16,13 @@ import { IVenta } from 'app/shared/model/venta.model';
 export class VentaResolve implements Resolve<IVenta> {
     constructor(private service: VentaService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Venta> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((venta: HttpResponse<Venta>) => venta.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Venta>) => response.ok),
+                map((venta: HttpResponse<Venta>) => venta.body)
+            );
         }
         return of(new Venta());
     }

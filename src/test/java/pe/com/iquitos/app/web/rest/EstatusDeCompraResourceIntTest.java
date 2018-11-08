@@ -56,7 +56,7 @@ public class EstatusDeCompraResourceIntTest {
 
     @Autowired
     private EstatusDeCompraMapper estatusDeCompraMapper;
-    
+
     @Autowired
     private EstatusDeCompraService estatusDeCompraService;
 
@@ -298,7 +298,7 @@ public class EstatusDeCompraResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(estatusDeCompra.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)));
     }
 
     @Test

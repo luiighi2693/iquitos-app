@@ -76,7 +76,7 @@ public class CreditoResourceIntTest {
 
     @Autowired
     private CreditoMapper creditoMapper;
-    
+
     @Autowired
     private CreditoService creditoService;
 
@@ -417,7 +417,7 @@ public class CreditoResourceIntTest {
             .andExpect(jsonPath("$.[*].numero").value(hasItem(DEFAULT_NUMERO)))
             .andExpect(jsonPath("$.[*].montoTotal").value(hasItem(DEFAULT_MONTO_TOTAL.doubleValue())))
             .andExpect(jsonPath("$.[*].fechaLimite").value(hasItem(DEFAULT_FECHA_LIMITE.toString())))
-            .andExpect(jsonPath("$.[*].notaDeCredito").value(hasItem(DEFAULT_NOTA_DE_CREDITO.toString())));
+            .andExpect(jsonPath("$.[*].notaDeCredito").value(hasItem(DEFAULT_NOTA_DE_CREDITO)));
     }
 
     @Test

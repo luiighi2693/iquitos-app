@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { TipoDePago } from 'app/shared/model/tipo-de-pago.model';
 import { TipoDePagoService } from './tipo-de-pago.service';
 import { TipoDePagoComponent } from './tipo-de-pago.component';
@@ -16,10 +16,13 @@ import { ITipoDePago } from 'app/shared/model/tipo-de-pago.model';
 export class TipoDePagoResolve implements Resolve<ITipoDePago> {
     constructor(private service: TipoDePagoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<TipoDePago> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((tipoDePago: HttpResponse<TipoDePago>) => tipoDePago.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<TipoDePago>) => response.ok),
+                map((tipoDePago: HttpResponse<TipoDePago>) => tipoDePago.body)
+            );
         }
         return of(new TipoDePago());
     }

@@ -27,11 +27,11 @@ public class AmortizacionServiceImpl implements AmortizacionService {
 
     private final Logger log = LoggerFactory.getLogger(AmortizacionServiceImpl.class);
 
-    private AmortizacionRepository amortizacionRepository;
+    private final AmortizacionRepository amortizacionRepository;
 
-    private AmortizacionMapper amortizacionMapper;
+    private final AmortizacionMapper amortizacionMapper;
 
-    private AmortizacionSearchRepository amortizacionSearchRepository;
+    private final AmortizacionSearchRepository amortizacionSearchRepository;
 
     public AmortizacionServiceImpl(AmortizacionRepository amortizacionRepository, AmortizacionMapper amortizacionMapper, AmortizacionSearchRepository amortizacionSearchRepository) {
         this.amortizacionRepository = amortizacionRepository;

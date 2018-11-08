@@ -27,11 +27,11 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     private final Logger log = LoggerFactory.getLogger(ProveedorServiceImpl.class);
 
-    private ProveedorRepository proveedorRepository;
+    private final ProveedorRepository proveedorRepository;
 
-    private ProveedorMapper proveedorMapper;
+    private final ProveedorMapper proveedorMapper;
 
-    private ProveedorSearchRepository proveedorSearchRepository;
+    private final ProveedorSearchRepository proveedorSearchRepository;
 
     public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository) {
         this.proveedorRepository = proveedorRepository;

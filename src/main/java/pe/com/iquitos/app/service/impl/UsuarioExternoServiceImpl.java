@@ -27,11 +27,11 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoService {
 
     private final Logger log = LoggerFactory.getLogger(UsuarioExternoServiceImpl.class);
 
-    private UsuarioExternoRepository usuarioExternoRepository;
+    private final UsuarioExternoRepository usuarioExternoRepository;
 
-    private UsuarioExternoMapper usuarioExternoMapper;
+    private final UsuarioExternoMapper usuarioExternoMapper;
 
-    private UsuarioExternoSearchRepository usuarioExternoSearchRepository;
+    private final UsuarioExternoSearchRepository usuarioExternoSearchRepository;
 
     public UsuarioExternoServiceImpl(UsuarioExternoRepository usuarioExternoRepository, UsuarioExternoMapper usuarioExternoMapper, UsuarioExternoSearchRepository usuarioExternoSearchRepository) {
         this.usuarioExternoRepository = usuarioExternoRepository;

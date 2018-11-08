@@ -37,7 +37,7 @@ public class CompraResource {
 
     private static final String ENTITY_NAME = "compra";
 
-    private CompraService compraService;
+    private final CompraService compraService;
 
     public CompraResource(CompraService compraService) {
         this.compraService = compraService;
@@ -103,7 +103,7 @@ public class CompraResource {
             page = compraService.findAll(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/compras?eagerload=%b", eagerload));
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

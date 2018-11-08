@@ -37,7 +37,7 @@ public class EstatusDeProductoEntregadoResource {
 
     private static final String ENTITY_NAME = "estatusDeProductoEntregado";
 
-    private EstatusDeProductoEntregadoService estatusDeProductoEntregadoService;
+    private final EstatusDeProductoEntregadoService estatusDeProductoEntregadoService;
 
     public EstatusDeProductoEntregadoResource(EstatusDeProductoEntregadoService estatusDeProductoEntregadoService) {
         this.estatusDeProductoEntregadoService = estatusDeProductoEntregadoService;
@@ -97,7 +97,7 @@ public class EstatusDeProductoEntregadoResource {
         log.debug("REST request to get a page of EstatusDeProductoEntregados");
         Page<EstatusDeProductoEntregadoDTO> page = estatusDeProductoEntregadoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/estatus-de-producto-entregados");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

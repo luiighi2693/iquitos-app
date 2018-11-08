@@ -27,11 +27,11 @@ public class TipoDeDocumentoServiceImpl implements TipoDeDocumentoService {
 
     private final Logger log = LoggerFactory.getLogger(TipoDeDocumentoServiceImpl.class);
 
-    private TipoDeDocumentoRepository tipoDeDocumentoRepository;
+    private final TipoDeDocumentoRepository tipoDeDocumentoRepository;
 
-    private TipoDeDocumentoMapper tipoDeDocumentoMapper;
+    private final TipoDeDocumentoMapper tipoDeDocumentoMapper;
 
-    private TipoDeDocumentoSearchRepository tipoDeDocumentoSearchRepository;
+    private final TipoDeDocumentoSearchRepository tipoDeDocumentoSearchRepository;
 
     public TipoDeDocumentoServiceImpl(TipoDeDocumentoRepository tipoDeDocumentoRepository, TipoDeDocumentoMapper tipoDeDocumentoMapper, TipoDeDocumentoSearchRepository tipoDeDocumentoSearchRepository) {
         this.tipoDeDocumentoRepository = tipoDeDocumentoRepository;

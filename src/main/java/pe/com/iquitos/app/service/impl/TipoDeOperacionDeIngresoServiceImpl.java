@@ -27,11 +27,11 @@ public class TipoDeOperacionDeIngresoServiceImpl implements TipoDeOperacionDeIng
 
     private final Logger log = LoggerFactory.getLogger(TipoDeOperacionDeIngresoServiceImpl.class);
 
-    private TipoDeOperacionDeIngresoRepository tipoDeOperacionDeIngresoRepository;
+    private final TipoDeOperacionDeIngresoRepository tipoDeOperacionDeIngresoRepository;
 
-    private TipoDeOperacionDeIngresoMapper tipoDeOperacionDeIngresoMapper;
+    private final TipoDeOperacionDeIngresoMapper tipoDeOperacionDeIngresoMapper;
 
-    private TipoDeOperacionDeIngresoSearchRepository tipoDeOperacionDeIngresoSearchRepository;
+    private final TipoDeOperacionDeIngresoSearchRepository tipoDeOperacionDeIngresoSearchRepository;
 
     public TipoDeOperacionDeIngresoServiceImpl(TipoDeOperacionDeIngresoRepository tipoDeOperacionDeIngresoRepository, TipoDeOperacionDeIngresoMapper tipoDeOperacionDeIngresoMapper, TipoDeOperacionDeIngresoSearchRepository tipoDeOperacionDeIngresoSearchRepository) {
         this.tipoDeOperacionDeIngresoRepository = tipoDeOperacionDeIngresoRepository;

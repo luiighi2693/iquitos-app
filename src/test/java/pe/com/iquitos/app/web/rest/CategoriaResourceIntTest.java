@@ -59,7 +59,7 @@ public class CategoriaResourceIntTest {
 
     @Autowired
     private CategoriaMapper categoriaMapper;
-    
+
     @Autowired
     private CategoriaService categoriaService;
 
@@ -307,7 +307,7 @@ public class CategoriaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(categoria.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].numeroProductos").value(hasItem(DEFAULT_NUMERO_PRODUCTOS)));
     }
 

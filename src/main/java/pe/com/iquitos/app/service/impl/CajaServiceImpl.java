@@ -27,11 +27,11 @@ public class CajaServiceImpl implements CajaService {
 
     private final Logger log = LoggerFactory.getLogger(CajaServiceImpl.class);
 
-    private CajaRepository cajaRepository;
+    private final CajaRepository cajaRepository;
 
-    private CajaMapper cajaMapper;
+    private final CajaMapper cajaMapper;
 
-    private CajaSearchRepository cajaSearchRepository;
+    private final CajaSearchRepository cajaSearchRepository;
 
     public CajaServiceImpl(CajaRepository cajaRepository, CajaMapper cajaMapper, CajaSearchRepository cajaSearchRepository) {
         this.cajaRepository = cajaRepository;

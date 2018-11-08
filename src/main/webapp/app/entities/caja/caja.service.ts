@@ -57,7 +57,7 @@ export class CajaService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(caja: ICaja): ICaja {
+    protected convertDateFromClient(caja: ICaja): ICaja {
         const copy: ICaja = Object.assign({}, caja, {
             fechaInicial: caja.fechaInicial != null && caja.fechaInicial.isValid() ? caja.fechaInicial.format(DATE_FORMAT) : null,
             fechaFinal: caja.fechaFinal != null && caja.fechaFinal.isValid() ? caja.fechaFinal.format(DATE_FORMAT) : null
@@ -65,17 +65,21 @@ export class CajaService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fechaInicial = res.body.fechaInicial != null ? moment(res.body.fechaInicial) : null;
-        res.body.fechaFinal = res.body.fechaFinal != null ? moment(res.body.fechaFinal) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fechaInicial = res.body.fechaInicial != null ? moment(res.body.fechaInicial) : null;
+            res.body.fechaFinal = res.body.fechaFinal != null ? moment(res.body.fechaFinal) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((caja: ICaja) => {
-            caja.fechaInicial = caja.fechaInicial != null ? moment(caja.fechaInicial) : null;
-            caja.fechaFinal = caja.fechaFinal != null ? moment(caja.fechaFinal) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((caja: ICaja) => {
+                caja.fechaInicial = caja.fechaInicial != null ? moment(caja.fechaInicial) : null;
+                caja.fechaFinal = caja.fechaFinal != null ? moment(caja.fechaFinal) : null;
+            });
+        }
         return res;
     }
 }

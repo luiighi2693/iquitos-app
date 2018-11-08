@@ -27,11 +27,11 @@ public class TipoDeDocumentoDeVentaServiceImpl implements TipoDeDocumentoDeVenta
 
     private final Logger log = LoggerFactory.getLogger(TipoDeDocumentoDeVentaServiceImpl.class);
 
-    private TipoDeDocumentoDeVentaRepository tipoDeDocumentoDeVentaRepository;
+    private final TipoDeDocumentoDeVentaRepository tipoDeDocumentoDeVentaRepository;
 
-    private TipoDeDocumentoDeVentaMapper tipoDeDocumentoDeVentaMapper;
+    private final TipoDeDocumentoDeVentaMapper tipoDeDocumentoDeVentaMapper;
 
-    private TipoDeDocumentoDeVentaSearchRepository tipoDeDocumentoDeVentaSearchRepository;
+    private final TipoDeDocumentoDeVentaSearchRepository tipoDeDocumentoDeVentaSearchRepository;
 
     public TipoDeDocumentoDeVentaServiceImpl(TipoDeDocumentoDeVentaRepository tipoDeDocumentoDeVentaRepository, TipoDeDocumentoDeVentaMapper tipoDeDocumentoDeVentaMapper, TipoDeDocumentoDeVentaSearchRepository tipoDeDocumentoDeVentaSearchRepository) {
         this.tipoDeDocumentoDeVentaRepository = tipoDeDocumentoDeVentaRepository;

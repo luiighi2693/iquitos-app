@@ -27,11 +27,11 @@ public class ClienteServiceImpl implements ClienteService {
 
     private final Logger log = LoggerFactory.getLogger(ClienteServiceImpl.class);
 
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
-    private ClienteMapper clienteMapper;
+    private final ClienteMapper clienteMapper;
 
-    private ClienteSearchRepository clienteSearchRepository;
+    private final ClienteSearchRepository clienteSearchRepository;
 
     public ClienteServiceImpl(ClienteRepository clienteRepository, ClienteMapper clienteMapper, ClienteSearchRepository clienteSearchRepository) {
         this.clienteRepository = clienteRepository;

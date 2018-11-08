@@ -57,22 +57,26 @@ export class OperacionService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(operacion: IOperacion): IOperacion {
+    protected convertDateFromClient(operacion: IOperacion): IOperacion {
         const copy: IOperacion = Object.assign({}, operacion, {
             fecha: operacion.fecha != null && operacion.fecha.isValid() ? operacion.fecha.format(DATE_FORMAT) : null
         });
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((operacion: IOperacion) => {
-            operacion.fecha = operacion.fecha != null ? moment(operacion.fecha) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((operacion: IOperacion) => {
+                operacion.fecha = operacion.fecha != null ? moment(operacion.fecha) : null;
+            });
+        }
         return res;
     }
 }

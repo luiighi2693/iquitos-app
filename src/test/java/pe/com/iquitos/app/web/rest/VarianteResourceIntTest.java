@@ -70,7 +70,6 @@ public class VarianteResourceIntTest {
 
     @Autowired
     private VarianteMapper varianteMapper;
-    
 
     @Mock
     private VarianteService varianteServiceMock;
@@ -255,6 +254,7 @@ public class VarianteResourceIntTest {
             .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())));
     }
     
+    @SuppressWarnings({"unchecked"})
     public void getAllVariantesWithEagerRelationshipsIsEnabled() throws Exception {
         VarianteResource varianteResource = new VarianteResource(varianteServiceMock);
         when(varianteServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -271,6 +271,7 @@ public class VarianteResourceIntTest {
         verify(varianteServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
+    @SuppressWarnings({"unchecked"})
     public void getAllVariantesWithEagerRelationshipsIsNotEnabled() throws Exception {
         VarianteResource varianteResource = new VarianteResource(varianteServiceMock);
             when(varianteServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -403,8 +404,8 @@ public class VarianteResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(variante.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
+            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))
             .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())));
     }

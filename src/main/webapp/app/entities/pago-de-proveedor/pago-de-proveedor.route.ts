@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { PagoDeProveedor } from 'app/shared/model/pago-de-proveedor.model';
 import { PagoDeProveedorService } from './pago-de-proveedor.service';
 import { PagoDeProveedorComponent } from './pago-de-proveedor.component';
@@ -16,10 +16,13 @@ import { IPagoDeProveedor } from 'app/shared/model/pago-de-proveedor.model';
 export class PagoDeProveedorResolve implements Resolve<IPagoDeProveedor> {
     constructor(private service: PagoDeProveedorService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PagoDeProveedor> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((pagoDeProveedor: HttpResponse<PagoDeProveedor>) => pagoDeProveedor.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<PagoDeProveedor>) => response.ok),
+                map((pagoDeProveedor: HttpResponse<PagoDeProveedor>) => pagoDeProveedor.body)
+            );
         }
         return of(new PagoDeProveedor());
     }

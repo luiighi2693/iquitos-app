@@ -59,7 +59,7 @@ public class UsuarioExternoResourceIntTest {
 
     @Autowired
     private UsuarioExternoMapper usuarioExternoMapper;
-    
+
     @Autowired
     private UsuarioExternoService usuarioExternoService;
 

@@ -74,7 +74,7 @@ public class CuentaProveedorResourceIntTest {
 
     @Autowired
     private CuentaProveedorMapper cuentaProveedorMapper;
-    
+
     @Autowired
     private CuentaProveedorService cuentaProveedorService;
 
@@ -384,10 +384,10 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cuentaProveedor.getId().intValue())))
-            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
+            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
             .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
-            .andExpect(jsonPath("$.[*].banco").value(hasItem(DEFAULT_BANCO.toString())))
-            .andExpect(jsonPath("$.[*].nombreCuenta").value(hasItem(DEFAULT_NOMBRE_CUENTA.toString())))
+            .andExpect(jsonPath("$.[*].banco").value(hasItem(DEFAULT_BANCO)))
+            .andExpect(jsonPath("$.[*].nombreCuenta").value(hasItem(DEFAULT_NOMBRE_CUENTA)))
             .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA)))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
     }

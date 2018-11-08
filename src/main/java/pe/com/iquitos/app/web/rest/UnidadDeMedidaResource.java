@@ -37,7 +37,7 @@ public class UnidadDeMedidaResource {
 
     private static final String ENTITY_NAME = "unidadDeMedida";
 
-    private UnidadDeMedidaService unidadDeMedidaService;
+    private final UnidadDeMedidaService unidadDeMedidaService;
 
     public UnidadDeMedidaResource(UnidadDeMedidaService unidadDeMedidaService) {
         this.unidadDeMedidaService = unidadDeMedidaService;
@@ -97,7 +97,7 @@ public class UnidadDeMedidaResource {
         log.debug("REST request to get a page of UnidadDeMedidas");
         Page<UnidadDeMedidaDTO> page = unidadDeMedidaService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/unidad-de-medidas");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

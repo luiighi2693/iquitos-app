@@ -37,7 +37,7 @@ public class OperacionResource {
 
     private static final String ENTITY_NAME = "operacion";
 
-    private OperacionService operacionService;
+    private final OperacionService operacionService;
 
     public OperacionResource(OperacionService operacionService) {
         this.operacionService = operacionService;
@@ -97,7 +97,7 @@ public class OperacionResource {
         log.debug("REST request to get a page of Operacions");
         Page<OperacionDTO> page = operacionService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/operacions");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

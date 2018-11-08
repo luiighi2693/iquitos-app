@@ -56,7 +56,7 @@ public class TipoDeOperacionDeGastoResourceIntTest {
 
     @Autowired
     private TipoDeOperacionDeGastoMapper tipoDeOperacionDeGastoMapper;
-    
+
     @Autowired
     private TipoDeOperacionDeGastoService tipoDeOperacionDeGastoService;
 
@@ -298,7 +298,7 @@ public class TipoDeOperacionDeGastoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tipoDeOperacionDeGasto.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)));
     }
 
     @Test

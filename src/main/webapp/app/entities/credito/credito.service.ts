@@ -57,7 +57,7 @@ export class CreditoService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    private convertDateFromClient(credito: ICredito): ICredito {
+    protected convertDateFromClient(credito: ICredito): ICredito {
         const copy: ICredito = Object.assign({}, credito, {
             fecha: credito.fecha != null && credito.fecha.isValid() ? credito.fecha.format(DATE_FORMAT) : null,
             fechaLimite: credito.fechaLimite != null && credito.fechaLimite.isValid() ? credito.fechaLimite.format(DATE_FORMAT) : null
@@ -65,17 +65,21 @@ export class CreditoService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
-        res.body.fechaLimite = res.body.fechaLimite != null ? moment(res.body.fechaLimite) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
+            res.body.fechaLimite = res.body.fechaLimite != null ? moment(res.body.fechaLimite) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((credito: ICredito) => {
-            credito.fecha = credito.fecha != null ? moment(credito.fecha) : null;
-            credito.fechaLimite = credito.fechaLimite != null ? moment(credito.fechaLimite) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((credito: ICredito) => {
+                credito.fecha = credito.fecha != null ? moment(credito.fecha) : null;
+                credito.fechaLimite = credito.fechaLimite != null ? moment(credito.fechaLimite) : null;
+            });
+        }
         return res;
     }
 }

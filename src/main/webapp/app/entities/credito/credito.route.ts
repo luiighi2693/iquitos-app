@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Credito } from 'app/shared/model/credito.model';
 import { CreditoService } from './credito.service';
 import { CreditoComponent } from './credito.component';
@@ -16,10 +16,13 @@ import { ICredito } from 'app/shared/model/credito.model';
 export class CreditoResolve implements Resolve<ICredito> {
     constructor(private service: CreditoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Credito> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((credito: HttpResponse<Credito>) => credito.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Credito>) => response.ok),
+                map((credito: HttpResponse<Credito>) => credito.body)
+            );
         }
         return of(new Credito());
     }

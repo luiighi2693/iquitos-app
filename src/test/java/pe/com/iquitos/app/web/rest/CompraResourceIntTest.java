@@ -86,7 +86,6 @@ public class CompraResourceIntTest {
 
     @Autowired
     private CompraMapper compraMapper;
-    
 
     @Mock
     private CompraService compraServiceMock;
@@ -321,6 +320,7 @@ public class CompraResourceIntTest {
             .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
     }
     
+    @SuppressWarnings({"unchecked"})
     public void getAllComprasWithEagerRelationshipsIsEnabled() throws Exception {
         CompraResource compraResource = new CompraResource(compraServiceMock);
         when(compraServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -337,6 +337,7 @@ public class CompraResourceIntTest {
         verify(compraServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
+    @SuppressWarnings({"unchecked"})
     public void getAllComprasWithEagerRelationshipsIsNotEnabled() throws Exception {
         CompraResource compraResource = new CompraResource(compraServiceMock);
             when(compraServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
@@ -482,13 +483,13 @@ public class CompraResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(compra.getId().intValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
-            .andExpect(jsonPath("$.[*].guiaRemision").value(hasItem(DEFAULT_GUIA_REMISION.toString())))
-            .andExpect(jsonPath("$.[*].numeroDeDocumento").value(hasItem(DEFAULT_NUMERO_DE_DOCUMENTO.toString())))
+            .andExpect(jsonPath("$.[*].guiaRemision").value(hasItem(DEFAULT_GUIA_REMISION)))
+            .andExpect(jsonPath("$.[*].numeroDeDocumento").value(hasItem(DEFAULT_NUMERO_DE_DOCUMENTO)))
             .andExpect(jsonPath("$.[*].ubicacion").value(hasItem(DEFAULT_UBICACION.toString())))
             .andExpect(jsonPath("$.[*].montoTotal").value(hasItem(DEFAULT_MONTO_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].correlativo").value(hasItem(DEFAULT_CORRELATIVO.toString())))
+            .andExpect(jsonPath("$.[*].correlativo").value(hasItem(DEFAULT_CORRELATIVO)))
             .andExpect(jsonPath("$.[*].tipoDePagoDeCompra").value(hasItem(DEFAULT_TIPO_DE_PAGO_DE_COMPRA.toString())))
-            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
+            .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA)));
     }
 
     @Test

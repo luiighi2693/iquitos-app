@@ -70,7 +70,7 @@ public class AmortizacionResourceIntTest {
 
     @Autowired
     private AmortizacionMapper amortizacionMapper;
-    
+
     @Autowired
     private AmortizacionService amortizacionService;
 
@@ -377,8 +377,8 @@ public class AmortizacionResourceIntTest {
             .andExpect(jsonPath("$.[*].monto").value(hasItem(DEFAULT_MONTO.doubleValue())))
             .andExpect(jsonPath("$.[*].montoPagado").value(hasItem(DEFAULT_MONTO_PAGADO.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
-            .andExpect(jsonPath("$.[*].codigoDocumento").value(hasItem(DEFAULT_CODIGO_DOCUMENTO.toString())))
-            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA.toString())));
+            .andExpect(jsonPath("$.[*].codigoDocumento").value(hasItem(DEFAULT_CODIGO_DOCUMENTO)))
+            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA)));
     }
 
     @Test

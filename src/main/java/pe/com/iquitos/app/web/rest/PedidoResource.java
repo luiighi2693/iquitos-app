@@ -37,7 +37,7 @@ public class PedidoResource {
 
     private static final String ENTITY_NAME = "pedido";
 
-    private PedidoService pedidoService;
+    private final PedidoService pedidoService;
 
     public PedidoResource(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
@@ -103,7 +103,7 @@ public class PedidoResource {
             page = pedidoService.findAll(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/pedidos?eagerload=%b", eagerload));
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

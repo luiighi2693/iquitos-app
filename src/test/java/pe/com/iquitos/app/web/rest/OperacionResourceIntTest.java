@@ -68,7 +68,7 @@ public class OperacionResourceIntTest {
 
     @Autowired
     private OperacionMapper operacionMapper;
-    
+
     @Autowired
     private OperacionService operacionService;
 
@@ -329,7 +329,7 @@ public class OperacionResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(operacion.getId().intValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
-            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA.toString())))
+            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA)))
             .andExpect(jsonPath("$.[*].monto").value(hasItem(DEFAULT_MONTO.doubleValue())))
             .andExpect(jsonPath("$.[*].tipoDeOperacion").value(hasItem(DEFAULT_TIPO_DE_OPERACION.toString())));
     }

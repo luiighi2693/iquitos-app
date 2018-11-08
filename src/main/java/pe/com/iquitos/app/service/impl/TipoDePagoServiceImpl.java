@@ -27,11 +27,11 @@ public class TipoDePagoServiceImpl implements TipoDePagoService {
 
     private final Logger log = LoggerFactory.getLogger(TipoDePagoServiceImpl.class);
 
-    private TipoDePagoRepository tipoDePagoRepository;
+    private final TipoDePagoRepository tipoDePagoRepository;
 
-    private TipoDePagoMapper tipoDePagoMapper;
+    private final TipoDePagoMapper tipoDePagoMapper;
 
-    private TipoDePagoSearchRepository tipoDePagoSearchRepository;
+    private final TipoDePagoSearchRepository tipoDePagoSearchRepository;
 
     public TipoDePagoServiceImpl(TipoDePagoRepository tipoDePagoRepository, TipoDePagoMapper tipoDePagoMapper, TipoDePagoSearchRepository tipoDePagoSearchRepository) {
         this.tipoDePagoRepository = tipoDePagoRepository;

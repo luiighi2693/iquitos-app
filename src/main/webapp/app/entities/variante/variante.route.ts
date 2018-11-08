@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { Variante } from 'app/shared/model/variante.model';
 import { VarianteService } from './variante.service';
 import { VarianteComponent } from './variante.component';
@@ -16,10 +16,13 @@ import { IVariante } from 'app/shared/model/variante.model';
 export class VarianteResolve implements Resolve<IVariante> {
     constructor(private service: VarianteService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Variante> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((variante: HttpResponse<Variante>) => variante.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<Variante>) => response.ok),
+                map((variante: HttpResponse<Variante>) => variante.body)
+            );
         }
         return of(new Variante());
     }

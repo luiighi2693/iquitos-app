@@ -37,7 +37,7 @@ public class VarianteResource {
 
     private static final String ENTITY_NAME = "variante";
 
-    private VarianteService varianteService;
+    private final VarianteService varianteService;
 
     public VarianteResource(VarianteService varianteService) {
         this.varianteService = varianteService;
@@ -103,7 +103,7 @@ public class VarianteResource {
             page = varianteService.findAll(pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/variantes?eagerload=%b", eagerload));
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**

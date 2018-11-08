@@ -27,11 +27,11 @@ public class PagoDeProveedorServiceImpl implements PagoDeProveedorService {
 
     private final Logger log = LoggerFactory.getLogger(PagoDeProveedorServiceImpl.class);
 
-    private PagoDeProveedorRepository pagoDeProveedorRepository;
+    private final PagoDeProveedorRepository pagoDeProveedorRepository;
 
-    private PagoDeProveedorMapper pagoDeProveedorMapper;
+    private final PagoDeProveedorMapper pagoDeProveedorMapper;
 
-    private PagoDeProveedorSearchRepository pagoDeProveedorSearchRepository;
+    private final PagoDeProveedorSearchRepository pagoDeProveedorSearchRepository;
 
     public PagoDeProveedorServiceImpl(PagoDeProveedorRepository pagoDeProveedorRepository, PagoDeProveedorMapper pagoDeProveedorMapper, PagoDeProveedorSearchRepository pagoDeProveedorSearchRepository) {
         this.pagoDeProveedorRepository = pagoDeProveedorRepository;

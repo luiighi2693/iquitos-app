@@ -27,11 +27,11 @@ public class CompraServiceImpl implements CompraService {
 
     private final Logger log = LoggerFactory.getLogger(CompraServiceImpl.class);
 
-    private CompraRepository compraRepository;
+    private final CompraRepository compraRepository;
 
-    private CompraMapper compraMapper;
+    private final CompraMapper compraMapper;
 
-    private CompraSearchRepository compraSearchRepository;
+    private final CompraSearchRepository compraSearchRepository;
 
     public CompraServiceImpl(CompraRepository compraRepository, CompraMapper compraMapper, CompraSearchRepository compraSearchRepository) {
         this.compraRepository = compraRepository;

@@ -76,7 +76,7 @@ public class PagoDeProveedorResourceIntTest {
 
     @Autowired
     private PagoDeProveedorMapper pagoDeProveedorMapper;
-    
+
     @Autowired
     private PagoDeProveedorService pagoDeProveedorService;
 
@@ -395,8 +395,8 @@ public class PagoDeProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].monto").value(hasItem(DEFAULT_MONTO.doubleValue())))
             .andExpect(jsonPath("$.[*].montoPagado").value(hasItem(DEFAULT_MONTO_PAGADO.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
-            .andExpect(jsonPath("$.[*].codigoDeDocumento").value(hasItem(DEFAULT_CODIGO_DE_DOCUMENTO.toString())))
-            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA.toString())))
+            .andExpect(jsonPath("$.[*].codigoDeDocumento").value(hasItem(DEFAULT_CODIGO_DE_DOCUMENTO)))
+            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA)))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))));
     }
