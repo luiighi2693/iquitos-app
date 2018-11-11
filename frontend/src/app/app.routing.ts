@@ -10,8 +10,12 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboards/dashboard1',
+        redirectTo: '/provider',
         pathMatch: 'full'
+      },
+      {
+        path: 'old',
+        redirectTo: '/dashboards/dashboard1',
       },
       {
         path: 'dashboards',
@@ -53,6 +57,10 @@ export const AppRoutes: Routes = [
       {
         path: 'multi',
         loadChildren: './multi-dropdown/multi-dd.module#MultiModule'
+      },
+      {
+        path: 'provider',
+        loadChildren: './provider/provider.module#ProviderModule'
       }
     ]
   },
