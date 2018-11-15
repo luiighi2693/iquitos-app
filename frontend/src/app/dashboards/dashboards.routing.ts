@@ -6,15 +6,16 @@ import { Dashboard2Component } from './dashboard2/dashboard2.component';
 export const DashboardsRoutes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: 'dashboard1',
-        component: Dashboard1Component
-      },
-      {
-        path: 'dashboard2',
-        component: Dashboard2Component
-      }
-    ]
+    component: Dashboard1Component
+    // children: [
+    //   {
+    //     path: 'dashboard1',
+    //     component: Dashboard1Component
+    //   },
+    //   {
+    //     path: 'dashboard2',
+    //     component: Dashboard2Component
+    //   }
+    // ]
   }
 ];

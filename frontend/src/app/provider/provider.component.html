@@ -8,7 +8,8 @@
         <div class="responsive-table">
           <div fxLayout="row wrap">
             <mat-form-field fxFlex.gt-sm="75" fxFlex="75">
-              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+              <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">-->
+              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)" >
             </mat-form-field>
 
             <div fxFlex.gt-sm="25" fxFlex="25" id="newSection">
@@ -16,7 +17,7 @@
             </div>
           </div>
 
-          <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+          <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="proveedors">
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 

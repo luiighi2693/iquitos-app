@@ -10,7 +10,7 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/provider',
+        redirectTo: '/authentication/login',
         pathMatch: 'full'
       },
       {

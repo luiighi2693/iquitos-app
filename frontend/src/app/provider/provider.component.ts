@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { BreakpointObserver } from '@angular/cdk/layout';
+// import { BreakpointObserver } from '@angular/cdk/layout';
 import {SelectionModel} from '@angular/cdk/collections';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -29,10 +29,9 @@ export class ProviderComponent implements OnInit, OnDestroy {
   proveedor: IProveedor;
 
   constructor(private proveedorService: ProveedorService,
-              breakpointObserver: BreakpointObserver,
               fb: FormBuilder) {
     this.proveedors = [];
-    this.itemsPerPage = 20000;
+    this.itemsPerPage = 500;
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
@@ -119,20 +118,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // For form validator
-  // email = new FormControl('', [Validators.required, Validators.email]);
-
-  // Sufix and prefix
-  // hide = true;
-
-  // getErrorMessage() {
-  //   return this.email.hasError('required')
-  //     ? 'You must enter a value'
-  //     : this.email.hasError('email')
-  //       ? 'Not a valid email'
-  //       : '';
-  // }
-
   changeAction(action) {
     this.action = action;
   }
@@ -188,9 +173,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
 
   clear() {
     this.proveedors = [];
-    this.links = {
-      last: 0
-    };
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
@@ -203,9 +185,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
       return this.clear();
     }
     this.proveedors = [];
-    this.links = {
-      last: 0
-    };
     this.page = 0;
     this.predicate = '_score';
     this.reverse = false;
@@ -215,22 +194,9 @@ export class ProviderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    // this.principal.identity().then(account => {
-    //   this.currentAccount = account;
-    // });
-    this.registerChangeInProveedors();
   }
 
   ngOnDestroy() {
-    // this.eventManager.destroy(this.eventSubscriber);
-  }
-
-  trackId(index: number, item: IProveedor) {
-    return item.id;
-  }
-
-  registerChangeInProveedors() {
-    // this.eventSubscriber = this.eventManager.subscribe('proveedorListModification', response => this.reset());
   }
 
   sort() {
@@ -242,19 +208,13 @@ export class ProviderComponent implements OnInit, OnDestroy {
   }
 
   private paginateProveedors(data: IProveedor[], headers: HttpHeaders) {
-    this.proveedors = [];
-
-    // this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    for (let i = 0; i < data.length; i++) {
-      this.proveedors.push(data[i]);
-    }
+    this.proveedors = data;
     this.dataSource = new MatTableDataSource<IProveedor>(this.proveedors);
   }
 
   private onError(errorMessage: string) {
     console.log(errorMessage);
-    // this.jhiAlertService.error(errorMessage, null, null);
   }
 
   new() {

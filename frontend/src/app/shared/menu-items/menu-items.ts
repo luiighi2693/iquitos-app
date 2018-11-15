@@ -232,19 +232,15 @@ export interface Menu {
 const MENUITEMS = [
   {
     state: '',
-    name: 'Demo',
+    name: 'Menu',
     type: 'saperator',
     icon: 'av_timer'
   },
   {
     state: 'dashboards',
-    name: 'Dashboards',
-    type: 'sub',
+    name: 'Tablero',
+    type: 'link',
     icon: 'av_timer',
-    children: [
-      { state: 'dashboard1', name: 'Dashboard 1', type: 'link' },
-      { state: 'dashboard2', name: 'Dashboard 2', type: 'link' }
-    ]
   },
   {
     state: 'provider',
