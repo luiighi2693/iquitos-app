@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(UsuarioExternoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new UsuarioExterno(0, 0, 0);
+            elemDefault = new UsuarioExterno(0, 0, 0, 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -56,7 +56,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         dni: 1,
-                        pin: 1
+                        pin: 1,
+                        role: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -74,7 +75,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         dni: 1,
-                        pin: 1
+                        pin: 1,
+                        role: 'BBBBBB'
                     },
                     elemDefault
                 );

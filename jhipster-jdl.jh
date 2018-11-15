@@ -138,6 +138,7 @@ entity Operacion {
 entity UsuarioExterno {
     dni Integer required,
     pin Integer required,
+    role String,
 }
 
 entity Pedido {

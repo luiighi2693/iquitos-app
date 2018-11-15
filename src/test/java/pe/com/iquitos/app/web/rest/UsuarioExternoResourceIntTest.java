@@ -54,6 +54,9 @@ public class UsuarioExternoResourceIntTest {
     private static final Integer DEFAULT_PIN = 1;
     private static final Integer UPDATED_PIN = 2;
 
+    private static final String DEFAULT_ROLE = "AAAAAAAAAA";
+    private static final String UPDATED_ROLE = "BBBBBBBBBB";
+
     @Autowired
     private UsuarioExternoRepository usuarioExternoRepository;
 
@@ -107,7 +110,8 @@ public class UsuarioExternoResourceIntTest {
     public static UsuarioExterno createEntity(EntityManager em) {
         UsuarioExterno usuarioExterno = new UsuarioExterno()
             .dni(DEFAULT_DNI)
-            .pin(DEFAULT_PIN);
+            .pin(DEFAULT_PIN)
+            .role(DEFAULT_ROLE);
         return usuarioExterno;
     }
 
@@ -134,6 +138,7 @@ public class UsuarioExternoResourceIntTest {
         UsuarioExterno testUsuarioExterno = usuarioExternoList.get(usuarioExternoList.size() - 1);
         assertThat(testUsuarioExterno.getDni()).isEqualTo(DEFAULT_DNI);
         assertThat(testUsuarioExterno.getPin()).isEqualTo(DEFAULT_PIN);
+        assertThat(testUsuarioExterno.getRole()).isEqualTo(DEFAULT_ROLE);
 
         // Validate the UsuarioExterno in Elasticsearch
         verify(mockUsuarioExternoSearchRepository, times(1)).save(testUsuarioExterno);
@@ -212,7 +217,8 @@ public class UsuarioExternoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(usuarioExterno.getId().intValue())))
             .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI)))
-            .andExpect(jsonPath("$.[*].pin").value(hasItem(DEFAULT_PIN)));
+            .andExpect(jsonPath("$.[*].pin").value(hasItem(DEFAULT_PIN)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE.toString())));
     }
     
     @Test
@@ -227,7 +233,8 @@ public class UsuarioExternoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(usuarioExterno.getId().intValue()))
             .andExpect(jsonPath("$.dni").value(DEFAULT_DNI))
-            .andExpect(jsonPath("$.pin").value(DEFAULT_PIN));
+            .andExpect(jsonPath("$.pin").value(DEFAULT_PIN))
+            .andExpect(jsonPath("$.role").value(DEFAULT_ROLE.toString()));
     }
 
     @Test
@@ -252,7 +259,8 @@ public class UsuarioExternoResourceIntTest {
         em.detach(updatedUsuarioExterno);
         updatedUsuarioExterno
             .dni(UPDATED_DNI)
-            .pin(UPDATED_PIN);
+            .pin(UPDATED_PIN)
+            .role(UPDATED_ROLE);
         UsuarioExternoDTO usuarioExternoDTO = usuarioExternoMapper.toDto(updatedUsuarioExterno);
 
         restUsuarioExternoMockMvc.perform(put("/api/usuario-externos")
@@ -266,6 +274,7 @@ public class UsuarioExternoResourceIntTest {
         UsuarioExterno testUsuarioExterno = usuarioExternoList.get(usuarioExternoList.size() - 1);
         assertThat(testUsuarioExterno.getDni()).isEqualTo(UPDATED_DNI);
         assertThat(testUsuarioExterno.getPin()).isEqualTo(UPDATED_PIN);
+        assertThat(testUsuarioExterno.getRole()).isEqualTo(UPDATED_ROLE);
 
         // Validate the UsuarioExterno in Elasticsearch
         verify(mockUsuarioExternoSearchRepository, times(1)).save(testUsuarioExterno);
@@ -327,7 +336,8 @@ public class UsuarioExternoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(usuarioExterno.getId().intValue())))
             .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI)))
-            .andExpect(jsonPath("$.[*].pin").value(hasItem(DEFAULT_PIN)));
+            .andExpect(jsonPath("$.[*].pin").value(hasItem(DEFAULT_PIN)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)));
     }
 
     @Test

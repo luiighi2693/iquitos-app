@@ -17,6 +17,8 @@ public class UsuarioExternoDTO implements Serializable {
     @NotNull
     private Integer pin;
 
+    private String role;
+
     public Long getId() {
         return id;
     }
@@ -39,6 +41,14 @@ public class UsuarioExternoDTO implements Serializable {
 
     public void setPin(Integer pin) {
         this.pin = pin;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
@@ -68,6 +78,7 @@ public class UsuarioExternoDTO implements Serializable {
             "id=" + getId() +
             ", dni=" + getDni() +
             ", pin=" + getPin() +
+            ", role='" + getRole() + "'" +
             "}";
     }
 }
