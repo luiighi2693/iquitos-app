@@ -8,67 +8,6 @@ import { IProveedor, Proveedor } from '../models/proveedor.model';
 import { ProveedorService } from './proveedor.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-
-// export interface Element {
-//   id: number;
-//   codigo: string;
-//   razonSocial: string;
-//   correo: string;
-//   telefono: string;
-// }
-//
-// const ELEMENT_DATA: Element[] = [
-//   {
-//     id: 1,
-//     codigo: 'dflgdlfgmndlfng',
-//     razonSocial: 'Nirav joshi',
-//     correo: 'algo@hotmail',
-//     telefono: '13456'
-//   },
-//   {
-//     id: 2,
-//     codigo: 'dflgdlfgmndlfng',
-//     razonSocial: 'Sunil joshi',
-//     correo: 'algo@hotmail',
-//     telefono: '13456'
-//   },
-//   {
-//     id: 3,
-//     codigo: 'dflgdlfgmndlfng',
-//     razonSocial: 'Vishal Bhatt',
-//     correo: 'algo@hotmail',
-//     telefono: '13456'
-//   },
-//   {
-//     id: 4,
-//     codigo: 'dflgdlfgmndlfng',
-//     razonSocial: 'Beryllium Lon',
-//     correo: 'algo@hotmail',
-//     telefono: '13456'
-//   },
-//   {
-//     id: 5,
-//     codigo: 'dflgdlfgmndlfng',
-//     razonSocial: 'Boron son',
-//     correo: 'algo@hotmail',
-//     telefono: '13456'
-//   },
-//   {
-//     id: 6,
-//     codigo: 'dflgdlfgmndlfng',
-//     razonSocial: 'Carbon hryt',
-//     correo: 'algo@hotmail',
-//     telefono: '13456'
-//   },
-//   {
-//     id: 7,
-//     codigo: 'dflgdlfgmndlfng',
-//     razonSocial: 'Nitro oxur',
-//     correo: 'algo@hotmail',
-//     telefono: '13456'
-//   }
-// ];
 
 @Component({
   selector: 'app-provider',
@@ -78,34 +17,23 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 export class ProviderComponent implements OnInit, OnDestroy {
   options: FormGroup;
   action: string;
-
   proveedors: IProveedor[];
-  currentAccount: any;
-  eventSubscriber: Subscription;
   itemsPerPage: number;
   links: any;
   page: any;
   predicate: any;
-  queryCount: any;
   reverse: any;
   totalItems: number;
   currentSearch: string;
 
   proveedor: IProveedor;
 
-  // This is for the table responsive
   constructor(private proveedorService: ProveedorService,
               breakpointObserver: BreakpointObserver,
-              fb: FormBuilder,
-              private jhiAlertService: JhiAlertService,
-              private eventManager: JhiEventManager,
-              private parseLinks: JhiParseLinks) {
+              fb: FormBuilder) {
     this.proveedors = [];
     this.itemsPerPage = 20000;
     this.page = 0;
-    this.links = {
-      last: 0
-    };
     this.predicate = 'id';
     this.reverse = true;
 
@@ -118,12 +46,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
       'telefono': ''
     };
 
-    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
-      this.displayedColumns = result.matches ?
-          ['select', 'codigo', 'razonSocial', 'correo', 'telefono', 'star'] :
-          ['select', 'codigo', 'razonSocial', 'correo', 'telefono', 'star'];
-    });
-
     this.options = fb.group({
       hideRequired: false,
       floatLabel: 'auto'
@@ -132,9 +54,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
     this.action = 'list';
   }
 
-  // tslint:disable-next-line:member-ordering
   displayedColumns = ['select', 'codigo', 'razonSocial', 'correo', 'telefono', 'star'];
-  // tslint:disable-next-line:member-ordering
   dataSource = new MatTableDataSource<IProveedor>(null);
   selection = new SelectionModel<IProveedor>(true, []);
 
@@ -302,7 +222,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.eventManager.destroy(this.eventSubscriber);
+    // this.eventManager.destroy(this.eventSubscriber);
   }
 
   trackId(index: number, item: IProveedor) {
@@ -310,7 +230,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInProveedors() {
-    this.eventSubscriber = this.eventManager.subscribe('proveedorListModification', response => this.reset());
+    // this.eventSubscriber = this.eventManager.subscribe('proveedorListModification', response => this.reset());
   }
 
   sort() {
@@ -324,7 +244,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
   private paginateProveedors(data: IProveedor[], headers: HttpHeaders) {
     this.proveedors = [];
 
-    this.links = this.parseLinks.parse(headers.get('link'));
+    // this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     for (let i = 0; i < data.length; i++) {
       this.proveedors.push(data[i]);

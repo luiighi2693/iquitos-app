@@ -236,25 +236,22 @@ const MENUITEMS = [
     type: 'saperator',
     icon: 'av_timer'
   },
-  // {
-  //   state: 'dashboards',
-  //   name: 'Dashboards',
-  //   type: 'sub',
-  //   icon: 'av_timer',
-  //   children: [
-  //     { state: 'dashboard1', name: 'Dashboard 1', type: 'link' },
-  //     { state: 'dashboard2', name: 'Dashboard 2', type: 'link' }
-  //   ]
-  // },
-  // {
-  //   state: '',
-  //   name: 'Modulos',
-  //   type: 'sub',
-  //   icon: 'av_timer',
-  //   children: [
-  //     { state: 'provider', name: 'Provider', type: 'link' }
-  //   ]
-  // },
+  {
+    state: 'dashboards',
+    name: 'Dashboards',
+    type: 'sub',
+    icon: 'av_timer',
+    children: [
+      { state: 'dashboard1', name: 'Dashboard 1', type: 'link' },
+      { state: 'dashboard2', name: 'Dashboard 2', type: 'link' }
+    ]
+  },
+  {
+    state: 'provider',
+    name: 'Proveedores',
+    type: 'link',
+    icon: 'av_timer',
+  }
 ];
 
 @Injectable()
