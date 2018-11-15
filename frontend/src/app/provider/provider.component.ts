@@ -148,18 +148,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
     this.changeAction('list');
   }
 
-  getNameForm() {
-    if ( this.action === 'edit') {
-      return 'Edición';
-    }
-
-    if ( this.action === 'new') {
-      return 'Nuevo';
-    }
-
-    return '';
-  }
-
   reset() {
     this.page = 0;
     this.proveedors = [];

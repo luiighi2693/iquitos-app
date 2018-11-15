@@ -11,6 +11,8 @@ import { ProviderComponent } from './provider.component';
 import {MatSortModule} from '@angular/material/sort';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProviderDetailComponent } from './provider-detail.component';
+import { ProviderUpdateComponent } from './provider-update.component';
 
 @NgModule({
   imports: [
@@ -22,6 +24,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule.forChild(ProviderRoutes)
   ],
-  declarations: [ProviderComponent]
+  declarations: [ProviderComponent, ProviderDetailComponent, ProviderUpdateComponent]
 })
 export class ProviderModule {}

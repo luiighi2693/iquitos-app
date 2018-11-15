@@ -1,0 +1,51 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Proveedor Detalle</mat-card-title>
+        <form class="basic-form">
+          <div fxLayout="row wrap">
+            <!-- column -->
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Código" name="code" [(ngModel)]="proveedor.codigo">
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Razon social" name="socialReason" [(ngModel)]="proveedor.razonSocial">
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Correo" name="email" [(ngModel)]="proveedor.correo">
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono">
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Dirección" name="address" [(ngModel)]="proveedor.direccion">
+              </mat-form-field>
+            </div>
+            <!-- column -->
+            <!--<div class="p-10">-->
+              <!--<button mat-raised-button color="primary" (click)="save()">Guardar</button>-->
+            <!--</div>-->
+            <!-- column -->
+            <div class="p-10">
+              <button mat-raised-button color="grey" (click)="previousState()">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

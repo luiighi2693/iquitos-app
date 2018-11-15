@@ -1,4 +1,4 @@
-<div fxLayout="row wrap" *ngIf="action === 'list'">
+<div fxLayout="row wrap">
   <!-- Column-->
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
     <mat-card>
@@ -13,7 +13,7 @@
             </mat-form-field>
 
             <div fxFlex.gt-sm="25" fxFlex="25" id="newSection">
-              <button mat-raised-button color="primary" (click)="new()">Nuevo</button>
+              <button mat-raised-button color="primary" [routerLink]="['/provider/new']">Nuevo</button>
             </div>
           </div>
 
@@ -75,7 +75,11 @@
             <ng-container matColumnDef="star">
               <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <a class="ng-star-inserted" (click)="editRow(element)">
+                <a class="ng-star-inserted" [routerLink]="['/provider', element.id, 'view' ]">
+                  <i class="ti-eye text-info m-r-10"></i>
+                </a>
+
+                <a class="ng-star-inserted" [routerLink]="['/provider', element.id, 'edit']">
                   <i class="ti-pencil text-info m-r-10"></i>
                 </a>
                 <a class="ng-star-inserted" (click)="deleteRow(element)">
@@ -90,61 +94,6 @@
         </div>
         <!--<mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">-->
         <!--</mat-paginator>-->
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
-
-<div fxLayout="row wrap" *ngIf="action === 'new' || action === 'edit'">
-  <div fxFlex.gt-sm="100" fxFlex="100">
-    <mat-card>
-      <mat-card-content>
-        <mat-card-title>Proveedor {{getNameForm()}}</mat-card-title>
-        <!-- ============================================================== -->
-        <!-- column -->
-        <!-- ============================================================== -->
-        <form class="basic-form">
-          <div fxLayout="row wrap">
-            <!-- column -->
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Código" name="code" [(ngModel)]="proveedor.codigo">
-              </mat-form-field>
-            </div>
-            <!-- column -->
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Razon social" name="socialReason" [(ngModel)]="proveedor.razonSocial">
-              </mat-form-field>
-            </div>
-            <!-- column -->
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Correo" name="email" [(ngModel)]="proveedor.correo">
-              </mat-form-field>
-            </div>
-            <!-- column -->
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono">
-              </mat-form-field>
-            </div>
-            <!-- column -->
-            <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Dirección" name="address" [(ngModel)]="proveedor.direccion">
-              </mat-form-field>
-            </div>
-            <!-- column -->
-            <div class="p-10">
-              <button mat-raised-button color="primary" (click)="save()">Guardar</button>
-            </div>
-            <!-- column -->
-            <div class="p-10">
-              <button mat-raised-button color="grey" (click)="cancel()">Cancelar</button>
-            </div>
-          </div>
-        </form>
       </mat-card-content>
     </mat-card>
   </div>
