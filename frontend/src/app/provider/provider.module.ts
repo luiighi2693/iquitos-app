@@ -13,6 +13,7 @@ import {MatSortModule} from '@angular/material/sort';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProviderDetailComponent } from './provider-detail.component';
 import { ProviderUpdateComponent } from './provider-update.component';
+import { ProviderDeleteComponent } from './provider-delete.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { ProviderUpdateComponent } from './provider-update.component';
     ReactiveFormsModule,
     RouterModule.forChild(ProviderRoutes)
   ],
-  declarations: [ProviderComponent, ProviderDetailComponent, ProviderUpdateComponent]
+  entryComponents: [ProviderDeleteComponent],
+  declarations: [ProviderComponent, ProviderDetailComponent, ProviderUpdateComponent, ProviderDeleteComponent]
 })
 export class ProviderModule {}

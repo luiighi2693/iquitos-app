@@ -82,7 +82,8 @@
                 <a class="ng-star-inserted" [routerLink]="['/provider', element.id, 'edit']">
                   <i class="ti-pencil text-info m-r-10"></i>
                 </a>
-                <a class="ng-star-inserted" (click)="deleteRow(element)">
+                <!--<a class="ng-star-inserted" (click)="deleteRow(element)">-->
+                <a class="ng-star-inserted" (click)="openDialog(element)">
                   <i class="ti-trash text-danger m-r-10"></i>
                 </a>
               </mat-cell>

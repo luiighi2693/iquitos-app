@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 // import { BreakpointObserver } from '@angular/cdk/layout';
 import {SelectionModel} from '@angular/cdk/collections';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,6 +8,7 @@ import { IProveedor, Proveedor } from '../models/proveedor.model';
 import { ProveedorService } from './proveedor.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ProviderDeleteComponent } from './provider-delete.component';
 
 @Component({
   selector: 'app-provider',
@@ -15,11 +16,8 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
   styleUrls: ['./provider.component.scss']
 })
 export class ProviderComponent implements OnInit, OnDestroy {
-  options: FormGroup;
-  action: string;
   proveedors: IProveedor[];
   itemsPerPage: number;
-  links: any;
   page: any;
   predicate: any;
   reverse: any;
@@ -28,29 +26,12 @@ export class ProviderComponent implements OnInit, OnDestroy {
 
   proveedor: IProveedor;
 
-  constructor(private proveedorService: ProveedorService,
-              fb: FormBuilder) {
+  constructor(private proveedorService: ProveedorService, public dialog: MatDialog) {
     this.proveedors = [];
     this.itemsPerPage = 500;
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
-
-    this.proveedor = {
-      'id': undefined,
-      'codigo': '',
-      'razonSocial': '',
-      'correo': '',
-      'direccion': '',
-      'telefono': ''
-    };
-
-    this.options = fb.group({
-      hideRequired: false,
-      floatLabel: 'auto'
-    });
-
-    this.action = 'list';
   }
 
   displayedColumns = ['select', 'codigo', 'razonSocial', 'correo', 'telefono', 'star'];
@@ -98,12 +79,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  editRow(row) {
-    this.proveedor = row;
-    this.changeAction('edit');
-  }
-
-  deleteRow(row) {
+  deleteEntity(row) {
     this.proveedorService.delete(row.id).subscribe(response => {
     });
 
@@ -116,10 +92,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  changeAction(action) {
-    this.action = action;
   }
 
   save() {
@@ -135,7 +107,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
   }
 
   private onSaveSuccess() {
-    this.changeAction('list');
     this.loadAll();
   }
 
@@ -143,10 +114,9 @@ export class ProviderComponent implements OnInit, OnDestroy {
     // this.isSaving = false;
   }
 
-  cancel() {
-    this.dataSource.filter = '';
-    this.changeAction('list');
-  }
+  // cancel() {
+  //   this.dataSource.filter = '';
+  // }
 
   reset() {
     this.page = 0;
@@ -205,16 +175,16 @@ export class ProviderComponent implements OnInit, OnDestroy {
     console.log(errorMessage);
   }
 
-  new() {
-    this.proveedor = {
-      'id': undefined,
-      'codigo': '',
-      'razonSocial': '',
-      'correo': '',
-      'direccion': '',
-      'telefono': ''
-    };
+  openDialog(provider): void {
+    const dialogRef = this.dialog.open(ProviderDeleteComponent, {
+      width: '300px',
+      data: { provider: provider }
+    });
 
-    this.changeAction('new');
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.deleteEntity(result);
+      }
+    });
   }
 }
