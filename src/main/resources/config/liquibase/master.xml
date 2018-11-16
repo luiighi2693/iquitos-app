@@ -29,6 +29,8 @@
     <include file="config/liquibase/changelog/20181031175930_added_entity_TipoDeOperacionDeIngreso.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181031175931_added_entity_TipoDeOperacionDeGasto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181116230439_added_entity_ContactoProveedor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181116232528_added_entity_Proveedor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181116232530_added_entity_CuentaProveedor.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20181031175907_added_entity_constraints_Amortizacion.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181031175908_added_entity_constraints_Venta.xml" relativeToChangelogFile="false"/>
@@ -42,5 +44,6 @@
     <include file="config/liquibase/changelog/20181031175919_added_entity_constraints_Caja.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181031175920_added_entity_constraints_Operacion.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20181031175922_added_entity_constraints_Pedido.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20181116232528_added_entity_constraints_Proveedor.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

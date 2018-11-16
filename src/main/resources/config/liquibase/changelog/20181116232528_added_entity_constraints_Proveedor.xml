@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Proveedor.
+    -->
+    <changeSet id="20181116232528-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="proveedors_id"
+                                 baseTableName="proveedor_cuenta_proveedor"
+                                 constraintName="fk_proveedor_cuenta_proveedor_proveedors_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="proveedor"/>
+        <addForeignKeyConstraint baseColumnNames="cuenta_proveedors_id"
+                                 baseTableName="proveedor_cuenta_proveedor"
+                                 constraintName="fk_proveedor_cuenta_proveedor_cuenta_proveedors_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cuenta_proveedor"/>
+        
+        <addForeignKeyConstraint baseColumnNames="proveedors_id"
+                                 baseTableName="proveedor_contacto_proveedor"
+                                 constraintName="fk_proveedor_contacto_proveedor_proveedors_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="proveedor"/>
+        <addForeignKeyConstraint baseColumnNames="contacto_proveedors_id"
+                                 baseTableName="proveedor_contacto_proveedor"
+                                 constraintName="fk_proveedor_contacto_proveedor_contacto_proveedors_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="contacto_proveedor"/>
+        
+    </changeSet>
+</databaseChangeLog>
