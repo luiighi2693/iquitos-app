@@ -70,6 +70,15 @@ public class ProveedorServiceImpl implements ProveedorService {
             .map(proveedorMapper::toDto);
     }
 
+    /**
+     * Get all the Proveedor with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    public Page<ProveedorDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return proveedorRepository.findAllWithEagerRelationships(pageable).map(proveedorMapper::toDto);
+    }
+    
 
     /**
      * Get one proveedor by id.
@@ -81,7 +90,7 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Transactional(readOnly = true)
     public Optional<ProveedorDTO> findOne(Long id) {
         log.debug("Request to get Proveedor : {}", id);
-        return proveedorRepository.findById(id)
+        return proveedorRepository.findOneWithEagerRelationships(id)
             .map(proveedorMapper::toDto);
     }
 

@@ -2,6 +2,8 @@ package pe.com.iquitos.app.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -30,6 +32,10 @@ public class ProveedorDTO implements Serializable {
     @NotNull
     @Size(max = 150)
     private String telefono;
+
+    private Set<CuentaProveedorDTO> cuentaProveedors = new HashSet<>();
+
+    private Set<ContactoProveedorDTO> contactoProveedors = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -77,6 +83,22 @@ public class ProveedorDTO implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public Set<CuentaProveedorDTO> getCuentaProveedors() {
+        return cuentaProveedors;
+    }
+
+    public void setCuentaProveedors(Set<CuentaProveedorDTO> cuentaProveedors) {
+        this.cuentaProveedors = cuentaProveedors;
+    }
+
+    public Set<ContactoProveedorDTO> getContactoProveedors() {
+        return contactoProveedors;
+    }
+
+    public void setContactoProveedors(Set<ContactoProveedorDTO> contactoProveedors) {
+        this.contactoProveedors = contactoProveedors;
     }
 
     @Override

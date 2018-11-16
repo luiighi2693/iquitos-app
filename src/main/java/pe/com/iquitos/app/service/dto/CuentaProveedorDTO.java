@@ -31,8 +31,6 @@ public class CuentaProveedorDTO implements Serializable {
 
     private LocalDate fecha;
 
-    private Long proveedorId;
-
     public Long getId() {
         return id;
     }
@@ -89,14 +87,6 @@ public class CuentaProveedorDTO implements Serializable {
         this.fecha = fecha;
     }
 
-    public Long getProveedorId() {
-        return proveedorId;
-    }
-
-    public void setProveedorId(Long proveedorId) {
-        this.proveedorId = proveedorId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -128,7 +118,6 @@ public class CuentaProveedorDTO implements Serializable {
             ", nombreCuenta='" + getNombreCuenta() + "'" +
             ", numeroDeCuenta=" + getNumeroDeCuenta() +
             ", fecha='" + getFecha() + "'" +
-            ", proveedor=" + getProveedorId() +
             "}";
     }
 }

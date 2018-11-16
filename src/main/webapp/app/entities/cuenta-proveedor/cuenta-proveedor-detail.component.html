@@ -29,12 +29,6 @@
                 <dd>
                     <span>{{cuentaProveedor.fecha}}</span>
                 </dd>
-                <dt><span>Proveedor</span></dt>
-                <dd>
-                    <div *ngIf="cuentaProveedor.proveedorId">
-                        <a [routerLink]="['/proveedor', cuentaProveedor.proveedorId, 'view']">{{cuentaProveedor.proveedorId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

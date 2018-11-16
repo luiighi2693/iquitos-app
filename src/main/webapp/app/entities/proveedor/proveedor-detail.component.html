@@ -25,6 +25,18 @@
                 <dd>
                     <span>{{proveedor.telefono}}</span>
                 </dd>
+                <dt><span>Cuenta Proveedor</span></dt>
+                <dd>
+                    <span *ngFor="let cuentaProveedor of proveedor.cuentaProveedors; let last = last">
+                        <a [routerLink]="['/cuenta-proveedor', cuentaProveedor?.id, 'view' ]">{{cuentaProveedor.codigo}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Contacto Proveedor</span></dt>
+                <dd>
+                    <span *ngFor="let contactoProveedor of proveedor.contactoProveedors; let last = last">
+                        <a [routerLink]="['/contacto-proveedor', contactoProveedor?.id, 'view' ]">{{contactoProveedor.nombre}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
             </dl>
 
             <button type="submit"

@@ -32,7 +32,6 @@ export class CuentaProveedorUpdatePage {
     nombreCuentaInput = element(by.id('field_nombreCuenta'));
     numeroDeCuentaInput = element(by.id('field_numeroDeCuenta'));
     fechaInput = element(by.id('field_fecha'));
-    proveedorSelect = element(by.id('field_proveedor'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -91,25 +90,6 @@ export class CuentaProveedorUpdatePage {
 
     async getFechaInput() {
         return this.fechaInput.getAttribute('value');
-    }
-
-    async proveedorSelectLastOption() {
-        await this.proveedorSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async proveedorSelectOption(option) {
-        await this.proveedorSelect.sendKeys(option);
-    }
-
-    getProveedorSelect(): ElementFinder {
-        return this.proveedorSelect;
-    }
-
-    async getProveedorSelectedOption() {
-        return this.proveedorSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

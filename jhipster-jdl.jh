@@ -91,6 +91,13 @@ entity Proveedor {
     telefono String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
+entity ContactoProveedor {
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    cargo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    producto String,
+    telefono Integer,
+}
+
 entity CuentaProveedor {
 	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 	estatus ProviderStatus,
@@ -98,7 +105,7 @@ entity CuentaProveedor {
     nombreCuenta String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     numeroDeCuenta Integer,
     fecha LocalDate,
-    
+
 }
 
 entity PagoDeProveedor {
@@ -255,8 +262,6 @@ relationship ManyToOne {
 
 relationship OneToMany {
 	Venta{amortizacion} to Amortizacion,
-
-    Proveedor{cuentaProveedor(codigo)} to CuentaProveedor,
 }
 
 relationship OneToOne {
@@ -286,6 +291,9 @@ relationship ManyToMany {
     Variante{productos(codigo)} to Producto,
     Venta{productos(codigo)} to Producto,
     Compra{productos(codigo)} to Producto,
+
+    Proveedor{cuentaProveedor(codigo)} to CuentaProveedor,
+    Proveedor{contactoProveedor(nombre)} to ContactoProveedor,
 }
 
 // Set pagination options

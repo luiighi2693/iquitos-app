@@ -8,8 +8,6 @@ import { IquitosAppEmpleadoModule } from './empleado/empleado.module';
 import { IquitosAppProductoModule } from './producto/producto.module';
 import { IquitosAppVarianteModule } from './variante/variante.module';
 import { IquitosAppCategoriaModule } from './categoria/categoria.module';
-import { IquitosAppProveedorModule } from './proveedor/proveedor.module';
-import { IquitosAppCuentaProveedorModule } from './cuenta-proveedor/cuenta-proveedor.module';
 import { IquitosAppPagoDeProveedorModule } from './pago-de-proveedor/pago-de-proveedor.module';
 import { IquitosAppCompraModule } from './compra/compra.module';
 import { IquitosAppCajaModule } from './caja/caja.module';
@@ -25,6 +23,7 @@ import { IquitosAppTipoDeDocumentoDeCompraModule } from './tipo-de-documento-de-
 import { IquitosAppEstatusDeCompraModule } from './estatus-de-compra/estatus-de-compra.module';
 import { IquitosAppTipoDeOperacionDeIngresoModule } from './tipo-de-operacion-de-ingreso/tipo-de-operacion-de-ingreso.module';
 import { IquitosAppTipoDeOperacionDeGastoModule } from './tipo-de-operacion-de-gasto/tipo-de-operacion-de-gasto.module';
+import { IquitosAppContactoProveedorModule } from './contacto-proveedor/contacto-proveedor.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -38,8 +37,6 @@ import { IquitosAppTipoDeOperacionDeGastoModule } from './tipo-de-operacion-de-g
         IquitosAppProductoModule,
         IquitosAppVarianteModule,
         IquitosAppCategoriaModule,
-        IquitosAppProveedorModule,
-        IquitosAppCuentaProveedorModule,
         IquitosAppPagoDeProveedorModule,
         IquitosAppCompraModule,
         IquitosAppCajaModule,
@@ -55,6 +52,7 @@ import { IquitosAppTipoDeOperacionDeGastoModule } from './tipo-de-operacion-de-g
         IquitosAppEstatusDeCompraModule,
         IquitosAppTipoDeOperacionDeIngresoModule,
         IquitosAppTipoDeOperacionDeGastoModule,
+        IquitosAppContactoProveedorModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

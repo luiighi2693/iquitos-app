@@ -13,7 +13,6 @@ export interface ICuentaProveedor {
     nombreCuenta?: string;
     numeroDeCuenta?: number;
     fecha?: Moment;
-    proveedorId?: number;
 }
 
 export class CuentaProveedor implements ICuentaProveedor {
@@ -24,7 +23,6 @@ export class CuentaProveedor implements ICuentaProveedor {
         public banco?: string,
         public nombreCuenta?: string,
         public numeroDeCuenta?: number,
-        public fecha?: Moment,
-        public proveedorId?: number
+        public fecha?: Moment
     ) {}
 }

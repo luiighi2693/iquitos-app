@@ -44,6 +44,8 @@ describe('Proveedor e2e test', () => {
             proveedorUpdatePage.setDireccionInput('direccion'),
             proveedorUpdatePage.setCorreoInput('correo'),
             proveedorUpdatePage.setTelefonoInput('telefono')
+            // proveedorUpdatePage.cuentaProveedorSelectLastOption(),
+            // proveedorUpdatePage.contactoProveedorSelectLastOption(),
         ]);
         expect(await proveedorUpdatePage.getCodigoInput()).to.eq('codigo');
         expect(await proveedorUpdatePage.getRazonSocialInput()).to.eq('razonSocial');

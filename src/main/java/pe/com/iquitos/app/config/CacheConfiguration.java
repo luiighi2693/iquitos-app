@@ -50,9 +50,6 @@ public class CacheConfiguration {
             cm.createCache(pe.com.iquitos.app.domain.Variante.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Variante.class.getName() + ".productos", jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Categoria.class.getName(), jcacheConfiguration);
-            cm.createCache(pe.com.iquitos.app.domain.Proveedor.class.getName(), jcacheConfiguration);
-            cm.createCache(pe.com.iquitos.app.domain.Proveedor.class.getName() + ".cuentaProveedors", jcacheConfiguration);
-            cm.createCache(pe.com.iquitos.app.domain.CuentaProveedor.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.PagoDeProveedor.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Compra.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.Compra.class.getName() + ".productos", jcacheConfiguration);
@@ -70,6 +67,7 @@ public class CacheConfiguration {
             cm.createCache(pe.com.iquitos.app.domain.EstatusDeCompra.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.TipoDeOperacionDeIngreso.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.TipoDeOperacionDeGasto.class.getName(), jcacheConfiguration);
+            cm.createCache(pe.com.iquitos.app.domain.ContactoProveedor.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

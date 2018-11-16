@@ -77,13 +77,6 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" for="field_proveedor">Proveedor</label>
-                    <select class="form-control" id="field_proveedor" name="proveedor" [(ngModel)]="cuentaProveedor.proveedorId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="proveedorOption.id" *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById">{{proveedorOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

@@ -1,6 +1,5 @@
 package pe.com.iquitos.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -53,9 +52,20 @@ public class Proveedor implements Serializable {
     @Column(name = "telefono", length = 150, nullable = false)
     private String telefono;
 
-    @OneToMany(mappedBy = "proveedor")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "proveedor_cuenta_proveedor",
+               joinColumns = @JoinColumn(name = "proveedors_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "cuenta_proveedors_id", referencedColumnName = "id"))
     private Set<CuentaProveedor> cuentaProveedors = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "proveedor_contacto_proveedor",
+               joinColumns = @JoinColumn(name = "proveedors_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "contacto_proveedors_id", referencedColumnName = "id"))
+    private Set<ContactoProveedor> contactoProveedors = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -141,18 +151,39 @@ public class Proveedor implements Serializable {
 
     public Proveedor addCuentaProveedor(CuentaProveedor cuentaProveedor) {
         this.cuentaProveedors.add(cuentaProveedor);
-        cuentaProveedor.setProveedor(this);
         return this;
     }
 
     public Proveedor removeCuentaProveedor(CuentaProveedor cuentaProveedor) {
         this.cuentaProveedors.remove(cuentaProveedor);
-        cuentaProveedor.setProveedor(null);
         return this;
     }
 
     public void setCuentaProveedors(Set<CuentaProveedor> cuentaProveedors) {
         this.cuentaProveedors = cuentaProveedors;
+    }
+
+    public Set<ContactoProveedor> getContactoProveedors() {
+        return contactoProveedors;
+    }
+
+    public Proveedor contactoProveedors(Set<ContactoProveedor> contactoProveedors) {
+        this.contactoProveedors = contactoProveedors;
+        return this;
+    }
+
+    public Proveedor addContactoProveedor(ContactoProveedor contactoProveedor) {
+        this.contactoProveedors.add(contactoProveedor);
+        return this;
+    }
+
+    public Proveedor removeContactoProveedor(ContactoProveedor contactoProveedor) {
+        this.contactoProveedors.remove(contactoProveedor);
+        return this;
+    }
+
+    public void setContactoProveedors(Set<ContactoProveedor> contactoProveedors) {
+        this.contactoProveedors = contactoProveedors;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

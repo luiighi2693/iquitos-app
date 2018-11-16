@@ -1,6 +1,5 @@
 package pe.com.iquitos.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -53,10 +52,6 @@ public class CuentaProveedor implements Serializable {
 
     @Column(name = "fecha")
     private LocalDate fecha;
-
-    @ManyToOne
-    @JsonIgnoreProperties("cuentaProveedors")
-    private Proveedor proveedor;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -143,19 +138,6 @@ public class CuentaProveedor implements Serializable {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
-    }
-
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
-
-    public CuentaProveedor proveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
-        return this;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

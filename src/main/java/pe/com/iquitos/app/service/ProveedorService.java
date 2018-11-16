@@ -28,7 +28,13 @@ public interface ProveedorService {
      */
     Page<ProveedorDTO> findAll(Pageable pageable);
 
-
+    /**
+     * Get all the Proveedor with eager load of many-to-many relationships.
+     *
+     * @return the list of entities
+     */
+    Page<ProveedorDTO> findAllWithEagerRelationships(Pageable pageable);
+    
     /**
      * Get the "id" proveedor.
      *

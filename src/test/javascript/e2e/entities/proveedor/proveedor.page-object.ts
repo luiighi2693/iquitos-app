@@ -31,6 +31,8 @@ export class ProveedorUpdatePage {
     direccionInput = element(by.id('field_direccion'));
     correoInput = element(by.id('field_correo'));
     telefonoInput = element(by.id('field_telefono'));
+    cuentaProveedorSelect = element(by.id('field_cuentaProveedor'));
+    contactoProveedorSelect = element(by.id('field_contactoProveedor'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -74,6 +76,44 @@ export class ProveedorUpdatePage {
 
     async getTelefonoInput() {
         return this.telefonoInput.getAttribute('value');
+    }
+
+    async cuentaProveedorSelectLastOption() {
+        await this.cuentaProveedorSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async cuentaProveedorSelectOption(option) {
+        await this.cuentaProveedorSelect.sendKeys(option);
+    }
+
+    getCuentaProveedorSelect(): ElementFinder {
+        return this.cuentaProveedorSelect;
+    }
+
+    async getCuentaProveedorSelectedOption() {
+        return this.cuentaProveedorSelect.element(by.css('option:checked')).getText();
+    }
+
+    async contactoProveedorSelectLastOption() {
+        await this.contactoProveedorSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async contactoProveedorSelectOption(option) {
+        await this.contactoProveedorSelect.sendKeys(option);
+    }
+
+    getContactoProveedorSelect(): ElementFinder {
+        return this.contactoProveedorSelect;
+    }
+
+    async getContactoProveedorSelectedOption() {
+        return this.contactoProveedorSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

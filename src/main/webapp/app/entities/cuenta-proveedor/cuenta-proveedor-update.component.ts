@@ -3,12 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { JhiAlertService } from 'ng-jhipster';
 
 import { ICuentaProveedor } from 'app/shared/model/cuenta-proveedor.model';
 import { CuentaProveedorService } from './cuenta-proveedor.service';
-import { IProveedor } from 'app/shared/model/proveedor.model';
-import { ProveedorService } from 'app/entities/proveedor';
 
 @Component({
     selector: 'jhi-cuenta-proveedor-update',
@@ -17,28 +14,15 @@ import { ProveedorService } from 'app/entities/proveedor';
 export class CuentaProveedorUpdateComponent implements OnInit {
     cuentaProveedor: ICuentaProveedor;
     isSaving: boolean;
-
-    proveedors: IProveedor[];
     fechaDp: any;
 
-    constructor(
-        private jhiAlertService: JhiAlertService,
-        private cuentaProveedorService: CuentaProveedorService,
-        private proveedorService: ProveedorService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+    constructor(private cuentaProveedorService: CuentaProveedorService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ cuentaProveedor }) => {
             this.cuentaProveedor = cuentaProveedor;
         });
-        this.proveedorService.query().subscribe(
-            (res: HttpResponse<IProveedor[]>) => {
-                this.proveedors = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -65,13 +49,5 @@ export class CuentaProveedorUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackProveedorById(index: number, item: IProveedor) {
-        return item.id;
     }
 }

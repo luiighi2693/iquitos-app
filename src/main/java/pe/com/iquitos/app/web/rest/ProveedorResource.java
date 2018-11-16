@@ -89,14 +89,20 @@ public class ProveedorResource {
      * GET  /proveedors : get all the proveedors.
      *
      * @param pageable the pagination information
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of proveedors in body
      */
     @GetMapping("/proveedors")
     @Timed
-    public ResponseEntity<List<ProveedorDTO>> getAllProveedors(Pageable pageable) {
+    public ResponseEntity<List<ProveedorDTO>> getAllProveedors(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Proveedors");
-        Page<ProveedorDTO> page = proveedorService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/proveedors");
+        Page<ProveedorDTO> page;
+        if (eagerload) {
+            page = proveedorService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = proveedorService.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/proveedors?eagerload=%b", eagerload));
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

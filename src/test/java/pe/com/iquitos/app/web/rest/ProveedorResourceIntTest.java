@@ -13,6 +13,7 @@ import pe.com.iquitos.app.web.rest.errors.ExceptionTranslator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -66,8 +68,14 @@ public class ProveedorResourceIntTest {
     @Autowired
     private ProveedorRepository proveedorRepository;
 
+    @Mock
+    private ProveedorRepository proveedorRepositoryMock;
+
     @Autowired
     private ProveedorMapper proveedorMapper;
+
+    @Mock
+    private ProveedorService proveedorServiceMock;
 
     @Autowired
     private ProveedorService proveedorService;
@@ -290,6 +298,39 @@ public class ProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllProveedorsWithEagerRelationshipsIsEnabled() throws Exception {
+        ProveedorResource proveedorResource = new ProveedorResource(proveedorServiceMock);
+        when(proveedorServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        MockMvc restProveedorMockMvc = MockMvcBuilders.standaloneSetup(proveedorResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restProveedorMockMvc.perform(get("/api/proveedors?eagerload=true"))
+        .andExpect(status().isOk());
+
+        verify(proveedorServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllProveedorsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        ProveedorResource proveedorResource = new ProveedorResource(proveedorServiceMock);
+            when(proveedorServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            MockMvc restProveedorMockMvc = MockMvcBuilders.standaloneSetup(proveedorResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter).build();
+
+        restProveedorMockMvc.perform(get("/api/proveedors?eagerload=true"))
+        .andExpect(status().isOk());
+
+            verify(proveedorServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getProveedor() throws Exception {
