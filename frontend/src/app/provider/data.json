@@ -1,0 +1,39 @@
+[
+  {
+    "id": 0,
+    "razonSocial": "Comercial San Juan sac",
+    "telefono": "065252928",
+    "productosRelacionados": "Leche, Azucar, Palmerola...",
+    "contactos": [
+      {
+        "id": 1,
+        "nombre": "Pedro vazquez",
+        "cargo": "Gerente",
+        "telefono": "965852157",
+        "producto": "Aceite, Soya"
+      },
+      {
+        "id": 2,
+        "nombre": "Pedro vazquez",
+        "cargo": "Gerente",
+        "telefono": "965852157",
+        "producto": "Aceite, Soya"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "razonSocial": "Industria Molinera Muñoz",
+    "telefono": "065252928",
+    "productosRelacionados": "Leche, Azucar, Palmerola...",
+    "contactos": [
+      {
+        "id": 1,
+        "nombre": "Pedro vazquez",
+        "cargo": "Gerente",
+        "telefono": "965852157",
+        "producto": "Aceite, Soya"
+      }
+    ]
+  }
+]

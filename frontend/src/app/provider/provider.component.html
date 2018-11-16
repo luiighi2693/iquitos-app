@@ -37,12 +37,12 @@
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="codigo">
-              <mat-header-cell *matHeaderCellDef mat-sort-header="codigo"> Código </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span class="header-label">Código:</span>
-                <h5 class="m-0">{{element.codigo}}</h5> </mat-cell>
-            </ng-container>
+            <!--<ng-container matColumnDef="codigo">-->
+              <!--<mat-header-cell *matHeaderCellDef mat-sort-header="codigo"> Código </mat-header-cell>-->
+              <!--<mat-cell *matCellDef="let element">-->
+                <!--<span class="header-label">Código:</span>-->
+                <!--<h5 class="m-0">{{element.codigo}}</h5> </mat-cell>-->
+            <!--</ng-container>-->
 
             <!-- Weight Column -->
             <ng-container matColumnDef="razonSocial">
@@ -54,13 +54,13 @@
             </ng-container>
 
             <!-- Symbol Column -->
-            <ng-container matColumnDef="correo">
-              <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span class="header-label">Correo:</span>
-                {{element.correo}}
-              </mat-cell>
-            </ng-container>
+            <!--<ng-container matColumnDef="correo">-->
+              <!--<mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>-->
+              <!--<mat-cell *matCellDef="let element">-->
+                <!--<span class="header-label">Correo:</span>-->
+                <!--{{element.correo}}-->
+              <!--</mat-cell>-->
+            <!--</ng-container>-->
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="telefono">
@@ -68,6 +68,22 @@
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Teléfono:</span>
                 {{element.telefono}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="productosRelacionados">
+              <mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Productos Relacionados:</span>
+                {{element.productosRelacionados}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="contactos">
+              <mat-header-cell *matHeaderCellDef> Contactos </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Contactos:</span>
+                {{element.contactos.length}}
               </mat-cell>
             </ng-container>
 

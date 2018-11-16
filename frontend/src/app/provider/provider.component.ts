@@ -9,6 +9,9 @@ import { ProveedorService } from './proveedor.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ProviderDeleteComponent } from './provider-delete.component';
+declare var require: any;
+
+const dataIn: any = require('./data.json');
 
 @Component({
   selector: 'app-provider',
@@ -23,7 +26,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
   reverse: any;
   totalItems: number;
   currentSearch: string;
-
   proveedor: IProveedor;
 
   constructor(private proveedorService: ProveedorService, public dialog: MatDialog) {
@@ -34,7 +36,8 @@ export class ProviderComponent implements OnInit, OnDestroy {
     this.reverse = true;
   }
 
-  displayedColumns = ['select', 'codigo', 'razonSocial', 'correo', 'telefono', 'star'];
+  // displayedColumns = ['select', 'codigo', 'razonSocial', 'correo', 'telefono', 'star'];
+  displayedColumns = ['select', 'razonSocial', 'telefono', 'productosRelacionados', 'contactos', 'star'];
   dataSource = new MatTableDataSource<IProveedor>(null);
   selection = new SelectionModel<IProveedor>(true, []);
 
@@ -168,6 +171,9 @@ export class ProviderComponent implements OnInit, OnDestroy {
   private paginateProveedors(data: IProveedor[], headers: HttpHeaders) {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.proveedors = data;
+
+    this.proveedors = dataIn;
+
     this.dataSource = new MatTableDataSource<IProveedor>(this.proveedors);
   }
 

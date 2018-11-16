@@ -1,48 +1,159 @@
+<!--<div fxLayout="row wrap">-->
+  <!--<div fxFlex.gt-sm="100" fxFlex="100">-->
+    <!--<mat-card>-->
+      <!--<mat-card-content>-->
+        <!--<mat-card-title>Proveedor Detalle</mat-card-title>-->
+        <!--<form class="basic-form">-->
+          <!--<div fxLayout="row wrap">-->
+            <!--&lt;!&ndash; column &ndash;&gt;-->
+            <!--<div fxFlex.gt-sm="50" fxFlex="100" class="p-10">-->
+              <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Código" name="code" [(ngModel)]="proveedor.codigo">-->
+              <!--</mat-form-field>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; column &ndash;&gt;-->
+            <!--<div fxFlex.gt-sm="50" fxFlex="100" class="p-10">-->
+              <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Razon social" name="socialReason" [(ngModel)]="proveedor.razonSocial">-->
+              <!--</mat-form-field>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; column &ndash;&gt;-->
+            <!--<div fxFlex.gt-sm="50" fxFlex="100" class="p-10">-->
+              <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Correo" name="email" [(ngModel)]="proveedor.correo">-->
+              <!--</mat-form-field>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; column &ndash;&gt;-->
+            <!--<div fxFlex.gt-sm="50" fxFlex="100" class="p-10">-->
+              <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono">-->
+              <!--</mat-form-field>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; column &ndash;&gt;-->
+            <!--<div fxFlex.gt-sm="100" fxFlex="100" class="p-10">-->
+              <!--<mat-form-field>-->
+                <!--<input matInput placeholder="Dirección" name="address" [(ngModel)]="proveedor.direccion">-->
+              <!--</mat-form-field>-->
+            <!--</div>-->
+            <!--<div class="p-10">-->
+              <!--<button mat-raised-button color="grey" (click)="previousState()">Cancelar</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</form>-->
+      <!--</mat-card-content>-->
+    <!--</mat-card>-->
+  <!--</div>-->
+<!--</div>-->
+
+
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="100" fxFlex="100">
     <mat-card>
       <mat-card-content>
-        <mat-card-title>Proveedor Detalle</mat-card-title>
+        <h4>Detalles del proveedor</h4>
         <form class="basic-form">
           <div fxLayout="row wrap">
-            <!-- column -->
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Código" name="code" [(ngModel)]="proveedor.codigo">
-              </mat-form-field>
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Nombre del proveedor</span>
+              </div>
             </div>
-            <!-- column -->
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Razon social" name="socialReason" [(ngModel)]="proveedor.razonSocial">
-              </mat-form-field>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{proveedor.razonSocial}}</span>
+              </div>
             </div>
-            <!-- column -->
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Correo" name="email" [(ngModel)]="proveedor.correo">
-              </mat-form-field>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Dirección</span>
+              </div>
             </div>
-            <!-- column -->
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono">
-              </mat-form-field>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{proveedor.direccion}}</span>
+              </div>
             </div>
-            <!-- column -->
-            <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Dirección" name="address" [(ngModel)]="proveedor.direccion">
-              </mat-form-field>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Email:</span>
+              </div>
             </div>
-            <!-- column -->
-            <!--<div class="p-10">-->
-              <!--<button mat-raised-button color="primary" (click)="save()">Guardar</button>-->
-            <!--</div>-->
-            <!-- column -->
-            <div class="p-10">
-              <button mat-raised-button color="grey" (click)="previousState()">Cancelar</button>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{proveedor.correo}}</span>
+              </div>
             </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Productos Relacionados:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{proveedor.productosRelacionados}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap">
+            <!-- Card column -->
+            <div fxFlex.gt-sm="100%" fxFlex="100">
+              <mat-card>
+                <mat-card-content>
+                  <ng-container *ngIf="(asyncTabs | async) === null">
+                    Loading tabs...
+                  </ng-container>
+
+                  <mat-tab-group>
+                    <mat-tab *ngFor="let tab of asyncTabs | async">
+                      <ng-template mat-tab-label>{{tab.label}}</ng-template>
+                      <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="nombre">
+                          <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                          <mat-cell *matCellDef="let element">
+                            {{element.nombre}}
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="cargo">
+                          <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
+                          <mat-cell *matCellDef="let element">
+                            {{element.cargo}}
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="telefono">
+                          <mat-header-cell *matHeaderCellDef> Telefono </mat-header-cell>
+                          <mat-cell *matCellDef="let element">
+                            {{element.telefono}}
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="producto">
+                          <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+                          <mat-cell *matCellDef="let element">
+                            {{element.producto}}
+                          </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumnsContactos"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsContactos;"></mat-row>
+                      </mat-table>
+                    </mat-tab>
+                  </mat-tab-group>
+
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+          <div class="p-10 text-right">
+            <button mat-raised-button color="basic" class="bg-warning" (click)="previousState()">IMPRIMIR</button>
+            <button mat-raised-button color="primary" (click)="previousState()">ACEPTAR</button>
           </div>
         </form>
       </mat-card-content>
