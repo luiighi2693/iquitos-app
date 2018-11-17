@@ -30,8 +30,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="codigo"><span>Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="estatus"><span>Estatus</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipoCuenta"><span>Tipo Cuenta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="banco"><span>Banco</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nombreCuenta"><span>Nombre Cuenta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numeroDeCuenta"><span>Numero De Cuenta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -42,8 +41,7 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let cuentaProveedor of cuentaProveedors ;trackBy: trackId">
                 <td><a [routerLink]="['/cuenta-proveedor', cuentaProveedor.id, 'view' ]">{{cuentaProveedor.id}}</a></td>
-                <td>{{cuentaProveedor.codigo}}</td>
-                <td>{{cuentaProveedor.estatus}}</td>
+                <td>{{cuentaProveedor.tipoCuenta}}</td>
                 <td>{{cuentaProveedor.banco}}</td>
                 <td>{{cuentaProveedor.nombreCuenta}}</td>
                 <td>{{cuentaProveedor.numeroDeCuenta}}</td>

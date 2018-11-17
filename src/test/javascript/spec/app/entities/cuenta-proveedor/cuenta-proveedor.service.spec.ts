@@ -7,7 +7,7 @@ import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { CuentaProveedorService } from 'app/entities/cuenta-proveedor/cuenta-proveedor.service';
-import { ICuentaProveedor, CuentaProveedor, ProviderStatus } from 'app/shared/model/cuenta-proveedor.model';
+import { ICuentaProveedor, CuentaProveedor, AccountTypeProvider } from 'app/shared/model/cuenta-proveedor.model';
 
 describe('Service Tests', () => {
     describe('CuentaProveedor Service', () => {
@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new CuentaProveedor(0, 'AAAAAAA', ProviderStatus.ACTIVO, 'AAAAAAA', 'AAAAAAA', 0, currentDate);
+            elemDefault = new CuentaProveedor(0, AccountTypeProvider.CUENTA_CORRIENTE, 'AAAAAAA', 'AAAAAAA', 0, currentDate);
         });
 
         describe('Service methods', async () => {
@@ -70,8 +70,7 @@ describe('Service Tests', () => {
             it('should update a CuentaProveedor', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        codigo: 'BBBBBB',
-                        estatus: 'BBBBBB',
+                        tipoCuenta: 'BBBBBB',
                         banco: 'BBBBBB',
                         nombreCuenta: 'BBBBBB',
                         numeroDeCuenta: 1,
@@ -97,8 +96,7 @@ describe('Service Tests', () => {
             it('should return a list of CuentaProveedor', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        codigo: 'BBBBBB',
-                        estatus: 'BBBBBB',
+                        tipoCuenta: 'BBBBBB',
                         banco: 'BBBBBB',
                         nombreCuenta: 'BBBBBB',
                         numeroDeCuenta: 1,

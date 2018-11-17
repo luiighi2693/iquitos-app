@@ -41,7 +41,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import pe.com.iquitos.app.domain.enumeration.ProviderStatus;
+import pe.com.iquitos.app.domain.enumeration.AccountTypeProvider;
 /**
  * Test class for the CuentaProveedorResource REST controller.
  *
@@ -51,11 +51,8 @@ import pe.com.iquitos.app.domain.enumeration.ProviderStatus;
 @SpringBootTest(classes = IquitosApp.class)
 public class CuentaProveedorResourceIntTest {
 
-    private static final String DEFAULT_CODIGO = "AAAAAAAAAA";
-    private static final String UPDATED_CODIGO = "BBBBBBBBBB";
-
-    private static final ProviderStatus DEFAULT_ESTATUS = ProviderStatus.ACTIVO;
-    private static final ProviderStatus UPDATED_ESTATUS = ProviderStatus.INACTIVO;
+    private static final AccountTypeProvider DEFAULT_TIPO_CUENTA = AccountTypeProvider.CUENTA_CORRIENTE;
+    private static final AccountTypeProvider UPDATED_TIPO_CUENTA = AccountTypeProvider.CUENTA_RECAUDADORA;
 
     private static final String DEFAULT_BANCO = "AAAAAAAAAA";
     private static final String UPDATED_BANCO = "BBBBBBBBBB";
@@ -121,8 +118,7 @@ public class CuentaProveedorResourceIntTest {
      */
     public static CuentaProveedor createEntity(EntityManager em) {
         CuentaProveedor cuentaProveedor = new CuentaProveedor()
-            .codigo(DEFAULT_CODIGO)
-            .estatus(DEFAULT_ESTATUS)
+            .tipoCuenta(DEFAULT_TIPO_CUENTA)
             .banco(DEFAULT_BANCO)
             .nombreCuenta(DEFAULT_NOMBRE_CUENTA)
             .numeroDeCuenta(DEFAULT_NUMERO_DE_CUENTA)
@@ -151,8 +147,7 @@ public class CuentaProveedorResourceIntTest {
         List<CuentaProveedor> cuentaProveedorList = cuentaProveedorRepository.findAll();
         assertThat(cuentaProveedorList).hasSize(databaseSizeBeforeCreate + 1);
         CuentaProveedor testCuentaProveedor = cuentaProveedorList.get(cuentaProveedorList.size() - 1);
-        assertThat(testCuentaProveedor.getCodigo()).isEqualTo(DEFAULT_CODIGO);
-        assertThat(testCuentaProveedor.getEstatus()).isEqualTo(DEFAULT_ESTATUS);
+        assertThat(testCuentaProveedor.getTipoCuenta()).isEqualTo(DEFAULT_TIPO_CUENTA);
         assertThat(testCuentaProveedor.getBanco()).isEqualTo(DEFAULT_BANCO);
         assertThat(testCuentaProveedor.getNombreCuenta()).isEqualTo(DEFAULT_NOMBRE_CUENTA);
         assertThat(testCuentaProveedor.getNumeroDeCuenta()).isEqualTo(DEFAULT_NUMERO_DE_CUENTA);
@@ -183,25 +178,6 @@ public class CuentaProveedorResourceIntTest {
 
         // Validate the CuentaProveedor in Elasticsearch
         verify(mockCuentaProveedorSearchRepository, times(0)).save(cuentaProveedor);
-    }
-
-    @Test
-    @Transactional
-    public void checkCodigoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = cuentaProveedorRepository.findAll().size();
-        // set the field null
-        cuentaProveedor.setCodigo(null);
-
-        // Create the CuentaProveedor, which fails.
-        CuentaProveedorDTO cuentaProveedorDTO = cuentaProveedorMapper.toDto(cuentaProveedor);
-
-        restCuentaProveedorMockMvc.perform(post("/api/cuenta-proveedors")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(cuentaProveedorDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<CuentaProveedor> cuentaProveedorList = cuentaProveedorRepository.findAll();
-        assertThat(cuentaProveedorList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -253,8 +229,7 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cuentaProveedor.getId().intValue())))
-            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
-            .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
+            .andExpect(jsonPath("$.[*].tipoCuenta").value(hasItem(DEFAULT_TIPO_CUENTA.toString())))
             .andExpect(jsonPath("$.[*].banco").value(hasItem(DEFAULT_BANCO.toString())))
             .andExpect(jsonPath("$.[*].nombreCuenta").value(hasItem(DEFAULT_NOMBRE_CUENTA.toString())))
             .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA)))
@@ -272,8 +247,7 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(cuentaProveedor.getId().intValue()))
-            .andExpect(jsonPath("$.codigo").value(DEFAULT_CODIGO.toString()))
-            .andExpect(jsonPath("$.estatus").value(DEFAULT_ESTATUS.toString()))
+            .andExpect(jsonPath("$.tipoCuenta").value(DEFAULT_TIPO_CUENTA.toString()))
             .andExpect(jsonPath("$.banco").value(DEFAULT_BANCO.toString()))
             .andExpect(jsonPath("$.nombreCuenta").value(DEFAULT_NOMBRE_CUENTA.toString()))
             .andExpect(jsonPath("$.numeroDeCuenta").value(DEFAULT_NUMERO_DE_CUENTA))
@@ -301,8 +275,7 @@ public class CuentaProveedorResourceIntTest {
         // Disconnect from session so that the updates on updatedCuentaProveedor are not directly saved in db
         em.detach(updatedCuentaProveedor);
         updatedCuentaProveedor
-            .codigo(UPDATED_CODIGO)
-            .estatus(UPDATED_ESTATUS)
+            .tipoCuenta(UPDATED_TIPO_CUENTA)
             .banco(UPDATED_BANCO)
             .nombreCuenta(UPDATED_NOMBRE_CUENTA)
             .numeroDeCuenta(UPDATED_NUMERO_DE_CUENTA)
@@ -318,8 +291,7 @@ public class CuentaProveedorResourceIntTest {
         List<CuentaProveedor> cuentaProveedorList = cuentaProveedorRepository.findAll();
         assertThat(cuentaProveedorList).hasSize(databaseSizeBeforeUpdate);
         CuentaProveedor testCuentaProveedor = cuentaProveedorList.get(cuentaProveedorList.size() - 1);
-        assertThat(testCuentaProveedor.getCodigo()).isEqualTo(UPDATED_CODIGO);
-        assertThat(testCuentaProveedor.getEstatus()).isEqualTo(UPDATED_ESTATUS);
+        assertThat(testCuentaProveedor.getTipoCuenta()).isEqualTo(UPDATED_TIPO_CUENTA);
         assertThat(testCuentaProveedor.getBanco()).isEqualTo(UPDATED_BANCO);
         assertThat(testCuentaProveedor.getNombreCuenta()).isEqualTo(UPDATED_NOMBRE_CUENTA);
         assertThat(testCuentaProveedor.getNumeroDeCuenta()).isEqualTo(UPDATED_NUMERO_DE_CUENTA);
@@ -384,8 +356,7 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cuentaProveedor.getId().intValue())))
-            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
-            .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
+            .andExpect(jsonPath("$.[*].tipoCuenta").value(hasItem(DEFAULT_TIPO_CUENTA.toString())))
             .andExpect(jsonPath("$.[*].banco").value(hasItem(DEFAULT_BANCO)))
             .andExpect(jsonPath("$.[*].nombreCuenta").value(hasItem(DEFAULT_NOMBRE_CUENTA)))
             .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA)))

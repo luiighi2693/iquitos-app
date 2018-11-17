@@ -84,11 +84,12 @@ entity Categoria {
 }
 
 entity Proveedor {
-	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING), //numero de ruc
 	razonSocial String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     direccion String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     correo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     telefono String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    sector String maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
 entity ContactoProveedor {
@@ -99,8 +100,9 @@ entity ContactoProveedor {
 }
 
 entity CuentaProveedor {
-	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-	estatus ProviderStatus,
+	// codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	// estatus ProviderStatus,
+    tipoCuenta AccountTypeProvider,
     banco String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     nombreCuenta String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     numeroDeCuenta Integer,
@@ -217,6 +219,10 @@ enum ProductType {
 
 enum ProviderStatus {
     ACTIVO, INACTIVO
+}
+
+enum AccountTypeProvider {
+    CUENTA_CORRIENTE, CUENTA_RECAUDADORA
 }
 
 enum PurchaseLocation {

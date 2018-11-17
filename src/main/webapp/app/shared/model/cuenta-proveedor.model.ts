@@ -1,14 +1,13 @@
 import { Moment } from 'moment';
 
-export const enum ProviderStatus {
-    ACTIVO = 'ACTIVO',
-    INACTIVO = 'INACTIVO'
+export const enum AccountTypeProvider {
+    CUENTA_CORRIENTE = 'CUENTA_CORRIENTE',
+    CUENTA_RECAUDADORA = 'CUENTA_RECAUDADORA'
 }
 
 export interface ICuentaProveedor {
     id?: number;
-    codigo?: string;
-    estatus?: ProviderStatus;
+    tipoCuenta?: AccountTypeProvider;
     banco?: string;
     nombreCuenta?: string;
     numeroDeCuenta?: number;
@@ -18,8 +17,7 @@ export interface ICuentaProveedor {
 export class CuentaProveedor implements ICuentaProveedor {
     constructor(
         public id?: number,
-        public codigo?: string,
-        public estatus?: ProviderStatus,
+        public tipoCuenta?: AccountTypeProvider,
         public banco?: string,
         public nombreCuenta?: string,
         public numeroDeCuenta?: number,

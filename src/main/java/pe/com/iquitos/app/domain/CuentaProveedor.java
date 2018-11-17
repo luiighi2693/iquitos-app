@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import pe.com.iquitos.app.domain.enumeration.ProviderStatus;
+import pe.com.iquitos.app.domain.enumeration.AccountTypeProvider;
 
 /**
  * A CuentaProveedor.
@@ -28,14 +28,9 @@ public class CuentaProveedor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Size(max = 150)
-    @Column(name = "codigo", length = 150, nullable = false)
-    private String codigo;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "estatus")
-    private ProviderStatus estatus;
+    @Column(name = "tipo_cuenta")
+    private AccountTypeProvider tipoCuenta;
 
     @NotNull
     @Size(max = 150)
@@ -62,30 +57,17 @@ public class CuentaProveedor implements Serializable {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public AccountTypeProvider getTipoCuenta() {
+        return tipoCuenta;
     }
 
-    public CuentaProveedor codigo(String codigo) {
-        this.codigo = codigo;
+    public CuentaProveedor tipoCuenta(AccountTypeProvider tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
         return this;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public ProviderStatus getEstatus() {
-        return estatus;
-    }
-
-    public CuentaProveedor estatus(ProviderStatus estatus) {
-        this.estatus = estatus;
-        return this;
-    }
-
-    public void setEstatus(ProviderStatus estatus) {
-        this.estatus = estatus;
+    public void setTipoCuenta(AccountTypeProvider tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
     }
 
     public String getBanco() {
@@ -165,8 +147,7 @@ public class CuentaProveedor implements Serializable {
     public String toString() {
         return "CuentaProveedor{" +
             "id=" + getId() +
-            ", codigo='" + getCodigo() + "'" +
-            ", estatus='" + getEstatus() + "'" +
+            ", tipoCuenta='" + getTipoCuenta() + "'" +
             ", banco='" + getBanco() + "'" +
             ", nombreCuenta='" + getNombreCuenta() + "'" +
             ", numeroDeCuenta=" + getNumeroDeCuenta() +

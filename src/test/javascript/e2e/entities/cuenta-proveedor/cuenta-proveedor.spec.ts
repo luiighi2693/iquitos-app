@@ -39,14 +39,12 @@ describe('CuentaProveedor e2e test', () => {
 
         await cuentaProveedorComponentsPage.clickOnCreateButton();
         await promise.all([
-            cuentaProveedorUpdatePage.setCodigoInput('codigo'),
-            cuentaProveedorUpdatePage.estatusSelectLastOption(),
+            cuentaProveedorUpdatePage.tipoCuentaSelectLastOption(),
             cuentaProveedorUpdatePage.setBancoInput('banco'),
             cuentaProveedorUpdatePage.setNombreCuentaInput('nombreCuenta'),
             cuentaProveedorUpdatePage.setNumeroDeCuentaInput('5'),
             cuentaProveedorUpdatePage.setFechaInput('2000-12-31')
         ]);
-        expect(await cuentaProveedorUpdatePage.getCodigoInput()).to.eq('codigo');
         expect(await cuentaProveedorUpdatePage.getBancoInput()).to.eq('banco');
         expect(await cuentaProveedorUpdatePage.getNombreCuentaInput()).to.eq('nombreCuenta');
         expect(await cuentaProveedorUpdatePage.getNumeroDeCuentaInput()).to.eq('5');

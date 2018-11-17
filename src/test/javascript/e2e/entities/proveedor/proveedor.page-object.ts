@@ -31,6 +31,7 @@ export class ProveedorUpdatePage {
     direccionInput = element(by.id('field_direccion'));
     correoInput = element(by.id('field_correo'));
     telefonoInput = element(by.id('field_telefono'));
+    sectorInput = element(by.id('field_sector'));
     cuentaProveedorSelect = element(by.id('field_cuentaProveedor'));
     contactoProveedorSelect = element(by.id('field_contactoProveedor'));
 
@@ -76,6 +77,14 @@ export class ProveedorUpdatePage {
 
     async getTelefonoInput() {
         return this.telefonoInput.getAttribute('value');
+    }
+
+    async setSectorInput(sector) {
+        await this.sectorInput.sendKeys(sector);
+    }
+
+    async getSectorInput() {
+        return this.sectorInput.getAttribute('value');
     }
 
     async cuentaProveedorSelectLastOption() {

@@ -65,6 +65,9 @@ public class ProveedorResourceIntTest {
     private static final String DEFAULT_TELEFONO = "AAAAAAAAAA";
     private static final String UPDATED_TELEFONO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_SECTOR = "AAAAAAAAAA";
+    private static final String UPDATED_SECTOR = "BBBBBBBBBB";
+
     @Autowired
     private ProveedorRepository proveedorRepository;
 
@@ -127,7 +130,8 @@ public class ProveedorResourceIntTest {
             .razonSocial(DEFAULT_RAZON_SOCIAL)
             .direccion(DEFAULT_DIRECCION)
             .correo(DEFAULT_CORREO)
-            .telefono(DEFAULT_TELEFONO);
+            .telefono(DEFAULT_TELEFONO)
+            .sector(DEFAULT_SECTOR);
         return proveedor;
     }
 
@@ -157,6 +161,7 @@ public class ProveedorResourceIntTest {
         assertThat(testProveedor.getDireccion()).isEqualTo(DEFAULT_DIRECCION);
         assertThat(testProveedor.getCorreo()).isEqualTo(DEFAULT_CORREO);
         assertThat(testProveedor.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
+        assertThat(testProveedor.getSector()).isEqualTo(DEFAULT_SECTOR);
 
         // Validate the Proveedor in Elasticsearch
         verify(mockProveedorSearchRepository, times(1)).save(testProveedor);
@@ -295,7 +300,8 @@ public class ProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL.toString())))
             .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION.toString())))
             .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO.toString())))
-            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())));
+            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())))
+            .andExpect(jsonPath("$.[*].sector").value(hasItem(DEFAULT_SECTOR.toString())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -346,7 +352,8 @@ public class ProveedorResourceIntTest {
             .andExpect(jsonPath("$.razonSocial").value(DEFAULT_RAZON_SOCIAL.toString()))
             .andExpect(jsonPath("$.direccion").value(DEFAULT_DIRECCION.toString()))
             .andExpect(jsonPath("$.correo").value(DEFAULT_CORREO.toString()))
-            .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()));
+            .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()))
+            .andExpect(jsonPath("$.sector").value(DEFAULT_SECTOR.toString()));
     }
 
     @Test
@@ -374,7 +381,8 @@ public class ProveedorResourceIntTest {
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .direccion(UPDATED_DIRECCION)
             .correo(UPDATED_CORREO)
-            .telefono(UPDATED_TELEFONO);
+            .telefono(UPDATED_TELEFONO)
+            .sector(UPDATED_SECTOR);
         ProveedorDTO proveedorDTO = proveedorMapper.toDto(updatedProveedor);
 
         restProveedorMockMvc.perform(put("/api/proveedors")
@@ -391,6 +399,7 @@ public class ProveedorResourceIntTest {
         assertThat(testProveedor.getDireccion()).isEqualTo(UPDATED_DIRECCION);
         assertThat(testProveedor.getCorreo()).isEqualTo(UPDATED_CORREO);
         assertThat(testProveedor.getTelefono()).isEqualTo(UPDATED_TELEFONO);
+        assertThat(testProveedor.getSector()).isEqualTo(UPDATED_SECTOR);
 
         // Validate the Proveedor in Elasticsearch
         verify(mockProveedorSearchRepository, times(1)).save(testProveedor);
@@ -455,7 +464,8 @@ public class ProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL)))
             .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION)))
             .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)))
-            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)));
+            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
+            .andExpect(jsonPath("$.[*].sector").value(hasItem(DEFAULT_SECTOR)));
     }
 
     @Test

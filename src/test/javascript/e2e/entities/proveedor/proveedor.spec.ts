@@ -43,7 +43,8 @@ describe('Proveedor e2e test', () => {
             proveedorUpdatePage.setRazonSocialInput('razonSocial'),
             proveedorUpdatePage.setDireccionInput('direccion'),
             proveedorUpdatePage.setCorreoInput('correo'),
-            proveedorUpdatePage.setTelefonoInput('telefono')
+            proveedorUpdatePage.setTelefonoInput('telefono'),
+            proveedorUpdatePage.setSectorInput('sector')
             // proveedorUpdatePage.cuentaProveedorSelectLastOption(),
             // proveedorUpdatePage.contactoProveedorSelectLastOption(),
         ]);
@@ -52,6 +53,7 @@ describe('Proveedor e2e test', () => {
         expect(await proveedorUpdatePage.getDireccionInput()).to.eq('direccion');
         expect(await proveedorUpdatePage.getCorreoInput()).to.eq('correo');
         expect(await proveedorUpdatePage.getTelefonoInput()).to.eq('telefono');
+        expect(await proveedorUpdatePage.getSectorInput()).to.eq('sector');
         await proveedorUpdatePage.save();
         expect(await proveedorUpdatePage.getSaveButton().isPresent()).to.be.false;
 

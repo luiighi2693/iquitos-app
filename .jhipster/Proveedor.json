@@ -45,6 +45,14 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "sector",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
         }
     ],
     "relationships": [

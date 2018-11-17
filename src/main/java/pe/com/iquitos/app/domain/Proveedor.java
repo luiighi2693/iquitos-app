@@ -52,6 +52,10 @@ public class Proveedor implements Serializable {
     @Column(name = "telefono", length = 150, nullable = false)
     private String telefono;
 
+    @Size(max = 150)
+    @Column(name = "sector", length = 150)
+    private String sector;
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "proveedor_cuenta_proveedor",
@@ -140,6 +144,19 @@ public class Proveedor implements Serializable {
         this.telefono = telefono;
     }
 
+    public String getSector() {
+        return sector;
+    }
+
+    public Proveedor sector(String sector) {
+        this.sector = sector;
+        return this;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
     public Set<CuentaProveedor> getCuentaProveedors() {
         return cuentaProveedors;
     }
@@ -216,6 +233,7 @@ public class Proveedor implements Serializable {
             ", direccion='" + getDireccion() + "'" +
             ", correo='" + getCorreo() + "'" +
             ", telefono='" + getTelefono() + "'" +
+            ", sector='" + getSector() + "'" +
             "}";
     }
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
-import pe.com.iquitos.app.domain.enumeration.ProviderStatus;
+import pe.com.iquitos.app.domain.enumeration.AccountTypeProvider;
 
 /**
  * A DTO for the CuentaProveedor entity.
@@ -13,11 +13,7 @@ public class CuentaProveedorDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
-    @Size(max = 150)
-    private String codigo;
-
-    private ProviderStatus estatus;
+    private AccountTypeProvider tipoCuenta;
 
     @NotNull
     @Size(max = 150)
@@ -39,20 +35,12 @@ public class CuentaProveedorDTO implements Serializable {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public AccountTypeProvider getTipoCuenta() {
+        return tipoCuenta;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public ProviderStatus getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(ProviderStatus estatus) {
-        this.estatus = estatus;
+    public void setTipoCuenta(AccountTypeProvider tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
     }
 
     public String getBanco() {
@@ -112,8 +100,7 @@ public class CuentaProveedorDTO implements Serializable {
     public String toString() {
         return "CuentaProveedorDTO{" +
             "id=" + getId() +
-            ", codigo='" + getCodigo() + "'" +
-            ", estatus='" + getEstatus() + "'" +
+            ", tipoCuenta='" + getTipoCuenta() + "'" +
             ", banco='" + getBanco() + "'" +
             ", nombreCuenta='" + getNombreCuenta() + "'" +
             ", numeroDeCuenta=" + getNumeroDeCuenta() +

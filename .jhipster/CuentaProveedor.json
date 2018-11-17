@@ -2,18 +2,9 @@
     "name": "CuentaProveedor",
     "fields": [
         {
-            "fieldName": "codigo",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 150
-        },
-        {
-            "fieldName": "estatus",
-            "fieldType": "ProviderStatus",
-            "fieldValues": "ACTIVO,INACTIVO"
+            "fieldName": "tipoCuenta",
+            "fieldType": "AccountTypeProvider",
+            "fieldValues": "CUENTA_CORRIENTE,CUENTA_RECAUDADORA"
         },
         {
             "fieldName": "banco",

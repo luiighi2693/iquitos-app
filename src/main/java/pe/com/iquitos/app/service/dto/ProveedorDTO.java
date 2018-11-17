@@ -33,6 +33,9 @@ public class ProveedorDTO implements Serializable {
     @Size(max = 150)
     private String telefono;
 
+    @Size(max = 150)
+    private String sector;
+
     private Set<CuentaProveedorDTO> cuentaProveedors = new HashSet<>();
 
     private Set<ContactoProveedorDTO> contactoProveedors = new HashSet<>();
@@ -85,6 +88,14 @@ public class ProveedorDTO implements Serializable {
         this.telefono = telefono;
     }
 
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
     public Set<CuentaProveedorDTO> getCuentaProveedors() {
         return cuentaProveedors;
     }
@@ -131,6 +142,7 @@ public class ProveedorDTO implements Serializable {
             ", direccion='" + getDireccion() + "'" +
             ", correo='" + getCorreo() + "'" +
             ", telefono='" + getTelefono() + "'" +
+            ", sector='" + getSector() + "'" +
             "}";
     }
 }

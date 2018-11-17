@@ -8,6 +8,7 @@ export interface IProveedor {
     direccion?: string;
     correo?: string;
     telefono?: string;
+    sector?: string;
     cuentaProveedors?: ICuentaProveedor[];
     contactoProveedors?: IContactoProveedor[];
 }
@@ -20,6 +21,7 @@ export class Proveedor implements IProveedor {
         public direccion?: string,
         public correo?: string,
         public telefono?: string,
+        public sector?: string,
         public cuentaProveedors?: ICuentaProveedor[],
         public contactoProveedors?: IContactoProveedor[]
     ) {}
