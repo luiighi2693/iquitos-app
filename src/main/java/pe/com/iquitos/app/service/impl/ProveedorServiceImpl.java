@@ -1,7 +1,10 @@
 package pe.com.iquitos.app.service.impl;
 
+import pe.com.iquitos.app.domain.ContactoProveedor;
 import pe.com.iquitos.app.domain.CuentaProveedor;
+import pe.com.iquitos.app.repository.ContactoProveedorRepository;
 import pe.com.iquitos.app.repository.CuentaProveedorRepository;
+import pe.com.iquitos.app.repository.search.ContactoProveedorSearchRepository;
 import pe.com.iquitos.app.repository.search.CuentaProveedorSearchRepository;
 import pe.com.iquitos.app.service.ProveedorService;
 import pe.com.iquitos.app.domain.Proveedor;
@@ -9,6 +12,7 @@ import pe.com.iquitos.app.repository.ProveedorRepository;
 import pe.com.iquitos.app.repository.search.ProveedorSearchRepository;
 import pe.com.iquitos.app.service.dto.CuentaProveedorDTO;
 import pe.com.iquitos.app.service.dto.ProveedorDTO;
+import pe.com.iquitos.app.service.mapper.ContactoProveedorMapper;
 import pe.com.iquitos.app.service.mapper.CuentaProveedorMapper;
 import pe.com.iquitos.app.service.mapper.ProveedorMapper;
 import org.slf4j.Logger;
@@ -43,8 +47,13 @@ public class ProveedorServiceImpl implements ProveedorService {
     private final CuentaProveedorMapper cuentaProveedorMapper;
     private final CuentaProveedorSearchRepository cuentaProveedorSearchRepository;
 
+    private final ContactoProveedorRepository contactoProveedorRepository;
+    private final ContactoProveedorMapper contactoProveedorMapper;
+    private final ContactoProveedorSearchRepository contactoProveedorSearchRepository;
+
     public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository,
-                                CuentaProveedorRepository cuentaProveedorRepository, CuentaProveedorMapper cuentaProveedorMapper, CuentaProveedorSearchRepository cuentaProveedorSearchRepository) {
+                                CuentaProveedorRepository cuentaProveedorRepository, CuentaProveedorMapper cuentaProveedorMapper, CuentaProveedorSearchRepository cuentaProveedorSearchRepository,
+                                ContactoProveedorRepository contactoProveedorRepository, ContactoProveedorMapper contactoProveedorMapper, ContactoProveedorSearchRepository contactoProveedorSearchRepository) {
         this.proveedorRepository = proveedorRepository;
         this.proveedorMapper = proveedorMapper;
         this.proveedorSearchRepository = proveedorSearchRepository;
@@ -52,6 +61,10 @@ public class ProveedorServiceImpl implements ProveedorService {
         this.cuentaProveedorRepository = cuentaProveedorRepository;
         this.cuentaProveedorMapper = cuentaProveedorMapper;
         this.cuentaProveedorSearchRepository = cuentaProveedorSearchRepository;
+
+        this.contactoProveedorRepository = contactoProveedorRepository;
+        this.contactoProveedorMapper = contactoProveedorMapper;
+        this.contactoProveedorSearchRepository = contactoProveedorSearchRepository;
     }
 
     /**
@@ -68,6 +81,12 @@ public class ProveedorServiceImpl implements ProveedorService {
             CuentaProveedor cuentaProveedor = cuentaProveedorMapper.toEntity(cuentaProveedorDTO);
             cuentaProveedor = cuentaProveedorRepository.save(cuentaProveedor);
             cuentaProveedorSearchRepository.save(cuentaProveedor);
+        });
+
+        proveedorDTO.getContactoProveedors().forEach(contactoProveedorDTO -> {
+            ContactoProveedor contactoProveedor = contactoProveedorMapper.toEntity(contactoProveedorDTO);
+            contactoProveedor = contactoProveedorRepository.save(contactoProveedor);
+            contactoProveedorSearchRepository.save(contactoProveedor);
         });
 
         Proveedor proveedor = proveedorMapper.toEntity(proveedorDTO);
