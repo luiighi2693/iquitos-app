@@ -12,7 +12,7 @@
   },
   "defaultProject": "iquitos-app",
   "cli": {
-    "packageManager": "yarn"
+    "packageManager": "npm"
   },
   "schematics": {
     "@schematics/angular:component": {

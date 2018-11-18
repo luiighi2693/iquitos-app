@@ -12,4 +12,10 @@ import { IquitosAppSharedLibsModule, IquitosAppSharedCommonModule, JhiLoginModal
     exports: [IquitosAppSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class IquitosAppSharedModule {}
+export class IquitosAppSharedModule {
+    static forRoot() {
+        return {
+            ngModule: IquitosAppSharedModule
+        };
+    }
+}
