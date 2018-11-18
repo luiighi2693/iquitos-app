@@ -103,6 +103,11 @@ export class ProviderUpdateComponent implements OnInit {
   addAccountProvider() {
     const cuenta = new CuentaProveedor();
     cuenta.tipoCuenta = this.selectedTipoDeCuenta;
+
+    if (this.cuentas === undefined) {
+      this.cuentas = [];
+    }
+
     this.cuentas.push(cuenta);
     this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.cuentas);
   }
