@@ -32,7 +32,8 @@ spring:
         livereload:
             enabled: false # we use Webpack dev server + BrowserSync for livereload
     jackson:
-        serialization.indent_output: true
+        serialization:
+            indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/iquitosApp?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false
