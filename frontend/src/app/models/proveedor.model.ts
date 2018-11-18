@@ -1,6 +1,5 @@
-// import { ICuentaProveedor } from 'app/shared/model//cuenta-proveedor.model';
-
-import { IContactoProveedor } from './contactoproveedor.model';
+import { ICuentaProveedor } from './cuenta-proveedor.model';
+import { IContactoProveedor } from './contacto-proveedor.model';
 
 export interface IProveedor {
     id?: number;
@@ -9,9 +8,9 @@ export interface IProveedor {
     direccion?: string;
     correo?: string;
     telefono?: string;
-  productosRelacionados?: string;
-  contactos?: IContactoProveedor[];
-    // cuentaProveedors?: ICuentaProveedor[];
+    sector?: string;
+    cuentaProveedors?: ICuentaProveedor[];
+    contactoProveedors?: IContactoProveedor[];
 }
 
 export class Proveedor implements IProveedor {
@@ -22,8 +21,8 @@ export class Proveedor implements IProveedor {
         public direccion?: string,
         public correo?: string,
         public telefono?: string,
-        public productosRelacionados?: string,
-        public contactos?: IContactoProveedor[],
-        // public cuentaProveedors?: ICuentaProveedor[]
+        public sector?: string,
+        public cuentaProveedors?: ICuentaProveedor[],
+        public contactoProveedors?: IContactoProveedor[]
     ) {}
 }

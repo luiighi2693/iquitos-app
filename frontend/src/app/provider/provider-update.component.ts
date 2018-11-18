@@ -2,8 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { IProveedor } from '../models/proveedor.model';
 import { ProveedorService } from './proveedor.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { IContactoProveedor } from '../models/contacto-proveedor.model';
+import { MatTableDataSource } from '@angular/material';
+import { AccountTypeProvider, CuentaProveedor, ICuentaProveedor } from '../models/cuenta-proveedor.model';
+import {CuentaProveedorService} from './cuenta-proveedor.service';
+
+export interface ExampleTab {
+  label: string;
+}
+
+export interface TipoCuentaProveedor {
+  value: AccountTypeProvider;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-provider-update',
@@ -13,14 +26,48 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 export class ProviderUpdateComponent implements OnInit {
 
   proveedor: IProveedor;
+  contactos: IContactoProveedor[];
+  cuentas: ICuentaProveedor[];
+
+  asyncTabs: Observable<ExampleTab[]>;
   isSaving: boolean;
 
-  constructor(private proveedorService: ProveedorService, private activatedRoute: ActivatedRoute) {}
+  displayedColumnsCuentas = ['cuenta', 'banco', 'numeroDeCuenta', 'nombreCuenta', 'quitar'];
+  displayedColumnsContactos = ['nombre', 'cargo', 'telefono', 'producto'];
+  dataSourceContactos = new MatTableDataSource<IContactoProveedor>(null);
+  dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(null);
+
+  tiposDeCuenta: TipoCuentaProveedor[] = [
+    { value: AccountTypeProvider.CUENTA_CORRIENTE, viewValue: 'Cuenta Corriente'},
+    { value: AccountTypeProvider.CUENTA_RECAUDADORA, viewValue: 'Cuenta Recaudadora'}
+  ];
+
+  selectedTipoDeCuenta = AccountTypeProvider.CUENTA_CORRIENTE;
+
+  editing = {};
+  rows = [];
+
+  constructor(private proveedorService: ProveedorService,
+              private cuentaProveedorService: CuentaProveedorService,
+              private activatedRoute: ActivatedRoute) {
+    this.asyncTabs = Observable.create((observer: Observer<ExampleTab[]>) => {
+      setTimeout(() => {
+        observer.next([
+          { label: 'Cuentas Asociadas a Proveedor' },
+          { label: 'Contactos Asociadas a Proveedor' },
+        ]);
+      }, 1000);
+    });
+  }
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ proveedor }) => {
       this.proveedor = proveedor;
+      this.contactos = this.proveedor.contactoProveedors;
+      this.cuentas = this.proveedor.cuentaProveedors;
+      this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.contactos);
+      this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.cuentas);
     });
   }
 
@@ -29,6 +76,9 @@ export class ProviderUpdateComponent implements OnInit {
   }
 
   save() {
+    this.proveedor.contactoProveedors = this.contactos;
+    this.proveedor.cuentaProveedors = this.cuentas;
+    console.log(this.proveedor.toString());
     this.isSaving = true;
     if (this.proveedor.id !== undefined) {
       this.subscribeToSaveResponse(this.proveedorService.update(this.proveedor));
@@ -38,10 +88,10 @@ export class ProviderUpdateComponent implements OnInit {
   }
 
   private subscribeToSaveResponse(result: Observable<HttpResponse<IProveedor>>) {
-    result.subscribe((res: HttpResponse<IProveedor>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    result.subscribe((res: HttpResponse<IProveedor>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
   }
 
-  private onSaveSuccess() {
+  private onSaveSuccess(res) {
     this.isSaving = false;
     this.previousState();
   }
@@ -50,4 +100,18 @@ export class ProviderUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
+  addAccountProvider() {
+    const cuenta = new CuentaProveedor();
+    cuenta.tipoCuenta = this.selectedTipoDeCuenta;
+    this.cuentas.push(cuenta);
+    this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.cuentas);
+  }
+
+  saveChangesInAccountsRow(event, indexFromAccount, label) {
+    if (label === 'banco') {
+      this.cuentas[indexFromAccount].banco = event.target.value;
+    }
+
+    this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.cuentas);
+  }
 }

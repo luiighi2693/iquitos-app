@@ -10,24 +10,19 @@ import { HttpResponse } from '@angular/common/http';
 import { ProviderDetailComponent } from './provider-detail.component';
 import { ProviderUpdateComponent } from './provider-update.component';
 
-declare var require: any;
-
 @Injectable({ providedIn: 'root' })
 export class ProveedorResolve implements Resolve<IProveedor> {
-  dataIn: any = require('./data.json');
-
   constructor(private service: ProveedorService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Proveedor {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Proveedor> {
     const id = route.params['id'] ? route.params['id'] : null;
-    return this.dataIn.find(x => x.id === id);
-    // if (id) {
-      // return this.service.find(id).pipe(
-      //   filter((response: HttpResponse<Proveedor>) => response.ok),
-      //   map((proveedor: HttpResponse<Proveedor>) => proveedor.body)
-      // );
-    // }
-    // return of(new Proveedor());
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Proveedor>) => response.ok),
+        map((proveedor: HttpResponse<Proveedor>) => proveedor.body)
+      );
+    }
+    return of(new Proveedor());
   }
 }
 

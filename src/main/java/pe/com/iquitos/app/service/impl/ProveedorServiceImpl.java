@@ -1,10 +1,15 @@
 package pe.com.iquitos.app.service.impl;
 
+import pe.com.iquitos.app.domain.CuentaProveedor;
+import pe.com.iquitos.app.repository.CuentaProveedorRepository;
+import pe.com.iquitos.app.repository.search.CuentaProveedorSearchRepository;
 import pe.com.iquitos.app.service.ProveedorService;
 import pe.com.iquitos.app.domain.Proveedor;
 import pe.com.iquitos.app.repository.ProveedorRepository;
 import pe.com.iquitos.app.repository.search.ProveedorSearchRepository;
+import pe.com.iquitos.app.service.dto.CuentaProveedorDTO;
 import pe.com.iquitos.app.service.dto.ProveedorDTO;
+import pe.com.iquitos.app.service.mapper.CuentaProveedorMapper;
 import pe.com.iquitos.app.service.mapper.ProveedorMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +38,20 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     private final ProveedorSearchRepository proveedorSearchRepository;
 
-    public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository) {
+
+    private final CuentaProveedorRepository cuentaProveedorRepository;
+    private final CuentaProveedorMapper cuentaProveedorMapper;
+    private final CuentaProveedorSearchRepository cuentaProveedorSearchRepository;
+
+    public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository,
+                                CuentaProveedorRepository cuentaProveedorRepository, CuentaProveedorMapper cuentaProveedorMapper, CuentaProveedorSearchRepository cuentaProveedorSearchRepository) {
         this.proveedorRepository = proveedorRepository;
         this.proveedorMapper = proveedorMapper;
         this.proveedorSearchRepository = proveedorSearchRepository;
+
+        this.cuentaProveedorRepository = cuentaProveedorRepository;
+        this.cuentaProveedorMapper = cuentaProveedorMapper;
+        this.cuentaProveedorSearchRepository = cuentaProveedorSearchRepository;
     }
 
     /**
@@ -48,6 +63,12 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Override
     public ProveedorDTO save(ProveedorDTO proveedorDTO) {
         log.debug("Request to save Proveedor : {}", proveedorDTO);
+
+        proveedorDTO.getCuentaProveedors().forEach(cuentaProveedorDTO -> {
+            CuentaProveedor cuentaProveedor = cuentaProveedorMapper.toEntity(cuentaProveedorDTO);
+            cuentaProveedor = cuentaProveedorRepository.save(cuentaProveedor);
+            cuentaProveedorSearchRepository.save(cuentaProveedor);
+        });
 
         Proveedor proveedor = proveedorMapper.toEntity(proveedorDTO);
         proveedor = proveedorRepository.save(proveedor);

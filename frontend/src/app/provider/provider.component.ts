@@ -2,16 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 // import { BreakpointObserver } from '@angular/cdk/layout';
 import {SelectionModel} from '@angular/cdk/collections';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+// import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { IProveedor, Proveedor } from '../models/proveedor.model';
 import { ProveedorService } from './proveedor.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ProviderDeleteComponent } from './provider-delete.component';
-declare var require: any;
+// declare var require: any;
 
-const dataIn: any = require('./data.json');
+// const dataIn: any = require('./data.json');
 
 @Component({
   selector: 'app-provider',
@@ -118,7 +118,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
   }
 
   // cancel() {
-  //   this.dataSource.filter = '';
+  //   this.dataSourceContactos.filter = '';
   // }
 
   reset() {
@@ -172,7 +172,7 @@ export class ProviderComponent implements OnInit, OnDestroy {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.proveedors = data;
 
-    this.proveedors = dataIn;
+    // this.proveedors = dataIn;
 
     this.dataSource = new MatTableDataSource<IProveedor>(this.proveedors);
   }

@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { IProveedor } from '../models/proveedor.model';
 import { Observable, Observer } from 'rxjs';
 import { MatTableDataSource } from '@angular/material';
-import { IContactoProveedor } from '../models/contactoproveedor.model';
+import { IContactoProveedor } from '../models/contacto-proveedor.model';
 
-declare var require: any;
+// declare var require: any;
 
-const dataIn: any = require('./data.json');
+// const dataIn: any = require('./data.json');
 
 
 export interface ExampleTab {
@@ -41,14 +41,10 @@ export class ProviderDetailComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ proveedor }) => {
-      // this.proveedor = proveedor;
-
+      this.proveedor = proveedor;
+      this.contactos = this.proveedor.contactoProveedors;
+      this.dataSource = new MatTableDataSource<IContactoProveedor>(this.contactos);
     });
-
-    this.proveedor = dataIn[0];
-    this.contactos = this.proveedor.contactos;
-    console.log(this.contactos);
-    this.dataSource = new MatTableDataSource<IContactoProveedor>(this.contactos);
   }
 
   previousState() {
