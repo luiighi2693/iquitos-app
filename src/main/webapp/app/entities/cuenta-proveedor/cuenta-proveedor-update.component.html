@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-cuenta-proveedor-heading">Create or edit a Cuenta Proveedor</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!cuentaProveedor.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="cuentaProveedor.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoCuenta">Tipo Cuenta</label>
+                    <select class="form-control" name="tipoCuenta" [(ngModel)]="cuentaProveedor.tipoCuenta" id="field_tipoCuenta" >
+                        <option value="CUENTA_CORRIENTE">CUENTA_CORRIENTE</option>
+                        <option value="CUENTA_RECAUDADORA">CUENTA_RECAUDADORA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_banco">Banco</label>
+                    <input type="text" class="form-control" name="banco" id="field_banco"
+                        [(ngModel)]="cuentaProveedor.banco" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.banco?.dirty && editForm.controls.banco?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.banco?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.banco?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nombreCuenta">Nombre Cuenta</label>
+                    <input type="text" class="form-control" name="nombreCuenta" id="field_nombreCuenta"
+                        [(ngModel)]="cuentaProveedor.nombreCuenta" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.nombreCuenta?.dirty && editForm.controls.nombreCuenta?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nombreCuenta?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nombreCuenta?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_numeroDeCuenta">Numero De Cuenta</label>
+                    <input type="number" class="form-control" name="numeroDeCuenta" id="field_numeroDeCuenta"
+                        [(ngModel)]="cuentaProveedor.numeroDeCuenta" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fecha">Fecha</label>
+                    <div class="input-group">
+                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="cuentaProveedor.fecha"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

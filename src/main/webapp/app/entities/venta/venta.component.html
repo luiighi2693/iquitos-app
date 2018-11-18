@@ -1,0 +1,119 @@
+<div>
+    <h2 id="page-heading">
+        <span>Ventas</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-venta" [routerLink]="['/venta/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create new Venta
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="ventas">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="codigo"><span>Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="subTotal"><span>Sub Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="impuesto"><span>Impuesto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="montoTotal"><span>Monto Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fecha"><span>Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estatus"><span>Estatus</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="glosa"><span>Glosa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="metaData"><span>Meta Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="clienteNombre"><span>Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="empleadoNombre"><span>Empleado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cajaId"><span>Caja</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipoDeDocumentoDeVentaNombre"><span>Tipo De Documento De Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipoDePagoNombre"><span>Tipo De Pago</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estatusDeProductoEntregadoNombre"><span>Estatus De Producto Entregado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let venta of ventas ;trackBy: trackId">
+                <td><a [routerLink]="['/venta', venta.id, 'view' ]">{{venta.id}}</a></td>
+                <td>{{venta.codigo}}</td>
+                <td>{{venta.subTotal}}</td>
+                <td>{{venta.impuesto}}</td>
+                <td>{{venta.montoTotal}}</td>
+                <td>{{venta.fecha | date:'mediumDate'}}</td>
+                <td>{{venta.estatus}}</td>
+                <td>{{venta.glosa}}</td>
+                <td>{{venta.metaData}}</td>
+                <td>
+                    <div *ngIf="venta.clienteId">
+                        <a [routerLink]="['../cliente', venta.clienteId , 'view' ]" >{{venta.clienteNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="venta.empleadoId">
+                        <a [routerLink]="['../empleado', venta.empleadoId , 'view' ]" >{{venta.empleadoNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="venta.cajaId">
+                        <a [routerLink]="['../caja', venta.cajaId , 'view' ]" >{{venta.cajaId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="venta.tipoDeDocumentoDeVentaId">
+                        <a [routerLink]="['../tipo-de-documento-de-venta', venta.tipoDeDocumentoDeVentaId , 'view' ]" >{{venta.tipoDeDocumentoDeVentaNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="venta.tipoDePagoId">
+                        <a [routerLink]="['../tipo-de-pago', venta.tipoDePagoId , 'view' ]" >{{venta.tipoDePagoNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="venta.estatusDeProductoEntregadoId">
+                        <a [routerLink]="['../estatus-de-producto-entregado', venta.estatusDeProductoEntregadoId , 'view' ]" >{{venta.estatusDeProductoEntregadoNombre}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/venta', venta.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/venta', venta.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'venta/'+ venta.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

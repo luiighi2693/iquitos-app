@@ -1,0 +1,161 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-cliente-heading">Create or edit a Cliente</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!cliente.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="cliente.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="field_nombre"
+                        [(ngModel)]="cliente.nombre" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.nombre?.dirty && editForm.controls.nombre?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nombre?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nombre?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_codigo">Codigo</label>
+                    <input type="text" class="form-control" name="codigo" id="field_codigo"
+                        [(ngModel)]="cliente.codigo" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.codigo?.dirty && editForm.controls.codigo?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.codigo?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.codigo?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_direccion">Direccion</label>
+                    <input type="text" class="form-control" name="direccion" id="field_direccion"
+                        [(ngModel)]="cliente.direccion" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.direccion?.dirty && editForm.controls.direccion?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.direccion?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.direccion?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_correo">Correo</label>
+                    <input type="text" class="form-control" name="correo" id="field_correo"
+                        [(ngModel)]="cliente.correo" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.correo?.dirty && editForm.controls.correo?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.correo?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.correo?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_telefono">Telefono</label>
+                    <input type="text" class="form-control" name="telefono" id="field_telefono"
+                        [(ngModel)]="cliente.telefono" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.telefono?.dirty && editForm.controls.telefono?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.telefono?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.telefono?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fechaDeNacimiento">Fecha De Nacimiento</label>
+                    <div class="input-group">
+                        <input id="field_fechaDeNacimiento" type="text" class="form-control" name="fechaDeNacimiento" ngbDatepicker  #fechaDeNacimientoDp="ngbDatepicker" [(ngModel)]="cliente.fechaDeNacimiento"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaDeNacimientoDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sexo">Sexo</label>
+                    <select class="form-control" name="sexo" [(ngModel)]="cliente.sexo" id="field_sexo" >
+                        <option value="MASCULINO">MASCULINO</option>
+                        <option value="FEMENINO">FEMENINO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_estatusCivil">Estatus Civil</label>
+                    <select class="form-control" name="estatusCivil" [(ngModel)]="cliente.estatusCivil" id="field_estatusCivil" >
+                        <option value="SOLTERO">SOLTERO</option>
+                        <option value="CASADO">CASADO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_imagen">Imagen</label>
+                    <div>
+                        <img [src]="'data:' + cliente.imagenContentType + ';base64,' + cliente.imagen" style="max-height: 100px;" *ngIf="cliente.imagen" alt="cliente image"/>
+                        <div *ngIf="cliente.imagen" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{cliente.imagenContentType}}, {{byteSize(cliente.imagen)}}</span>
+                            <button type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_imagen" (change)="setFileData($event, cliente, 'imagen', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="imagen" id="field_imagen"
+                        [(ngModel)]="cliente.imagen" />
+                    <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
+                        [(ngModel)]="cliente.imagenContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDeCliente">Tipo De Cliente</label>
+                    <select class="form-control" name="tipoDeCliente" [(ngModel)]="cliente.tipoDeCliente" id="field_tipoDeCliente" >
+                        <option value="NATURAL">NATURAL</option>
+                        <option value="JURIDICO">JURIDICO</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_usuario">Usuario</label>
+                    <select class="form-control" id="field_usuario" name="usuario" [(ngModel)]="cliente.usuarioId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="usuarioExternoOption.id" *ngFor="let usuarioExternoOption of usuarios; trackBy: trackUsuarioExternoById">{{usuarioExternoOption.dni}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDeDocumento">Tipo De Documento</label>
+                    <select class="form-control" id="field_tipoDeDocumento" name="tipoDeDocumento" [(ngModel)]="cliente.tipoDeDocumentoId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tipoDeDocumentoOption.id" *ngFor="let tipoDeDocumentoOption of tipodedocumentos; trackBy: trackTipoDeDocumentoById">{{tipoDeDocumentoOption.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

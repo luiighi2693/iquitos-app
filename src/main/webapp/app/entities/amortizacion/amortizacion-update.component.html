@@ -1,0 +1,111 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-amortizacion-heading">Create or edit a Amortizacion</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!amortizacion.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="amortizacion.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_monto">Monto</label>
+                    <input type="number" class="form-control" name="monto" id="field_monto"
+                        [(ngModel)]="amortizacion.monto" required/>
+                    <div [hidden]="!(editForm.controls.monto?.dirty && editForm.controls.monto?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.monto?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.monto?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_montoPagado">Monto Pagado</label>
+                    <input type="number" class="form-control" name="montoPagado" id="field_montoPagado"
+                        [(ngModel)]="amortizacion.montoPagado" required/>
+                    <div [hidden]="!(editForm.controls.montoPagado?.dirty && editForm.controls.montoPagado?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.montoPagado?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.montoPagado?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fecha">Fecha</label>
+                    <div class="input-group">
+                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="amortizacion.fecha"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_codigoDocumento">Codigo Documento</label>
+                    <input type="text" class="form-control" name="codigoDocumento" id="field_codigoDocumento"
+                        [(ngModel)]="amortizacion.codigoDocumento" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.codigoDocumento?.dirty && editForm.controls.codigoDocumento?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.codigoDocumento?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.codigoDocumento?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_glosa">Glosa</label>
+                    <input type="text" class="form-control" name="glosa" id="field_glosa"
+                        [(ngModel)]="amortizacion.glosa" maxlength="1000"/>
+                    <div [hidden]="!(editForm.controls.glosa?.dirty && editForm.controls.glosa?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.glosa?.errors?.maxlength">
+                        This field cannot be longer than 1000 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDeDocumentoDeVenta">Tipo De Documento De Venta</label>
+                    <select class="form-control" id="field_tipoDeDocumentoDeVenta" name="tipoDeDocumentoDeVenta" [(ngModel)]="amortizacion.tipoDeDocumentoDeVentaId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tipoDeDocumentoDeVentaOption.id" *ngFor="let tipoDeDocumentoDeVentaOption of tipodedocumentodeventas; trackBy: trackTipoDeDocumentoDeVentaById">{{tipoDeDocumentoDeVentaOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDePago">Tipo De Pago</label>
+                    <select class="form-control" id="field_tipoDePago" name="tipoDePago" [(ngModel)]="amortizacion.tipoDePagoId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tipoDePagoOption.id" *ngFor="let tipoDePagoOption of tipodepagos; trackBy: trackTipoDePagoById">{{tipoDePagoOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_venta">Venta</label>
+                    <select class="form-control" id="field_venta" name="venta" [(ngModel)]="amortizacion.ventaId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ventaOption.id" *ngFor="let ventaOption of ventas; trackBy: trackVentaById">{{ventaOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

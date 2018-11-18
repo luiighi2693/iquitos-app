@@ -1,0 +1,25 @@
+{
+    "name": "TipoDeDocumentoDeCompra",
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181031175928",
+    "entityTableName": "tipo_de_documento_de_compra",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

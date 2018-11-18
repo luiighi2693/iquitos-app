@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="credito">
+            <h2><span>Credito</span> {{credito.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Monto</span></dt>
+                <dd>
+                    <span>{{credito.monto}}</span>
+                </dd>
+                <dt><span>Fecha</span></dt>
+                <dd>
+                    <span>{{credito.fecha}}</span>
+                </dd>
+                <dt><span>Modo De Pago</span></dt>
+                <dd>
+                    <span>{{credito.modoDePago}}</span>
+                </dd>
+                <dt><span>Numero</span></dt>
+                <dd>
+                    <span>{{credito.numero}}</span>
+                </dd>
+                <dt><span>Monto Total</span></dt>
+                <dd>
+                    <span>{{credito.montoTotal}}</span>
+                </dd>
+                <dt><span>Fecha Limite</span></dt>
+                <dd>
+                    <span>{{credito.fechaLimite}}</span>
+                </dd>
+                <dt><span>Nota De Credito</span></dt>
+                <dd>
+                    <span>{{credito.notaDeCredito}}</span>
+                </dd>
+                <dt><span>Venta</span></dt>
+                <dd>
+                    <div *ngIf="credito.ventaId">
+                        <a [routerLink]="['/venta', credito.ventaId, 'view']">{{credito.ventaId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Compra</span></dt>
+                <dd>
+                    <div *ngIf="credito.compraId">
+                        <a [routerLink]="['/compra', credito.compraId, 'view']">{{credito.compraId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/credito', credito.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

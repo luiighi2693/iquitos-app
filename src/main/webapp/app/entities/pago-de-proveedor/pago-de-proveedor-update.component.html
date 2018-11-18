@@ -1,0 +1,121 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-pago-de-proveedor-heading">Create or edit a Pago De Proveedor</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!pagoDeProveedor.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="pagoDeProveedor.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_monto">Monto</label>
+                    <input type="number" class="form-control" name="monto" id="field_monto"
+                        [(ngModel)]="pagoDeProveedor.monto" required/>
+                    <div [hidden]="!(editForm.controls.monto?.dirty && editForm.controls.monto?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.monto?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.monto?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_montoPagado">Monto Pagado</label>
+                    <input type="number" class="form-control" name="montoPagado" id="field_montoPagado"
+                        [(ngModel)]="pagoDeProveedor.montoPagado" required/>
+                    <div [hidden]="!(editForm.controls.montoPagado?.dirty && editForm.controls.montoPagado?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.montoPagado?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.montoPagado?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fecha">Fecha</label>
+                    <div class="input-group">
+                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="pagoDeProveedor.fecha"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_codigoDeDocumento">Codigo De Documento</label>
+                    <input type="text" class="form-control" name="codigoDeDocumento" id="field_codigoDeDocumento"
+                        [(ngModel)]="pagoDeProveedor.codigoDeDocumento" required maxlength="150"/>
+                    <div [hidden]="!(editForm.controls.codigoDeDocumento?.dirty && editForm.controls.codigoDeDocumento?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.codigoDeDocumento?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.codigoDeDocumento?.errors?.maxlength">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_glosa">Glosa</label>
+                    <input type="text" class="form-control" name="glosa" id="field_glosa"
+                        [(ngModel)]="pagoDeProveedor.glosa" maxlength="1000"/>
+                    <div [hidden]="!(editForm.controls.glosa?.dirty && editForm.controls.glosa?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.glosa?.errors?.maxlength">
+                        This field cannot be longer than 1000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_imagen">Imagen</label>
+                    <div>
+                        <img [src]="'data:' + pagoDeProveedor.imagenContentType + ';base64,' + pagoDeProveedor.imagen" style="max-height: 100px;" *ngIf="pagoDeProveedor.imagen" alt="pagoDeProveedor image"/>
+                        <div *ngIf="pagoDeProveedor.imagen" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{pagoDeProveedor.imagenContentType}}, {{byteSize(pagoDeProveedor.imagen)}}</span>
+                            <button type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_imagen" (change)="setFileData($event, pagoDeProveedor, 'imagen', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="imagen" id="field_imagen"
+                        [(ngModel)]="pagoDeProveedor.imagen" />
+                    <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
+                        [(ngModel)]="pagoDeProveedor.imagenContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDeDocumentoDeCompra">Tipo De Documento De Compra</label>
+                    <select class="form-control" id="field_tipoDeDocumentoDeCompra" name="tipoDeDocumentoDeCompra" [(ngModel)]="pagoDeProveedor.tipoDeDocumentoDeCompraId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tipoDeDocumentoDeCompraOption.id" *ngFor="let tipoDeDocumentoDeCompraOption of tipodedocumentodecompras; trackBy: trackTipoDeDocumentoDeCompraById">{{tipoDeDocumentoDeCompraOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDePago">Tipo De Pago</label>
+                    <select class="form-control" id="field_tipoDePago" name="tipoDePago" [(ngModel)]="pagoDeProveedor.tipoDePagoId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tipoDePagoOption.id" *ngFor="let tipoDePagoOption of tipodepagos; trackBy: trackTipoDePagoById">{{tipoDePagoOption.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

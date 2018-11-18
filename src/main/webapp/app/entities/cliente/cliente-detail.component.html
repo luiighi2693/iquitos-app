@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cliente">
+            <h2><span>Cliente</span> {{cliente.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Nombre</span></dt>
+                <dd>
+                    <span>{{cliente.nombre}}</span>
+                </dd>
+                <dt><span>Codigo</span></dt>
+                <dd>
+                    <span>{{cliente.codigo}}</span>
+                </dd>
+                <dt><span>Direccion</span></dt>
+                <dd>
+                    <span>{{cliente.direccion}}</span>
+                </dd>
+                <dt><span>Correo</span></dt>
+                <dd>
+                    <span>{{cliente.correo}}</span>
+                </dd>
+                <dt><span>Telefono</span></dt>
+                <dd>
+                    <span>{{cliente.telefono}}</span>
+                </dd>
+                <dt><span>Fecha De Nacimiento</span></dt>
+                <dd>
+                    <span>{{cliente.fechaDeNacimiento}}</span>
+                </dd>
+                <dt><span>Sexo</span></dt>
+                <dd>
+                    <span>{{cliente.sexo}}</span>
+                </dd>
+                <dt><span>Estatus Civil</span></dt>
+                <dd>
+                    <span>{{cliente.estatusCivil}}</span>
+                </dd>
+                <dt><span>Imagen</span></dt>
+                <dd>
+                    <div *ngIf="cliente.imagen">
+                        <a (click)="openFile(cliente.imagenContentType, cliente.imagen)">
+                            <img [src]="'data:' + cliente.imagenContentType + ';base64,' + cliente.imagen" style="max-width: 100%;" alt="cliente image"/>
+                        </a>
+                        {{cliente.imagenContentType}}, {{byteSize(cliente.imagen)}}
+                    </div>
+                </dd>
+                <dt><span>Tipo De Cliente</span></dt>
+                <dd>
+                    <span>{{cliente.tipoDeCliente}}</span>
+                </dd>
+                <dt><span>Usuario</span></dt>
+                <dd>
+                    <div *ngIf="cliente.usuarioId">
+                        <a [routerLink]="['/usuario-externo', cliente.usuarioId, 'view']">{{cliente.usuarioDni}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Documento</span></dt>
+                <dd>
+                    <div *ngIf="cliente.tipoDeDocumentoId">
+                        <a [routerLink]="['/tipo-de-documento', cliente.tipoDeDocumentoId, 'view']">{{cliente.tipoDeDocumentoNombre}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cliente', cliente.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="venta">
+            <h2><span>Venta</span> {{venta.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Codigo</span></dt>
+                <dd>
+                    <span>{{venta.codigo}}</span>
+                </dd>
+                <dt><span>Sub Total</span></dt>
+                <dd>
+                    <span>{{venta.subTotal}}</span>
+                </dd>
+                <dt><span>Impuesto</span></dt>
+                <dd>
+                    <span>{{venta.impuesto}}</span>
+                </dd>
+                <dt><span>Monto Total</span></dt>
+                <dd>
+                    <span>{{venta.montoTotal}}</span>
+                </dd>
+                <dt><span>Fecha</span></dt>
+                <dd>
+                    <span>{{venta.fecha}}</span>
+                </dd>
+                <dt><span>Estatus</span></dt>
+                <dd>
+                    <span>{{venta.estatus}}</span>
+                </dd>
+                <dt><span>Glosa</span></dt>
+                <dd>
+                    <span>{{venta.glosa}}</span>
+                </dd>
+                <dt><span>Meta Data</span></dt>
+                <dd>
+                    <span>{{venta.metaData}}</span>
+                </dd>
+                <dt><span>Cliente</span></dt>
+                <dd>
+                    <div *ngIf="venta.clienteId">
+                        <a [routerLink]="['/cliente', venta.clienteId, 'view']">{{venta.clienteNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Empleado</span></dt>
+                <dd>
+                    <div *ngIf="venta.empleadoId">
+                        <a [routerLink]="['/empleado', venta.empleadoId, 'view']">{{venta.empleadoNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Caja</span></dt>
+                <dd>
+                    <div *ngIf="venta.cajaId">
+                        <a [routerLink]="['/caja', venta.cajaId, 'view']">{{venta.cajaId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Documento De Venta</span></dt>
+                <dd>
+                    <div *ngIf="venta.tipoDeDocumentoDeVentaId">
+                        <a [routerLink]="['/tipo-de-documento-de-venta', venta.tipoDeDocumentoDeVentaId, 'view']">{{venta.tipoDeDocumentoDeVentaNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Pago</span></dt>
+                <dd>
+                    <div *ngIf="venta.tipoDePagoId">
+                        <a [routerLink]="['/tipo-de-pago', venta.tipoDePagoId, 'view']">{{venta.tipoDePagoNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Estatus De Producto Entregado</span></dt>
+                <dd>
+                    <div *ngIf="venta.estatusDeProductoEntregadoId">
+                        <a [routerLink]="['/estatus-de-producto-entregado', venta.estatusDeProductoEntregadoId, 'view']">{{venta.estatusDeProductoEntregadoNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Productos</span></dt>
+                <dd>
+                    <span *ngFor="let productos of venta.productos; let last = last">
+                        <a [routerLink]="['/producto', productos?.id, 'view' ]">{{productos.codigo}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/venta', venta.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

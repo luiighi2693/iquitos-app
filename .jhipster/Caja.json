@@ -1,0 +1,47 @@
+{
+    "name": "Caja",
+    "fields": [
+        {
+            "fieldName": "monto",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "montoActual",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fechaInicial",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "fechaFinal",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "caja",
+            "otherEntityName": "caja",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "caja"
+        }
+    ],
+    "changelogDate": "20181031175919",
+    "entityTableName": "caja",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

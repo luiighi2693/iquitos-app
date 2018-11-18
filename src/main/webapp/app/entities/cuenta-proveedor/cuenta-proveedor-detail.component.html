@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cuentaProveedor">
+            <h2><span>Cuenta Proveedor</span> {{cuentaProveedor.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Tipo Cuenta</span></dt>
+                <dd>
+                    <span>{{cuentaProveedor.tipoCuenta}}</span>
+                </dd>
+                <dt><span>Banco</span></dt>
+                <dd>
+                    <span>{{cuentaProveedor.banco}}</span>
+                </dd>
+                <dt><span>Nombre Cuenta</span></dt>
+                <dd>
+                    <span>{{cuentaProveedor.nombreCuenta}}</span>
+                </dd>
+                <dt><span>Numero De Cuenta</span></dt>
+                <dd>
+                    <span>{{cuentaProveedor.numeroDeCuenta}}</span>
+                </dd>
+                <dt><span>Fecha</span></dt>
+                <dd>
+                    <span>{{cuentaProveedor.fecha}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cuenta-proveedor', cuentaProveedor.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

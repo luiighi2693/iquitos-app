@@ -1,0 +1,79 @@
+<div>
+    <h2 id="page-heading">
+        <span>Proveedors</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-proveedor" [routerLink]="['/proveedor/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down" >
+            Create new Proveedor
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="proveedors">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="codigo"><span>Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="razonSocial"><span>Razon Social</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="direccion"><span>Direccion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="correo"><span>Correo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="telefono"><span>Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sector"><span>Sector</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let proveedor of proveedors ;trackBy: trackId">
+                <td><a [routerLink]="['/proveedor', proveedor.id, 'view' ]">{{proveedor.id}}</a></td>
+                <td>{{proveedor.codigo}}</td>
+                <td>{{proveedor.razonSocial}}</td>
+                <td>{{proveedor.direccion}}</td>
+                <td>{{proveedor.correo}}</td>
+                <td>{{proveedor.telefono}}</td>
+                <td>{{proveedor.sector}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/proveedor', proveedor.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/proveedor', proveedor.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'proveedor/'+ proveedor.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

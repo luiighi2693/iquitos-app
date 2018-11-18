@@ -1,0 +1,65 @@
+{
+    "name": "Pedido",
+    "fields": [
+        {
+            "fieldName": "nota",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "guia",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "estatus",
+            "fieldType": "OrderStatus",
+            "fieldValues": "CREADO,CANCELADO,ENVIADO_EN_PROCESO,ENVIADO_CANCELADO,ENTREGADO,ENTREGADO_ERROR"
+        },
+        {
+            "fieldName": "metaData",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 5000
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "proveedor",
+            "otherEntityName": "proveedor",
+            "otherEntityField": "razonSocial",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "pedido"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "productos",
+            "otherEntityName": "producto",
+            "otherEntityField": "codigo",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20181031175922",
+    "entityTableName": "pedido",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

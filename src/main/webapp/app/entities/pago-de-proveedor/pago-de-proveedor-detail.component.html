@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="pagoDeProveedor">
+            <h2><span>Pago De Proveedor</span> {{pagoDeProveedor.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Monto</span></dt>
+                <dd>
+                    <span>{{pagoDeProveedor.monto}}</span>
+                </dd>
+                <dt><span>Monto Pagado</span></dt>
+                <dd>
+                    <span>{{pagoDeProveedor.montoPagado}}</span>
+                </dd>
+                <dt><span>Fecha</span></dt>
+                <dd>
+                    <span>{{pagoDeProveedor.fecha}}</span>
+                </dd>
+                <dt><span>Codigo De Documento</span></dt>
+                <dd>
+                    <span>{{pagoDeProveedor.codigoDeDocumento}}</span>
+                </dd>
+                <dt><span>Glosa</span></dt>
+                <dd>
+                    <span>{{pagoDeProveedor.glosa}}</span>
+                </dd>
+                <dt><span>Imagen</span></dt>
+                <dd>
+                    <div *ngIf="pagoDeProveedor.imagen">
+                        <a (click)="openFile(pagoDeProveedor.imagenContentType, pagoDeProveedor.imagen)">
+                            <img [src]="'data:' + pagoDeProveedor.imagenContentType + ';base64,' + pagoDeProveedor.imagen" style="max-width: 100%;" alt="pagoDeProveedor image"/>
+                        </a>
+                        {{pagoDeProveedor.imagenContentType}}, {{byteSize(pagoDeProveedor.imagen)}}
+                    </div>
+                </dd>
+                <dt><span>Tipo De Documento De Compra</span></dt>
+                <dd>
+                    <div *ngIf="pagoDeProveedor.tipoDeDocumentoDeCompraId">
+                        <a [routerLink]="['/tipo-de-documento-de-compra', pagoDeProveedor.tipoDeDocumentoDeCompraId, 'view']">{{pagoDeProveedor.tipoDeDocumentoDeCompraNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span>Tipo De Pago</span></dt>
+                <dd>
+                    <div *ngIf="pagoDeProveedor.tipoDePagoId">
+                        <a [routerLink]="['/tipo-de-pago', pagoDeProveedor.tipoDePagoId, 'view']">{{pagoDeProveedor.tipoDePagoNombre}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/pago-de-proveedor', pagoDeProveedor.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
