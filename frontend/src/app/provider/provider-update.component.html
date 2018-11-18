@@ -85,31 +85,31 @@
                           <mat-header-cell *matHeaderCellDef> Nombre del Banco </mat-header-cell>
                           <mat-cell *matCellDef="let row;let i = index">
                             <!--{{row.banco}}-->
-                            <input (blur)="saveChangesInAccountsRow($event, i, 'banco')" [value]="row.banco">
+                            <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'banco')" value="{{row.banco}}">
                             <!--<input (blur)="saveChangesInAccountsRow(i, 'banco', row.banco)" [(ngModel)]="i+'-banco'">-->
                           </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="numeroDeCuenta">
                           <mat-header-cell *matHeaderCellDef> Numero de cuenta </mat-header-cell>
-                          <mat-cell *matCellDef="let row">
+                          <mat-cell *matCellDef="let row;let i = index">
                             <!--{{row.numeroDeCuenta}}-->
-                            <input value="{{row.numeroDeCuenta}}">
+                            <input type="number" (blur)="saveChangesInAccountsRow($event, i, 'numeroDeCuenta')" value="{{row.numeroDeCuenta}}">
                           </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="nombreCuenta">
                           <mat-header-cell *matHeaderCellDef> Titular de la cuenta </mat-header-cell>
-                          <mat-cell *matCellDef="let row">
+                          <mat-cell *matCellDef="let row;let i = index">
                             <!--{{row.nombreCuenta}}-->
-                            <input value="{{row.nombreCuenta}}">
+                            <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'nombreCuenta')" value="{{row.nombreCuenta}}">
                           </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="quitar">
                           <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
-                          <mat-cell *matCellDef="let row">
-                            <a class="ng-star-inserted">
+                          <mat-cell *matCellDef="let row;let i = index">
+                            <a (click)="deleteAccount(i, row)" class="ng-star-inserted">
                               <i class="ti-trash text-danger m-r-10"></i>
                             </a>
                           </mat-cell>

@@ -112,6 +112,34 @@ export class ProviderUpdateComponent implements OnInit {
       this.cuentas[indexFromAccount].banco = event.target.value;
     }
 
+    if (label === 'numeroDeCuenta') {
+      this.cuentas[indexFromAccount].numeroDeCuenta = event.target.value;
+    }
+
+    if (label === 'nombreCuenta') {
+      this.cuentas[indexFromAccount].nombreCuenta = event.target.value;
+    }
+
     this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.cuentas);
+  }
+
+  deleteAccount(i, row) {
+    let index = null;
+
+    if (row.id !== undefined) {
+      this.cuentaProveedorService.delete(row.id).subscribe(response => {
+      });
+
+      index = this.dataSourceCuentas.data.map(x => x.id).indexOf(row.id);
+
+    } else {
+      index = i;
+    }
+
+    if (index !== -1) {
+      this.dataSourceCuentas.data.splice(index, 1);
+      this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
+    }
+
   }
 }

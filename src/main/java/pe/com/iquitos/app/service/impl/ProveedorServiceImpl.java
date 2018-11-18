@@ -10,6 +10,7 @@ import pe.com.iquitos.app.service.ProveedorService;
 import pe.com.iquitos.app.domain.Proveedor;
 import pe.com.iquitos.app.repository.ProveedorRepository;
 import pe.com.iquitos.app.repository.search.ProveedorSearchRepository;
+import pe.com.iquitos.app.service.dto.ContactoProveedorDTO;
 import pe.com.iquitos.app.service.dto.CuentaProveedorDTO;
 import pe.com.iquitos.app.service.dto.ProveedorDTO;
 import pe.com.iquitos.app.service.mapper.ContactoProveedorMapper;
@@ -23,7 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -76,18 +77,25 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Override
     public ProveedorDTO save(ProveedorDTO proveedorDTO) {
         log.debug("Request to save Proveedor : {}", proveedorDTO);
+        Set<CuentaProveedorDTO> cuentaProveedorDTOList = new HashSet<>();
+        Set<ContactoProveedorDTO> contactoProveedorDTOList = new HashSet<>();
 
         proveedorDTO.getCuentaProveedors().forEach(cuentaProveedorDTO -> {
             CuentaProveedor cuentaProveedor = cuentaProveedorMapper.toEntity(cuentaProveedorDTO);
             cuentaProveedor = cuentaProveedorRepository.save(cuentaProveedor);
+            cuentaProveedorDTOList.add(cuentaProveedorMapper.toDto(cuentaProveedor));
             cuentaProveedorSearchRepository.save(cuentaProveedor);
         });
+
+        proveedorDTO.setCuentaProveedors(cuentaProveedorDTOList);
 
         proveedorDTO.getContactoProveedors().forEach(contactoProveedorDTO -> {
             ContactoProveedor contactoProveedor = contactoProveedorMapper.toEntity(contactoProveedorDTO);
             contactoProveedor = contactoProveedorRepository.save(contactoProveedor);
             contactoProveedorSearchRepository.save(contactoProveedor);
         });
+
+        proveedorDTO.setContactoProveedors(contactoProveedorDTOList);
 
         Proveedor proveedor = proveedorMapper.toEntity(proveedorDTO);
         proveedor = proveedorRepository.save(proveedor);
