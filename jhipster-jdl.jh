@@ -193,6 +193,10 @@ entity TipoDeOperacionDeGasto { //otros, depositos desde bancos
 	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
+entity ProductosRelacionadosTags { //tags de productos relacionados
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+}
+
 enum Sex {
     MASCULINO, FEMENINO
 }

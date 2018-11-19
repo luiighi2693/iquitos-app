@@ -26,6 +26,7 @@ import { IquitosAppTipoDeOperacionDeGastoModule } from './tipo-de-operacion-de-g
 import { IquitosAppContactoProveedorModule } from './contacto-proveedor/contacto-proveedor.module';
 import { IquitosAppProveedorModule } from './proveedor/proveedor.module';
 import { IquitosAppCuentaProveedorModule } from './cuenta-proveedor/cuenta-proveedor.module';
+import { IquitosAppProductosRelacionadosTagsModule } from './productos-relacionados-tags/productos-relacionados-tags.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -57,6 +58,7 @@ import { IquitosAppCuentaProveedorModule } from './cuenta-proveedor/cuenta-prove
         IquitosAppContactoProveedorModule,
         IquitosAppProveedorModule,
         IquitosAppCuentaProveedorModule,
+        IquitosAppProductosRelacionadosTagsModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
