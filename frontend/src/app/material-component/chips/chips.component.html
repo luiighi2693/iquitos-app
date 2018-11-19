@@ -25,12 +25,39 @@
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (remove)="remove(fruit)">
           {{fruit.name}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          <mat-icon matChipRemove *ngIf="removable" (click)="remove(fruit)">cancel</mat-icon>
         </mat-chip>
-        <input placeholder="New fruit..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="add($event)" />
+        <input name="valueInput" type="text" [ngModel]="valueInput" placeholder="New fruit..." [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" [formControl]="myControl"
+               [matAutocomplete]="autoready"  (matChipInputTokenEnd)="add($event)"/>
+        <mat-autocomplete #autoready="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="addValue(option)">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-chip-list>
     </mat-form-field>
+
+    <!--<mat-form-field>-->
+      <!--<input type="text" placeholder="Assignee" aria-label="Assignee" matInput [formControl]="myControl"-->
+             <!--[matAutocomplete]="autoready">-->
+      <!--<mat-autocomplete #autoready="matAutocomplete" [displayWith]="displayFn">-->
+        <!--<mat-option *ngFor="let option of filteredOptions | async" [value]="option">-->
+          <!--{{option.name}}-->
+        <!--</mat-option>-->
+      <!--</mat-autocomplete>-->
+    <!--</mat-form-field>-->
+
+    <!--<mat-form-field class="demo-chip-list">-->
+      <!--<mat-chip-list #chipList>-->
+        <!--<mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (remove)="remove(fruit)">-->
+          <!--{{fruit.name}}-->
+          <!--<mat-icon matChipRemove *ngIf="removable" (click)="remove(fruit)">cancel</mat-icon>-->
+        <!--</mat-chip>-->
+        <!--<input placeholder="New fruit..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"-->
+               <!--(matChipInputTokenEnd)="add($event)" />-->
+      <!--</mat-chip-list>-->
+    <!--</mat-form-field>-->
   </mat-card-content>
 </mat-card>
 

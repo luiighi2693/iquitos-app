@@ -76,8 +76,7 @@ export class ProviderUpdateComponent implements OnInit {
   }
 
   save() {
-    this.proveedor.contactoProveedors = this.contactos;
-    this.proveedor.cuentaProveedors = this.cuentas;
+    this.updateEntity();
     console.log(this.proveedor.toString());
     this.isSaving = true;
     if (this.proveedor.id !== undefined) {
@@ -91,9 +90,19 @@ export class ProviderUpdateComponent implements OnInit {
     result.subscribe((res: HttpResponse<IProveedor>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
   }
 
+  private subscribeToSaveResponseFromUpdateChild(result: Observable<HttpResponse<IProveedor>>, idToDelete: number) {
+    result.subscribe((res: HttpResponse<IProveedor>) => this.onSaveSuccessFromUpdateChild(idToDelete), (res: HttpErrorResponse) => this.onSaveError());
+  }
+
   private onSaveSuccess(res) {
     this.isSaving = false;
     this.previousState();
+  }
+
+  private onSaveSuccessFromUpdateChild(idToDelete) {
+    this.isSaving = false;
+    this.cuentaProveedorService.delete(idToDelete).subscribe(response => {
+    });
   }
 
   private onSaveError() {
@@ -132,19 +141,25 @@ export class ProviderUpdateComponent implements OnInit {
     let index = null;
 
     if (row.id !== undefined) {
-      this.cuentaProveedorService.delete(row.id).subscribe(response => {
-      });
-
       index = this.dataSourceCuentas.data.map(x => x.id).indexOf(row.id);
+      if (index !== -1) {
+        this.dataSourceCuentas.data.splice(index, 1);
+        this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
 
+        this.cuentas = this.dataSourceCuentas.data;
+
+        this.updateEntity();
+        this.subscribeToSaveResponseFromUpdateChild(this.proveedorService.update(this.proveedor), row.id);
+      }
     } else {
-      index = i;
-    }
-
-    if (index !== -1) {
       this.dataSourceCuentas.data.splice(index, 1);
       this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
+      this.cuentas = this.dataSourceCuentas.data;
     }
+  }
 
+  private updateEntity() {
+    this.proveedor.contactoProveedors = this.contactos;
+    this.proveedor.cuentaProveedors = this.cuentas;
   }
 }
