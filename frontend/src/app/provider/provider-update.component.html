@@ -8,8 +8,10 @@
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Razón social" name="socialReason" [(ngModel)]="proveedor.razonSocial">
+                <input matInput placeholder="Razón social" name="socialReason" [(ngModel)]="proveedor.razonSocial" [formControl]="form.controls['frazonSocial']">
               </mat-form-field>
+              <mat-hint *ngIf="form.controls['frazonSocial'].hasError('required') && form.controls['frazonSocial'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['frazonSocial'].hasError('maxlength') && form.controls['frazonSocial'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
@@ -20,8 +22,10 @@
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Dirección" name="address" [(ngModel)]="proveedor.direccion">
+                <input matInput placeholder="Dirección" name="address" [(ngModel)]="proveedor.direccion" [formControl]="form.controls['fdireccion']">
               </mat-form-field>
+              <mat-hint *ngIf="form.controls['fdireccion'].hasError('required') && form.controls['fdireccion'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['fdireccion'].hasError('maxlength') && form.controls['fdireccion'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
@@ -168,13 +172,6 @@
                           </mat-cell>
                         </ng-container>
 
-                        <!--<ng-container matColumnDef="producto">-->
-                          <!--<mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>-->
-                          <!--<mat-cell *matCellDef="let row;let i = index">-->
-                            <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
-                          <!--</mat-cell>-->
-                        <!--</ng-container>-->
-
                         <ng-container matColumnDef="quitar">
                           <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
                           <mat-cell *matCellDef="let row;let i = index">
@@ -198,7 +195,7 @@
 
           <div class="p-10 text-right">
             <button mat-raised-button (click)="previousState()">Cancelar</button>
-            <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+            <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
           </div>
         </form>
       </mat-card-content>

@@ -12,9 +12,10 @@ import {ContactoProveedorService} from './contacto-proveedor.service';
 import {IProductosRelacionadosTags} from '../models/productos-relacionados-tags.model';
 import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {User} from '../material-component/chips/chips.component';
+import {CustomValidators} from 'ng2-validation';
 
 export interface ExampleTab {
   label: string;
@@ -75,11 +76,14 @@ export class ProviderUpdateComponent implements OnInit {
 
   @ViewChild('tagInput') tagInput: ElementRef;
 
+  public form: FormGroup;
+
   constructor(private proveedorService: ProveedorService,
               private cuentaProveedorService: CuentaProveedorService,
               private contactoProveedorService: ContactoProveedorService,
               private productosRelacionadosTagsService: ProductosRelacionadosTagsService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private fb: FormBuilder) {
     this.asyncTabs = Observable.create((observer: Observer<ExampleTab[]>) => {
       setTimeout(() => {
         observer.next([
@@ -117,6 +121,23 @@ export class ProviderUpdateComponent implements OnInit {
       }
       console.log(this.tags);
       // this.contactos.forEach()
+    });
+
+    this.form = this.fb.group({
+      frazonSocial: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(150)
+        ])
+      ],
+      fdireccion: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(150)
+        ])
+        ]
     });
   }
 
