@@ -92,6 +92,7 @@ public class ProveedorServiceImpl implements ProveedorService {
         proveedorDTO.getContactoProveedors().forEach(contactoProveedorDTO -> {
             ContactoProveedor contactoProveedor = contactoProveedorMapper.toEntity(contactoProveedorDTO);
             contactoProveedor = contactoProveedorRepository.save(contactoProveedor);
+            contactoProveedorDTOList.add(contactoProveedorMapper.toDto(contactoProveedor));
             contactoProveedorSearchRepository.save(contactoProveedor);
         });
 

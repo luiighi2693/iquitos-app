@@ -4,10 +4,11 @@ import { ProveedorService } from './proveedor.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { IContactoProveedor } from '../models/contacto-proveedor.model';
+import {ContactoProveedor, IContactoProveedor} from '../models/contacto-proveedor.model';
 import { MatTableDataSource } from '@angular/material';
 import { AccountTypeProvider, CuentaProveedor, ICuentaProveedor } from '../models/cuenta-proveedor.model';
 import {CuentaProveedorService} from './cuenta-proveedor.service';
+import {ContactoProveedorService} from './contacto-proveedor.service';
 
 export interface ExampleTab {
   label: string;
@@ -49,6 +50,7 @@ export class ProviderUpdateComponent implements OnInit {
 
   constructor(private proveedorService: ProveedorService,
               private cuentaProveedorService: CuentaProveedorService,
+              private contactoProveedorService: ContactoProveedorService,
               private activatedRoute: ActivatedRoute) {
     this.asyncTabs = Observable.create((observer: Observer<ExampleTab[]>) => {
       setTimeout(() => {
@@ -90,8 +92,12 @@ export class ProviderUpdateComponent implements OnInit {
     result.subscribe((res: HttpResponse<IProveedor>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
   }
 
-  private subscribeToSaveResponseFromUpdateChild(result: Observable<HttpResponse<IProveedor>>, idToDelete: number) {
-    result.subscribe((res: HttpResponse<IProveedor>) => this.onSaveSuccessFromUpdateChild(idToDelete), (res: HttpErrorResponse) => this.onSaveError());
+  private subscribeToSaveResponseFromRemoveAccount(result: Observable<HttpResponse<IProveedor>>, idToDelete: number) {
+    result.subscribe((res: HttpResponse<IProveedor>) => this.onSaveSuccessFromRemoveAccount(idToDelete), (res: HttpErrorResponse) => this.onSaveError());
+  }
+
+  private subscribeToSaveResponseFromRemoveContact(result: Observable<HttpResponse<IProveedor>>, idToDelete: number) {
+    result.subscribe((res: HttpResponse<IProveedor>) => this.onSaveSuccessFromRemoveContact(idToDelete), (res: HttpErrorResponse) => this.onSaveError());
   }
 
   private onSaveSuccess(res) {
@@ -99,9 +105,15 @@ export class ProviderUpdateComponent implements OnInit {
     this.previousState();
   }
 
-  private onSaveSuccessFromUpdateChild(idToDelete) {
+  private onSaveSuccessFromRemoveAccount(idToDelete) {
     this.isSaving = false;
     this.cuentaProveedorService.delete(idToDelete).subscribe(response => {
+    });
+  }
+
+  private onSaveSuccessFromRemoveContact(idToDelete) {
+    this.isSaving = false;
+    this.contactoProveedorService.delete(idToDelete).subscribe(response => {
     });
   }
 
@@ -121,6 +133,17 @@ export class ProviderUpdateComponent implements OnInit {
     this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.cuentas);
   }
 
+  addContactProvider() {
+    const contacto = new ContactoProveedor();
+
+    if (this.contactos === undefined) {
+      this.contactos = [];
+    }
+
+    this.contactos.push(contacto);
+    this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.contactos);
+  }
+
   saveChangesInAccountsRow(event, indexFromAccount, label) {
     if (label === 'banco') {
       this.cuentas[indexFromAccount].banco = event.target.value;
@@ -137,6 +160,26 @@ export class ProviderUpdateComponent implements OnInit {
     this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.cuentas);
   }
 
+  saveChangesInContactsRow(event, indexFromAccount, label) {
+    if (label === 'nombre') {
+      this.contactos[indexFromAccount].nombre = event.target.value;
+    }
+
+    if (label === 'cargo') {
+      this.contactos[indexFromAccount].cargo = event.target.value;
+    }
+
+    if (label === 'telefono') {
+      this.contactos[indexFromAccount].telefono = event.target.value;
+    }
+
+    if (label === 'producto') {
+      this.contactos[indexFromAccount].producto = event.target.value;
+    }
+
+    this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.contactos);
+  }
+
   deleteAccount(i, row) {
     let index = null;
 
@@ -149,7 +192,7 @@ export class ProviderUpdateComponent implements OnInit {
         this.cuentas = this.dataSourceCuentas.data;
 
         this.updateEntity();
-        this.subscribeToSaveResponseFromUpdateChild(this.proveedorService.update(this.proveedor), row.id);
+        this.subscribeToSaveResponseFromRemoveAccount(this.proveedorService.update(this.proveedor), row.id);
       }
     } else {
       this.dataSourceCuentas.data.splice(index, 1);
@@ -161,5 +204,26 @@ export class ProviderUpdateComponent implements OnInit {
   private updateEntity() {
     this.proveedor.contactoProveedors = this.contactos;
     this.proveedor.cuentaProveedors = this.cuentas;
+  }
+
+  deleteContact(i, row) {
+    let index = null;
+
+    if (row.id !== undefined) {
+      index = this.dataSourceContactos.data.map(x => x.id).indexOf(row.id);
+      if (index !== -1) {
+        this.dataSourceContactos.data.splice(index, 1);
+        this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
+
+        this.contactos = this.dataSourceContactos.data;
+
+        this.updateEntity();
+        this.subscribeToSaveResponseFromRemoveContact(this.proveedorService.update(this.proveedor), row.id);
+      }
+    } else {
+      this.dataSourceContactos.data.splice(index, 1);
+      this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
+      this.contactos = this.dataSourceContactos.data;
+    }
   }
 }
