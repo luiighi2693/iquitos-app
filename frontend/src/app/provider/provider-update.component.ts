@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { IProveedor } from '../models/proveedor.model';
 import { ProveedorService } from './proveedor.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {ContactoProveedor, IContactoProveedor} from '../models/contacto-proveedor.model';
-import { MatTableDataSource } from '@angular/material';
+import {MatChipInputEvent, MatTableDataSource} from '@angular/material';
 import { AccountTypeProvider, CuentaProveedor, ICuentaProveedor } from '../models/cuenta-proveedor.model';
 import {CuentaProveedorService} from './cuenta-proveedor.service';
 import {ContactoProveedorService} from './contacto-proveedor.service';
+import {IProductosRelacionadosTags} from '../models/productos-relacionados-tags.model';
+import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.service';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {FormControl} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
+import {User} from '../material-component/chips/chips.component';
 
 export interface ExampleTab {
   label: string;
@@ -48,9 +54,31 @@ export class ProviderUpdateComponent implements OnInit {
   editing = {};
   rows = [];
 
+  itemsPerPage = 500;
+  page: 0;
+  predicate = 'id';
+  reverse = true;
+  totalItems: number;
+  // tags: IProductosRelacionadosTags[];
+  valueInputTag = '';
+
+  // Enter, comma
+  separatorKeysCodes = [ENTER, COMMA];
+  myControl = new FormControl();
+  filteredOptions: Observable<IProductosRelacionadosTags[]>;
+  options1: IProductosRelacionadosTags[];
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+
+  tags = new Map([]);
+
+  @ViewChild('tagInput') tagInput: ElementRef;
+
   constructor(private proveedorService: ProveedorService,
               private cuentaProveedorService: CuentaProveedorService,
               private contactoProveedorService: ContactoProveedorService,
+              private productosRelacionadosTagsService: ProductosRelacionadosTagsService,
               private activatedRoute: ActivatedRoute) {
     this.asyncTabs = Observable.create((observer: Observer<ExampleTab[]>) => {
       setTimeout(() => {
@@ -64,13 +92,77 @@ export class ProviderUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
+    this.productosRelacionadosTagsService
+      .query({
+        page: this.page,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe(
+        (res: HttpResponse<IProductosRelacionadosTags[]>) => this.paginateProductosRelacionadosTags(res.body, res.headers),
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+
     this.activatedRoute.data.subscribe(({ proveedor }) => {
       this.proveedor = proveedor;
       this.contactos = this.proveedor.contactoProveedors;
       this.cuentas = this.proveedor.cuentaProveedors;
       this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.contactos);
       this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.cuentas);
+
+      if (this.contactos !== undefined) {
+        for (let i = 0; i < this.contactos.length; i++) {
+          this.tags.set(i, this.contactos[i].producto === undefined ? [] : this.contactos[i].producto.split(','));
+        }
+      }
+      console.log(this.tags);
+      // this.contactos.forEach()
     });
+  }
+
+  sort() {
+    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.predicate !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+
+  private paginateProductosRelacionadosTags(data: IProductosRelacionadosTags[], headers: HttpHeaders) {
+    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+    this.options1 = data;
+
+    if (this.totalItems !== 0) {
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith<string | IProductosRelacionadosTags>(''),
+        map(value => (typeof value === 'string' ? value : value.nombre)),
+        map(name => (name ? this._filter(name) : this.options1.slice()))
+      );
+    }
+  }
+
+  private _filter(nombre: string): IProductosRelacionadosTags[] {
+    const filterValue = nombre.toLowerCase();
+
+    return this.options1.filter(
+      option => option.nombre.toLowerCase().indexOf(filterValue) === 0
+    );
+  }
+
+  addValueTag(productoRelacionado: IProductosRelacionadosTags, i: number) {
+    if ((productoRelacionado.nombre || '').trim()) {
+      (<Array<string>>this.tags.get(i)).push(productoRelacionado.nombre.trim());
+      // this.contactos[i].producto = this.contactos[i].producto === undefined || this.contactos[i].producto === '' ?
+      //   productoRelacionado.nombre.trim() : this.contactos[i].producto + ',' + productoRelacionado.nombre.trim();
+    }
+
+    this.tagInput.nativeElement.value = '';
+
+    // console.log(this.contactos[i].producto);
+  }
+
+  private onError(errorMessage: string) {
+    console.log(errorMessage);
   }
 
   previousState() {
@@ -177,6 +269,11 @@ export class ProviderUpdateComponent implements OnInit {
       this.contactos[indexFromAccount].producto = event.target.value;
     }
 
+    // if (label === 'producto') {
+    //   this.contactos[indexFromAccount].producto = this.tags.map(tag => tag.nombre).join(',');
+    //   console.log(this.contactos[indexFromAccount].producto);
+    // }
+
     this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.contactos);
   }
 
@@ -202,6 +299,9 @@ export class ProviderUpdateComponent implements OnInit {
   }
 
   private updateEntity() {
+    for (let i = 0; i < this.contactos.length; i++) {
+      this.contactos[i].producto = (<Array<string>>this.tags.get(i)).join(',');
+    }
     this.proveedor.contactoProveedors = this.contactos;
     this.proveedor.cuentaProveedors = this.cuentas;
   }
@@ -224,6 +324,24 @@ export class ProviderUpdateComponent implements OnInit {
       this.dataSourceContactos.data.splice(index, 1);
       this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
       this.contactos = this.dataSourceContactos.data;
+    }
+  }
+
+  displayFn(productoRelacionado?: IProductosRelacionadosTags): string | undefined {
+    return productoRelacionado ? productoRelacionado.nombre : undefined;
+  }
+
+  addTag(event: MatChipInputEvent): void {
+    const input = event.input;
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeTag(productoRelacionado: string, i: number): void {
+    const index = (<Array<string>>this.tags.get(i)).indexOf(productoRelacionado);
+    if (index >= 0) {
+      (<Array<string>>this.tags.get(i)).splice(index, 1);
     }
   }
 }

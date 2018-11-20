@@ -150,9 +150,30 @@
                         <ng-container matColumnDef="producto">
                           <mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>
                           <mat-cell *matCellDef="let row;let i = index">
-                            <input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">
+                            <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
+                            <mat-chip-list #chipList>
+                              <mat-chip *ngFor="let product of tags.get(i)" [selectable]="selectable" [removable]="removable" (remove)="removeTag(product)">
+                                {{product}}
+                                <mat-icon matChipRemove *ngIf="removable" (click)="removeTag(product, i)">cancel</mat-icon>
+                              </mat-chip>
+                              <input #tagInput name="valueInputTag" type="text" [ngModel]="valueInputTag" placeholder="producto nuevo..." [matChipInputFor]="chipList"
+                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" [formControl]="myControl"
+                                     [matAutocomplete]="autoready"  (matChipInputTokenEnd)="addTag($event)"/>
+                              <mat-autocomplete #autoready="matAutocomplete" [displayWith]="displayFn">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="addValueTag(option, i)">
+                                  {{option.nombre}}
+                                </mat-option>
+                              </mat-autocomplete>
+                            </mat-chip-list>
                           </mat-cell>
                         </ng-container>
+
+                        <!--<ng-container matColumnDef="producto">-->
+                          <!--<mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>-->
+                          <!--<mat-cell *matCellDef="let row;let i = index">-->
+                            <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
+                          <!--</mat-cell>-->
+                        <!--</ng-container>-->
 
                         <ng-container matColumnDef="quitar">
                           <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
