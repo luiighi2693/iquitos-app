@@ -41,7 +41,7 @@ export class ProviderUpdateComponent implements OnInit {
   isSaving: boolean;
 
   displayedColumnsCuentas = ['cuenta', 'banco', 'numeroDeCuenta', 'nombreCuenta', 'quitar'];
-  displayedColumnsContactos = ['nombre', 'cargo', 'telefono', 'producto'];
+  displayedColumnsContactos = ['nombre', 'cargo', 'telefono', 'producto', 'quitar'];
   dataSourceContactos = new MatTableDataSource<IContactoProveedor>(null);
   dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(null);
 
