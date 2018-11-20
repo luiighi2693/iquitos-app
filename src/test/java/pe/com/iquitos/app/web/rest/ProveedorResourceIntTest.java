@@ -192,25 +192,6 @@ public class ProveedorResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCodigoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = proveedorRepository.findAll().size();
-        // set the field null
-        proveedor.setCodigo(null);
-
-        // Create the Proveedor, which fails.
-        ProveedorDTO proveedorDTO = proveedorMapper.toDto(proveedor);
-
-        restProveedorMockMvc.perform(post("/api/proveedors")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(proveedorDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Proveedor> proveedorList = proveedorRepository.findAll();
-        assertThat(proveedorList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkRazonSocialIsRequired() throws Exception {
         int databaseSizeBeforeTest = proveedorRepository.findAll().size();
         // set the field null
@@ -234,44 +215,6 @@ public class ProveedorResourceIntTest {
         int databaseSizeBeforeTest = proveedorRepository.findAll().size();
         // set the field null
         proveedor.setDireccion(null);
-
-        // Create the Proveedor, which fails.
-        ProveedorDTO proveedorDTO = proveedorMapper.toDto(proveedor);
-
-        restProveedorMockMvc.perform(post("/api/proveedors")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(proveedorDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Proveedor> proveedorList = proveedorRepository.findAll();
-        assertThat(proveedorList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCorreoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = proveedorRepository.findAll().size();
-        // set the field null
-        proveedor.setCorreo(null);
-
-        // Create the Proveedor, which fails.
-        ProveedorDTO proveedorDTO = proveedorMapper.toDto(proveedor);
-
-        restProveedorMockMvc.perform(post("/api/proveedors")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(proveedorDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Proveedor> proveedorList = proveedorRepository.findAll();
-        assertThat(proveedorList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkTelefonoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = proveedorRepository.findAll().size();
-        // set the field null
-        proveedor.setTelefono(null);
 
         // Create the Proveedor, which fails.
         ProveedorDTO proveedorDTO = proveedorMapper.toDto(proveedor);

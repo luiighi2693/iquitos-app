@@ -34,7 +34,6 @@
             <th jhiSortBy="banco"><span>Banco</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nombreCuenta"><span>Nombre Cuenta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numeroDeCuenta"><span>Numero De Cuenta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fecha"><span>Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -45,7 +44,6 @@
                 <td>{{cuentaProveedor.banco}}</td>
                 <td>{{cuentaProveedor.nombreCuenta}}</td>
                 <td>{{cuentaProveedor.numeroDeCuenta}}</td>
-                <td>{{cuentaProveedor.fecha | date:'mediumDate'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

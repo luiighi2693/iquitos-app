@@ -19,9 +19,12 @@ public class ContactoProveedorDTO implements Serializable {
     @Size(max = 150)
     private String cargo;
 
+    @NotNull
+    @Size(max = 1000)
     private String producto;
 
-    private Integer telefono;
+    @Size(max = 150)
+    private String telefono;
 
     public Long getId() {
         return id;
@@ -55,11 +58,11 @@ public class ContactoProveedorDTO implements Serializable {
         this.producto = producto;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -91,7 +94,7 @@ public class ContactoProveedorDTO implements Serializable {
             ", nombre='" + getNombre() + "'" +
             ", cargo='" + getCargo() + "'" +
             ", producto='" + getProducto() + "'" +
-            ", telefono=" + getTelefono() +
+            ", telefono='" + getTelefono() + "'" +
             "}";
     }
 }

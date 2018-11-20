@@ -26,11 +26,10 @@
         },
         {
             "fieldName": "numeroDeCuenta",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "fecha",
-            "fieldType": "LocalDate"
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [],

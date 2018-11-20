@@ -35,11 +35,14 @@ public class ContactoProveedor implements Serializable {
     @Column(name = "cargo", length = 150, nullable = false)
     private String cargo;
 
-    @Column(name = "producto")
+    @NotNull
+    @Size(max = 1000)
+    @Column(name = "producto", length = 1000, nullable = false)
     private String producto;
 
-    @Column(name = "telefono")
-    private Integer telefono;
+    @Size(max = 150)
+    @Column(name = "telefono", length = 150)
+    private String telefono;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -89,16 +92,16 @@ public class ContactoProveedor implements Serializable {
         this.producto = producto;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public ContactoProveedor telefono(Integer telefono) {
+    public ContactoProveedor telefono(String telefono) {
         this.telefono = telefono;
         return this;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
@@ -130,7 +133,7 @@ public class ContactoProveedor implements Serializable {
             ", nombre='" + getNombre() + "'" +
             ", cargo='" + getCargo() + "'" +
             ", producto='" + getProducto() + "'" +
-            ", telefono=" + getTelefono() +
+            ", telefono='" + getTelefono() + "'" +
             "}";
     }
 }

@@ -49,16 +49,16 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_numeroDeCuenta">Numero De Cuenta</label>
                     <input type="number" class="form-control" name="numeroDeCuenta" id="field_numeroDeCuenta"
-                        [(ngModel)]="cuentaProveedor.numeroDeCuenta" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_fecha">Fecha</label>
-                    <div class="input-group">
-                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="cuentaProveedor.fecha"
-                        />
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
+                        [(ngModel)]="cuentaProveedor.numeroDeCuenta" required/>
+                    <div [hidden]="!(editForm.controls.numeroDeCuenta?.dirty && editForm.controls.numeroDeCuenta?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numeroDeCuenta?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.numeroDeCuenta?.errors?.number">
+                            This field should be a number.
+                        </small>
                     </div>
                 </div>
 

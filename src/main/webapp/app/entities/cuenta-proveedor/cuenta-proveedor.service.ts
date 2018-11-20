@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
-import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
@@ -20,30 +17,20 @@ export class CuentaProveedorService {
     constructor(private http: HttpClient) {}
 
     create(cuentaProveedor: ICuentaProveedor): Observable<EntityResponseType> {
-        const copy = this.convertDateFromClient(cuentaProveedor);
-        return this.http
-            .post<ICuentaProveedor>(this.resourceUrl, copy, { observe: 'response' })
-            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+        return this.http.post<ICuentaProveedor>(this.resourceUrl, cuentaProveedor, { observe: 'response' });
     }
 
     update(cuentaProveedor: ICuentaProveedor): Observable<EntityResponseType> {
-        const copy = this.convertDateFromClient(cuentaProveedor);
-        return this.http
-            .put<ICuentaProveedor>(this.resourceUrl, copy, { observe: 'response' })
-            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+        return this.http.put<ICuentaProveedor>(this.resourceUrl, cuentaProveedor, { observe: 'response' });
     }
 
     find(id: number): Observable<EntityResponseType> {
-        return this.http
-            .get<ICuentaProveedor>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+        return this.http.get<ICuentaProveedor>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http
-            .get<ICuentaProveedor[]>(this.resourceUrl, { params: options, observe: 'response' })
-            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+        return this.http.get<ICuentaProveedor[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {
@@ -52,31 +39,6 @@ export class CuentaProveedorService {
 
     search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http
-            .get<ICuentaProveedor[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
-            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
-    }
-
-    protected convertDateFromClient(cuentaProveedor: ICuentaProveedor): ICuentaProveedor {
-        const copy: ICuentaProveedor = Object.assign({}, cuentaProveedor, {
-            fecha: cuentaProveedor.fecha != null && cuentaProveedor.fecha.isValid() ? cuentaProveedor.fecha.format(DATE_FORMAT) : null
-        });
-        return copy;
-    }
-
-    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        if (res.body) {
-            res.body.fecha = res.body.fecha != null ? moment(res.body.fecha) : null;
-        }
-        return res;
-    }
-
-    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        if (res.body) {
-            res.body.forEach((cuentaProveedor: ICuentaProveedor) => {
-                cuentaProveedor.fecha = cuentaProveedor.fecha != null ? moment(cuentaProveedor.fecha) : null;
-            });
-        }
-        return res;
+        return this.http.get<ICuentaProveedor[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
     }
 }

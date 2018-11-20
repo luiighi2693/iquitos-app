@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
 
 import { ICuentaProveedor } from 'app/shared/model/cuenta-proveedor.model';
 import { CuentaProveedorService } from './cuenta-proveedor.service';
@@ -14,7 +13,6 @@ import { CuentaProveedorService } from './cuenta-proveedor.service';
 export class CuentaProveedorUpdateComponent implements OnInit {
     cuentaProveedor: ICuentaProveedor;
     isSaving: boolean;
-    fechaDp: any;
 
     constructor(private cuentaProveedorService: CuentaProveedorService, private activatedRoute: ActivatedRoute) {}
 

@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ContactoProveedorService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new ContactoProveedor(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0);
+            elemDefault = new ContactoProveedor(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -58,7 +58,7 @@ describe('Service Tests', () => {
                         nombre: 'BBBBBB',
                         cargo: 'BBBBBB',
                         producto: 'BBBBBB',
-                        telefono: 1
+                        telefono: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -78,7 +78,7 @@ describe('Service Tests', () => {
                         nombre: 'BBBBBB',
                         cargo: 'BBBBBB',
                         producto: 'BBBBBB',
-                        telefono: 1
+                        telefono: 'BBBBBB'
                     },
                     elemDefault
                 );

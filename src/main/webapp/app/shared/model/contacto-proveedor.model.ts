@@ -3,9 +3,9 @@ export interface IContactoProveedor {
     nombre?: string;
     cargo?: string;
     producto?: string;
-    telefono?: number;
+    telefono?: string;
 }
 
 export class ContactoProveedor implements IContactoProveedor {
-    constructor(public id?: number, public nombre?: string, public cargo?: string, public producto?: string, public telefono?: number) {}
+    constructor(public id?: number, public nombre?: string, public cargo?: string, public producto?: string, public telefono?: string) {}
 }

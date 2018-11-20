@@ -27,8 +27,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,9 +60,6 @@ public class CuentaProveedorResourceIntTest {
 
     private static final Integer DEFAULT_NUMERO_DE_CUENTA = 1;
     private static final Integer UPDATED_NUMERO_DE_CUENTA = 2;
-
-    private static final LocalDate DEFAULT_FECHA = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_FECHA = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private CuentaProveedorRepository cuentaProveedorRepository;
@@ -121,8 +116,7 @@ public class CuentaProveedorResourceIntTest {
             .tipoCuenta(DEFAULT_TIPO_CUENTA)
             .banco(DEFAULT_BANCO)
             .nombreCuenta(DEFAULT_NOMBRE_CUENTA)
-            .numeroDeCuenta(DEFAULT_NUMERO_DE_CUENTA)
-            .fecha(DEFAULT_FECHA);
+            .numeroDeCuenta(DEFAULT_NUMERO_DE_CUENTA);
         return cuentaProveedor;
     }
 
@@ -151,7 +145,6 @@ public class CuentaProveedorResourceIntTest {
         assertThat(testCuentaProveedor.getBanco()).isEqualTo(DEFAULT_BANCO);
         assertThat(testCuentaProveedor.getNombreCuenta()).isEqualTo(DEFAULT_NOMBRE_CUENTA);
         assertThat(testCuentaProveedor.getNumeroDeCuenta()).isEqualTo(DEFAULT_NUMERO_DE_CUENTA);
-        assertThat(testCuentaProveedor.getFecha()).isEqualTo(DEFAULT_FECHA);
 
         // Validate the CuentaProveedor in Elasticsearch
         verify(mockCuentaProveedorSearchRepository, times(1)).save(testCuentaProveedor);
@@ -220,6 +213,25 @@ public class CuentaProveedorResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNumeroDeCuentaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = cuentaProveedorRepository.findAll().size();
+        // set the field null
+        cuentaProveedor.setNumeroDeCuenta(null);
+
+        // Create the CuentaProveedor, which fails.
+        CuentaProveedorDTO cuentaProveedorDTO = cuentaProveedorMapper.toDto(cuentaProveedor);
+
+        restCuentaProveedorMockMvc.perform(post("/api/cuenta-proveedors")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(cuentaProveedorDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<CuentaProveedor> cuentaProveedorList = cuentaProveedorRepository.findAll();
+        assertThat(cuentaProveedorList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCuentaProveedors() throws Exception {
         // Initialize the database
         cuentaProveedorRepository.saveAndFlush(cuentaProveedor);
@@ -232,8 +244,7 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].tipoCuenta").value(hasItem(DEFAULT_TIPO_CUENTA.toString())))
             .andExpect(jsonPath("$.[*].banco").value(hasItem(DEFAULT_BANCO.toString())))
             .andExpect(jsonPath("$.[*].nombreCuenta").value(hasItem(DEFAULT_NOMBRE_CUENTA.toString())))
-            .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA)))
-            .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
+            .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA)));
     }
     
     @Test
@@ -250,8 +261,7 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(jsonPath("$.tipoCuenta").value(DEFAULT_TIPO_CUENTA.toString()))
             .andExpect(jsonPath("$.banco").value(DEFAULT_BANCO.toString()))
             .andExpect(jsonPath("$.nombreCuenta").value(DEFAULT_NOMBRE_CUENTA.toString()))
-            .andExpect(jsonPath("$.numeroDeCuenta").value(DEFAULT_NUMERO_DE_CUENTA))
-            .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()));
+            .andExpect(jsonPath("$.numeroDeCuenta").value(DEFAULT_NUMERO_DE_CUENTA));
     }
 
     @Test
@@ -278,8 +288,7 @@ public class CuentaProveedorResourceIntTest {
             .tipoCuenta(UPDATED_TIPO_CUENTA)
             .banco(UPDATED_BANCO)
             .nombreCuenta(UPDATED_NOMBRE_CUENTA)
-            .numeroDeCuenta(UPDATED_NUMERO_DE_CUENTA)
-            .fecha(UPDATED_FECHA);
+            .numeroDeCuenta(UPDATED_NUMERO_DE_CUENTA);
         CuentaProveedorDTO cuentaProveedorDTO = cuentaProveedorMapper.toDto(updatedCuentaProveedor);
 
         restCuentaProveedorMockMvc.perform(put("/api/cuenta-proveedors")
@@ -295,7 +304,6 @@ public class CuentaProveedorResourceIntTest {
         assertThat(testCuentaProveedor.getBanco()).isEqualTo(UPDATED_BANCO);
         assertThat(testCuentaProveedor.getNombreCuenta()).isEqualTo(UPDATED_NOMBRE_CUENTA);
         assertThat(testCuentaProveedor.getNumeroDeCuenta()).isEqualTo(UPDATED_NUMERO_DE_CUENTA);
-        assertThat(testCuentaProveedor.getFecha()).isEqualTo(UPDATED_FECHA);
 
         // Validate the CuentaProveedor in Elasticsearch
         verify(mockCuentaProveedorSearchRepository, times(1)).save(testCuentaProveedor);
@@ -359,8 +367,7 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].tipoCuenta").value(hasItem(DEFAULT_TIPO_CUENTA.toString())))
             .andExpect(jsonPath("$.[*].banco").value(hasItem(DEFAULT_BANCO)))
             .andExpect(jsonPath("$.[*].nombreCuenta").value(hasItem(DEFAULT_NOMBRE_CUENTA)))
-            .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA)))
-            .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
+            .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA)));
     }
 
     @Test

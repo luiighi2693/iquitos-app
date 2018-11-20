@@ -30,11 +30,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="producto" type="varchar(255)">
-                <constraints nullable="true" />
+            <column name="producto" type="varchar(1000)">
+                <constraints nullable="false" />
             </column>
 
-            <column name="telefono" type="integer">
+            <column name="telefono" type="varchar(150)">
                 <constraints nullable="true" />
             </column>
 

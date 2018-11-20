@@ -42,13 +42,11 @@ describe('CuentaProveedor e2e test', () => {
             cuentaProveedorUpdatePage.tipoCuentaSelectLastOption(),
             cuentaProveedorUpdatePage.setBancoInput('banco'),
             cuentaProveedorUpdatePage.setNombreCuentaInput('nombreCuenta'),
-            cuentaProveedorUpdatePage.setNumeroDeCuentaInput('5'),
-            cuentaProveedorUpdatePage.setFechaInput('2000-12-31')
+            cuentaProveedorUpdatePage.setNumeroDeCuentaInput('5')
         ]);
         expect(await cuentaProveedorUpdatePage.getBancoInput()).to.eq('banco');
         expect(await cuentaProveedorUpdatePage.getNombreCuentaInput()).to.eq('nombreCuenta');
         expect(await cuentaProveedorUpdatePage.getNumeroDeCuentaInput()).to.eq('5');
-        expect(await cuentaProveedorUpdatePage.getFechaInput()).to.eq('2000-12-31');
         await cuentaProveedorUpdatePage.save();
         expect(await cuentaProveedorUpdatePage.getSaveButton().isPresent()).to.be.false;
 

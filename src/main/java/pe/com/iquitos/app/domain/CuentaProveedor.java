@@ -8,7 +8,6 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 
 import pe.com.iquitos.app.domain.enumeration.AccountTypeProvider;
@@ -42,11 +41,9 @@ public class CuentaProveedor implements Serializable {
     @Column(name = "nombre_cuenta", length = 150, nullable = false)
     private String nombreCuenta;
 
-    @Column(name = "numero_de_cuenta")
+    @NotNull
+    @Column(name = "numero_de_cuenta", nullable = false)
     private Integer numeroDeCuenta;
-
-    @Column(name = "fecha")
-    private LocalDate fecha;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -108,19 +105,6 @@ public class CuentaProveedor implements Serializable {
     public void setNumeroDeCuenta(Integer numeroDeCuenta) {
         this.numeroDeCuenta = numeroDeCuenta;
     }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public CuentaProveedor fecha(LocalDate fecha) {
-        this.fecha = fecha;
-        return this;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -151,7 +135,6 @@ public class CuentaProveedor implements Serializable {
             ", banco='" + getBanco() + "'" +
             ", nombreCuenta='" + getNombreCuenta() + "'" +
             ", numeroDeCuenta=" + getNumeroDeCuenta() +
-            ", fecha='" + getFecha() + "'" +
             "}";
     }
 }

@@ -21,11 +21,20 @@
         },
         {
             "fieldName": "producto",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 1000
         },
         {
             "fieldName": "telefono",
-            "fieldType": "Integer"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
         }
     ],
     "relationships": [],

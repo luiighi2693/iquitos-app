@@ -57,8 +57,8 @@ public class ContactoProveedorResourceIntTest {
     private static final String DEFAULT_PRODUCTO = "AAAAAAAAAA";
     private static final String UPDATED_PRODUCTO = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_TELEFONO = 1;
-    private static final Integer UPDATED_TELEFONO = 2;
+    private static final String DEFAULT_TELEFONO = "AAAAAAAAAA";
+    private static final String UPDATED_TELEFONO = "BBBBBBBBBB";
 
     @Autowired
     private ContactoProveedorRepository contactoProveedorRepository;
@@ -212,6 +212,25 @@ public class ContactoProveedorResourceIntTest {
 
     @Test
     @Transactional
+    public void checkProductoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = contactoProveedorRepository.findAll().size();
+        // set the field null
+        contactoProveedor.setProducto(null);
+
+        // Create the ContactoProveedor, which fails.
+        ContactoProveedorDTO contactoProveedorDTO = contactoProveedorMapper.toDto(contactoProveedor);
+
+        restContactoProveedorMockMvc.perform(post("/api/contacto-proveedors")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(contactoProveedorDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ContactoProveedor> contactoProveedorList = contactoProveedorRepository.findAll();
+        assertThat(contactoProveedorList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllContactoProveedors() throws Exception {
         // Initialize the database
         contactoProveedorRepository.saveAndFlush(contactoProveedor);
@@ -224,7 +243,7 @@ public class ContactoProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
             .andExpect(jsonPath("$.[*].cargo").value(hasItem(DEFAULT_CARGO.toString())))
             .andExpect(jsonPath("$.[*].producto").value(hasItem(DEFAULT_PRODUCTO.toString())))
-            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)));
+            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())));
     }
     
     @Test
@@ -241,7 +260,7 @@ public class ContactoProveedorResourceIntTest {
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
             .andExpect(jsonPath("$.cargo").value(DEFAULT_CARGO.toString()))
             .andExpect(jsonPath("$.producto").value(DEFAULT_PRODUCTO.toString()))
-            .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO));
+            .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()));
     }
 
     @Test

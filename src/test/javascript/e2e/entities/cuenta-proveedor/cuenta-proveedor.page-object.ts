@@ -30,7 +30,6 @@ export class CuentaProveedorUpdatePage {
     bancoInput = element(by.id('field_banco'));
     nombreCuentaInput = element(by.id('field_nombreCuenta'));
     numeroDeCuentaInput = element(by.id('field_numeroDeCuenta'));
-    fechaInput = element(by.id('field_fecha'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -73,14 +72,6 @@ export class CuentaProveedorUpdatePage {
 
     async getNumeroDeCuentaInput() {
         return this.numeroDeCuentaInput.getAttribute('value');
-    }
-
-    async setFechaInput(fecha) {
-        await this.fechaInput.sendKeys(fecha);
-    }
-
-    async getFechaInput() {
-        return this.fechaInput.getAttribute('value');
     }
 
     async save() {

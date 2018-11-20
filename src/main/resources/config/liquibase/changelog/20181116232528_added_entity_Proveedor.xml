@@ -23,7 +23,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="codigo" type="varchar(150)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="razon_social" type="varchar(150)">
@@ -35,11 +35,11 @@
             </column>
 
             <column name="correo" type="varchar(150)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="telefono" type="varchar(150)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="sector" type="varchar(150)">

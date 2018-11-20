@@ -1,6 +1,7 @@
 DEFAULT_MIN_LENGTH_MONEY = 1
 DEFAULT_MAX_LENGTH_MONEY = 1000000
 DEFAULT_MAX_LENGTH_STRING = 150
+DEFAULT_MAX_LENGTH_INTEGER = 50
 DEFAULT_MAX_LENGTH_DESCRIPTION = 1000
 DEFAULT_MAX_LENGTH_METADATA = 5000
 
@@ -84,19 +85,19 @@ entity Categoria {
 }
 
 entity Proveedor {
-	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING), //numero de ruc
+	codigo String maxlength(DEFAULT_MAX_LENGTH_STRING), //numero de ruc
 	razonSocial String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     direccion String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-    correo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-    telefono String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    correo String maxlength(DEFAULT_MAX_LENGTH_STRING),
+    telefono String maxlength(DEFAULT_MAX_LENGTH_STRING),
     sector String maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
 entity ContactoProveedor {
 	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     cargo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-    producto String,
-    telefono Integer,
+    producto String required maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),
+    telefono String maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
 entity CuentaProveedor {
@@ -105,9 +106,7 @@ entity CuentaProveedor {
     tipoCuenta AccountTypeProvider,
     banco String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     nombreCuenta String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-    numeroDeCuenta Integer,
-    fecha LocalDate,
-
+    numeroDeCuenta Integer required,
 }
 
 entity PagoDeProveedor {

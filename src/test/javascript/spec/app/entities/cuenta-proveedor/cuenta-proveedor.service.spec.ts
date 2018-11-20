@@ -4,8 +4,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { CuentaProveedorService } from 'app/entities/cuenta-proveedor/cuenta-proveedor.service';
 import { ICuentaProveedor, CuentaProveedor, AccountTypeProvider } from 'app/shared/model/cuenta-proveedor.model';
 
@@ -15,7 +13,6 @@ describe('Service Tests', () => {
         let service: CuentaProveedorService;
         let httpMock: HttpTestingController;
         let elemDefault: ICuentaProveedor;
-        let currentDate: moment.Moment;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
@@ -23,19 +20,13 @@ describe('Service Tests', () => {
             injector = getTestBed();
             service = injector.get(CuentaProveedorService);
             httpMock = injector.get(HttpTestingController);
-            currentDate = moment();
 
-            elemDefault = new CuentaProveedor(0, AccountTypeProvider.CUENTA_CORRIENTE, 'AAAAAAA', 'AAAAAAA', 0, currentDate);
+            elemDefault = new CuentaProveedor(0, AccountTypeProvider.CUENTA_CORRIENTE, 'AAAAAAA', 'AAAAAAA', 0);
         });
 
         describe('Service methods', async () => {
             it('should find an element', async () => {
-                const returnedFromService = Object.assign(
-                    {
-                        fecha: currentDate.format(DATE_FORMAT)
-                    },
-                    elemDefault
-                );
+                const returnedFromService = Object.assign({}, elemDefault);
                 service
                     .find(123)
                     .pipe(take(1))
@@ -48,17 +39,11 @@ describe('Service Tests', () => {
             it('should create a CuentaProveedor', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        id: 0,
-                        fecha: currentDate.format(DATE_FORMAT)
+                        id: 0
                     },
                     elemDefault
                 );
-                const expected = Object.assign(
-                    {
-                        fecha: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .create(new CuentaProveedor(null))
                     .pipe(take(1))
@@ -73,18 +58,12 @@ describe('Service Tests', () => {
                         tipoCuenta: 'BBBBBB',
                         banco: 'BBBBBB',
                         nombreCuenta: 'BBBBBB',
-                        numeroDeCuenta: 1,
-                        fecha: currentDate.format(DATE_FORMAT)
+                        numeroDeCuenta: 1
                     },
                     elemDefault
                 );
 
-                const expected = Object.assign(
-                    {
-                        fecha: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .update(expected)
                     .pipe(take(1))
@@ -99,17 +78,11 @@ describe('Service Tests', () => {
                         tipoCuenta: 'BBBBBB',
                         banco: 'BBBBBB',
                         nombreCuenta: 'BBBBBB',
-                        numeroDeCuenta: 1,
-                        fecha: currentDate.format(DATE_FORMAT)
+                        numeroDeCuenta: 1
                     },
                     elemDefault
                 );
-                const expected = Object.assign(
-                    {
-                        fecha: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .query(expected)
                     .pipe(

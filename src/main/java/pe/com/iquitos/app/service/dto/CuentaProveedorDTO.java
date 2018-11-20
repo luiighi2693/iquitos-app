@@ -1,6 +1,5 @@
 package pe.com.iquitos.app.service.dto;
 
-import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,9 +22,8 @@ public class CuentaProveedorDTO implements Serializable {
     @Size(max = 150)
     private String nombreCuenta;
 
+    @NotNull
     private Integer numeroDeCuenta;
-
-    private LocalDate fecha;
 
     public Long getId() {
         return id;
@@ -67,14 +65,6 @@ public class CuentaProveedorDTO implements Serializable {
         this.numeroDeCuenta = numeroDeCuenta;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,7 +94,6 @@ public class CuentaProveedorDTO implements Serializable {
             ", banco='" + getBanco() + "'" +
             ", nombreCuenta='" + getNombreCuenta() + "'" +
             ", numeroDeCuenta=" + getNumeroDeCuenta() +
-            ", fecha='" + getFecha() + "'" +
             "}";
     }
 }

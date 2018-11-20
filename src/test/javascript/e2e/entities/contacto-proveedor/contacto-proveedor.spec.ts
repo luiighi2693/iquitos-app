@@ -46,12 +46,12 @@ describe('ContactoProveedor e2e test', () => {
             contactoProveedorUpdatePage.setNombreInput('nombre'),
             contactoProveedorUpdatePage.setCargoInput('cargo'),
             contactoProveedorUpdatePage.setProductoInput('producto'),
-            contactoProveedorUpdatePage.setTelefonoInput('5')
+            contactoProveedorUpdatePage.setTelefonoInput('telefono')
         ]);
         expect(await contactoProveedorUpdatePage.getNombreInput()).to.eq('nombre');
         expect(await contactoProveedorUpdatePage.getCargoInput()).to.eq('cargo');
         expect(await contactoProveedorUpdatePage.getProductoInput()).to.eq('producto');
-        expect(await contactoProveedorUpdatePage.getTelefonoInput()).to.eq('5');
+        expect(await contactoProveedorUpdatePage.getTelefonoInput()).to.eq('telefono');
         await contactoProveedorUpdatePage.save();
         expect(await contactoProveedorUpdatePage.getSaveButton().isPresent()).to.be.false;
 

@@ -1,5 +1,3 @@
-import { Moment } from 'moment';
-
 export const enum AccountTypeProvider {
     CUENTA_CORRIENTE = 'CUENTA_CORRIENTE',
     CUENTA_RECAUDADORA = 'CUENTA_RECAUDADORA'
@@ -11,7 +9,6 @@ export interface ICuentaProveedor {
     banco?: string;
     nombreCuenta?: string;
     numeroDeCuenta?: number;
-    fecha?: Moment;
 }
 
 export class CuentaProveedor implements ICuentaProveedor {
@@ -20,7 +17,6 @@ export class CuentaProveedor implements ICuentaProveedor {
         public tipoCuenta?: AccountTypeProvider,
         public banco?: string,
         public nombreCuenta?: string,
-        public numeroDeCuenta?: number,
-        public fecha?: Moment
+        public numeroDeCuenta?: number
     ) {}
 }
