@@ -174,6 +174,7 @@ export class ProviderUpdateComponent implements OnInit {
     if ((productoRelacionado.nombre || '').trim()) {
       (<Array<string>>this.tags.get(i)).push(productoRelacionado.nombre.trim());
       // this.contactos[i].producto = this.contactos[i].producto === undefined || this.contactos[i].producto === '' ?
+      // this.contactos[i].producto = this.contactos[i].producto === undefined || this.contactos[i].producto === '' ?
       //   productoRelacionado.nombre.trim() : this.contactos[i].producto + ',' + productoRelacionado.nombre.trim();
     }
 
@@ -254,6 +255,7 @@ export class ProviderUpdateComponent implements OnInit {
     }
 
     this.contactos.push(contacto);
+    this.tags.set(this.contactos.length - 1, []);
     this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.contactos);
   }
 
@@ -286,9 +288,9 @@ export class ProviderUpdateComponent implements OnInit {
       this.contactos[indexFromAccount].telefono = event.target.value;
     }
 
-    if (label === 'producto') {
-      this.contactos[indexFromAccount].producto = event.target.value;
-    }
+    // if (label === 'producto') {
+    //   this.contactos[indexFromAccount].producto = event.target.value;
+    // }
 
     // if (label === 'producto') {
     //   this.contactos[indexFromAccount].producto = this.tags.map(tag => tag.nombre).join(',');
