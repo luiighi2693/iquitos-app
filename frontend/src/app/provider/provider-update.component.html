@@ -1,5 +1,16 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="100" fxFlex="100">
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-xs="50" fxFlex="100" class="p-10" (click)="previousState()">
+        <mat-icon>arrow_back</mat-icon> Todos los Proveedores
+      </div>
+
+      <div fxFlex.gt-xs="50" fxFlex="100" class="p-10 text-right">
+        <button mat-raised-button (click)="previousState()">Cancelar</button>
+        <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
+      </div>
+    </div>
+
     <mat-card>
       <mat-card-content>
         <mat-card-title>Proveedor {{!proveedor.id ? 'Nuevo' : 'Edición'}} </mat-card-title>
@@ -191,11 +202,6 @@
                 </mat-card-content>
               </mat-card>
             </div>
-          </div>
-
-          <div class="p-10 text-right">
-            <button mat-raised-button (click)="previousState()">Cancelar</button>
-            <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
           </div>
         </form>
       </mat-card-content>
