@@ -90,12 +90,12 @@ export class ProviderUpdateComponent implements OnInit {
           { label: 'Cuentas Asociadas a Proveedor' },
           { label: 'Contactos Asociadas a Proveedor' },
         ]);
-      }, 1000);
+      }, 500);
     });
   }
 
   ngOnInit() {
-    this.isSaving = false;
+        this.isSaving = false;
     this.productosRelacionadosTagsService
       .query({
         page: this.page,
@@ -119,25 +119,23 @@ export class ProviderUpdateComponent implements OnInit {
           this.tags.set(i, this.contactos[i].producto === undefined ? [] : this.contactos[i].producto.split(','));
         }
       }
-      console.log(this.tags);
-      // this.contactos.forEach()
-    });
 
-    this.form = this.fb.group({
-      frazonSocial: [
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(150)
-        ])
-      ],
-      fdireccion: [
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(150)
-        ])
+      this.form = this.fb.group({
+        frazonSocial: [
+          null,
+          Validators.compose([
+            Validators.required,
+            Validators.maxLength(150)
+          ])
+        ],
+        fdireccion: [
+          null,
+          Validators.compose([
+            Validators.required,
+            Validators.maxLength(150)
+          ])
         ]
+      });
     });
   }
 
