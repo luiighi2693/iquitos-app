@@ -1,11 +1,12 @@
 <div fxLayout="row wrap">
-  <div fxFlex.gt-sm="100" fxFlex="100">
-    <div fxLayout="row wrap">
-      <div fxFlex.gt-xs="50" fxFlex="100" class="p-10" (click)="previousState()" style="cursor: pointer">
-        <mat-icon>arrow_back</mat-icon> Todos los Proveedores
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div style="display: flex;">
+      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="previousState()" style="cursor: pointer">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="goBackTag">Todos los Proveedores</span>
       </div>
 
-      <div fxFlex.gt-xs="50" fxFlex="100" class="p-10 text-right">
+      <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
         <button mat-raised-button (click)="previousState()">Cancelar</button>
         <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
       </div>
@@ -62,14 +63,14 @@
             <!-- Card column -->
             <div fxFlex.gt-sm="100%" fxFlex="100">
               <mat-card>
-                <mat-card-content>
+                <mat-card-content class="no-padding">
                   <ng-container *ngIf="(asyncTabs | async) === null">
                     Loading tabs...
                   </ng-container>
 
                   <mat-tab-group>
                     <mat-tab *ngFor="let tab of asyncTabs | async">
-                      <ng-template mat-tab-label>{{tab.label}}</ng-template>
+                      <ng-template class="tabWeb" mat-tab-label>{{tab.label}}</ng-template>
 
                       <div *ngIf="tab.label === 'Cuentas Asociadas a Proveedor'" fxLayout="row wrap">
                         <div fxFlex.gt-xs="50" fxFlex="100" class="p-10">
@@ -87,48 +88,50 @@
                         </div>
                       </div>
 
-                      <mat-table *ngIf="tab.label === 'Cuentas Asociadas a Proveedor'" #table matSort [dataSource]="dataSourceCuentas" class="mat-elevation-z8">
+                      <div class="responsive-table">
+                        <mat-table *ngIf="tab.label === 'Cuentas Asociadas a Proveedor'" #table matSort [dataSource]="dataSourceCuentas" class="mat-elevation-z8">
 
-                        <ng-container matColumnDef="cuenta">
-                          <mat-header-cell *matHeaderCellDef> Cuenta </mat-header-cell>
-                          <mat-cell *matCellDef="let row">
-                            {{row.tipoCuenta}}
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="cuenta">
+                            <mat-header-cell *matHeaderCellDef> Cuenta </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              {{row.tipoCuenta}}
+                            </mat-cell>
+                          </ng-container>
 
-                        <ng-container matColumnDef="banco">
-                          <mat-header-cell *matHeaderCellDef> Nombre del Banco </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'banco')" value="{{row.banco}}">
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="banco">
+                            <mat-header-cell *matHeaderCellDef> Nombre del Banco </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'banco')" value="{{row.banco}}">
+                            </mat-cell>
+                          </ng-container>
 
-                        <ng-container matColumnDef="numeroDeCuenta">
-                          <mat-header-cell *matHeaderCellDef> Numero de cuenta </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <input type="number" (blur)="saveChangesInAccountsRow($event, i, 'numeroDeCuenta')" value="{{row.numeroDeCuenta}}">
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="numeroDeCuenta">
+                            <mat-header-cell *matHeaderCellDef> Numero de cuenta </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <input type="number" (blur)="saveChangesInAccountsRow($event, i, 'numeroDeCuenta')" value="{{row.numeroDeCuenta}}">
+                            </mat-cell>
+                          </ng-container>
 
-                        <ng-container matColumnDef="nombreCuenta">
-                          <mat-header-cell *matHeaderCellDef> Titular de la cuenta </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'nombreCuenta')" value="{{row.nombreCuenta}}">
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="nombreCuenta">
+                            <mat-header-cell *matHeaderCellDef> Titular de la cuenta </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'nombreCuenta')" value="{{row.nombreCuenta}}">
+                            </mat-cell>
+                          </ng-container>
 
-                        <ng-container matColumnDef="quitar">
-                          <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <a (click)="deleteAccount(i, row)" class="ng-star-inserted">
-                              <i class="ti-trash text-danger m-r-10"></i>
-                            </a>
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="quitar">
+                            <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <a (click)="deleteAccount(i, row)" class="ng-star-inserted">
+                                <i class="ti-trash text-danger m-r-10"></i>
+                              </a>
+                            </mat-cell>
+                          </ng-container>
 
-                        <mat-header-row *matHeaderRowDef="displayedColumnsCuentas"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: displayedColumnsCuentas;let i = index"></mat-row>
-                      </mat-table>
+                          <mat-header-row *matHeaderRowDef="displayedColumnsCuentas"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumnsCuentas;let i = index"></mat-row>
+                        </mat-table>
+                      </div>
 
                       <div *ngIf="tab.label !== 'Cuentas Asociadas a Proveedor'" fxLayout="row wrap">
                         <div fxFlex.gt-xs="50" fxFlex="100" class="p-10">
@@ -139,62 +142,64 @@
                         </div>
                       </div>
 
-                      <mat-table *ngIf="tab.label !== 'Cuentas Asociadas a Proveedor'" #table matSort [dataSource]="dataSourceContactos" class="mat-elevation-z8">
+                      <div class="responsive-table">
+                        <mat-table *ngIf="tab.label !== 'Cuentas Asociadas a Proveedor'" #table matSort [dataSource]="dataSourceContactos" class="mat-elevation-z8">
 
-                        <ng-container matColumnDef="nombre">
-                          <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <input type="text" (blur)="saveChangesInContactsRow($event, i, 'nombre')" value="{{row.nombre}}">
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="nombre">
+                            <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <input type="text" (blur)="saveChangesInContactsRow($event, i, 'nombre')" value="{{row.nombre}}">
+                            </mat-cell>
+                          </ng-container>
 
-                        <ng-container matColumnDef="cargo">
-                          <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <input type="text" (blur)="saveChangesInContactsRow($event, i, 'cargo')" value="{{row.cargo}}">
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="cargo">
+                            <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <input type="text" (blur)="saveChangesInContactsRow($event, i, 'cargo')" value="{{row.cargo}}">
+                            </mat-cell>
+                          </ng-container>
 
-                        <ng-container matColumnDef="telefono">
-                          <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <input type="text" (blur)="saveChangesInContactsRow($event, i, 'telefono')" value="{{row.telefono}}">
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="telefono">
+                            <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <input type="text" (blur)="saveChangesInContactsRow($event, i, 'telefono')" value="{{row.telefono}}">
+                            </mat-cell>
+                          </ng-container>
 
-                        <ng-container matColumnDef="producto">
-                          <mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
-                            <mat-chip-list #chipList>
-                              <mat-chip *ngFor="let product of tags.get(i)" [selectable]="selectable" [removable]="removable" (remove)="removeTag(product)">
-                                {{product}}
-                                <mat-icon matChipRemove *ngIf="removable" (click)="removeTag(product, i)">cancel</mat-icon>
-                              </mat-chip>
-                              <input #tagInput name="valueInputTag" type="text" [ngModel]="valueInputTag" placeholder="producto nuevo..." [matChipInputFor]="chipList"
-                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" [formControl]="myControl"
-                                     [matAutocomplete]="autoready"  (matChipInputTokenEnd)="addTag($event)"/>
-                              <mat-autocomplete #autoready="matAutocomplete" [displayWith]="displayFn">
-                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="addValueTag(option, i)">
-                                  {{option.nombre}}
-                                </mat-option>
-                              </mat-autocomplete>
-                            </mat-chip-list>
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="producto">
+                            <mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
+                              <mat-chip-list #chipList>
+                                <mat-chip *ngFor="let product of tags.get(i)" [selectable]="selectable" [removable]="removable" (remove)="removeTag(product)">
+                                  {{product}}
+                                  <mat-icon matChipRemove *ngIf="removable" (click)="removeTag(product, i)">cancel</mat-icon>
+                                </mat-chip>
+                                <input #tagInput name="valueInputTag" type="text" [ngModel]="valueInputTag" placeholder="producto nuevo..." [matChipInputFor]="chipList"
+                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" [formControl]="myControl"
+                                       [matAutocomplete]="autoready"  (matChipInputTokenEnd)="addTag($event)"/>
+                                <mat-autocomplete #autoready="matAutocomplete" [displayWith]="displayFn">
+                                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="addValueTag(option, i)">
+                                    {{option.nombre}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                              </mat-chip-list>
+                            </mat-cell>
+                          </ng-container>
 
-                        <ng-container matColumnDef="quitar">
-                          <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
-                          <mat-cell *matCellDef="let row;let i = index">
-                            <a (click)="deleteContact(i, row)" class="ng-star-inserted">
-                              <i class="ti-trash text-danger m-r-10"></i>
-                            </a>
-                          </mat-cell>
-                        </ng-container>
+                          <ng-container matColumnDef="quitar">
+                            <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <a (click)="deleteContact(i, row)" class="ng-star-inserted">
+                                <i class="ti-trash text-danger m-r-10"></i>
+                              </a>
+                            </mat-cell>
+                          </ng-container>
 
-                        <mat-header-row *matHeaderRowDef="displayedColumnsContactos"></mat-header-row>
-                        <mat-row *matRowDef="let row; columns: displayedColumnsContactos;let i = index"></mat-row>
-                      </mat-table>
+                          <mat-header-row *matHeaderRowDef="displayedColumnsContactos"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumnsContactos;let i = index"></mat-row>
+                        </mat-table>
+                      </div>
 
                     </mat-tab>
                   </mat-tab-group>

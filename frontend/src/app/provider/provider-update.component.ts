@@ -14,10 +14,8 @@ import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.se
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
-import {User} from '../material-component/chips/chips.component';
-import {CustomValidators} from 'ng2-validation';
 
-export interface ExampleTab {
+export interface Tab {
   label: string;
 }
 
@@ -37,7 +35,7 @@ export class ProviderUpdateComponent implements OnInit {
   contactos: IContactoProveedor[];
   cuentas: ICuentaProveedor[];
 
-  asyncTabs: Observable<ExampleTab[]>;
+  asyncTabs: Observable<Tab[]>;
   isSaving: boolean;
 
   displayedColumnsCuentas = ['cuenta', 'banco', 'numeroDeCuenta', 'nombreCuenta', 'quitar'];
@@ -84,7 +82,7 @@ export class ProviderUpdateComponent implements OnInit {
               private productosRelacionadosTagsService: ProductosRelacionadosTagsService,
               private activatedRoute: ActivatedRoute,
               private fb: FormBuilder) {
-    this.asyncTabs = Observable.create((observer: Observer<ExampleTab[]>) => {
+    this.asyncTabs = Observable.create((observer: Observer<Tab[]>) => {
       setTimeout(() => {
         observer.next([
           { label: 'Cuentas Asociadas a Proveedor' },
