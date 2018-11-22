@@ -79,29 +79,30 @@ public class ProveedorServiceImpl implements ProveedorService {
     public ProveedorDTO save(ProveedorDTO proveedorDTO) {
         log.debug("Request to save Proveedor : {}", proveedorDTO);
 
-        //delete contacts and accounts that was erased in frontend
-        proveedorRepository
-            .findById(proveedorDTO.getId())
-            .get()
-            .getContactoProveedors()
-            .stream()
-            .filter(contact -> !proveedorMapper
-                .toEntity(proveedorDTO)
+        if (proveedorDTO.getId() != null) {
+            //delete contacts and accounts that was erased in frontend
+            proveedorRepository
+                .findById(proveedorDTO.getId())
+                .get()
                 .getContactoProveedors()
-                .contains(contact))
-            .collect(Collectors.toSet()).forEach(contactoProveedorRepository::delete);
+                .stream()
+                .filter(contact -> !proveedorMapper
+                    .toEntity(proveedorDTO)
+                    .getContactoProveedors()
+                    .contains(contact))
+                .collect(Collectors.toSet()).forEach(contactoProveedorRepository::delete);
 
-        proveedorRepository
-            .findById(proveedorDTO.getId())
-            .get()
-            .getCuentaProveedors()
-            .stream()
-            .filter(account -> !proveedorMapper
-                .toEntity(proveedorDTO)
+            proveedorRepository
+                .findById(proveedorDTO.getId())
+                .get()
                 .getCuentaProveedors()
-                .contains(account))
-            .collect(Collectors.toSet()).forEach(cuentaProveedorRepository::delete);
-
+                .stream()
+                .filter(account -> !proveedorMapper
+                    .toEntity(proveedorDTO)
+                    .getCuentaProveedors()
+                    .contains(account))
+                .collect(Collectors.toSet()).forEach(cuentaProveedorRepository::delete);
+        }
 
         Set<CuentaProveedorDTO> cuentaProveedorDTOList = new HashSet<>();
         Set<ContactoProveedorDTO> contactoProveedorDTOList = new HashSet<>();
