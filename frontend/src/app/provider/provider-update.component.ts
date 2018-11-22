@@ -299,24 +299,28 @@ export class ProviderUpdateComponent implements OnInit {
   }
 
   deleteAccount(i, row) {
-    let index = null;
+    // let index = null;
 
-    if (row.id !== undefined) {
-      index = this.dataSourceCuentas.data.map(x => x.id).indexOf(row.id);
-      if (index !== -1) {
-        this.dataSourceCuentas.data.splice(index, 1);
-        this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
+    this.dataSourceCuentas.data.splice(i, 1);
+    this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
+    this.cuentas = this.dataSourceCuentas.data;
 
-        this.cuentas = this.dataSourceCuentas.data;
-
-        this.updateEntity();
-        this.subscribeToSaveResponseFromRemoveAccount(this.proveedorService.update(this.proveedor), row.id);
-      }
-    } else {
-      this.dataSourceCuentas.data.splice(index, 1);
-      this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
-      this.cuentas = this.dataSourceCuentas.data;
-    }
+    // if (row.id !== undefined) {
+    //   index = this.dataSourceCuentas.data.map(x => x.id).indexOf(row.id);
+    //   if (index !== -1) {
+    //     this.dataSourceCuentas.data.splice(index, 1);
+    //     this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
+    //
+    //     this.cuentas = this.dataSourceCuentas.data;
+    //
+    //     this.updateEntity();
+    //     this.subscribeToSaveResponseFromRemoveAccount(this.proveedorService.update(this.proveedor), row.id);
+    //   }
+    // } else {
+    //   this.dataSourceCuentas.data.splice(index, 1);
+    //   this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
+    //   this.cuentas = this.dataSourceCuentas.data;
+    // }
   }
 
   private updateEntity() {
@@ -328,24 +332,27 @@ export class ProviderUpdateComponent implements OnInit {
   }
 
   deleteContact(i, row) {
-    let index = null;
+    // let index = null;
+    this.dataSourceContactos.data.splice(i, 1);
+    this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
+    this.contactos = this.dataSourceContactos.data;
 
-    if (row.id !== undefined) {
-      index = this.dataSourceContactos.data.map(x => x.id).indexOf(row.id);
-      if (index !== -1) {
-        this.dataSourceContactos.data.splice(index, 1);
-        this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
-
-        this.contactos = this.dataSourceContactos.data;
-
-        this.updateEntity();
-        this.subscribeToSaveResponseFromRemoveContact(this.proveedorService.update(this.proveedor), row.id);
-      }
-    } else {
-      this.dataSourceContactos.data.splice(index, 1);
-      this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
-      this.contactos = this.dataSourceContactos.data;
-    }
+    // if (row.id !== undefined) {
+    //   index = this.dataSourceContactos.data.map(x => x.id).indexOf(row.id);
+    //   if (index !== -1) {
+    //     this.dataSourceContactos.data.splice(index, 1);
+    //     this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
+    //
+    //     this.contactos = this.dataSourceContactos.data;
+    //
+    //     this.updateEntity();
+    //     this.subscribeToSaveResponseFromRemoveContact(this.proveedorService.update(this.proveedor), row.id);
+    //   }
+    // } else {
+    //   this.dataSourceContactos.data.splice(index, 1);
+    //   this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
+    //   this.contactos = this.dataSourceContactos.data;
+    // }
   }
 
   displayFn(productoRelacionado?: IProductosRelacionadosTags): string | undefined {
