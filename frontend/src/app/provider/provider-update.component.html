@@ -94,6 +94,7 @@
                           <ng-container matColumnDef="cuenta">
                             <mat-header-cell *matHeaderCellDef> Cuenta </mat-header-cell>
                             <mat-cell *matCellDef="let row">
+                              <span class="header-label">Cuenta:</span>
                               {{row.tipoCuenta}}
                             </mat-cell>
                           </ng-container>
@@ -101,6 +102,7 @@
                           <ng-container matColumnDef="banco">
                             <mat-header-cell *matHeaderCellDef> Nombre del Banco </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
+                              <span class="header-label">Nombre del Banco:</span>
                               <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'banco')" value="{{row.banco}}">
                             </mat-cell>
                           </ng-container>
@@ -108,6 +110,7 @@
                           <ng-container matColumnDef="numeroDeCuenta">
                             <mat-header-cell *matHeaderCellDef> Numero de cuenta </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
+                              <span class="header-label">Numero de cuenta:</span>
                               <input type="number" (blur)="saveChangesInAccountsRow($event, i, 'numeroDeCuenta')" value="{{row.numeroDeCuenta}}">
                             </mat-cell>
                           </ng-container>
@@ -115,6 +118,7 @@
                           <ng-container matColumnDef="nombreCuenta">
                             <mat-header-cell *matHeaderCellDef> Titular de la cuenta </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
+                              <span class="header-label">Titular de la cuenta:</span>
                               <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'nombreCuenta')" value="{{row.nombreCuenta}}">
                             </mat-cell>
                           </ng-container>
@@ -122,6 +126,7 @@
                           <ng-container matColumnDef="quitar">
                             <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
+                              <span class="header-label">Quitar:</span>
                               <a (click)="deleteAccount(i, row)" class="ng-star-inserted">
                                 <i class="ti-trash text-danger m-r-10"></i>
                               </a>
@@ -148,6 +153,7 @@
                           <ng-container matColumnDef="nombre">
                             <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
+                              <span class="header-label">Nombre:</span>
                               <input type="text" (blur)="saveChangesInContactsRow($event, i, 'nombre')" value="{{row.nombre}}">
                             </mat-cell>
                           </ng-container>
@@ -155,6 +161,7 @@
                           <ng-container matColumnDef="cargo">
                             <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
+                              <span class="header-label">Cargo:</span>
                               <input type="text" (blur)="saveChangesInContactsRow($event, i, 'cargo')" value="{{row.cargo}}">
                             </mat-cell>
                           </ng-container>
@@ -162,6 +169,7 @@
                           <ng-container matColumnDef="telefono">
                             <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
+                              <span class="header-label">Teléfono:</span>
                               <input type="text" (blur)="saveChangesInContactsRow($event, i, 'telefono')" value="{{row.telefono}}">
                             </mat-cell>
                           </ng-container>
@@ -170,6 +178,7 @@
                             <mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
                               <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
+                              <span class="header-label">Productos Relacionados:</span>
                               <mat-chip-list #chipList>
                                 <mat-chip *ngFor="let product of tags.get(i)" [selectable]="selectable" [removable]="removable" (remove)="removeTag(product)">
                                   {{product}}
@@ -190,6 +199,7 @@
                           <ng-container matColumnDef="quitar">
                             <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
+                              <span class="header-label">Quitar:</span>
                               <a (click)="deleteContact(i, row)" class="ng-star-inserted">
                                 <i class="ti-trash text-danger m-r-10"></i>
                               </a>
@@ -204,6 +214,7 @@
                     </mat-tab>
                   </mat-tab-group>
 
+                  <mat-hint *ngIf="hasError" class="text-danger font-14">Campos Inválidos</mat-hint>
                 </mat-card-content>
               </mat-card>
             </div>

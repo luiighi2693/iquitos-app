@@ -76,6 +76,9 @@ export class ProviderUpdateComponent implements OnInit {
 
   public form: FormGroup;
 
+  hasError = false;
+  noError = true;
+
   constructor(private proveedorService: ProveedorService,
               private cuentaProveedorService: CuentaProveedorService,
               private contactoProveedorService: ContactoProveedorService,
@@ -189,12 +192,17 @@ export class ProviderUpdateComponent implements OnInit {
 
   save() {
     this.updateEntity();
-    console.log(this.proveedor.toString());
-    this.isSaving = true;
-    if (this.proveedor.id !== undefined) {
-      this.subscribeToSaveResponse(this.proveedorService.update(this.proveedor));
+    this.hasError = false;
+    if (this.validateEntity()) {
+      console.log(this.proveedor.toString());
+      this.isSaving = true;
+      if (this.proveedor.id !== undefined) {
+        this.subscribeToSaveResponse(this.proveedorService.update(this.proveedor));
+      } else {
+        this.subscribeToSaveResponse(this.proveedorService.create(this.proveedor));
+      }
     } else {
-      this.subscribeToSaveResponse(this.proveedorService.create(this.proveedor));
+      this.hasError = true;
     }
   }
 
@@ -324,6 +332,9 @@ export class ProviderUpdateComponent implements OnInit {
   private updateEntity() {
     for (let i = 0; i < this.contactos.length; i++) {
       this.contactos[i].producto = (<Array<string>>this.tags.get(i)).join(',');
+      if (this.contactos[i].producto === '') {
+        this.contactos[i].producto = null;
+      }
     }
     this.proveedor.contactoProveedors = this.contactos;
     this.proveedor.cuentaProveedors = this.cuentas;
@@ -368,6 +379,33 @@ export class ProviderUpdateComponent implements OnInit {
     const index = (<Array<string>>this.tags.get(i)).indexOf(productoRelacionado);
     if (index >= 0) {
       (<Array<string>>this.tags.get(i)).splice(index, 1);
+    }
+  }
+
+  private validateEntity(): boolean {
+    this.noError = true;
+
+    for (let i = 0; i < this.proveedor.contactoProveedors.length; i++) {
+      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].nombre);
+      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].cargo);
+      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].telefono);
+      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].producto);
+    }
+
+    for (let i = 0; i < this.proveedor.cuentaProveedors.length; i++) {
+      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].nombreCuenta);
+      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].banco);
+      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].numeroDeCuenta);
+    }
+
+    return this.noError;
+  }
+
+  validateField(field: any) {
+    if (field === null || field === undefined) {
+      return false;
+    } else {
+      return field.toString().length !== 0;
     }
   }
 }
