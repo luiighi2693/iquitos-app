@@ -52,10 +52,11 @@
                     <mat-tab *ngFor="let tab of asyncTabs | async">
                       <ng-template mat-tab-label>{{tab.label}}</ng-template>
                       <div class="responsive-table">
-                        <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                        <mat-table #table matSort [dataSource]="dataSourceContactos" class="mat-elevation-z8" *ngIf="tab.label === 'Contactos'">
                           <ng-container matColumnDef="nombre">
                             <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
                             <mat-cell *matCellDef="let element">
+                              <span class="header-label"> Nombre:</span>
                               {{element.nombre}}
                             </mat-cell>
                           </ng-container>
@@ -63,6 +64,7 @@
                           <ng-container matColumnDef="cargo">
                             <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
                             <mat-cell *matCellDef="let element">
+                              <span class="header-label"> Cargo:</span>
                               {{element.cargo}}
                             </mat-cell>
                           </ng-container>
@@ -70,19 +72,68 @@
                           <ng-container matColumnDef="telefono">
                             <mat-header-cell *matHeaderCellDef> Telefono </mat-header-cell>
                             <mat-cell *matCellDef="let element">
+                              <span class="header-label"> Telefono:</span>
                               {{element.telefono}}
                             </mat-cell>
                           </ng-container>
 
                           <ng-container matColumnDef="producto">
-                            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
-                            <mat-cell *matCellDef="let element">
-                              {{element.producto}}
+                            <mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>
+                            <!--<mat-cell *matCellDef="let element">-->
+                              <!--<span class="header-label"> Productos Relacionados:</span>-->
+                              <!--{{element.producto}}-->
+                            <!--</mat-cell>-->
+                            <mat-cell *matCellDef="let row;let i = index">
+                              <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
+                              <span class="header-label">Productos Relacionados:</span>
+                              <mat-chip-list #chipList>
+                                <mat-chip *ngFor="let product of tags.get(i)" [selectable]="selectable" [removable]="false">
+                                  {{product}}
+                                </mat-chip>
+                              </mat-chip-list>
                             </mat-cell>
+
                           </ng-container>
 
                           <mat-header-row *matHeaderRowDef="displayedColumnsContactos"></mat-header-row>
                           <mat-row *matRowDef="let row; columns: displayedColumnsContactos;"></mat-row>
+                        </mat-table>
+
+                        <mat-table #table matSort [dataSource]="dataSourceCuentas" class="mat-elevation-z8" *ngIf="tab.label === 'Cuentas'">
+                          <ng-container matColumnDef="cuenta">
+                            <mat-header-cell *matHeaderCellDef> Cuenta </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <span class="header-label">Cuenta:</span>
+                              {{row.tipoCuenta}}
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="banco">
+                            <mat-header-cell *matHeaderCellDef> Nombre del Banco </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <span class="header-label"> Nombre del Banco:</span>
+                              {{row.banco}}
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="numeroDeCuenta">
+                            <mat-header-cell *matHeaderCellDef> Numero de cuenta </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <span class="header-label"> Numero de cuenta:</span>
+                              {{row.numeroDeCuenta}}
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="nombreCuenta">
+                            <mat-header-cell *matHeaderCellDef> Titular de la cuenta </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                              <span class="header-label"> Titular de la cuenta:</span>
+                              {{row.nombreCuenta}}
+                            </mat-cell>
+                          </ng-container>
+
+                          <mat-header-row *matHeaderRowDef="displayedColumnsCuentas"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumnsCuentas;"></mat-row>
                         </mat-table>
                       </div>
                     </mat-tab>
