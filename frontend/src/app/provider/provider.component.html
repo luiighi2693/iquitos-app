@@ -73,9 +73,14 @@
 
             <ng-container matColumnDef="productosRelacionados">
               <mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell *matCellDef="let row;let i = index">
+                <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
                 <span class="header-label">Productos Relacionados:</span>
-                {{element.productosRelacionados}}
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let product of tags.get(i)" [selectable]="selectable" [removable]="false">
+                    {{product}}
+                  </mat-chip>
+                </mat-chip-list>
               </mat-cell>
             </ng-container>
 

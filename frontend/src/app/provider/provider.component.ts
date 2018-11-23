@@ -28,6 +28,8 @@ export class ProviderComponent implements OnInit, OnDestroy {
   currentSearch: string;
   proveedor: IProveedor;
 
+  tags = new Map([]);
+
   constructor(private proveedorService: ProveedorService, public dialog: MatDialog) {
     this.proveedors = [];
     this.itemsPerPage = 500;
@@ -171,6 +173,29 @@ export class ProviderComponent implements OnInit, OnDestroy {
   private paginateProveedors(data: IProveedor[], headers: HttpHeaders) {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.proveedors = data;
+
+    this.tags.clear();
+
+    let index = 0;
+    this.proveedors.forEach(proveedor => {
+      let t = [];
+      if (proveedor.contactoProveedors !== undefined) {
+        for (let i = 0; i < proveedor.contactoProveedors.length; i++) {
+          if (proveedor.contactoProveedors[i].producto !== undefined) {
+            proveedor.contactoProveedors[i].producto.split(',').forEach(tag => {
+              t.push(tag);
+            });
+          }
+        }
+      }
+      t = t.filter(function (item, pos) {
+        return t.indexOf(item) === pos;
+      });
+      this.tags.set(index, t);
+      index = index + 1;
+    });
+
+    console.log(this.tags);
 
     // this.proveedors = dataIn;
 

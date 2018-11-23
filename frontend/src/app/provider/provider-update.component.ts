@@ -385,17 +385,21 @@ export class ProviderUpdateComponent implements OnInit {
   private validateEntity(): boolean {
     this.noError = true;
 
-    for (let i = 0; i < this.proveedor.contactoProveedors.length; i++) {
-      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].nombre);
-      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].cargo);
-      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].telefono);
-      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].producto);
+    if (this.proveedor.contactoProveedors !== undefined) {
+      for (let i = 0; i < this.proveedor.contactoProveedors.length; i++) {
+        this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].nombre);
+        this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].cargo);
+        this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].telefono);
+        this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.contactoProveedors[i].producto);
+      }
     }
 
-    for (let i = 0; i < this.proveedor.cuentaProveedors.length; i++) {
-      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].nombreCuenta);
-      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].banco);
-      this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].numeroDeCuenta);
+    if (this.proveedor.cuentaProveedors !== undefined) {
+      for (let i = 0; i < this.proveedor.cuentaProveedors.length; i++) {
+        this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].nombreCuenta);
+        this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].banco);
+        this.noError = !this.noError ? this.noError : this.validateField(this.proveedor.cuentaProveedors[i].numeroDeCuenta);
+      }
     }
 
     return this.noError;
