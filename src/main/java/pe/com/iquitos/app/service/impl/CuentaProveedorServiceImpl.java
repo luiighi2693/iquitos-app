@@ -108,7 +108,7 @@ public class CuentaProveedorServiceImpl implements CuentaProveedorService {
     @Transactional(readOnly = true)
     public Page<CuentaProveedorDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of CuentaProveedors for query {}", query);
-        return cuentaProveedorSearchRepository.search(queryStringQuery(query), pageable)
+        return cuentaProveedorSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(cuentaProveedorMapper::toDto);
     }
 }

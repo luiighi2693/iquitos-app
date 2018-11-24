@@ -108,7 +108,7 @@ public class EstatusDeCompraServiceImpl implements EstatusDeCompraService {
     @Transactional(readOnly = true)
     public Page<EstatusDeCompraDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of EstatusDeCompras for query {}", query);
-        return estatusDeCompraSearchRepository.search(queryStringQuery(query), pageable)
+        return estatusDeCompraSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(estatusDeCompraMapper::toDto);
     }
 }

@@ -108,7 +108,7 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoService {
     @Transactional(readOnly = true)
     public Page<UsuarioExternoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of UsuarioExternos for query {}", query);
-        return usuarioExternoSearchRepository.search(queryStringQuery(query), pageable)
+        return usuarioExternoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(usuarioExternoMapper::toDto);
     }
 }

@@ -108,7 +108,7 @@ public class CajaServiceImpl implements CajaService {
     @Transactional(readOnly = true)
     public Page<CajaDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Cajas for query {}", query);
-        return cajaSearchRepository.search(queryStringQuery(query), pageable)
+        return cajaSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(cajaMapper::toDto);
     }
 }

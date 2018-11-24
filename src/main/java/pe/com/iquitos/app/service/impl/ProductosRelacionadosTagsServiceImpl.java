@@ -108,7 +108,7 @@ public class ProductosRelacionadosTagsServiceImpl implements ProductosRelacionad
     @Transactional(readOnly = true)
     public Page<ProductosRelacionadosTagsDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of ProductosRelacionadosTags for query {}", query);
-        return productosRelacionadosTagsSearchRepository.search(queryStringQuery(query), pageable)
+        return productosRelacionadosTagsSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(productosRelacionadosTagsMapper::toDto);
     }
 }

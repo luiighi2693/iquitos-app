@@ -193,7 +193,7 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Transactional(readOnly = true)
     public Page<ProveedorDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Proveedors for query {}", query);
-        return proveedorSearchRepository.search(queryStringQuery(query), pageable)
+        return proveedorSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(proveedorMapper::toDto);
     }
 }

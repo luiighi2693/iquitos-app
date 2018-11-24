@@ -108,7 +108,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Transactional(readOnly = true)
     public Page<CategoriaDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Categorias for query {}", query);
-        return categoriaSearchRepository.search(queryStringQuery(query), pageable)
+        return categoriaSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(categoriaMapper::toDto);
     }
 }

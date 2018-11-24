@@ -117,7 +117,7 @@ public class VarianteServiceImpl implements VarianteService {
     @Transactional(readOnly = true)
     public Page<VarianteDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Variantes for query {}", query);
-        return varianteSearchRepository.search(queryStringQuery(query), pageable)
+        return varianteSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(varianteMapper::toDto);
     }
 }

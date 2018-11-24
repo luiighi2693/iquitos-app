@@ -108,7 +108,7 @@ public class TipoDeOperacionDeGastoServiceImpl implements TipoDeOperacionDeGasto
     @Transactional(readOnly = true)
     public Page<TipoDeOperacionDeGastoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of TipoDeOperacionDeGastos for query {}", query);
-        return tipoDeOperacionDeGastoSearchRepository.search(queryStringQuery(query), pageable)
+        return tipoDeOperacionDeGastoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(tipoDeOperacionDeGastoMapper::toDto);
     }
 }
