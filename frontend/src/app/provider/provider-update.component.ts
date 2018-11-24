@@ -171,10 +171,9 @@ export class ProviderUpdateComponent implements OnInit {
 
   addValueTag(productoRelacionado: IProductosRelacionadosTags, i: number) {
     if ((productoRelacionado.nombre || '').trim()) {
-      (<Array<string>>this.tags.get(i)).push(productoRelacionado.nombre.trim());
-      // this.contactos[i].producto = this.contactos[i].producto === undefined || this.contactos[i].producto === '' ?
-      // this.contactos[i].producto = this.contactos[i].producto === undefined || this.contactos[i].producto === '' ?
-      //   productoRelacionado.nombre.trim() : this.contactos[i].producto + ',' + productoRelacionado.nombre.trim();
+      if(this.tags.get(i).find(tag => tag === productoRelacionado.nombre) === undefined){
+        (<Array<string>>this.tags.get(i)).push(productoRelacionado.nombre.trim());
+      }
     }
 
     this.tagInput.nativeElement.value = '';
