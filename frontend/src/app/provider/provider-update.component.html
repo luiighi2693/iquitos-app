@@ -42,14 +42,15 @@
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono">
+                <input matInput type="number" placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono">
               </mat-form-field>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Email" name="email" [(ngModel)]="proveedor.correo">
+                <input matInput placeholder="Email" name="email" [(ngModel)]="proveedor.correo" [formControl]="form.controls['email']">
               </mat-form-field>
+              <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger font-14">You must include a valid email address.</small>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
@@ -170,7 +171,7 @@
                             <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
                               <span class="header-label">Teléfono:</span>
-                              <input type="text" (blur)="saveChangesInContactsRow($event, i, 'telefono')" value="{{row.telefono}}">
+                              <input type="number" (blur)="saveChangesInContactsRow($event, i, 'telefono')" value="{{row.telefono}}">
                             </mat-cell>
                           </ng-container>
 
@@ -215,6 +216,7 @@
                   </mat-tab-group>
 
                   <mat-hint *ngIf="hasError" class="text-danger font-14">Campos Inválidos</mat-hint>
+                  <mat-hint *ngIf="hasErrorRequest" class="text-danger font-14">Ha ocurrido un error ingresando los datos</mat-hint>
                 </mat-card-content>
               </mat-card>
             </div>

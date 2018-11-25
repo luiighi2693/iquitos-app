@@ -14,6 +14,7 @@ import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.se
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
+import {CustomValidators} from 'ng2-validation';
 
 export interface Tab {
   label: string;
@@ -77,6 +78,7 @@ export class ProviderUpdateComponent implements OnInit {
   public form: FormGroup;
 
   hasError = false;
+  hasErrorRequest = false;
   noError = true;
 
   constructor(private proveedorService: ProveedorService,
@@ -135,6 +137,10 @@ export class ProviderUpdateComponent implements OnInit {
             Validators.required,
             Validators.maxLength(150)
           ])
+        ],
+        email: [
+          null,
+          Validators.compose([CustomValidators.email])
         ]
       });
     });
@@ -183,6 +189,7 @@ export class ProviderUpdateComponent implements OnInit {
 
   private onError(errorMessage: string) {
     console.log(errorMessage);
+    this.hasErrorRequest = true;
   }
 
   previousState() {
