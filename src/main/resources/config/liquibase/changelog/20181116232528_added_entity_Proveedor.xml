@@ -30,7 +30,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="direccion" type="varchar(150)">
+            <column name="direccion" type="varchar(1000)">
                 <constraints nullable="false" />
             </column>
 

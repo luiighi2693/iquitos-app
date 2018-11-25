@@ -8,7 +8,7 @@ export interface ICuentaProveedor {
     tipoCuenta?: AccountTypeProvider;
     banco?: string;
     nombreCuenta?: string;
-    numeroDeCuenta?: number;
+    numeroDeCuenta?: string;
 }
 
 export class CuentaProveedor implements ICuentaProveedor {
@@ -17,6 +17,6 @@ export class CuentaProveedor implements ICuentaProveedor {
         public tipoCuenta?: AccountTypeProvider,
         public banco?: string,
         public nombreCuenta?: string,
-        public numeroDeCuenta?: number
+        public numeroDeCuenta?: string
     ) {}
 }

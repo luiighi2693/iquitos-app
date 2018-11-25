@@ -34,7 +34,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="numero_de_cuenta" type="integer">
+            <column name="numero_de_cuenta" type="varchar(150)">
                 <constraints nullable="false" />
             </column>
 

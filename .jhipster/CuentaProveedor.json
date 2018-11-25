@@ -26,10 +26,12 @@
         },
         {
             "fieldName": "numeroDeCuenta",
-            "fieldType": "Integer",
+            "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
         }
     ],
     "relationships": [],
