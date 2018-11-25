@@ -171,7 +171,7 @@ export class ProviderUpdateComponent implements OnInit {
 
   addValueTag(productoRelacionado: IProductosRelacionadosTags, i: number) {
     if ((productoRelacionado.nombre || '').trim()) {
-      if((<Array<string>>this.tags.get(i)).find(tag => tag === productoRelacionado.nombre) === undefined){
+      if((<Array<string>>this.tags.get(i)).find(tag => tag === productoRelacionado.nombre) === undefined) {
         (<Array<string>>this.tags.get(i)).push(productoRelacionado.nombre.trim());
       }
     }
@@ -329,12 +329,15 @@ export class ProviderUpdateComponent implements OnInit {
   }
 
   private updateEntity() {
-    for (let i = 0; i < this.contactos.length; i++) {
-      this.contactos[i].producto = (<Array<string>>this.tags.get(i)).join(',');
-      if (this.contactos[i].producto === '') {
-        this.contactos[i].producto = null;
+    if (this.contactos !== undefined) {
+      for (let i = 0; i < this.contactos.length; i++) {
+        this.contactos[i].producto = (<Array<string>>this.tags.get(i)).join(',');
+        if (this.contactos[i].producto === '') {
+          this.contactos[i].producto = null;
+        }
       }
     }
+
     this.proveedor.contactoProveedors = this.contactos;
     this.proveedor.cuentaProveedors = this.cuentas;
   }
