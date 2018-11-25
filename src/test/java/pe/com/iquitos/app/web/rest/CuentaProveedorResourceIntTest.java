@@ -58,8 +58,8 @@ public class CuentaProveedorResourceIntTest {
     private static final String DEFAULT_NOMBRE_CUENTA = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRE_CUENTA = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_NUMERO_DE_CUENTA = 1;
-    private static final Integer UPDATED_NUMERO_DE_CUENTA = 2;
+    private static final String DEFAULT_NUMERO_DE_CUENTA = "AAAAAAAAAA";
+    private static final String UPDATED_NUMERO_DE_CUENTA = "BBBBBBBBBB";
 
     @Autowired
     private CuentaProveedorRepository cuentaProveedorRepository;
@@ -244,7 +244,7 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].tipoCuenta").value(hasItem(DEFAULT_TIPO_CUENTA.toString())))
             .andExpect(jsonPath("$.[*].banco").value(hasItem(DEFAULT_BANCO.toString())))
             .andExpect(jsonPath("$.[*].nombreCuenta").value(hasItem(DEFAULT_NOMBRE_CUENTA.toString())))
-            .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA)));
+            .andExpect(jsonPath("$.[*].numeroDeCuenta").value(hasItem(DEFAULT_NUMERO_DE_CUENTA.toString())));
     }
     
     @Test
@@ -261,7 +261,7 @@ public class CuentaProveedorResourceIntTest {
             .andExpect(jsonPath("$.tipoCuenta").value(DEFAULT_TIPO_CUENTA.toString()))
             .andExpect(jsonPath("$.banco").value(DEFAULT_BANCO.toString()))
             .andExpect(jsonPath("$.nombreCuenta").value(DEFAULT_NOMBRE_CUENTA.toString()))
-            .andExpect(jsonPath("$.numeroDeCuenta").value(DEFAULT_NUMERO_DE_CUENTA));
+            .andExpect(jsonPath("$.numeroDeCuenta").value(DEFAULT_NUMERO_DE_CUENTA.toString()));
     }
 
     @Test

@@ -21,7 +21,7 @@ public class ProveedorDTO implements Serializable {
     private String razonSocial;
 
     @NotNull
-    @Size(max = 150)
+    @Size(max = 1000)
     private String direccion;
 
     @Size(max = 150)

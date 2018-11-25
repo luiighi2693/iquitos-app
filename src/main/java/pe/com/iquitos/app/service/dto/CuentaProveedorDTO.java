@@ -23,7 +23,8 @@ public class CuentaProveedorDTO implements Serializable {
     private String nombreCuenta;
 
     @NotNull
-    private Integer numeroDeCuenta;
+    @Size(max = 150)
+    private String numeroDeCuenta;
 
     public Long getId() {
         return id;
@@ -57,11 +58,11 @@ public class CuentaProveedorDTO implements Serializable {
         this.nombreCuenta = nombreCuenta;
     }
 
-    public Integer getNumeroDeCuenta() {
+    public String getNumeroDeCuenta() {
         return numeroDeCuenta;
     }
 
-    public void setNumeroDeCuenta(Integer numeroDeCuenta) {
+    public void setNumeroDeCuenta(String numeroDeCuenta) {
         this.numeroDeCuenta = numeroDeCuenta;
     }
 
@@ -93,7 +94,7 @@ public class CuentaProveedorDTO implements Serializable {
             ", tipoCuenta='" + getTipoCuenta() + "'" +
             ", banco='" + getBanco() + "'" +
             ", nombreCuenta='" + getNombreCuenta() + "'" +
-            ", numeroDeCuenta=" + getNumeroDeCuenta() +
+            ", numeroDeCuenta='" + getNumeroDeCuenta() + "'" +
             "}";
     }
 }

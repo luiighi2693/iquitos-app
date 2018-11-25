@@ -87,7 +87,7 @@ entity Categoria {
 entity Proveedor {
 	codigo String maxlength(DEFAULT_MAX_LENGTH_STRING), //numero de ruc
 	razonSocial String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-    direccion String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    direccion String required maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),
     correo String maxlength(DEFAULT_MAX_LENGTH_STRING),
     telefono String maxlength(DEFAULT_MAX_LENGTH_STRING),
     sector String maxlength(DEFAULT_MAX_LENGTH_STRING),
@@ -106,7 +106,7 @@ entity CuentaProveedor {
     tipoCuenta AccountTypeProvider,
     banco String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     nombreCuenta String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-    numeroDeCuenta Integer required,
+    numeroDeCuenta String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
 entity PagoDeProveedor {

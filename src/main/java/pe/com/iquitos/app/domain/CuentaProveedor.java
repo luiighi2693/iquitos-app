@@ -42,8 +42,9 @@ public class CuentaProveedor implements Serializable {
     private String nombreCuenta;
 
     @NotNull
-    @Column(name = "numero_de_cuenta", nullable = false)
-    private Integer numeroDeCuenta;
+    @Size(max = 150)
+    @Column(name = "numero_de_cuenta", length = 150, nullable = false)
+    private String numeroDeCuenta;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -93,16 +94,16 @@ public class CuentaProveedor implements Serializable {
         this.nombreCuenta = nombreCuenta;
     }
 
-    public Integer getNumeroDeCuenta() {
+    public String getNumeroDeCuenta() {
         return numeroDeCuenta;
     }
 
-    public CuentaProveedor numeroDeCuenta(Integer numeroDeCuenta) {
+    public CuentaProveedor numeroDeCuenta(String numeroDeCuenta) {
         this.numeroDeCuenta = numeroDeCuenta;
         return this;
     }
 
-    public void setNumeroDeCuenta(Integer numeroDeCuenta) {
+    public void setNumeroDeCuenta(String numeroDeCuenta) {
         this.numeroDeCuenta = numeroDeCuenta;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
@@ -134,7 +135,7 @@ public class CuentaProveedor implements Serializable {
             ", tipoCuenta='" + getTipoCuenta() + "'" +
             ", banco='" + getBanco() + "'" +
             ", nombreCuenta='" + getNombreCuenta() + "'" +
-            ", numeroDeCuenta=" + getNumeroDeCuenta() +
+            ", numeroDeCuenta='" + getNumeroDeCuenta() + "'" +
             "}";
     }
 }

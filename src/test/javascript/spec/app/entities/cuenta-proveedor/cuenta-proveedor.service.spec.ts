@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(CuentaProveedorService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new CuentaProveedor(0, AccountTypeProvider.CUENTA_CORRIENTE, 'AAAAAAA', 'AAAAAAA', 0);
+            elemDefault = new CuentaProveedor(0, AccountTypeProvider.CUENTA_CORRIENTE, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -58,7 +58,7 @@ describe('Service Tests', () => {
                         tipoCuenta: 'BBBBBB',
                         banco: 'BBBBBB',
                         nombreCuenta: 'BBBBBB',
-                        numeroDeCuenta: 1
+                        numeroDeCuenta: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -78,7 +78,7 @@ describe('Service Tests', () => {
                         tipoCuenta: 'BBBBBB',
                         banco: 'BBBBBB',
                         nombreCuenta: 'BBBBBB',
-                        numeroDeCuenta: 1
+                        numeroDeCuenta: 'BBBBBB'
                     },
                     elemDefault
                 );

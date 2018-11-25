@@ -37,8 +37,8 @@ public class Proveedor implements Serializable {
     private String razonSocial;
 
     @NotNull
-    @Size(max = 150)
-    @Column(name = "direccion", length = 150, nullable = false)
+    @Size(max = 1000)
+    @Column(name = "direccion", length = 1000, nullable = false)
     private String direccion;
 
     @Size(max = 150)
