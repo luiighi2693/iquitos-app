@@ -18,6 +18,7 @@ import { LockscreenComponent } from './lockscreen/lockscreen.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticationService } from '../shared/util/authentication.service';
+import { UsuarioExternoService } from "./login/usuario-externo.service";
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { AuthenticationService } from '../shared/util/authentication.service';
     RegisterComponent
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    UsuarioExternoService
   ]
 })
 export class AuthenticationModule {}
