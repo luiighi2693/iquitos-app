@@ -4,6 +4,10 @@ import pe.com.iquitos.app.domain.UsuarioExterno;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
+import java.util.Optional;
+import java.util.stream.IntStream;
+
 
 /**
  * Spring Data  repository for the UsuarioExterno entity.
@@ -12,4 +16,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioExternoRepository extends JpaRepository<UsuarioExterno, Long> {
 
+    Optional<UsuarioExterno> findByDni(@NotNull Integer dni);
 }

@@ -111,4 +111,11 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoService {
         return usuarioExternoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(usuarioExternoMapper::toDto);
     }
+
+    @Override
+    public Optional<UsuarioExternoDTO> findOneByDni(Integer dni) {
+        log.debug("Request to get UsuarioExterno : {}", dni);
+        return usuarioExternoRepository.findByDni(dni)
+            .map(usuarioExternoMapper::toDto);
+    }
 }

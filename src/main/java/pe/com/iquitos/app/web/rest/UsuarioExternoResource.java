@@ -114,6 +114,14 @@ public class UsuarioExternoResource {
         return ResponseUtil.wrapOrNotFound(usuarioExternoDTO);
     }
 
+    @GetMapping("/usuario-externos/dni/{dni}")
+    @Timed
+    public ResponseEntity<UsuarioExternoDTO> getUsuarioExternoByDni(@PathVariable Integer dni) {
+        log.debug("REST request to get UsuarioExternoById : {}", dni);
+        Optional<UsuarioExternoDTO> usuarioExternoDTO = usuarioExternoService.findOneByDni(dni);
+        return ResponseUtil.wrapOrNotFound(usuarioExternoDTO);
+    }
+
     /**
      * DELETE  /usuario-externos/:id : delete the "id" usuarioExterno.
      *

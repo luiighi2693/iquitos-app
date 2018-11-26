@@ -53,4 +53,6 @@ public interface UsuarioExternoService {
      * @return the list of entities
      */
     Page<UsuarioExternoDTO> search(String query, Pageable pageable);
+
+    Optional<UsuarioExternoDTO> findOneByDni(Integer dni);
 }
