@@ -25,7 +25,6 @@ import { IquitosAppTipoDeOperacionDeIngresoModule } from './tipo-de-operacion-de
 import { IquitosAppTipoDeOperacionDeGastoModule } from './tipo-de-operacion-de-gasto/tipo-de-operacion-de-gasto.module';
 import { IquitosAppContactoProveedorModule } from './contacto-proveedor/contacto-proveedor.module';
 import { IquitosAppProveedorModule } from './proveedor/proveedor.module';
-import { IquitosAppCuentaProveedorModule } from './cuenta-proveedor/cuenta-proveedor.module';
 import { IquitosAppProductosRelacionadosTagsModule } from './productos-relacionados-tags/productos-relacionados-tags.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
@@ -57,7 +56,6 @@ import { IquitosAppProductosRelacionadosTagsModule } from './productos-relaciona
         IquitosAppTipoDeOperacionDeGastoModule,
         IquitosAppContactoProveedorModule,
         IquitosAppProveedorModule,
-        IquitosAppCuentaProveedorModule,
         IquitosAppProductosRelacionadosTagsModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],

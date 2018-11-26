@@ -117,7 +117,7 @@ public class VentaServiceImpl implements VentaService {
     @Transactional(readOnly = true)
     public Page<VentaDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Ventas for query {}", query);
-        return ventaSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return ventaSearchRepository.search(queryStringQuery(query), pageable)
             .map(ventaMapper::toDto);
     }
 }

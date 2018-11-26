@@ -108,7 +108,7 @@ public class AmortizacionServiceImpl implements AmortizacionService {
     @Transactional(readOnly = true)
     public Page<AmortizacionDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Amortizacions for query {}", query);
-        return amortizacionSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return amortizacionSearchRepository.search(queryStringQuery(query), pageable)
             .map(amortizacionMapper::toDto);
     }
 }

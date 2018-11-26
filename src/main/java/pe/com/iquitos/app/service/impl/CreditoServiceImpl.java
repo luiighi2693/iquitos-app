@@ -108,7 +108,7 @@ public class CreditoServiceImpl implements CreditoService {
     @Transactional(readOnly = true)
     public Page<CreditoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Creditos for query {}", query);
-        return creditoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return creditoSearchRepository.search(queryStringQuery(query), pageable)
             .map(creditoMapper::toDto);
     }
 }

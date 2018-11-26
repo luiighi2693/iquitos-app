@@ -108,7 +108,7 @@ public class EstatusDeProductoEntregadoServiceImpl implements EstatusDeProductoE
     @Transactional(readOnly = true)
     public Page<EstatusDeProductoEntregadoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of EstatusDeProductoEntregados for query {}", query);
-        return estatusDeProductoEntregadoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return estatusDeProductoEntregadoSearchRepository.search(queryStringQuery(query), pageable)
             .map(estatusDeProductoEntregadoMapper::toDto);
     }
 }

@@ -1,0 +1,10 @@
+version: '2'
+services:
+    iquitosapp-mysql:
+        extends:
+            file: mysql.yml
+            service: iquitosapp-mysql
+    iquitosapp-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: iquitosapp-elasticsearch

@@ -117,7 +117,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional(readOnly = true)
     public Page<ProductoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Productos for query {}", query);
-        return productoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return productoSearchRepository.search(queryStringQuery(query), pageable)
             .map(productoMapper::toDto);
     }
 }

@@ -108,7 +108,7 @@ public class ContactoProveedorServiceImpl implements ContactoProveedorService {
     @Transactional(readOnly = true)
     public Page<ContactoProveedorDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of ContactoProveedors for query {}", query);
-        return contactoProveedorSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return contactoProveedorSearchRepository.search(queryStringQuery(query), pageable)
             .map(contactoProveedorMapper::toDto);
     }
 }

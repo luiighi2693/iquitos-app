@@ -108,7 +108,7 @@ public class PagoDeProveedorServiceImpl implements PagoDeProveedorService {
     @Transactional(readOnly = true)
     public Page<PagoDeProveedorDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of PagoDeProveedors for query {}", query);
-        return pagoDeProveedorSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return pagoDeProveedorSearchRepository.search(queryStringQuery(query), pageable)
             .map(pagoDeProveedorMapper::toDto);
     }
 }

@@ -108,7 +108,7 @@ public class TipoDeDocumentoServiceImpl implements TipoDeDocumentoService {
     @Transactional(readOnly = true)
     public Page<TipoDeDocumentoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of TipoDeDocumentos for query {}", query);
-        return tipoDeDocumentoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return tipoDeDocumentoSearchRepository.search(queryStringQuery(query), pageable)
             .map(tipoDeDocumentoMapper::toDto);
     }
 }

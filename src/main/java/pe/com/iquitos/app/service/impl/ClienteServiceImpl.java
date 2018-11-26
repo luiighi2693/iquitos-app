@@ -108,7 +108,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional(readOnly = true)
     public Page<ClienteDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Clientes for query {}", query);
-        return clienteSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return clienteSearchRepository.search(queryStringQuery(query), pageable)
             .map(clienteMapper::toDto);
     }
 }

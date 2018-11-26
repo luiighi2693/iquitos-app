@@ -108,7 +108,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Transactional(readOnly = true)
     public Page<EmpleadoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Empleados for query {}", query);
-        return empleadoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return empleadoSearchRepository.search(queryStringQuery(query), pageable)
             .map(empleadoMapper::toDto);
     }
 }

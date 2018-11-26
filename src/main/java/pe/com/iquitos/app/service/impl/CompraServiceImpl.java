@@ -117,7 +117,7 @@ public class CompraServiceImpl implements CompraService {
     @Transactional(readOnly = true)
     public Page<CompraDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Compras for query {}", query);
-        return compraSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return compraSearchRepository.search(queryStringQuery(query), pageable)
             .map(compraMapper::toDto);
     }
 }

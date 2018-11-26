@@ -1,20 +1,10 @@
 package pe.com.iquitos.app.service.impl;
 
-import pe.com.iquitos.app.domain.ContactoProveedor;
-import pe.com.iquitos.app.domain.CuentaProveedor;
-import pe.com.iquitos.app.repository.ContactoProveedorRepository;
-import pe.com.iquitos.app.repository.CuentaProveedorRepository;
-import pe.com.iquitos.app.repository.search.ContactoProveedorSearchRepository;
-import pe.com.iquitos.app.repository.search.CuentaProveedorSearchRepository;
 import pe.com.iquitos.app.service.ProveedorService;
 import pe.com.iquitos.app.domain.Proveedor;
 import pe.com.iquitos.app.repository.ProveedorRepository;
 import pe.com.iquitos.app.repository.search.ProveedorSearchRepository;
-import pe.com.iquitos.app.service.dto.ContactoProveedorDTO;
-import pe.com.iquitos.app.service.dto.CuentaProveedorDTO;
 import pe.com.iquitos.app.service.dto.ProveedorDTO;
-import pe.com.iquitos.app.service.mapper.ContactoProveedorMapper;
-import pe.com.iquitos.app.service.mapper.CuentaProveedorMapper;
 import pe.com.iquitos.app.service.mapper.ProveedorMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -44,29 +33,10 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     private final ProveedorSearchRepository proveedorSearchRepository;
 
-
-    private final CuentaProveedorRepository cuentaProveedorRepository;
-    private final CuentaProveedorMapper cuentaProveedorMapper;
-    private final CuentaProveedorSearchRepository cuentaProveedorSearchRepository;
-
-    private final ContactoProveedorRepository contactoProveedorRepository;
-    private final ContactoProveedorMapper contactoProveedorMapper;
-    private final ContactoProveedorSearchRepository contactoProveedorSearchRepository;
-
-    public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository,
-                                CuentaProveedorRepository cuentaProveedorRepository, CuentaProveedorMapper cuentaProveedorMapper, CuentaProveedorSearchRepository cuentaProveedorSearchRepository,
-                                ContactoProveedorRepository contactoProveedorRepository, ContactoProveedorMapper contactoProveedorMapper, ContactoProveedorSearchRepository contactoProveedorSearchRepository) {
+    public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository) {
         this.proveedorRepository = proveedorRepository;
         this.proveedorMapper = proveedorMapper;
         this.proveedorSearchRepository = proveedorSearchRepository;
-
-        this.cuentaProveedorRepository = cuentaProveedorRepository;
-        this.cuentaProveedorMapper = cuentaProveedorMapper;
-        this.cuentaProveedorSearchRepository = cuentaProveedorSearchRepository;
-
-        this.contactoProveedorRepository = contactoProveedorRepository;
-        this.contactoProveedorMapper = contactoProveedorMapper;
-        this.contactoProveedorSearchRepository = contactoProveedorSearchRepository;
     }
 
     /**
@@ -78,52 +48,6 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Override
     public ProveedorDTO save(ProveedorDTO proveedorDTO) {
         log.debug("Request to save Proveedor : {}", proveedorDTO);
-
-        if (proveedorDTO.getId() != null) {
-            //delete contacts and accounts that was erased in frontend
-            proveedorRepository
-                .findById(proveedorDTO.getId())
-                .get()
-                .getContactoProveedors()
-                .stream()
-                .filter(contact -> !proveedorMapper
-                    .toEntity(proveedorDTO)
-                    .getContactoProveedors()
-                    .contains(contact))
-                .collect(Collectors.toSet()).forEach(contactoProveedorRepository::delete);
-
-            proveedorRepository
-                .findById(proveedorDTO.getId())
-                .get()
-                .getCuentaProveedors()
-                .stream()
-                .filter(account -> !proveedorMapper
-                    .toEntity(proveedorDTO)
-                    .getCuentaProveedors()
-                    .contains(account))
-                .collect(Collectors.toSet()).forEach(cuentaProveedorRepository::delete);
-        }
-
-        Set<CuentaProveedorDTO> cuentaProveedorDTOList = new HashSet<>();
-        Set<ContactoProveedorDTO> contactoProveedorDTOList = new HashSet<>();
-
-        proveedorDTO.getCuentaProveedors().forEach(cuentaProveedorDTO -> {
-            CuentaProveedor cuentaProveedor = cuentaProveedorMapper.toEntity(cuentaProveedorDTO);
-            cuentaProveedor = cuentaProveedorRepository.save(cuentaProveedor);
-            cuentaProveedorDTOList.add(cuentaProveedorMapper.toDto(cuentaProveedor));
-            cuentaProveedorSearchRepository.save(cuentaProveedor);
-        });
-
-        proveedorDTO.setCuentaProveedors(cuentaProveedorDTOList);
-
-        proveedorDTO.getContactoProveedors().forEach(contactoProveedorDTO -> {
-            ContactoProveedor contactoProveedor = contactoProveedorMapper.toEntity(contactoProveedorDTO);
-            contactoProveedor = contactoProveedorRepository.save(contactoProveedor);
-            contactoProveedorDTOList.add(contactoProveedorMapper.toDto(contactoProveedor));
-            contactoProveedorSearchRepository.save(contactoProveedor);
-        });
-
-        proveedorDTO.setContactoProveedors(contactoProveedorDTOList);
 
         Proveedor proveedor = proveedorMapper.toEntity(proveedorDTO);
         proveedor = proveedorRepository.save(proveedor);
@@ -193,7 +117,7 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Transactional(readOnly = true)
     public Page<ProveedorDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Proveedors for query {}", query);
-        return proveedorSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return proveedorSearchRepository.search(queryStringQuery(query), pageable)
             .map(proveedorMapper::toDto);
     }
 }

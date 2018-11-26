@@ -117,7 +117,7 @@ public class PedidoServiceImpl implements PedidoService {
     @Transactional(readOnly = true)
     public Page<PedidoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Pedidos for query {}", query);
-        return pedidoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return pedidoSearchRepository.search(queryStringQuery(query), pageable)
             .map(pedidoMapper::toDto);
     }
 }

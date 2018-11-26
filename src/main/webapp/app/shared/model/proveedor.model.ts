@@ -1,4 +1,4 @@
-import { ICuentaProveedor } from 'app/shared/model//cuenta-proveedor.model';
+import { ICuentaProveedor } from 'app/shared/model/cuenta-proveedor.model';
 import { IContactoProveedor } from 'app/shared/model//contacto-proveedor.model';
 
 export interface IProveedor {

@@ -108,7 +108,7 @@ public class TipoDeOperacionDeIngresoServiceImpl implements TipoDeOperacionDeIng
     @Transactional(readOnly = true)
     public Page<TipoDeOperacionDeIngresoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of TipoDeOperacionDeIngresos for query {}", query);
-        return tipoDeOperacionDeIngresoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return tipoDeOperacionDeIngresoSearchRepository.search(queryStringQuery(query), pageable)
             .map(tipoDeOperacionDeIngresoMapper::toDto);
     }
 }

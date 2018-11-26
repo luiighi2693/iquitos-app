@@ -108,7 +108,7 @@ public class TipoDeDocumentoDeCompraServiceImpl implements TipoDeDocumentoDeComp
     @Transactional(readOnly = true)
     public Page<TipoDeDocumentoDeCompraDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of TipoDeDocumentoDeCompras for query {}", query);
-        return tipoDeDocumentoDeCompraSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
+        return tipoDeDocumentoDeCompraSearchRepository.search(queryStringQuery(query), pageable)
             .map(tipoDeDocumentoDeCompraMapper::toDto);
     }
 }
