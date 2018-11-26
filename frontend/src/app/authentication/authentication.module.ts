@@ -17,6 +17,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { LockscreenComponent } from './lockscreen/lockscreen.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthenticationService } from '../shared/util/authentication.service';
 
 @NgModule({
   imports: [
@@ -37,6 +38,9 @@ import { RegisterComponent } from './register/register.component';
     LockscreenComponent,
     LoginComponent,
     RegisterComponent
+  ],
+  providers: [
+    AuthenticationService
   ]
 })
 export class AuthenticationModule {}
