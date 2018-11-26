@@ -1,0 +1,48 @@
+{
+    "name": "CuentaProveedor",
+    "fields": [
+        {
+            "fieldName": "tipoCuenta",
+            "fieldType": "AccountTypeProvider",
+            "fieldValues": "CUENTA_CORRIENTE,CUENTA_RECAUDADORA"
+        },
+        {
+            "fieldName": "banco",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "nombreCuenta",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "numeroDeCuenta",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181126024606",
+    "entityTableName": "cuenta_proveedor",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": "elasticsearch"
+}

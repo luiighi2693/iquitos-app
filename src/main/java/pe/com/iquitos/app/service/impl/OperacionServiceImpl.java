@@ -108,7 +108,7 @@ public class OperacionServiceImpl implements OperacionService {
     @Transactional(readOnly = true)
     public Page<OperacionDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Operacions for query {}", query);
-        return operacionSearchRepository.search(queryStringQuery(query), pageable)
+        return operacionSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(operacionMapper::toDto);
     }
 }

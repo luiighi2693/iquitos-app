@@ -108,7 +108,7 @@ public class UnidadDeMedidaServiceImpl implements UnidadDeMedidaService {
     @Transactional(readOnly = true)
     public Page<UnidadDeMedidaDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of UnidadDeMedidas for query {}", query);
-        return unidadDeMedidaSearchRepository.search(queryStringQuery(query), pageable)
+        return unidadDeMedidaSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(unidadDeMedidaMapper::toDto);
     }
 }

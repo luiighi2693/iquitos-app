@@ -108,7 +108,7 @@ public class TipoDePagoServiceImpl implements TipoDePagoService {
     @Transactional(readOnly = true)
     public Page<TipoDePagoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of TipoDePagos for query {}", query);
-        return tipoDePagoSearchRepository.search(queryStringQuery(query), pageable)
+        return tipoDePagoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(tipoDePagoMapper::toDto);
     }
 }

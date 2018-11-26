@@ -207,7 +207,7 @@ public class UserResource {
     @Timed
     public List<User> search(@PathVariable String query) {
         return StreamSupport
-            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .stream(userSearchRepository.search(queryStringQuery("*"+query+"*")).spliterator(), false)
             .collect(Collectors.toList());
     }
 }
