@@ -7,6 +7,9 @@ import {EstatusDeCompraService} from "./estatus-de-compra.service";
 import {IEstatusDeCompra} from "../../models/estatus-de-compra.model";
 import {PurchasestatusDeleteComponent} from "./purchasestatus-delete.component";
 
+declare var require: any;
+const menu: any = require('../menu.json');
+
 @Component({
   selector: 'app-purchasestatus',
   templateUrl: './purchasestatus.component.html',
@@ -37,11 +40,7 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
-    this.fullService.changeMenu([
-      { value: 'PRODUCTOS RELACIONADOS', uri: '/configuration/relatedproducts'},
-      { value: 'ESTATUS DE COMPRAS', uri: '/configuration/purchasestatus'},
-      { value: 'ESTATUS DE DELIVERY', uri: '/configuration/deliverystatus'}
-    ]);
+    this.fullService.changeMenu(menu);
     this.fullService.changeMenuSelected('ESTATUS DE COMPRAS');
   }
 

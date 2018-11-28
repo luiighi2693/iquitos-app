@@ -7,6 +7,9 @@ import {DeliverystatusDeleteComponent} from "./deliverystatus-delete.component";
 import {IEstatusDeProductoEntregado} from "../../models/estatus-de-producto-entregado.model";
 import {EstatusDeProductoEntregadoService} from "./estatus-de-producto-entregado.service";
 
+declare var require: any;
+const menu: any = require('../menu.json');
+
 @Component({
   selector: 'app-deliverystatus',
   templateUrl: './deliverystatus.component.html',
@@ -37,11 +40,7 @@ export class DeliverystatusComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
-    this.fullService.changeMenu([
-      { value: 'PRODUCTOS RELACIONADOS', uri: '/configuration/relatedproducts'},
-      { value: 'ESTATUS DE COMPRAS', uri: '/configuration/purchasestatus'},
-      { value: 'ESTATUS DE DELIVERY', uri: '/configuration/deliverystatus'}
-    ]);
+    this.fullService.changeMenu(menu);
     this.fullService.changeMenuSelected('ESTATUS DE DELIVERY');
   }
 

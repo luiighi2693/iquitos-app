@@ -1,0 +1,5 @@
+[
+  { "value": "PRODUCTOS RELACIONADOS", "uri": "/configuration/relatedproducts"},
+  { "value": "ESTATUS DE COMPRAS", "uri": "/configuration/purchasestatus"},
+  { "value": "ESTATUS DE DELIVERY", "uri": "/configuration/deliverystatus"}
+]

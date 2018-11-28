@@ -7,6 +7,9 @@ import {FullService} from '../../layouts/full/full.service';
 import {IProductosRelacionadosTags} from '../../models/productos-relacionados-tags.model';
 import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.service';
 
+declare var require: any;
+const menu: any = require('../menu.json');
+
 @Component({
   selector: 'app-relatedproductstag',
   templateUrl: './relatedproductstag.component.html',
@@ -37,11 +40,7 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
-    this.fullService.changeMenu([
-      { value: 'PRODUCTOS RELACIONADOS', uri: '/configuration/relatedproducts'},
-      { value: 'ESTATUS DE COMPRAS', uri: '/configuration/purchasestatus'},
-      { value: 'ESTATUS DE DELIVERY', uri: '/configuration/deliverystatus'}
-    ]);
+    this.fullService.changeMenu(menu);
     this.fullService.changeMenuSelected('PRODUCTOS RELACIONADOS');
   }
 
