@@ -96,11 +96,11 @@
             <ng-container matColumnDef="star">
               <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <a class="ng-star-inserted" [routerLink]="['/provider', element.id, 'view' ]">
+                <a class="ng-star-inserted" [routerLink]="['/contact/provider', element.id, 'view' ]">
                   <i class="ti-eye text-info m-r-10"></i>
                 </a>
 
-                <a class="ng-star-inserted" [routerLink]="['/provider', element.id, 'edit']">
+                <a class="ng-star-inserted" [routerLink]="['/contact/provider', element.id, 'edit']">
                   <i class="ti-pencil text-info m-r-10"></i>
                 </a>
                 <!--<a class="ng-star-inserted" (click)="deleteRow(element)">-->
