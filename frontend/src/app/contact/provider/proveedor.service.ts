@@ -3,8 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from '../shared/util';
-import { IProveedor } from '../models/proveedor.model';
+import { createRequestOption } from '../../shared/util';
+import { IProveedor } from '../../models/proveedor.model';
 
 type EntityResponseType = HttpResponse<IProveedor>;
 type EntityArrayResponseType = HttpResponse<IProveedor[]>;

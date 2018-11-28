@@ -3,8 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from '../shared/util';
-import { IProductosRelacionadosTags } from '../models/productos-relacionados-tags.model';
+import { createRequestOption } from '../../shared/util';
+import { IProductosRelacionadosTags } from '../../models/productos-relacionados-tags.model';
 
 type EntityResponseType = HttpResponse<IProductosRelacionadosTags>;
 type EntityArrayResponseType = HttpResponse<IProductosRelacionadosTags[]>;

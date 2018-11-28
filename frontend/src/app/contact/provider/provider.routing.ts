@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@a
 
 import { ProviderComponent } from './provider.component';
 import { Injectable } from '@angular/core';
-import { IProveedor, Proveedor } from '../models/proveedor.model';
+import { IProveedor, Proveedor } from '../../models/proveedor.model';
 import { ProveedorService } from './proveedor.service';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';

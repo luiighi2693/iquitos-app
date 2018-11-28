@@ -61,14 +61,14 @@ export const AppRoutes: Routes = [
         loadChildren: './multi-dropdown/multi-dd.module#MultiModule'
       },
       {
-        path: 'provider',
-        canActivate: [AuthGuard],
-        loadChildren: './provider/provider.module#ProviderModule'
-      },
-      {
         path: 'configuration',
         canActivate: [AuthGuard],
         loadChildren: './configuration/configuration.module#ConfigurationModule'
+      },
+      {
+        path: 'contact',
+        canActivate: [AuthGuard],
+        loadChildren: './contact/contact.module#ContactModule'
       }
     ]
   },

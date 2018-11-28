@@ -6,8 +6,8 @@ import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from '../shared/util';
-import { ICuentaProveedor } from '../models/cuenta-proveedor.model';
+import { createRequestOption } from '../../shared/util';
+import { ICuentaProveedor } from '../../models/cuenta-proveedor.model';
 
 type EntityResponseType = HttpResponse<ICuentaProveedor>;
 type EntityArrayResponseType = HttpResponse<ICuentaProveedor[]>;

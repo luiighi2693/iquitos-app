@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IProveedor } from '../models/proveedor.model';
+import { IProveedor } from '../../models/proveedor.model';
 import { Observable, Observer } from 'rxjs';
 import { MatTableDataSource } from '@angular/material';
-import { IContactoProveedor } from '../models/contacto-proveedor.model';
-import {ICuentaProveedor} from '../models/cuenta-proveedor.model';
+import { IContactoProveedor } from '../../models/contacto-proveedor.model';
+import {ICuentaProveedor} from '../../models/cuenta-proveedor.model';
 
 export interface ExampleTab {
   label: string;

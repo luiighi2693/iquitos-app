@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import { IProveedor } from '../models/proveedor.model';
+import { IProveedor } from '../../models/proveedor.model';
 import { ProveedorService } from './proveedor.service';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ProviderDeleteComponent } from './provider-delete.component';
-import {FullService} from '../layouts/full/full.service';
+import {FullService} from '../../layouts/full/full.service';
+
+declare var require: any;
+const menu: any = require('../menu.json');
 
 @Component({
   selector: 'app-provider',
@@ -31,13 +34,10 @@ export class ProviderComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
-    this.fullService.changeMenu([
-      { value: 'PROVEEDORES', uri: '/provider'}
-    ]);
+    this.fullService.changeMenu(menu);
     this.fullService.changeMenuSelected('PROVEEDORES');
   }
 
-  // displayedColumns = ['select', 'codigo', 'razonSocial', 'correo', 'telefono', 'star'];
   displayedColumns = ['select', 'razonSocial', 'telefono', 'productosRelacionados', 'contactos', 'star'];
   dataSource = new MatTableDataSource<IProveedor>(null);
   selection = new SelectionModel<IProveedor>(true, []);

@@ -243,8 +243,8 @@ const MENUITEMS = [
     icon: 'av_timer',
   },
   {
-    state: 'provider',
-    name: 'Proveedores',
+    state: 'contact',
+    name: 'Contactos',
     type: 'link',
     icon: 'av_timer',
   },
