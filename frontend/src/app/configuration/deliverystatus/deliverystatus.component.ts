@@ -13,7 +13,6 @@ import {EstatusDeProductoEntregadoService} from "./estatus-de-producto-entregado
   styleUrls: ['./deliverystatus.component.scss']
 })
 export class DeliverystatusComponent implements OnInit, OnDestroy {
-  entity: IEstatusDeProductoEntregado[];
   itemsPerPage: number;
   page: any;
   predicate: any;

@@ -13,7 +13,6 @@ import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.se
   styleUrls: ['./relatedproductstag.component.scss']
 })
 export class RelatedproductstagComponent implements OnInit, OnDestroy {
-  productosRelacionadosTag: IProductosRelacionadosTags[];
   itemsPerPage: number;
   page: any;
   predicate: any;
@@ -34,7 +33,6 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
 
   @ViewChild(RelatedproductstagComponent) table: RelatedproductstagComponent;
   constructor(private productosRelacionadosTagService: ProductosRelacionadosTagsService, public dialog: MatDialog, public fullService: FullService) {
-    this.productosRelacionadosTag = [];
     this.itemsPerPage = 500;
     this.page = 0;
     this.predicate = 'id';
@@ -103,7 +101,6 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
   }
 
   clear() {
-    this.productosRelacionadosTag = [];
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
@@ -115,7 +112,6 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
     if (!query) {
       return this.clear();
     }
-    this.productosRelacionadosTag = [];
     this.page = 0;
     this.predicate = '_score';
     this.reverse = false;
@@ -140,7 +136,6 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
 
   private paginateProductosRelacionadosTag(data: IProductosRelacionadosTags[], headers: HttpHeaders) {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    this.productosRelacionadosTag = data;
     this.rows = data;
   }
 

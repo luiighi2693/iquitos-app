@@ -13,7 +13,6 @@ import {PurchasestatusDeleteComponent} from "./purchasestatus-delete.component";
   styleUrls: ['./purchasestatus.component.scss']
 })
 export class PurchasestatusComponent implements OnInit, OnDestroy {
-  entity: IEstatusDeCompra[];
   itemsPerPage: number;
   page: any;
   predicate: any;
