@@ -3,8 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from '../shared/util';
-import { IEstatusDeCompra } from '../models/estatus-de-compra.model';
+import { createRequestOption } from '../../shared/util';
+import { IEstatusDeCompra } from '../../models/estatus-de-compra.model';
 
 type EntityResponseType = HttpResponse<IEstatusDeCompra>;
 type EntityArrayResponseType = HttpResponse<IEstatusDeCompra[]>;

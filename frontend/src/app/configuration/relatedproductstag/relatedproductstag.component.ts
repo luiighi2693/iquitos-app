@@ -2,18 +2,18 @@ import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import {FullService} from '../layouts/full/full.service';
-import {EstatusDeCompraService} from "./estatus-de-compra.service";
-import {IEstatusDeCompra} from "../models/estatus-de-compra.model";
-import {PurchasestatusDeleteComponent} from "./purchasestatus-delete.component";
+import { RelatedproductstagDeleteComponent } from './relatedproductstag-delete.component';
+import {FullService} from '../../layouts/full/full.service';
+import {IProductosRelacionadosTags} from '../../models/productos-relacionados-tags.model';
+import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.service';
 
 @Component({
-  selector: 'app-purchasestatus',
-  templateUrl: './purchasestatus.component.html',
-  styleUrls: ['./purchasestatus.component.scss']
+  selector: 'app-relatedproductstag',
+  templateUrl: './relatedproductstag.component.html',
+  styleUrls: ['./relatedproductstag.component.scss']
 })
-export class PurchasestatusComponent implements OnInit, OnDestroy {
-  entity: IEstatusDeCompra[];
+export class RelatedproductstagComponent implements OnInit, OnDestroy {
+  productosRelacionadosTag: IProductosRelacionadosTags[];
   itemsPerPage: number;
   page: any;
   predicate: any;
@@ -32,8 +32,9 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
 
   @ViewChild('valueInput') valueInput: ElementRef;
 
-  @ViewChild(PurchasestatusComponent) table: PurchasestatusComponent;
-  constructor(private service: EstatusDeCompraService, public dialog: MatDialog, public fullService: FullService) {
+  @ViewChild(RelatedproductstagComponent) table: RelatedproductstagComponent;
+  constructor(private productosRelacionadosTagService: ProductosRelacionadosTagsService, public dialog: MatDialog, public fullService: FullService) {
+    this.productosRelacionadosTag = [];
     this.itemsPerPage = 500;
     this.page = 0;
     this.predicate = 'id';
@@ -42,12 +43,12 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
       { value: 'PRODUCTOS RELACIONADOS', uri: '/configuration/relatedproducts'},
       { value: 'ESTATUS DE COMPRAS', uri: '/configuration/purchasestatus'}
     ]);
-    this.fullService.changeMenuSelected('ESTATUS DE COMPRAS');
+    this.fullService.changeMenuSelected('PRODUCTOS RELACIONADOS');
   }
 
   loadAll() {
     if (this.currentSearch) {
-      this.service
+      this.productosRelacionadosTagService
         .search({
           query: this.currentSearch,
           page: this.page,
@@ -55,25 +56,25 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
           sort: this.sort()
         })
         .subscribe(
-          (res: HttpResponse<IEstatusDeCompra[]>) => this.paginate(res.body, res.headers),
+          (res: HttpResponse<IProductosRelacionadosTags[]>) => this.paginateProductosRelacionadosTag(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
       return;
     }
-    this.service
+    this.productosRelacionadosTagService
       .query({
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<IEstatusDeCompra[]>) => this.paginate(res.body, res.headers),
+        (res: HttpResponse<IProductosRelacionadosTags[]>) => this.paginateProductosRelacionadosTag(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
 
   deleteEntity(row) {
-    this.service.delete(row.id).subscribe(response => {
+    this.productosRelacionadosTagService.delete(row.id).subscribe(response => {
     });
 
     this.rows.splice(this.rowSelected, 1);
@@ -81,14 +82,14 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.rows[this.rowSelected].id !== undefined) {
-      this.subscribeToSaveResponse(this.service.update(this.rows[this.rowSelected]));
+      this.subscribeToSaveResponse(this.productosRelacionadosTagService.update(this.rows[this.rowSelected]));
     } else {
-      this.subscribeToSaveResponse(this.service.create(this.rows[this.rowSelected]));
+      this.subscribeToSaveResponse(this.productosRelacionadosTagService.create(this.rows[this.rowSelected]));
     }
   }
 
-  private subscribeToSaveResponse(result: Observable<HttpResponse<IEstatusDeCompra>>) {
-    result.subscribe((res: HttpResponse<IEstatusDeCompra>) =>
+  private subscribeToSaveResponse(result: Observable<HttpResponse<IProductosRelacionadosTags>>) {
+    result.subscribe((res: HttpResponse<IProductosRelacionadosTags>) =>
       this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
   }
 
@@ -101,6 +102,7 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
   }
 
   clear() {
+    this.productosRelacionadosTag = [];
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
@@ -112,6 +114,7 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
     if (!query) {
       return this.clear();
     }
+    this.productosRelacionadosTag = [];
     this.page = 0;
     this.predicate = '_score';
     this.reverse = false;
@@ -134,8 +137,9 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private paginate(data: IEstatusDeCompra[], headers: HttpHeaders) {
+  private paginateProductosRelacionadosTag(data: IProductosRelacionadosTags[], headers: HttpHeaders) {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+    this.productosRelacionadosTag = data;
     this.rows = data;
   }
 
@@ -143,11 +147,11 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
     console.log(errorMessage);
   }
 
-  openDialog(index): void {
-    this.rowSelected = index;
-    const dialogRef = this.dialog.open(PurchasestatusDeleteComponent, {
+  openDialog(productoRelacionadoTagIndex): void {
+    this.rowSelected = productoRelacionadoTagIndex;
+    const dialogRef = this.dialog.open(RelatedproductstagDeleteComponent, {
       width: '300px',
-      data: { productoRelacionadoTag: this.rows[index] }
+      data: { productoRelacionadoTag: this.rows[productoRelacionadoTagIndex] }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -177,9 +181,11 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
   }
 
   addEntity() {
-    this.rows.push({
-      nombre: ''
-    });
-    this.editing[this.rows.length - 1 + '-nombre'] = true;
+    if (this.rows[this.rows.length -1 ].id !== undefined) {
+      this.rows.push({
+        nombre: ''
+      });
+      this.editing[this.rows.length - 1 + '-nombre'] = true;
+    }
   }
 }

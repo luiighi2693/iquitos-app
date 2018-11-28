@@ -1,16 +1,16 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 
-import { PurchasestatusComponent } from './purchasestatus.component';
+import { RelatedproductstagComponent } from './relatedproductstag.component';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
-import {IProductosRelacionadosTags, ProductosRelacionadosTags} from '../models/productos-relacionados-tags.model';
-import {EstatusDeCompraService} from "./estatus-de-compra.service";
+import {IProductosRelacionadosTags, ProductosRelacionadosTags} from '../../models/productos-relacionados-tags.model';
+import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.service';
 
 @Injectable({ providedIn: 'root' })
 export class RelatedproductstagResolve implements Resolve<IProductosRelacionadosTags> {
-  constructor(private service: EstatusDeCompraService) {}
+  constructor(private service: ProductosRelacionadosTagsService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ProductosRelacionadosTags> {
     const id = route.params['id'] ? route.params['id'] : null;
@@ -24,9 +24,9 @@ export class RelatedproductstagResolve implements Resolve<IProductosRelacionados
   }
 }
 
-export const PurchasestatusRoutes: Routes = [
+export const RelatedproductstagRoutes: Routes = [
   {
     path: '',
-    component: PurchasestatusComponent
+    component: RelatedproductstagComponent
   }
 ];
