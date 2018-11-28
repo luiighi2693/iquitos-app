@@ -69,6 +69,11 @@ export const AppRoutes: Routes = [
         path: 'contact',
         canActivate: [AuthGuard],
         loadChildren: './contact/contact.module#ContactModule'
+      },
+      {
+        path: 'inventory',
+        canActivate: [AuthGuard],
+        loadChildren: './inventory/inventory.module#InventoryModule'
       }
     ]
   },

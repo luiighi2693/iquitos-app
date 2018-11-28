@@ -243,6 +243,11 @@ const MENUITEMS = [
     icon: 'av_timer',
   },
   {
+    state: 'inventory',
+    name: 'Inventario',
+    type: 'link',
+    icon: 'av_timer',
+  },{
     state: 'contact',
     name: 'Contactos',
     type: 'link',
