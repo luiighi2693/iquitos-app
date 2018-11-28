@@ -6,10 +6,10 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
-import {AuthenticationService} from "../../shared/util/authentication.service";
-import {UsuarioExterno} from "../../models/usuario-externo.model";
+import {AuthenticationService} from '../../shared/util/authentication.service';
+import {UsuarioExterno} from '../../models/usuario-externo.model';
 import {finalize} from 'rxjs/operators';
-import {UsuarioExternoService} from "./usuario-externo.service";
+import {UsuarioExternoService} from './usuario-externo.service';
 
 @Component({
   selector: 'app-login',

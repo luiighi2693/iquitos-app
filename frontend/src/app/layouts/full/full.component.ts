@@ -16,6 +16,14 @@ import { AppHeaderComponent } from './header/header.component';
 import { AppSidebarComponent } from './sidebar/sidebar.component';
 
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import {FullService} from './full.service';
+
+
+export interface ListContent {
+  value: string;
+  uri: string;
+}
+
 /** @title Responsive sidenav */
 @Component({
   selector: 'app-full-layout',
@@ -37,14 +45,27 @@ export class FullComponent implements OnDestroy, AfterViewInit {
   public config: PerfectScrollbarConfigInterface = {};
   private _mobileQueryListener: () => void;
 
+  contentList: ListContent[];
+  contentSelected = '';
+
   constructor(
+    private router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems
+    public menuItems: MenuItems,
+    public fullService: FullService
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this.fullService.changeContent.subscribe(menu => {
+      this.contentList = menu;
+    });
+
+    this.fullService.change.subscribe(menuSelected => {
+      this.contentSelected = menuSelected;
+    });
   }
 
   ngOnDestroy(): void {
@@ -59,4 +80,12 @@ export class FullComponent implements OnDestroy, AfterViewInit {
   }
 
   // Mini sidebar
+  goTo(content: ListContent) {
+    this.contentSelected = content.value;
+    this.router.navigate([content.uri], { replaceUrl: true });
+  }
+
+  findMenu($event: any) {
+    return this.contentList[this.contentList.map(x => x.value).indexOf($event)];
+  }
 }

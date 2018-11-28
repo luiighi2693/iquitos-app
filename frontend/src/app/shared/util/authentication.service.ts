@@ -59,8 +59,9 @@ export class AuthenticationService {
    * Checks is the user is authenticated.
    * @return True if the user is authenticated.
    */
-  isAuthenticated(): boolean {
-    return !!this.credentials;
+  public isAuthenticated(): boolean {
+    // return !!this.credentials;
+    return !!(sessionStorage.getItem(credentialsKey) !== null || localStorage.getItem(credentialsKey) !== null);
   }
 
   /**

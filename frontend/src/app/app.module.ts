@@ -21,6 +21,9 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
+import {AuthGuard} from './shared/util/auth.guard';
+import {AuthenticationService} from './shared/util/authentication.service';
+import {FullService} from './layouts/full/full.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -52,7 +55,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    },
+    AuthGuard,
+    AuthenticationService,
+    FullService
   ],
   bootstrap: [AppComponent]
 })

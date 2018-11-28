@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist/dist/chartist.component';
+import {FullService} from '../../layouts/full/full.service';
 declare var require: any;
 
 const data: any = require('./data.json');
@@ -117,6 +118,11 @@ export class Dashboard1Component implements AfterViewInit {
       buttons: 'warn'
     }
   ];
+
+  constructor(public fullService: FullService) {
+    this.fullService.changeMenu([]);
+    this.fullService.changeMenuSelected('');
+  }
 
   ngAfterViewInit() {
     // Sparkline chart

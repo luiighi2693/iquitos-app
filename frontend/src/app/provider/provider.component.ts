@@ -9,9 +9,12 @@ import { ProveedorService } from './proveedor.service';
 import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ProviderDeleteComponent } from './provider-delete.component';
-// declare var require: any;
+import {FullService} from '../layouts/full/full.service';
 
-// const dataIn: any = require('./data.json');
+export interface ListContent {
+  value: string;
+  uri: string;
+}
 
 @Component({
   selector: 'app-provider',
@@ -30,12 +33,16 @@ export class ProviderComponent implements OnInit, OnDestroy {
 
   tags = new Map([]);
 
-  constructor(private proveedorService: ProveedorService, public dialog: MatDialog) {
+  constructor(private proveedorService: ProveedorService, public dialog: MatDialog, public fullService: FullService) {
     this.proveedors = [];
     this.itemsPerPage = 500;
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
+    this.fullService.changeMenu([
+      { value: 'PROVEEDORES', uri: '/provider'}
+    ]);
+    this.fullService.changeMenuSelected('PROVEEDORES');
   }
 
   // displayedColumns = ['select', 'codigo', 'razonSocial', 'correo', 'telefono', 'star'];

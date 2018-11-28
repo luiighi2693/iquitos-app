@@ -7,8 +7,10 @@
       </div>
 
       <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
-        <button mat-raised-button (click)="previousState()">Cancelar</button>
-        <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
+        <div class="button-row">
+          <button mat-raised-button (click)="previousState()">Cancelar</button>
+          <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
+        </div>
       </div>
     </div>
 

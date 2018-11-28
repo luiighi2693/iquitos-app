@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
 import { AppBlankComponent } from './layouts/blank/blank.component';
+import {AuthGuard} from './shared/util/auth.guard';
 
 export const AppRoutes: Routes = [
   {
@@ -19,6 +20,7 @@ export const AppRoutes: Routes = [
       },
       {
         path: 'dashboards',
+        canActivate: [AuthGuard],
         loadChildren: './dashboards/dashboards.module#DashboardsModule'
       },
       {
@@ -60,6 +62,7 @@ export const AppRoutes: Routes = [
       },
       {
         path: 'provider',
+        canActivate: [AuthGuard],
         loadChildren: './provider/provider.module#ProviderModule'
       }
     ]

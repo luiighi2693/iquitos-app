@@ -53,6 +53,23 @@
         <!-- app header component - style you can find in header.scss / header.component.ts-->
         <!-- ============================================================== -->
         <app-header></app-header>
+
+      <span fxFlex></span>
+
+      <div *ngIf="contentSelected !== ''" class="button-row" fxFlex="100" fxHide.xs fxHide.sm fxLayoutAlign="end center">
+        <button *ngFor="let content of contentList" mat-button color="{{content.value === contentSelected ? 'basic' : 'accent'}}" (click)="goTo(content)">{{content.value}}</button>
+      </div>
+
+      <div *ngIf="contentSelected !== ''" fxFlex.gt-xs="35" fxFlex.gt-sm="50" fxHide.md fxHide.lg fxHide.xl class="p-10">
+        <mat-form-field style="font-size: initial;">
+          <mat-select [(value)]="contentSelected" (valueChange)="goTo(findMenu($event))">
+            <mat-option *ngFor="let content of contentList" [value]="content.value">
+              {{content.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
         <!-- ============================================================== -->
         <!-- Right sidebar toggle - style you can find in rightsidebar.component.scss -->
         <!-- ============================================================== -->
