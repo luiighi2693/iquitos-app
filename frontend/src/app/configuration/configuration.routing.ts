@@ -27,6 +27,11 @@ export const ConfigurationRoutes: Routes = [
         path: 'deliverystatus',
         canActivate: [AuthGuard],
         loadChildren: './deliverystatus/deliverystatus.module#DeliverystatusModule'
+      },
+      {
+        path: 'documenttype',
+        canActivate: [AuthGuard],
+        loadChildren: './documenttype/documenttype.module#DocumenttypeModule'
       }
     ]
   }
