@@ -249,7 +249,7 @@ const MENUITEMS = [
     icon: 'av_timer',
   },
   {
-    state: 'relatedproducts',
+    state: 'configuration',
     name: 'Configuración',
     type: 'link',
     icon: 'av_timer',
