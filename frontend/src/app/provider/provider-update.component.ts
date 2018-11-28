@@ -177,7 +177,7 @@ export class ProviderUpdateComponent implements OnInit {
 
   addValueTag(productoRelacionado: IProductosRelacionadosTags, i: number) {
     if ((productoRelacionado.nombre || '').trim()) {
-      if((<Array<string>>this.tags.get(i)).find(tag => tag === productoRelacionado.nombre) === undefined) {
+      if ((<Array<string>>this.tags.get(i)).find(tag => tag === productoRelacionado.nombre) === undefined) {
         (<Array<string>>this.tags.get(i)).push(productoRelacionado.nombre.trim());
       }
     }

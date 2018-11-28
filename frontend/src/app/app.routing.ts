@@ -64,6 +64,11 @@ export const AppRoutes: Routes = [
         path: 'provider',
         canActivate: [AuthGuard],
         loadChildren: './provider/provider.module#ProviderModule'
+      },
+      {
+        path: 'relatedproducts',
+        canActivate: [AuthGuard],
+        loadChildren: './relatedproductstag/relatedproductstag.module#RelatedproductstagModule'
       }
     ]
   },

@@ -247,6 +247,12 @@ const MENUITEMS = [
     name: 'Proveedores',
     type: 'link',
     icon: 'av_timer',
+  },
+  {
+    state: 'relatedproducts',
+    name: 'Configuración',
+    type: 'link',
+    icon: 'av_timer',
   }
 ];
 
