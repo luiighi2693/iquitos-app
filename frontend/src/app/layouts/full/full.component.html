@@ -57,7 +57,8 @@
       <span fxFlex></span>
 
       <div *ngIf="contentSelected !== ''" class="button-row" fxFlex="100" fxHide.xs fxHide.sm fxLayoutAlign="end center">
-        <button *ngFor="let content of contentList" mat-button color="{{content.value === contentSelected ? 'basic' : 'accent'}}" (click)="goTo(content)">{{content.value}}</button>
+        <button *ngFor="let content of contentList" mat-button color="{{content.value === contentSelected ? 'basic' : 'accent'}}"
+                (click)="goTo(content)" [ngClass]="{ 'customButton': contentList.length > 4 }">{{content.value}}</button>
       </div>
 
       <div *ngIf="contentSelected !== ''" fxFlex.gt-xs="35" fxFlex.gt-sm="50" fxHide.md fxHide.lg fxHide.xl class="p-10">

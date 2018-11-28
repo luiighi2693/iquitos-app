@@ -3,19 +3,19 @@ import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {FullService} from '../../layouts/full/full.service';
-import {DocumenttypeDeleteComponent} from "./documenttype-delete.component";
-import {TipoDeDocumentoService} from "./tipo-de-documento.service";
-import {ITipoDeDocumento} from "../../models/tipo-de-documento.model";
+import {DocumenttypepurchaseDeleteComponent} from "./documenttypepurchase-delete.component";
+import {TipoDeDocumentoDeCompraService} from "./tipo-de-documento-de-compra.service";
+import {ITipoDeDocumentoDeCompra} from "../../models/tipo-de-documento-de-compra.model";
 
 declare var require: any;
 const menu: any = require('../menu.json');
 
 @Component({
-  selector: 'app-documenttype',
-  templateUrl: './documenttype.component.html',
-  styleUrls: ['./documenttype.component.scss']
+  selector: 'app-documenttypepurchase',
+  templateUrl: './documenttypepurchase.component.html',
+  styleUrls: ['./documenttypepurchase.component.scss']
 })
-export class DocumenttypeComponent implements OnInit, OnDestroy {
+export class DocumenttypepurchaseComponent implements OnInit, OnDestroy {
   itemsPerPage: number;
   page: any;
   predicate: any;
@@ -34,14 +34,14 @@ export class DocumenttypeComponent implements OnInit, OnDestroy {
 
   @ViewChild('valueInput') valueInput: ElementRef;
 
-  @ViewChild(DocumenttypeComponent) table: DocumenttypeComponent;
-  constructor(private service: TipoDeDocumentoService, public dialog: MatDialog, public fullService: FullService) {
+  @ViewChild(DocumenttypepurchaseComponent) table: DocumenttypepurchaseComponent;
+  constructor(private service: TipoDeDocumentoDeCompraService, public dialog: MatDialog, public fullService: FullService) {
     this.itemsPerPage = 500;
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
     this.fullService.changeMenu(menu);
-    this.fullService.changeMenuSelected('DOCUMENTOS');
+    this.fullService.changeMenuSelected('D. DE GASTO');
   }
 
   loadAll() {
@@ -54,7 +54,7 @@ export class DocumenttypeComponent implements OnInit, OnDestroy {
           sort: this.sort()
         })
         .subscribe(
-          (res: HttpResponse<ITipoDeDocumento[]>) => this.paginate(res.body, res.headers),
+          (res: HttpResponse<ITipoDeDocumentoDeCompra[]>) => this.paginate(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
       return;
@@ -66,7 +66,7 @@ export class DocumenttypeComponent implements OnInit, OnDestroy {
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<ITipoDeDocumento[]>) => this.paginate(res.body, res.headers),
+        (res: HttpResponse<ITipoDeDocumentoDeCompra[]>) => this.paginate(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -86,8 +86,8 @@ export class DocumenttypeComponent implements OnInit, OnDestroy {
     }
   }
 
-  private subscribeToSaveResponse(result: Observable<HttpResponse<ITipoDeDocumento>>) {
-    result.subscribe((res: HttpResponse<ITipoDeDocumento>) =>
+  private subscribeToSaveResponse(result: Observable<HttpResponse<ITipoDeDocumentoDeCompra>>) {
+    result.subscribe((res: HttpResponse<ITipoDeDocumentoDeCompra>) =>
       this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
   }
 
@@ -133,7 +133,7 @@ export class DocumenttypeComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private paginate(data: ITipoDeDocumento[], headers: HttpHeaders) {
+  private paginate(data: ITipoDeDocumentoDeCompra[], headers: HttpHeaders) {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.rows = data;
   }
@@ -144,7 +144,7 @@ export class DocumenttypeComponent implements OnInit, OnDestroy {
 
   openDialog(index): void {
     this.rowSelected = index;
-    const dialogRef = this.dialog.open(DocumenttypeDeleteComponent, {
+    const dialogRef = this.dialog.open(DocumenttypepurchaseDeleteComponent, {
       width: '300px',
       data: { entity: this.rows[index] }
     });

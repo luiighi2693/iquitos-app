@@ -32,6 +32,11 @@ export const ConfigurationRoutes: Routes = [
         path: 'documenttype',
         canActivate: [AuthGuard],
         loadChildren: './documenttype/documenttype.module#DocumenttypeModule'
+      },
+      {
+        path: 'documenttypepurchase',
+        canActivate: [AuthGuard],
+        loadChildren: './documenttypepurchase/documenttypepurchase.module#DocumenttypepurchaseModule'
       }
     ]
   }
