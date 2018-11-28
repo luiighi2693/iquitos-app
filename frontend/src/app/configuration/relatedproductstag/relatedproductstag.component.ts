@@ -41,7 +41,8 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
     this.reverse = true;
     this.fullService.changeMenu([
       { value: 'PRODUCTOS RELACIONADOS', uri: '/configuration/relatedproducts'},
-      { value: 'ESTATUS DE COMPRAS', uri: '/configuration/purchasestatus'}
+      { value: 'ESTATUS DE COMPRAS', uri: '/configuration/purchasestatus'},
+      { value: 'ESTATUS DE DELIVERY', uri: '/configuration/deliverystatus'}
     ]);
     this.fullService.changeMenuSelected('PRODUCTOS RELACIONADOS');
   }
@@ -147,11 +148,11 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
     console.log(errorMessage);
   }
 
-  openDialog(productoRelacionadoTagIndex): void {
-    this.rowSelected = productoRelacionadoTagIndex;
+  openDialog(index): void {
+    this.rowSelected = index;
     const dialogRef = this.dialog.open(RelatedproductstagDeleteComponent, {
       width: '300px',
-      data: { productoRelacionadoTag: this.rows[productoRelacionadoTagIndex] }
+      data: { entity: this.rows[index] }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -181,11 +182,19 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
   }
 
   addEntity() {
-    if (this.rows[this.rows.length -1 ].id !== undefined) {
-      this.rows.push({
-        nombre: ''
-      });
-      this.editing[this.rows.length - 1 + '-nombre'] = true;
+    if(this.rows.length !== 0) {
+      if (this.rows[this.rows.length -1 ].id !== undefined) {
+        this.pushEntity();
+      }
+    } else {
+      this.pushEntity();
     }
+  }
+
+  pushEntity (){
+    this.rows.push({
+      nombre: ''
+    });
+    this.editing[this.rows.length - 1 + '-nombre'] = true;
   }
 }

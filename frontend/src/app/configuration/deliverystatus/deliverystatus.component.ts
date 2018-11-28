@@ -3,17 +3,17 @@ import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {FullService} from '../../layouts/full/full.service';
-import {EstatusDeCompraService} from "./estatus-de-compra.service";
-import {IEstatusDeCompra} from "../../models/estatus-de-compra.model";
-import {PurchasestatusDeleteComponent} from "./purchasestatus-delete.component";
+import {DeliverystatusDeleteComponent} from "./deliverystatus-delete.component";
+import {IEstatusDeProductoEntregado} from "../../models/estatus-de-producto-entregado.model";
+import {EstatusDeProductoEntregadoService} from "./estatus-de-producto-entregado.service";
 
 @Component({
-  selector: 'app-purchasestatus',
-  templateUrl: './purchasestatus.component.html',
-  styleUrls: ['./purchasestatus.component.scss']
+  selector: 'app-deliverystatus',
+  templateUrl: './deliverystatus.component.html',
+  styleUrls: ['./deliverystatus.component.scss']
 })
-export class PurchasestatusComponent implements OnInit, OnDestroy {
-  entity: IEstatusDeCompra[];
+export class DeliverystatusComponent implements OnInit, OnDestroy {
+  entity: IEstatusDeProductoEntregado[];
   itemsPerPage: number;
   page: any;
   predicate: any;
@@ -32,8 +32,8 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
 
   @ViewChild('valueInput') valueInput: ElementRef;
 
-  @ViewChild(PurchasestatusComponent) table: PurchasestatusComponent;
-  constructor(private service: EstatusDeCompraService, public dialog: MatDialog, public fullService: FullService) {
+  @ViewChild(DeliverystatusComponent) table: DeliverystatusComponent;
+  constructor(private service: EstatusDeProductoEntregadoService, public dialog: MatDialog, public fullService: FullService) {
     this.itemsPerPage = 500;
     this.page = 0;
     this.predicate = 'id';
@@ -43,7 +43,7 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
       { value: 'ESTATUS DE COMPRAS', uri: '/configuration/purchasestatus'},
       { value: 'ESTATUS DE DELIVERY', uri: '/configuration/deliverystatus'}
     ]);
-    this.fullService.changeMenuSelected('ESTATUS DE COMPRAS');
+    this.fullService.changeMenuSelected('ESTATUS DE DELIVERY');
   }
 
   loadAll() {
@@ -56,7 +56,7 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
           sort: this.sort()
         })
         .subscribe(
-          (res: HttpResponse<IEstatusDeCompra[]>) => this.paginate(res.body, res.headers),
+          (res: HttpResponse<IEstatusDeProductoEntregado[]>) => this.paginate(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
       return;
@@ -68,7 +68,7 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<IEstatusDeCompra[]>) => this.paginate(res.body, res.headers),
+        (res: HttpResponse<IEstatusDeProductoEntregado[]>) => this.paginate(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -88,8 +88,8 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
     }
   }
 
-  private subscribeToSaveResponse(result: Observable<HttpResponse<IEstatusDeCompra>>) {
-    result.subscribe((res: HttpResponse<IEstatusDeCompra>) =>
+  private subscribeToSaveResponse(result: Observable<HttpResponse<IEstatusDeProductoEntregado>>) {
+    result.subscribe((res: HttpResponse<IEstatusDeProductoEntregado>) =>
       this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
   }
 
@@ -135,7 +135,7 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private paginate(data: IEstatusDeCompra[], headers: HttpHeaders) {
+  private paginate(data: IEstatusDeProductoEntregado[], headers: HttpHeaders) {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.rows = data;
   }
@@ -146,7 +146,7 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
 
   openDialog(index): void {
     this.rowSelected = index;
-    const dialogRef = this.dialog.open(PurchasestatusDeleteComponent, {
+    const dialogRef = this.dialog.open(DeliverystatusDeleteComponent, {
       width: '300px',
       data: { entity: this.rows[index] }
     });
