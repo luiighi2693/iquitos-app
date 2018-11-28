@@ -3,8 +3,8 @@
   { "value": "ESTATUS DE COMPRAS", "uri": "/configuration/purchasestatus"},
   { "value": "ESTATUS DE DELIVERY", "uri": "/configuration/deliverystatus"},
   { "value": "DOCUMENTOS", "uri": "/configuration/documenttype"},
-  { "value": "D. DE GASTO", "uri": "/configuration/documenttypepurchase"},
-  { "value": "D. DE INGRESO", "uri": "/configuration/documenttype"},
+  { "value": "D. DE COMPRA", "uri": "/configuration/documenttypepurchase"},
+  { "value": "D. DE VENTA", "uri": "/configuration/documenttypesell"},
   { "value": "TIPOS DE PAGO", "uri": "/configuration/documenttype"},
   { "value": "USUARIOS", "uri": "/configuration/documenttype"}
 ]

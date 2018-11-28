@@ -3,19 +3,19 @@ import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import {FullService} from '../../layouts/full/full.service';
-import {DocumenttypepurchaseDeleteComponent} from "./documenttypepurchase-delete.component";
-import {TipoDeDocumentoDeCompraService} from "./tipo-de-documento-de-compra.service";
-import {ITipoDeDocumentoDeCompra} from "../../models/tipo-de-documento-de-compra.model";
+import {DocumenttypesellDeleteComponent} from "./documenttypesell-delete.component";
+import {TipoDeDocumentoDeVentaService} from "./tipo-de-documento-de-venta.service";
+import {ITipoDeDocumentoDeVenta} from "../../models/tipo-de-documento-de-venta.model";
 
 declare var require: any;
 const menu: any = require('../menu.json');
 
 @Component({
-  selector: 'app-documenttypepurchase',
-  templateUrl: './documenttypepurchase.component.html',
-  styleUrls: ['./documenttypepurchase.component.scss']
+  selector: 'app-documenttypesell',
+  templateUrl: './documenttypesell.component.html',
+  styleUrls: ['./documenttypesell.component.scss']
 })
-export class DocumenttypepurchaseComponent implements OnInit, OnDestroy {
+export class DocumenttypesellComponent implements OnInit, OnDestroy {
   itemsPerPage: number;
   page: any;
   predicate: any;
@@ -34,14 +34,14 @@ export class DocumenttypepurchaseComponent implements OnInit, OnDestroy {
 
   @ViewChild('valueInput') valueInput: ElementRef;
 
-  @ViewChild(DocumenttypepurchaseComponent) table: DocumenttypepurchaseComponent;
-  constructor(private service: TipoDeDocumentoDeCompraService, public dialog: MatDialog, public fullService: FullService) {
+  @ViewChild(DocumenttypesellComponent) table: DocumenttypesellComponent;
+  constructor(private service: TipoDeDocumentoDeVentaService, public dialog: MatDialog, public fullService: FullService) {
     this.itemsPerPage = 500;
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;
     this.fullService.changeMenu(menu);
-    this.fullService.changeMenuSelected('D. DE COMPRA');
+    this.fullService.changeMenuSelected('D. DE VENTA');
   }
 
   loadAll() {
@@ -54,7 +54,7 @@ export class DocumenttypepurchaseComponent implements OnInit, OnDestroy {
           sort: this.sort()
         })
         .subscribe(
-          (res: HttpResponse<ITipoDeDocumentoDeCompra[]>) => this.paginate(res.body, res.headers),
+          (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => this.paginate(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
       return;
@@ -66,7 +66,7 @@ export class DocumenttypepurchaseComponent implements OnInit, OnDestroy {
         sort: this.sort()
       })
       .subscribe(
-        (res: HttpResponse<ITipoDeDocumentoDeCompra[]>) => this.paginate(res.body, res.headers),
+        (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => this.paginate(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
@@ -86,8 +86,8 @@ export class DocumenttypepurchaseComponent implements OnInit, OnDestroy {
     }
   }
 
-  private subscribeToSaveResponse(result: Observable<HttpResponse<ITipoDeDocumentoDeCompra>>) {
-    result.subscribe((res: HttpResponse<ITipoDeDocumentoDeCompra>) =>
+  private subscribeToSaveResponse(result: Observable<HttpResponse<ITipoDeDocumentoDeVenta>>) {
+    result.subscribe((res: HttpResponse<ITipoDeDocumentoDeVenta>) =>
       this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
   }
 
@@ -133,7 +133,7 @@ export class DocumenttypepurchaseComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private paginate(data: ITipoDeDocumentoDeCompra[], headers: HttpHeaders) {
+  private paginate(data: ITipoDeDocumentoDeVenta[], headers: HttpHeaders) {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.rows = data;
   }
@@ -144,7 +144,7 @@ export class DocumenttypepurchaseComponent implements OnInit, OnDestroy {
 
   openDialog(index): void {
     this.rowSelected = index;
-    const dialogRef = this.dialog.open(DocumenttypepurchaseDeleteComponent, {
+    const dialogRef = this.dialog.open(DocumenttypesellDeleteComponent, {
       width: '300px',
       data: { entity: this.rows[index] }
     });
