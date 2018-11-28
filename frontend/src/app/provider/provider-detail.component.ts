@@ -6,11 +6,6 @@ import { MatTableDataSource } from '@angular/material';
 import { IContactoProveedor } from '../models/contacto-proveedor.model';
 import {ICuentaProveedor} from '../models/cuenta-proveedor.model';
 
-// declare var require: any;
-
-// const dataIn: any = require('./data.json');
-
-
 export interface ExampleTab {
   label: string;
 }

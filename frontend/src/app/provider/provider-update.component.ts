@@ -298,41 +298,13 @@ export class ProviderUpdateComponent implements OnInit {
       this.contactos[indexFromAccount].telefono = event.target.value;
     }
 
-    // if (label === 'producto') {
-    //   this.contactos[indexFromAccount].producto = event.target.value;
-    // }
-
-    // if (label === 'producto') {
-    //   this.contactos[indexFromAccount].producto = this.tags.map(tag => tag.nombre).join(',');
-    //   console.log(this.contactos[indexFromAccount].producto);
-    // }
-
     this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.contactos);
   }
 
   deleteAccount(i, row) {
-    // let index = null;
-
     this.dataSourceCuentas.data.splice(i, 1);
     this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
     this.cuentas = this.dataSourceCuentas.data;
-
-    // if (row.id !== undefined) {
-    //   index = this.dataSourceCuentas.data.map(x => x.id).indexOf(row.id);
-    //   if (index !== -1) {
-    //     this.dataSourceCuentas.data.splice(index, 1);
-    //     this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
-    //
-    //     this.cuentas = this.dataSourceCuentas.data;
-    //
-    //     this.updateEntity();
-    //     this.subscribeToSaveResponseFromRemoveAccount(this.proveedorService.update(this.proveedor), row.id);
-    //   }
-    // } else {
-    //   this.dataSourceCuentas.data.splice(index, 1);
-    //   this.dataSourceCuentas = new MatTableDataSource<ICuentaProveedor>(this.dataSourceCuentas.data);
-    //   this.cuentas = this.dataSourceCuentas.data;
-    // }
   }
 
   private updateEntity() {
@@ -350,27 +322,9 @@ export class ProviderUpdateComponent implements OnInit {
   }
 
   deleteContact(i, row) {
-    // let index = null;
     this.dataSourceContactos.data.splice(i, 1);
     this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
     this.contactos = this.dataSourceContactos.data;
-
-    // if (row.id !== undefined) {
-    //   index = this.dataSourceContactos.data.map(x => x.id).indexOf(row.id);
-    //   if (index !== -1) {
-    //     this.dataSourceContactos.data.splice(index, 1);
-    //     this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
-    //
-    //     this.contactos = this.dataSourceContactos.data;
-    //
-    //     this.updateEntity();
-    //     this.subscribeToSaveResponseFromRemoveContact(this.proveedorService.update(this.proveedor), row.id);
-    //   }
-    // } else {
-    //   this.dataSourceContactos.data.splice(index, 1);
-    //   this.dataSourceContactos = new MatTableDataSource<IContactoProveedor>(this.dataSourceContactos.data);
-    //   this.contactos = this.dataSourceContactos.data;
-    // }
   }
 
   displayFn(productoRelacionado?: IProductosRelacionadosTags): string | undefined {

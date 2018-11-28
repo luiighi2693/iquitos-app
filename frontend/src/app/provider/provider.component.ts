@@ -1,20 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
-// import { BreakpointObserver } from '@angular/cdk/layout';
 import {SelectionModel} from '@angular/cdk/collections';
-// import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { IProveedor, Proveedor } from '../models/proveedor.model';
+import { IProveedor } from '../models/proveedor.model';
 import { ProveedorService } from './proveedor.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ProviderDeleteComponent } from './provider-delete.component';
 import {FullService} from '../layouts/full/full.service';
-
-export interface ListContent {
-  value: string;
-  uri: string;
-}
 
 @Component({
   selector: 'app-provider',
@@ -126,10 +118,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
     // this.isSaving = false;
   }
 
-  // cancel() {
-  //   this.dataSourceContactos.filter = '';
-  // }
-
   reset() {
     this.page = 0;
     this.proveedors = [];
@@ -203,9 +191,6 @@ export class ProviderComponent implements OnInit, OnDestroy {
     });
 
     console.log(this.tags);
-
-    // this.proveedors = dataIn;
-
     this.dataSource = new MatTableDataSource<IProveedor>(this.proveedors);
   }
 
