@@ -3,7 +3,7 @@
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
     <mat-card>
       <mat-card-content>
-        <mat-card-title>Proveedores</mat-card-title>
+        <mat-card-title>Variantes</mat-card-title>
 
         <div class="responsive-table">
           <div fxLayout="row wrap">
@@ -13,11 +13,11 @@
             </mat-form-field>
 
             <div fxFlex.gt-sm="25" fxFlex="25" id="newSection">
-              <button mat-raised-button color="primary" [routerLink]="['/contact/provider/new']">Nuevo</button>
+              <button mat-raised-button color="primary" [routerLink]="['/inventory/variant/new']">Nuevo</button>
             </div>
           </div>
 
-          <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="proveedors">
+          <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="variants">
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 
@@ -36,71 +36,46 @@
               </mat-header-cell>
             </ng-container>
 
-            <!-- Name Column -->
-            <!--<ng-container matColumnDef="codigo">-->
-              <!--<mat-header-cell *matHeaderCellDef mat-sort-header="codigo"> Código </mat-header-cell>-->
-              <!--<mat-cell *matCellDef="let element">-->
-                <!--<span class="header-label">Código:</span>-->
-                <!--<h5 class="m-0">{{element.codigo}}</h5> </mat-cell>-->
-            <!--</ng-container>-->
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="razonSocial">
-              <mat-header-cell *matHeaderCellDef> Razón Social </mat-header-cell>
+            <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <span class="header-label">Razón Social:</span>
-                {{element.razonSocial}}
+                <span class="header-label">Nombre:</span>
+                {{element.nombre}}
               </mat-cell>
             </ng-container>
 
-            <!-- Symbol Column -->
-            <!--<ng-container matColumnDef="correo">-->
-              <!--<mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>-->
-              <!--<mat-cell *matCellDef="let element">-->
-                <!--<span class="header-label">Correo:</span>-->
-                <!--{{element.correo}}-->
-              <!--</mat-cell>-->
-            <!--</ng-container>-->
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="telefono">
-              <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
+            <ng-container matColumnDef="descripcion">
+              <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <span class="header-label">Teléfono:</span>
-                {{element.telefono}}
+                <span class="header-label">Descripción:</span>
+                {{element.descripcion}}
               </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="productosRelacionados">
-              <mat-header-cell *matHeaderCellDef> Productos Relacionados </mat-header-cell>
-              <mat-cell *matCellDef="let row;let i = index">
-                <!--<input type="text" (blur)="saveChangesInContactsRow($event, i, 'producto')" value="{{row.producto}}">-->
-                <span class="header-label">Productos Relacionados:</span>
-                <mat-chip-list #chipList>
-                  <mat-chip *ngFor="let product of tags.get(i)" [selectable]="selectable" [removable]="false">
-                    {{product}}
-                  </mat-chip>
-                </mat-chip-list>
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="contactos">
-              <mat-header-cell *matHeaderCellDef> Contactos </mat-header-cell>
+            <ng-container matColumnDef="precioVenta">
+              <mat-header-cell *matHeaderCellDef> Precio de Venta </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <span class="header-label">Contactos:</span>
-                {{element.contactoProveedors.length}}
+                <span class="header-label">Precio de Venta:</span>
+                {{element.precioVenta}}
               </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="precioCompra">
+              <mat-header-cell *matHeaderCellDef> Precio de Compra </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Precio de Compra:</span>
+                {{element.precioCompra}}
+              </mat-cell>
+            </ng-container>
 
             <ng-container matColumnDef="star">
               <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <a class="ng-star-inserted" [routerLink]="['/contact/provider', element.id, 'view' ]">
+                <a class="ng-star-inserted" [routerLink]="['/inventory/variant', element.id, 'view' ]">
                   <i class="ti-eye text-info m-r-10"></i>
                 </a>
 
-                <a class="ng-star-inserted" [routerLink]="['/contact/provider', element.id, 'edit']">
+                <a class="ng-star-inserted" [routerLink]="['/inventory/variant', element.id, 'edit']">
                   <i class="ti-pencil text-info m-r-10"></i>
                 </a>
                 <!--<a class="ng-star-inserted" (click)="deleteRow(element)">-->

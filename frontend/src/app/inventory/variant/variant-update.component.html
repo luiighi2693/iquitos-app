@@ -1,0 +1,58 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div style="display: flex;">
+      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="previousState()" style="cursor: pointer">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="goBackTag">Todas las Variantes</span>
+      </div>
+
+      <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+        <div class="button-row">
+          <button mat-raised-button (click)="previousState()">Cancelar</button>
+          <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Variante {{!entity.id ? 'Nuevo' : 'Edición'}} </mat-card-title>
+        <form class="basic-form">
+          <div fxLayout="row wrap">
+            <!-- column -->
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="entity.nombre" [formControl]="form.controls['fnombre']">
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fnombre'].hasError('required') && form.controls['fnombre'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['fnombre'].hasError('maxlength') && form.controls['fnombre'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Descripción" name="descripcion" [(ngModel)]="entity.descripcion" [formControl]="form.controls['fdescripcion']">
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fdescripcion'].hasError('maxlength') && form.controls['fdescripcion'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Precio de Venta" name="precioVenta" [(ngModel)]="entity.precioVenta" [formControl]="form.controls['fprecioVenta']">
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('required') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('maxlength') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Precio de Compra" name="precioCompra" [(ngModel)]="entity.precioCompra" [formControl]="form.controls['fprecioCompra']">
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('required') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('maxlength') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
