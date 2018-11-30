@@ -37,16 +37,27 @@
                 <span>{{entity.precioVenta}}</span>
               </div>
             </div>
-          </div>
 
-          <div fxFlex.gt-xs="25" fxFlex="100">
-            <div fxLayout="column">
-              <span class="font-bold">Precio de Compra:</span>
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Precio de Compra:</span>
+              </div>
             </div>
-          </div>
-          <div fxFlex.gt-xs="75" fxFlex="100">
-            <div fxLayout="column">
-              <span>{{entity.precioCompra}}</span>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.precioCompra}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Producto:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.productos[0].codigo}}</span>
+              </div>
             </div>
           </div>
         </form>

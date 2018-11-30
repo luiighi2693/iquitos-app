@@ -38,17 +38,46 @@
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
                 <input matInput placeholder="Precio de Venta" name="precioVenta" [(ngModel)]="entity.precioVenta" [formControl]="form.controls['fprecioVenta']">
+                <span matPrefix>S&nbsp;</span>
               </mat-form-field>
               <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('required') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
               <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('maxlength') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+              <mat-hint *ngIf="form.controls['fprecioVenta'].errors?.range && form.controls['fprecioVenta'].touched" class="text-danger font-14">Campo debe ser válido</mat-hint>
             </div>
 
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
                 <input matInput placeholder="Precio de Compra" name="precioCompra" [(ngModel)]="entity.precioCompra" [formControl]="form.controls['fprecioCompra']">
+                <span matPrefix>S&nbsp;</span>
               </mat-form-field>
               <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('required') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
               <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('maxlength') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+              <mat-hint *ngIf="form.controls['fprecioCompra'].errors?.range && form.controls['fprecioCompra'].touched" class="text-danger font-14">Campo debe ser válido</mat-hint>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput type="number" placeholder="Cantidad" name="cantidad" [(ngModel)]="entity.cantidad" [formControl]="form.controls['fcantidad']">
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fcantidad'].hasError('required') && form.controls['fcantidad'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['fcantidad'].hasError('maxlength') && form.controls['fcantidad'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput type="text" placeholder="Producto" [(ngModel)]="entityFilteredSelectedInput" [formControl]="form.controls['fproductSelected']"
+                       [matAutocomplete]="autoTest" (keyup)="filterEntity()">
+                <button mat-button *ngIf="entityFilteredSelected" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelected()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autoTest="matAutocomplete">
+                  <mat-option *ngFor="let option of entitiesFiltered" [value]="option" (click)="setEntityFilter(option)">
+                    {{option.codigo}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fproductSelected'].hasError('required') && form.controls['fproductSelected'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['fproductSelected'].hasError('maxlength') && form.controls['fproductSelected'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
             </div>
           </div>
         </form>
