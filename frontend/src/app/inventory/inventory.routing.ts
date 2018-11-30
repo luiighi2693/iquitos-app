@@ -22,6 +22,11 @@ export const ContactModuleRoutes: Routes = [
         path: 'variant',
         canActivate: [AuthGuard],
         loadChildren: './variant/variant.module#VariantModule'
+      },
+      {
+        path: 'product',
+        canActivate: [AuthGuard],
+        loadChildren: './product/product.module#ProductModule'
       }
     ]
   }
