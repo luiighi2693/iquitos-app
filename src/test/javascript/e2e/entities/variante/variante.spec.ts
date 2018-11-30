@@ -42,13 +42,15 @@ describe('Variante e2e test', () => {
             varianteUpdatePage.setNombreInput('nombre'),
             varianteUpdatePage.setDescripcionInput('descripcion'),
             varianteUpdatePage.setPrecioVentaInput('5'),
-            varianteUpdatePage.setPrecioCompraInput('5')
+            varianteUpdatePage.setPrecioCompraInput('5'),
+            varianteUpdatePage.setCantidadInput('5')
             // varianteUpdatePage.productosSelectLastOption(),
         ]);
         expect(await varianteUpdatePage.getNombreInput()).to.eq('nombre');
         expect(await varianteUpdatePage.getDescripcionInput()).to.eq('descripcion');
         expect(await varianteUpdatePage.getPrecioVentaInput()).to.eq('5');
         expect(await varianteUpdatePage.getPrecioCompraInput()).to.eq('5');
+        expect(await varianteUpdatePage.getCantidadInput()).to.eq('5');
         await varianteUpdatePage.save();
         expect(await varianteUpdatePage.getSaveButton().isPresent()).to.be.false;
 

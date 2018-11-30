@@ -62,6 +62,9 @@ public class VarianteResourceIntTest {
     private static final Double DEFAULT_PRECIO_COMPRA = 1D;
     private static final Double UPDATED_PRECIO_COMPRA = 2D;
 
+    private static final Integer DEFAULT_CANTIDAD = 1;
+    private static final Integer UPDATED_CANTIDAD = 2;
+
     @Autowired
     private VarianteRepository varianteRepository;
 
@@ -123,7 +126,8 @@ public class VarianteResourceIntTest {
             .nombre(DEFAULT_NOMBRE)
             .descripcion(DEFAULT_DESCRIPCION)
             .precioVenta(DEFAULT_PRECIO_VENTA)
-            .precioCompra(DEFAULT_PRECIO_COMPRA);
+            .precioCompra(DEFAULT_PRECIO_COMPRA)
+            .cantidad(DEFAULT_CANTIDAD);
         return variante;
     }
 
@@ -152,6 +156,7 @@ public class VarianteResourceIntTest {
         assertThat(testVariante.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
         assertThat(testVariante.getPrecioVenta()).isEqualTo(DEFAULT_PRECIO_VENTA);
         assertThat(testVariante.getPrecioCompra()).isEqualTo(DEFAULT_PRECIO_COMPRA);
+        assertThat(testVariante.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
 
         // Validate the Variante in Elasticsearch
         verify(mockVarianteSearchRepository, times(1)).save(testVariante);
@@ -239,6 +244,25 @@ public class VarianteResourceIntTest {
 
     @Test
     @Transactional
+    public void checkCantidadIsRequired() throws Exception {
+        int databaseSizeBeforeTest = varianteRepository.findAll().size();
+        // set the field null
+        variante.setCantidad(null);
+
+        // Create the Variante, which fails.
+        VarianteDTO varianteDTO = varianteMapper.toDto(variante);
+
+        restVarianteMockMvc.perform(post("/api/variantes")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(varianteDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Variante> varianteList = varianteRepository.findAll();
+        assertThat(varianteList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllVariantes() throws Exception {
         // Initialize the database
         varianteRepository.saveAndFlush(variante);
@@ -251,7 +275,8 @@ public class VarianteResourceIntTest {
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
             .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))
-            .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())));
+            .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())))
+            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -301,7 +326,8 @@ public class VarianteResourceIntTest {
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()))
             .andExpect(jsonPath("$.precioVenta").value(DEFAULT_PRECIO_VENTA.doubleValue()))
-            .andExpect(jsonPath("$.precioCompra").value(DEFAULT_PRECIO_COMPRA.doubleValue()));
+            .andExpect(jsonPath("$.precioCompra").value(DEFAULT_PRECIO_COMPRA.doubleValue()))
+            .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD));
     }
 
     @Test
@@ -328,7 +354,8 @@ public class VarianteResourceIntTest {
             .nombre(UPDATED_NOMBRE)
             .descripcion(UPDATED_DESCRIPCION)
             .precioVenta(UPDATED_PRECIO_VENTA)
-            .precioCompra(UPDATED_PRECIO_COMPRA);
+            .precioCompra(UPDATED_PRECIO_COMPRA)
+            .cantidad(UPDATED_CANTIDAD);
         VarianteDTO varianteDTO = varianteMapper.toDto(updatedVariante);
 
         restVarianteMockMvc.perform(put("/api/variantes")
@@ -344,6 +371,7 @@ public class VarianteResourceIntTest {
         assertThat(testVariante.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
         assertThat(testVariante.getPrecioVenta()).isEqualTo(UPDATED_PRECIO_VENTA);
         assertThat(testVariante.getPrecioCompra()).isEqualTo(UPDATED_PRECIO_COMPRA);
+        assertThat(testVariante.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
 
         // Validate the Variante in Elasticsearch
         verify(mockVarianteSearchRepository, times(1)).save(testVariante);
@@ -407,7 +435,8 @@ public class VarianteResourceIntTest {
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))
-            .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())));
+            .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())))
+            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)));
     }
 
     @Test

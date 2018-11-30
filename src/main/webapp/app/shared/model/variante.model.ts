@@ -6,6 +6,7 @@ export interface IVariante {
     descripcion?: string;
     precioVenta?: number;
     precioCompra?: number;
+    cantidad?: number;
     productos?: IProducto[];
 }
 
@@ -16,6 +17,7 @@ export class Variante implements IVariante {
         public descripcion?: string,
         public precioVenta?: number,
         public precioCompra?: number,
+        public cantidad?: number,
         public productos?: IProducto[]
     ) {}
 }

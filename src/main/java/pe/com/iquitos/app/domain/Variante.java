@@ -44,6 +44,10 @@ public class Variante implements Serializable {
     @Column(name = "precio_compra", nullable = false)
     private Double precioCompra;
 
+    @NotNull
+    @Column(name = "cantidad", nullable = false)
+    private Integer cantidad;
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "variante_productos",
@@ -112,6 +116,19 @@ public class Variante implements Serializable {
         this.precioCompra = precioCompra;
     }
 
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public Variante cantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+        return this;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public Set<Producto> getProductos() {
         return productos;
     }
@@ -164,6 +181,7 @@ public class Variante implements Serializable {
             ", descripcion='" + getDescripcion() + "'" +
             ", precioVenta=" + getPrecioVenta() +
             ", precioCompra=" + getPrecioCompra() +
+            ", cantidad=" + getCantidad() +
             "}";
     }
 }

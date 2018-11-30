@@ -34,6 +34,7 @@
             <th jhiSortBy="descripcion"><span>Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="precioVenta"><span>Precio Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="precioCompra"><span>Precio Compra</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cantidad"><span>Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -44,6 +45,7 @@
                 <td>{{variante.descripcion}}</td>
                 <td>{{variante.precioVenta}}</td>
                 <td>{{variante.precioCompra}}</td>
+                <td>{{variante.cantidad}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

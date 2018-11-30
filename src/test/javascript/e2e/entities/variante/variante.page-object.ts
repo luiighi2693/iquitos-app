@@ -30,6 +30,7 @@ export class VarianteUpdatePage {
     descripcionInput = element(by.id('field_descripcion'));
     precioVentaInput = element(by.id('field_precioVenta'));
     precioCompraInput = element(by.id('field_precioCompra'));
+    cantidadInput = element(by.id('field_cantidad'));
     productosSelect = element(by.id('field_productos'));
 
     async getPageTitle() {
@@ -66,6 +67,14 @@ export class VarianteUpdatePage {
 
     async getPrecioCompraInput() {
         return this.precioCompraInput.getAttribute('value');
+    }
+
+    async setCantidadInput(cantidad) {
+        await this.cantidadInput.sendKeys(cantidad);
+    }
+
+    async getCantidadInput() {
+        return this.cantidadInput.getAttribute('value');
     }
 
     async productosSelectLastOption() {

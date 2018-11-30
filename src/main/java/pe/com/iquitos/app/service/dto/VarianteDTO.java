@@ -26,6 +26,9 @@ public class VarianteDTO implements Serializable {
     @NotNull
     private Double precioCompra;
 
+    @NotNull
+    private Integer cantidad;
+
     private Set<ProductoDTO> productos = new HashSet<>();
 
     public Long getId() {
@@ -68,6 +71,14 @@ public class VarianteDTO implements Serializable {
         this.precioCompra = precioCompra;
     }
 
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public Set<ProductoDTO> getProductos() {
         return productos;
     }
@@ -105,6 +116,7 @@ public class VarianteDTO implements Serializable {
             ", descripcion='" + getDescripcion() + "'" +
             ", precioVenta=" + getPrecioVenta() +
             ", precioCompra=" + getPrecioCompra() +
+            ", cantidad=" + getCantidad() +
             "}";
     }
 }
