@@ -4,9 +4,12 @@ import { Observable, Observer } from 'rxjs';
 import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from "ng2-validation";
-import {IProducto} from "../../models/producto.model";
+import {IProducto, ProductType, UnidadDeMedida} from "../../models/producto.model";
 import {ProductoService} from "./producto.service";
 import { JhiDataUtils } from 'ng-jhipster';
+import {CategoriaService} from "../category/categoria.service";
+import {ICategoria} from "../../models/categoria.model";
+import {IVariante} from "../../models/variante.model";
 
 export interface Tab {
   label: string;
@@ -31,10 +34,25 @@ export class ProductUpdateComponent implements OnInit {
   reverse = true;
   totalItems: number;
 
+  tiposDeProducto: ProductType[] = [
+    ProductType.BIENES,
+    ProductType.SERVICIOS
+  ];
+
+  unidadesDeMedida: UnidadDeMedida[] = [
+    UnidadDeMedida.KILO,
+    UnidadDeMedida.LITRO
+  ];
+
   public form: FormGroup;
+
+  categorias: ICategoria[];
+
+  variantes: IVariante[];
 
   constructor(private dataUtils: JhiDataUtils,
               private service: ProductoService,
+              private categoriaService: CategoriaService,
               private activatedRoute: ActivatedRoute,
               private elementRef: ElementRef,
               private fb: FormBuilder) {
@@ -65,7 +83,19 @@ export class ProductUpdateComponent implements OnInit {
           Validators.compose([CustomValidators.date])
         ],
       });
+
     });
+
+    this.categoriaService.query().subscribe(
+      (res: HttpResponse<ICategoria[]>) => {
+        this.categorias = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  private onError(errorMessage: string) {
+    console.log(errorMessage);
   }
 
   sort() {

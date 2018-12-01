@@ -16,6 +16,8 @@ import java.util.Objects;
 
 import pe.com.iquitos.app.domain.enumeration.ProductType;
 
+import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
+
 /**
  * A Producto.
  */
@@ -67,8 +69,8 @@ public class Producto implements Serializable {
     @Column(name = "tipo_de_producto")
     private ProductType tipoDeProducto;
 
-    @ManyToOne
-    @JsonIgnoreProperties("")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "unidad_de_medida")
     private UnidadDeMedida unidadDeMedida;
 
     @ManyToOne
@@ -305,6 +307,7 @@ public class Producto implements Serializable {
             ", stock=" + getStock() +
             ", notificacionDeLimiteDeStock=" + getNotificacionDeLimiteDeStock() +
             ", tipoDeProducto='" + getTipoDeProducto() + "'" +
+            ", unidadDeMedida='" + getUnidadDeMedida() + "'" +
             "}";
     }
 }

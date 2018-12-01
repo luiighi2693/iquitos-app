@@ -48,9 +48,7 @@
                 </dd>
                 <dt><span>Unidad De Medida</span></dt>
                 <dd>
-                    <div *ngIf="producto.unidadDeMedidaId">
-                        <a [routerLink]="['/unidad-de-medida', producto.unidadDeMedidaId, 'view']">{{producto.unidadDeMedidaNombre}}</a>
-                    </div>
+                    <span>{{producto.unidadDeMedida}}</span>
                 </dd>
                 <dt><span>Categoria</span></dt>
                 <dd>

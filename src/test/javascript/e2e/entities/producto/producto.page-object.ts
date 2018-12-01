@@ -112,23 +112,19 @@ export class ProductoUpdatePage {
             .click();
     }
 
+    async setUnidadDeMedidaSelect(unidadDeMedida) {
+        await this.unidadDeMedidaSelect.sendKeys(unidadDeMedida);
+    }
+
+    async getUnidadDeMedidaSelect() {
+        return this.unidadDeMedidaSelect.element(by.css('option:checked')).getText();
+    }
+
     async unidadDeMedidaSelectLastOption() {
         await this.unidadDeMedidaSelect
             .all(by.tagName('option'))
             .last()
             .click();
-    }
-
-    async unidadDeMedidaSelectOption(option) {
-        await this.unidadDeMedidaSelect.sendKeys(option);
-    }
-
-    getUnidadDeMedidaSelect(): ElementFinder {
-        return this.unidadDeMedidaSelect;
-    }
-
-    async getUnidadDeMedidaSelectedOption() {
-        return this.unidadDeMedidaSelect.element(by.css('option:checked')).getText();
     }
 
     async categoriaSelectLastOption() {

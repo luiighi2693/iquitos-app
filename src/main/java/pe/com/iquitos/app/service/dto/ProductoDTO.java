@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.Objects;
 import javax.persistence.Lob;
 import pe.com.iquitos.app.domain.enumeration.ProductType;
+import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
 
 /**
  * A DTO for the Producto entity.
@@ -40,9 +41,7 @@ public class ProductoDTO implements Serializable {
 
     private ProductType tipoDeProducto;
 
-    private Long unidadDeMedidaId;
-
-    private String unidadDeMedidaNombre;
+    private UnidadDeMedida unidadDeMedida;
 
     private Long categoriaId;
 
@@ -138,20 +137,12 @@ public class ProductoDTO implements Serializable {
         this.tipoDeProducto = tipoDeProducto;
     }
 
-    public Long getUnidadDeMedidaId() {
-        return unidadDeMedidaId;
+    public UnidadDeMedida getUnidadDeMedida() {
+        return unidadDeMedida;
     }
 
-    public void setUnidadDeMedidaId(Long unidadDeMedidaId) {
-        this.unidadDeMedidaId = unidadDeMedidaId;
-    }
-
-    public String getUnidadDeMedidaNombre() {
-        return unidadDeMedidaNombre;
-    }
-
-    public void setUnidadDeMedidaNombre(String unidadDeMedidaNombre) {
-        this.unidadDeMedidaNombre = unidadDeMedidaNombre;
+    public void setUnidadDeMedida(UnidadDeMedida unidadDeMedida) {
+        this.unidadDeMedida = unidadDeMedida;
     }
 
     public Long getCategoriaId() {
@@ -212,8 +203,7 @@ public class ProductoDTO implements Serializable {
             ", stock=" + getStock() +
             ", notificacionDeLimiteDeStock=" + getNotificacionDeLimiteDeStock() +
             ", tipoDeProducto='" + getTipoDeProducto() + "'" +
-            ", unidadDeMedida=" + getUnidadDeMedidaId() +
-            ", unidadDeMedida='" + getUnidadDeMedidaNombre() + "'" +
+            ", unidadDeMedida='" + getUnidadDeMedida() + "'" +
             ", categoria=" + getCategoriaId() +
             ", categoria='" + getCategoriaNombre() + "'" +
             "}";

@@ -45,6 +45,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import pe.com.iquitos.app.domain.enumeration.ProductType;
+import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
 /**
  * Test class for the ProductoResource REST controller.
  *
@@ -82,6 +83,9 @@ public class ProductoResourceIntTest {
 
     private static final ProductType DEFAULT_TIPO_DE_PRODUCTO = ProductType.BIENES;
     private static final ProductType UPDATED_TIPO_DE_PRODUCTO = ProductType.SERVICIOS;
+
+    private static final UnidadDeMedida DEFAULT_UNIDAD_DE_MEDIDA = UnidadDeMedida.KILO;
+    private static final UnidadDeMedida UPDATED_UNIDAD_DE_MEDIDA = UnidadDeMedida.LITRO;
 
     @Autowired
     private ProductoRepository productoRepository;
@@ -150,7 +154,8 @@ public class ProductoResourceIntTest {
             .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE)
             .stock(DEFAULT_STOCK)
             .notificacionDeLimiteDeStock(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)
-            .tipoDeProducto(DEFAULT_TIPO_DE_PRODUCTO);
+            .tipoDeProducto(DEFAULT_TIPO_DE_PRODUCTO)
+            .unidadDeMedida(DEFAULT_UNIDAD_DE_MEDIDA);
         return producto;
     }
 
@@ -185,6 +190,7 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getStock()).isEqualTo(DEFAULT_STOCK);
         assertThat(testProducto.getNotificacionDeLimiteDeStock()).isEqualTo(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK);
         assertThat(testProducto.getTipoDeProducto()).isEqualTo(DEFAULT_TIPO_DE_PRODUCTO);
+        assertThat(testProducto.getUnidadDeMedida()).isEqualTo(DEFAULT_UNIDAD_DE_MEDIDA);
 
         // Validate the Producto in Elasticsearch
         verify(mockProductoSearchRepository, times(1)).save(testProducto);
@@ -271,7 +277,8 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
-            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())));
+            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())))
+            .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -327,7 +334,8 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
             .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK))
             .andExpect(jsonPath("$.notificacionDeLimiteDeStock").value(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK))
-            .andExpect(jsonPath("$.tipoDeProducto").value(DEFAULT_TIPO_DE_PRODUCTO.toString()));
+            .andExpect(jsonPath("$.tipoDeProducto").value(DEFAULT_TIPO_DE_PRODUCTO.toString()))
+            .andExpect(jsonPath("$.unidadDeMedida").value(DEFAULT_UNIDAD_DE_MEDIDA.toString()));
     }
 
     @Test
@@ -360,7 +368,8 @@ public class ProductoResourceIntTest {
             .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
             .stock(UPDATED_STOCK)
             .notificacionDeLimiteDeStock(UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK)
-            .tipoDeProducto(UPDATED_TIPO_DE_PRODUCTO);
+            .tipoDeProducto(UPDATED_TIPO_DE_PRODUCTO)
+            .unidadDeMedida(UPDATED_UNIDAD_DE_MEDIDA);
         ProductoDTO productoDTO = productoMapper.toDto(updatedProducto);
 
         restProductoMockMvc.perform(put("/api/productos")
@@ -382,6 +391,7 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getStock()).isEqualTo(UPDATED_STOCK);
         assertThat(testProducto.getNotificacionDeLimiteDeStock()).isEqualTo(UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK);
         assertThat(testProducto.getTipoDeProducto()).isEqualTo(UPDATED_TIPO_DE_PRODUCTO);
+        assertThat(testProducto.getUnidadDeMedida()).isEqualTo(UPDATED_UNIDAD_DE_MEDIDA);
 
         // Validate the Producto in Elasticsearch
         verify(mockProductoSearchRepository, times(1)).save(testProducto);
@@ -451,7 +461,8 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
-            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())));
+            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())))
+            .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())));
     }
 
     @Test

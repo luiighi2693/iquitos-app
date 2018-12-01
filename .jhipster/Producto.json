@@ -50,15 +50,14 @@
             "fieldName": "tipoDeProducto",
             "fieldType": "ProductType",
             "fieldValues": "BIENES,SERVICIOS"
+        },
+        {
+            "fieldName": "unidadDeMedida",
+            "fieldType": "UnidadDeMedida",
+            "fieldValues": "KILO,LITRO"
         }
     ],
     "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "unidadDeMedida",
-            "otherEntityName": "unidadDeMedida",
-            "otherEntityField": "nombre"
-        },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "categoria",
