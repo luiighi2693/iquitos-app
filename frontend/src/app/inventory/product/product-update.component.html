@@ -22,7 +22,7 @@
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="entity.nombre" [formControl]="form.controls['fnombre']">
+                <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="entity.codigo" [formControl]="form.controls['fnombre']">
               </mat-form-field>
               <mat-hint *ngIf="form.controls['fnombre'].hasError('required') && form.controls['fnombre'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
               <mat-hint *ngIf="form.controls['fnombre'].hasError('maxlength') && form.controls['fnombre'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
@@ -35,49 +35,39 @@
               <mat-hint *ngIf="form.controls['fdescripcion'].hasError('maxlength') && form.controls['fdescripcion'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
             </div>
 
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+            <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Precio de Venta" name="precioVenta" [(ngModel)]="entity.precioVenta" [formControl]="form.controls['fprecioVenta']">
-                <span matPrefix>S&nbsp;</span>
+                <input matInput type="number" placeholder="Cantidad" name="cantidad" [(ngModel)]="entity.stock">
               </mat-form-field>
-              <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('required') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
-              <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('maxlength') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
-              <mat-hint *ngIf="form.controls['fprecioVenta'].errors?.range && form.controls['fprecioVenta'].touched" class="text-danger font-14">Campo debe ser válido</mat-hint>
+            </div>
+
+            <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput type="number" placeholder="Límite de stock" name="cantidad" [(ngModel)]="entity.notificacionDeLimiteDeStock">
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Fecha de Expiración" [formControl]="form.controls['fdate']">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fdate'].errors?.date && form.controls['fdate'].touched" class="text-danger font-14">Debe incluir una fecha válida.</mat-hint>
             </div>
 
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput placeholder="Precio de Compra" name="precioCompra" [(ngModel)]="entity.precioCompra" [formControl]="form.controls['fprecioCompra']">
-                <span matPrefix>S&nbsp;</span>
-              </mat-form-field>
-              <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('required') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
-              <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('maxlength') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
-              <mat-hint *ngIf="form.controls['fprecioCompra'].errors?.range && form.controls['fprecioCompra'].touched" class="text-danger font-14">Campo debe ser válido</mat-hint>
-            </div>
-
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput type="number" placeholder="Cantidad" name="cantidad" [(ngModel)]="entity.cantidad" [formControl]="form.controls['fcantidad']">
-              </mat-form-field>
-              <mat-hint *ngIf="form.controls['fcantidad'].hasError('required') && form.controls['fcantidad'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
-              <mat-hint *ngIf="form.controls['fcantidad'].hasError('maxlength') && form.controls['fcantidad'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
-            </div>
-
-            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput type="text" placeholder="Producto" [(ngModel)]="entityFilteredSelectedInput" [formControl]="form.controls['fproductSelected']"
-                       [matAutocomplete]="autoTest" (keyup)="filterEntity()">
-                <button mat-button *ngIf="entityFilteredSelected" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelected()">
-                  <mat-icon>close</mat-icon>
-                </button>
-                <mat-autocomplete #autoTest="matAutocomplete">
-                  <mat-option *ngFor="let option of entitiesFiltered" [value]="option" (click)="setEntityFilter(option)">
-                    {{option.codigo}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-              <mat-hint *ngIf="form.controls['fproductSelected'].hasError('required') && form.controls['fproductSelected'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
-              <mat-hint *ngIf="form.controls['fproductSelected'].hasError('maxlength') && form.controls['fproductSelected'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+                <div>
+                  <img [src]="'data:' + entity.imagenContentType + ';base64,' + entity.imagen" style="max-height: 100px;" *ngIf="entity.imagen" alt="entity image"/>
+                  <button *ngIf="entity.imagen" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                  <input type="file" id="file_imagen" (change)="setFileData($event, entity, 'imagen', true)" accept="image/*"/>
+                </div>
+                <input type="hidden" class="form-control" name="imagen" id="field_imagen"
+                       [(ngModel)]="entity.imagen" />
+                <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
+                       [(ngModel)]="entity.imagenContentType" />
             </div>
           </div>
         </form>

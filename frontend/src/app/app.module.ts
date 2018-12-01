@@ -24,6 +24,7 @@ import { SpinnerComponent } from './shared/spinner.component';
 import {AuthGuard} from './shared/util/auth.guard';
 import {AuthenticationService} from './shared/util/authentication.service';
 import {FullService} from './layouts/full/full.service';
+import { NgJhipsterModule } from 'ng-jhipster';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -49,6 +50,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     PerfectScrollbarModule,
     SharedModule,
+    NgJhipsterModule,
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [

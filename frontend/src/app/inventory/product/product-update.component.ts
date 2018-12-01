@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
 import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
@@ -6,6 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from "ng2-validation";
 import {IProducto} from "../../models/producto.model";
 import {ProductoService} from "./producto.service";
+import { JhiDataUtils } from 'ng-jhipster';
 
 export interface Tab {
   label: string;
@@ -32,8 +33,10 @@ export class ProductUpdateComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor(private service: ProductoService,
+  constructor(private dataUtils: JhiDataUtils,
+              private service: ProductoService,
               private activatedRoute: ActivatedRoute,
+              private elementRef: ElementRef,
               private fb: FormBuilder) {
   }
 
@@ -57,36 +60,10 @@ export class ProductUpdateComponent implements OnInit {
             Validators.maxLength(150)
           ])
         ],
-        fprecioVenta: [
+        fdate: [
           null,
-          Validators.compose([
-            Validators.required,
-            Validators.maxLength(150),
-            CustomValidators.range([1, 10000000])
-          ])
+          Validators.compose([CustomValidators.date])
         ],
-        fprecioCompra: [
-          null,
-          Validators.compose([
-            Validators.required,
-            Validators.maxLength(150),
-            CustomValidators.range([1, 10000000])
-          ])
-        ],
-        fcantidad: [
-          null,
-          Validators.compose([
-            Validators.required,
-            Validators.maxLength(8)
-          ])
-        ],
-        fproductSelected: [
-          null,
-          Validators.compose([
-            Validators.required,
-            Validators.maxLength(150)
-          ])
-        ]
       });
     });
   }
@@ -128,5 +105,21 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   private updateEntity() {
+  }
+
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+
+  setFileData(event, entity, field, isImage) {
+    this.dataUtils.setFileData(event, entity, field, isImage);
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string) {
+    this.dataUtils.clearInputImage(this.entity, this.elementRef, field, fieldContentType, idInput);
   }
 }
