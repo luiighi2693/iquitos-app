@@ -1,0 +1,132 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <h4>Detalles del Empleado</h4>
+        <form class="basic-form">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Nombre:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.nombre}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Apellido:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.apellido}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Fecha de Nacimiento:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.fechaDeNacimiento}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Dni:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.dni}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Dirección:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.direccion}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Correo:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.correo}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Sexo:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.sexo}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Teléfono:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.telefono}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Rol:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.rolEmpleado}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Imagen:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <div>
+                  <img [src]="'data:' + entity.imagenContentType + ';base64,' + entity.imagen" style="max-height: 100px;" *ngIf="entity.imagen" alt="entity image"/>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </form>
+        <div class="p-10 text-right">
+          <div class="button-row">
+            <button mat-raised-button color="basic" class="bg-warning" (click)="previousState()">IMPRIMIR</button>
+            <button mat-raised-button color="primary" (click)="previousState()">ACEPTAR</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

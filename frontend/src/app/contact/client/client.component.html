@@ -1,0 +1,95 @@
+<div fxLayout="row wrap">
+  <!-- Column-->
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Clientes</mat-card-title>
+
+        <div class="responsive-table">
+          <div fxLayout="row wrap">
+            <mat-form-field fxFlex.gt-sm="75" fxFlex="75">
+              <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">-->
+              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)" >
+            </mat-form-field>
+
+            <div fxFlex.gt-sm="25" fxFlex="25" id="newSection">
+              <button mat-raised-button color="primary" [routerLink]="['/contact/client/new']">Nuevo</button>
+            </div>
+          </div>
+
+          <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="entities">
+
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection.hasValue() && isAllSelected()"
+                              [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+              <mat-header-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-header-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Nombre:</span>
+                {{element.nombre}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="codigo">
+              <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Documento:</span>
+                {{element.codigo}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoDeCliente">
+              <mat-header-cell *matHeaderCellDef> Tipo de Cliente </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Tipo de Cliente:</span>
+                {{element.tipoDeCliente}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="estatusCivil">
+              <mat-header-cell *matHeaderCellDef> Estado Civil </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Estado Civil:</span>
+                {{element.estatusCivil}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="star">
+              <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <a class="ng-star-inserted" [routerLink]="['/contact/client', element.id, 'view' ]">
+                  <i class="ti-eye text-info m-r-10"></i>
+                </a>
+
+                <a class="ng-star-inserted" [routerLink]="['/contact/client', element.id, 'edit']">
+                  <i class="ti-pencil text-info m-r-10"></i>
+                </a>
+                <!--<a class="ng-star-inserted" (click)="deleteRow(element)">-->
+                <a class="ng-star-inserted" (click)="openDialog(element)">
+                  <i class="ti-trash text-danger m-r-10"></i>
+                </a>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </div>
+        <!--<mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">-->
+        <!--</mat-paginator>-->
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -3,7 +3,7 @@
     <div style="display: flex;">
       <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="previousState()" style="cursor: pointer">
         <mat-icon>arrow_back</mat-icon>
-        <span class="goBackTag">Todos los Productos</span>
+        <span class="goBackTag">Todos los Empleados</span>
       </div>
 
       <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
@@ -16,13 +16,13 @@
 
     <mat-card>
       <mat-card-content>
-        <mat-card-title>Producto {{!entity.id ? 'Nuevo' : 'Edición'}} </mat-card-title>
+        <mat-card-title>Cliente {{!entity.id ? 'Nuevo' : 'Edición'}} </mat-card-title>
         <form class="basic-form">
           <div fxLayout="row wrap">
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="entity.codigo" [formControl]="form.controls['fnombre']">
+                <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="entity.nombre" [formControl]="form.controls['fnombre']">
               </mat-form-field>
               <mat-hint *ngIf="form.controls['fnombre'].hasError('required') && form.controls['fnombre'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
               <mat-hint *ngIf="form.controls['fnombre'].hasError('maxlength') && form.controls['fnombre'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
@@ -30,42 +30,57 @@
 
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Descripción" name="descripcion" [(ngModel)]="entity.descripcion" [formControl]="form.controls['fdescripcion']">
+                <input matInput placeholder="Documento" name="codigo" [(ngModel)]="entity.codigo" [formControl]="form.controls['fcodigo']">
               </mat-form-field>
-              <mat-hint *ngIf="form.controls['fdescripcion'].hasError('maxlength') && form.controls['fdescripcion'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+              <mat-hint *ngIf="form.controls['fcodigo'].hasError('maxlength') && form.controls['fcodigo'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
             </div>
 
-            <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput type="number" placeholder="Cantidad" name="cantidad" [(ngModel)]="entity.stock">
-              </mat-form-field>
-            </div>
-
-            <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
-              <mat-form-field>
-                <input matInput type="number" placeholder="Límite de stock" name="cantidad" [(ngModel)]="entity.notificacionDeLimiteDeStock">
+                <input matInput placeholder="Dirección" name="direccion" [(ngModel)]="entity.direccion">
               </mat-form-field>
             </div>
 
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
-              <mat-checkbox class="example-margin p-10" [(ngModel)]="entity.esFavorito" [ngModelOptions]="{standalone: true}">¿Favorito?</mat-checkbox>
-              <mat-checkbox class="example-margin p-10" [(ngModel)]="entity.visibleParaLaVenta" [ngModelOptions]="{standalone: true}">¿Visible en Venta?</mat-checkbox>
+              <mat-form-field>
+                <input type="number" matInput placeholder="Teléfono" name="telefono" [(ngModel)]="entity.telefono" [formControl]="form.controls['ftelefono']">
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['ftelefono'].hasError('required') && form.controls['ftelefono'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['ftelefono'].hasError('maxlength') && form.controls['ftelefono'].touched" class="text-danger font-14">Limite excedido</mat-hint>
             </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Email" name="email" [(ngModel)]="entity.correo" [formControl]="form.controls['femail']">
+              </mat-form-field>
+              <small *ngIf="form.controls['femail'].errors?.email && form.controls['femail'].touched" class="text-danger font-14">Correo inválido</small>
+            </div>
+
 
             <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput [matDatepicker]="picker" [(ngModel)]="entity.fechaExpiracion" placeholder="Fecha de Expiración (mm/dd/yyyy)" [formControl]="form.controls['fdate']">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="entity.fechaDeNacimiento" placeholder="Fecha de Nacimiento (mm/dd/yyyy)" [formControl]="form.controls['ffechaNacimiento']">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-              <mat-hint *ngIf="form.controls['fdate'].errors?.date && form.controls['fdate'].touched" class="text-danger font-14">Debe incluir una fecha válida.</mat-hint>
+              <mat-hint *ngIf="form.controls['ffechaNacimiento'].errors?.date && form.controls['ffechaNacimiento'].touched" class="text-danger font-14">Debe incluir una fecha válida.</mat-hint>
             </div>
 
-            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10" *ngIf="entity.tipoDeCliente !== 'JURIDICO'">
               <mat-form-field>
-                <mat-select placeholder="Tipo de Producto" [(ngModel)]="entity.tipoDeProducto" name="productType">
-                  <mat-option *ngFor="let type of tiposDeProducto" [value]="type">
-                    {{type}}
+                <mat-select placeholder="Sexo" [(ngModel)]="entity.sexo" name="sex">
+                  <mat-option *ngFor="let sex of sexos" [value]="sex">
+                    {{sex}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10" *ngIf="entity.tipoDeCliente !== 'JURIDICO'">
+              <mat-form-field>
+                <mat-select placeholder="Estado Civil" [(ngModel)]="entity.estatusCivil" name="estatusCivil">
+                  <mat-option *ngFor="let estadoCivil of estatusCiviles" [value]="estadoCivil">
+                    {{estadoCivil}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -73,9 +88,9 @@
 
             <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
               <mat-form-field>
-                <mat-select placeholder="Unidad de medida" [(ngModel)]="entity.unidadDeMedida" name="unit">
-                  <mat-option *ngFor="let unit of unidadesDeMedida" [value]="unit">
-                    {{unit}}
+                <mat-select placeholder="Tipo de Cliente" [(ngModel)]="entity.tipoDeCliente" name="tipoDeCliente">
+                  <mat-option *ngFor="let tipoCliente of tiposDeCliente" [value]="tipoCliente">
+                    {{tipoCliente}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -83,10 +98,10 @@
 
             <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
               <mat-form-field>
-                <mat-select placeholder="Categoria" [(ngModel)]="entity.categoriaId" name="category">
+                <mat-select placeholder="Tipo de Documento" [(ngModel)]="entity.tipoDeDocumentoId" name="tipoDeDocumento">
                   <mat-option [value]="null"></mat-option>
-                  <mat-option *ngFor="let categoriaOption of categorias;" [value]="categoriaOption.id">
-                    {{categoriaOption.nombre}}
+                  <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
+                    {{tipoDocumento.nombre}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

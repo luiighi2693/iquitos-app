@@ -52,7 +52,7 @@
               <mat-form-field>
                 <input matInput placeholder="Email" name="email" [(ngModel)]="proveedor.correo" [formControl]="form.controls['email']">
               </mat-form-field>
-              <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger font-14">You must include a valid email address.</small>
+              <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger font-14">Correo inválido</small>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">

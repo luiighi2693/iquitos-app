@@ -1,3 +1,5 @@
 [
-  { "value": "PROVEEDORES", "uri": "/contact/provider"}
+  { "value": "PROVEEDORES", "uri": "/contact/provider"},
+  { "value": "EMPLEADOS", "uri": "/contact/employee"},
+  { "value": "CLIENTES", "uri": "/contact/client"}
 ]

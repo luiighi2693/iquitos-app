@@ -17,6 +17,16 @@ export const ContactModuleRoutes: Routes = [
         path: 'provider',
         canActivate: [AuthGuard],
         loadChildren: './provider/provider.module#ProviderModule'
+      },
+      {
+        path: 'employee',
+        canActivate: [AuthGuard],
+        loadChildren: './employee/employee.module#EmployeeModule'
+      },
+      {
+        path: 'client',
+        canActivate: [AuthGuard],
+        loadChildren: './client/client.module#ClientModule'
       }
     ]
   }
