@@ -16,8 +16,6 @@ import java.util.Objects;
 
 import pe.com.iquitos.app.domain.enumeration.ProductType;
 
-import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
-
 /**
  * A Producto.
  */
@@ -37,6 +35,11 @@ public class Producto implements Serializable {
     @Size(max = 150)
     @Column(name = "codigo", length = 150, nullable = false)
     private String codigo;
+
+    @NotNull
+    @Size(max = 150)
+    @Column(name = "nombre", length = 150, nullable = false)
+    private String nombre;
 
     @Size(max = 150)
     @Column(name = "descripcion", length = 150)
@@ -69,8 +72,8 @@ public class Producto implements Serializable {
     @Column(name = "tipo_de_producto")
     private ProductType tipoDeProducto;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "unidad_de_medida")
+    @ManyToOne
+    @JsonIgnoreProperties("")
     private UnidadDeMedida unidadDeMedida;
 
     @ManyToOne
@@ -104,6 +107,19 @@ public class Producto implements Serializable {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Producto nombre(String nombre) {
+        this.nombre = nombre;
+        return this;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -298,6 +314,7 @@ public class Producto implements Serializable {
         return "Producto{" +
             "id=" + getId() +
             ", codigo='" + getCodigo() + "'" +
+            ", nombre='" + getNombre() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
             ", fechaExpiracion='" + getFechaExpiracion() + "'" +
             ", esFavorito='" + isEsFavorito() + "'" +
@@ -307,7 +324,6 @@ public class Producto implements Serializable {
             ", stock=" + getStock() +
             ", notificacionDeLimiteDeStock=" + getNotificacionDeLimiteDeStock() +
             ", tipoDeProducto='" + getTipoDeProducto() + "'" +
-            ", unidadDeMedida='" + getUnidadDeMedida() + "'" +
             "}";
     }
 }

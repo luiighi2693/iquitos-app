@@ -32,6 +32,7 @@ export class ProveedorUpdatePage {
     correoInput = element(by.id('field_correo'));
     telefonoInput = element(by.id('field_telefono'));
     sectorInput = element(by.id('field_sector'));
+    usuarioSelect = element(by.id('field_usuario'));
     cuentaProveedorSelect = element(by.id('field_cuentaProveedor'));
     contactoProveedorSelect = element(by.id('field_contactoProveedor'));
 
@@ -85,6 +86,25 @@ export class ProveedorUpdatePage {
 
     async getSectorInput() {
         return this.sectorInput.getAttribute('value');
+    }
+
+    async usuarioSelectLastOption() {
+        await this.usuarioSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async usuarioSelectOption(option) {
+        await this.usuarioSelect.sendKeys(option);
+    }
+
+    getUsuarioSelect(): ElementFinder {
+        return this.usuarioSelect;
+    }
+
+    async getUsuarioSelectedOption() {
+        return this.usuarioSelect.element(by.css('option:checked')).getText();
     }
 
     async cuentaProveedorSelectLastOption() {

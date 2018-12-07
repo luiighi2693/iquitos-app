@@ -6,14 +6,10 @@ export const enum ProductType {
     SERVICIOS = 'SERVICIOS'
 }
 
-export const enum UnidadDeMedida {
-    KILO = 'KILO',
-    LITRO = 'LITRO'
-}
-
 export interface IProducto {
     id?: number;
     codigo?: string;
+    nombre?: string;
     descripcion?: string;
     fechaExpiracion?: Moment;
     esFavorito?: boolean;
@@ -23,7 +19,8 @@ export interface IProducto {
     stock?: number;
     notificacionDeLimiteDeStock?: number;
     tipoDeProducto?: ProductType;
-    unidadDeMedida?: UnidadDeMedida;
+    unidadDeMedidaNombre?: string;
+    unidadDeMedidaId?: number;
     categoriaNombre?: string;
     categoriaId?: number;
     variantes?: IVariante[];
@@ -33,6 +30,7 @@ export class Producto implements IProducto {
     constructor(
         public id?: number,
         public codigo?: string,
+        public nombre?: string,
         public descripcion?: string,
         public fechaExpiracion?: Moment,
         public esFavorito?: boolean,
@@ -42,7 +40,8 @@ export class Producto implements IProducto {
         public stock?: number,
         public notificacionDeLimiteDeStock?: number,
         public tipoDeProducto?: ProductType,
-        public unidadDeMedida?: UnidadDeMedida,
+        public unidadDeMedidaNombre?: string,
+        public unidadDeMedidaId?: number,
         public categoriaNombre?: string,
         public categoriaId?: number,
         public variantes?: IVariante[]

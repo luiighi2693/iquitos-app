@@ -44,7 +44,8 @@ describe('Proveedor e2e test', () => {
             proveedorUpdatePage.setDireccionInput('direccion'),
             proveedorUpdatePage.setCorreoInput('correo'),
             proveedorUpdatePage.setTelefonoInput('telefono'),
-            proveedorUpdatePage.setSectorInput('sector')
+            proveedorUpdatePage.setSectorInput('sector'),
+            proveedorUpdatePage.usuarioSelectLastOption()
             // proveedorUpdatePage.cuentaProveedorSelectLastOption(),
             // proveedorUpdatePage.contactoProveedorSelectLastOption(),
         ]);

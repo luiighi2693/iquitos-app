@@ -8,6 +8,12 @@
     -->
     <changeSet id="20181116232528-2" author="jhipster">
         
+        <addForeignKeyConstraint baseColumnNames="usuario_id"
+                                 baseTableName="proveedor"
+                                 constraintName="fk_proveedor_usuario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="usuario_externo"/>
+
         <addForeignKeyConstraint baseColumnNames="proveedors_id"
                                  baseTableName="proveedor_cuenta_proveedor"
                                  constraintName="fk_proveedor_cuenta_proveedor_proveedors_id"

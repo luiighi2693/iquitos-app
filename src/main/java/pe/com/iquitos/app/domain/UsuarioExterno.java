@@ -33,7 +33,14 @@ public class UsuarioExterno implements Serializable {
     @Column(name = "pin", nullable = false)
     private Integer pin;
 
-    @Column(name = "jhi_role")
+    @NotNull
+    @Size(max = 150)
+    @Column(name = "user_type", length = 150, nullable = false)
+    private String userType;
+
+    @NotNull
+    @Size(max = 150)
+    @Column(name = "jhi_role", length = 150, nullable = false)
     private String role;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -69,6 +76,19 @@ public class UsuarioExterno implements Serializable {
 
     public void setPin(Integer pin) {
         this.pin = pin;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public UsuarioExterno userType(String userType) {
+        this.userType = userType;
+        return this;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getRole() {
@@ -111,6 +131,7 @@ public class UsuarioExterno implements Serializable {
             "id=" + getId() +
             ", dni=" + getDni() +
             ", pin=" + getPin() +
+            ", userType='" + getUserType() + "'" +
             ", role='" + getRole() + "'" +
             "}";
     }

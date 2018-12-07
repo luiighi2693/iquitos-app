@@ -54,6 +54,14 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-one",
+            "relationshipName": "usuario",
+            "otherEntityName": "usuarioExterno",
+            "otherEntityField": "dni",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "proveedor"
+        },
+        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
             "relationshipName": "cuentaProveedor",

@@ -11,6 +11,15 @@
             "fieldValidateRulesMaxlength": 150
         },
         {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
             "fieldName": "descripcion",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -50,14 +59,15 @@
             "fieldName": "tipoDeProducto",
             "fieldType": "ProductType",
             "fieldValues": "BIENES,SERVICIOS"
-        },
-        {
-            "fieldName": "unidadDeMedida",
-            "fieldType": "UnidadDeMedida",
-            "fieldValues": "KILO,LITRO"
         }
     ],
     "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "unidadDeMedida",
+            "otherEntityName": "unidadDeMedida",
+            "otherEntityField": "nombre"
+        },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "categoria",

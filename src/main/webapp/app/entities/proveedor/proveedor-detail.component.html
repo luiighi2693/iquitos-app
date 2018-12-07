@@ -29,6 +29,12 @@
                 <dd>
                     <span>{{proveedor.sector}}</span>
                 </dd>
+                <dt><span>Usuario</span></dt>
+                <dd>
+                    <div *ngIf="proveedor.usuarioId">
+                        <a [routerLink]="['/usuario-externo', proveedor.usuarioId, 'view']">{{proveedor.usuarioDni}}</a>
+                    </div>
+                </dd>
                 <dt><span>Cuenta Proveedor</span></dt>
                 <dd>
                     <span *ngFor="let cuentaProveedor of proveedor.cuentaProveedors; let last = last">

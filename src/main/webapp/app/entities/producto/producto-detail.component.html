@@ -9,6 +9,10 @@
                 <dd>
                     <span>{{producto.codigo}}</span>
                 </dd>
+                <dt><span>Nombre</span></dt>
+                <dd>
+                    <span>{{producto.nombre}}</span>
+                </dd>
                 <dt><span>Descripcion</span></dt>
                 <dd>
                     <span>{{producto.descripcion}}</span>
@@ -48,7 +52,9 @@
                 </dd>
                 <dt><span>Unidad De Medida</span></dt>
                 <dd>
-                    <span>{{producto.unidadDeMedida}}</span>
+                    <div *ngIf="producto.unidadDeMedidaId">
+                        <a [routerLink]="['/unidad-de-medida', producto.unidadDeMedidaId, 'view']">{{producto.unidadDeMedidaNombre}}</a>
+                    </div>
                 </dd>
                 <dt><span>Categoria</span></dt>
                 <dd>

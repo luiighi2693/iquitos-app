@@ -17,6 +17,12 @@ public class UsuarioExternoDTO implements Serializable {
     @NotNull
     private Integer pin;
 
+    @NotNull
+    @Size(max = 150)
+    private String userType;
+
+    @NotNull
+    @Size(max = 150)
     private String role;
 
     public Long getId() {
@@ -41,6 +47,14 @@ public class UsuarioExternoDTO implements Serializable {
 
     public void setPin(Integer pin) {
         this.pin = pin;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getRole() {
@@ -78,6 +92,7 @@ public class UsuarioExternoDTO implements Serializable {
             "id=" + getId() +
             ", dni=" + getDni() +
             ", pin=" + getPin() +
+            ", userType='" + getUserType() + "'" +
             ", role='" + getRole() + "'" +
             "}";
     }

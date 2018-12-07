@@ -36,6 +36,7 @@
             <th jhiSortBy="correo"><span>Correo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="telefono"><span>Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="sector"><span>Sector</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="usuarioDni"><span>Usuario</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -48,6 +49,11 @@
                 <td>{{proveedor.correo}}</td>
                 <td>{{proveedor.telefono}}</td>
                 <td>{{proveedor.sector}}</td>
+                <td>
+                    <div *ngIf="proveedor.usuarioId">
+                        <a [routerLink]="['../usuario-externo', proveedor.usuarioId , 'view' ]" >{{proveedor.usuarioDni}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

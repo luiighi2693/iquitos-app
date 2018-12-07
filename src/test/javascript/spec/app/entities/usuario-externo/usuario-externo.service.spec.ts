@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(UsuarioExternoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new UsuarioExterno(0, 0, 0, 'AAAAAAA');
+            elemDefault = new UsuarioExterno(0, 0, 0, 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -57,6 +57,7 @@ describe('Service Tests', () => {
                     {
                         dni: 1,
                         pin: 1,
+                        userType: 'BBBBBB',
                         role: 'BBBBBB'
                     },
                     elemDefault
@@ -76,6 +77,7 @@ describe('Service Tests', () => {
                     {
                         dni: 1,
                         pin: 1,
+                        userType: 'BBBBBB',
                         role: 'BBBBBB'
                     },
                     elemDefault

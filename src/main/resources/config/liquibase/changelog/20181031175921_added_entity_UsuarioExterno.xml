@@ -30,8 +30,12 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="jhi_role" type="varchar(255)">
-                <constraints nullable="true" />
+            <column name="user_type" type="varchar(150)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="jhi_role" type="varchar(150)">
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

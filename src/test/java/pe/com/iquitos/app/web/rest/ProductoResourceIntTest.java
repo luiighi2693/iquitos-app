@@ -45,7 +45,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import pe.com.iquitos.app.domain.enumeration.ProductType;
-import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
 /**
  * Test class for the ProductoResource REST controller.
  *
@@ -57,6 +56,9 @@ public class ProductoResourceIntTest {
 
     private static final String DEFAULT_CODIGO = "AAAAAAAAAA";
     private static final String UPDATED_CODIGO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_NOMBRE = "AAAAAAAAAA";
+    private static final String UPDATED_NOMBRE = "BBBBBBBBBB";
 
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
@@ -83,9 +85,6 @@ public class ProductoResourceIntTest {
 
     private static final ProductType DEFAULT_TIPO_DE_PRODUCTO = ProductType.BIENES;
     private static final ProductType UPDATED_TIPO_DE_PRODUCTO = ProductType.SERVICIOS;
-
-    private static final UnidadDeMedida DEFAULT_UNIDAD_DE_MEDIDA = UnidadDeMedida.KILO;
-    private static final UnidadDeMedida UPDATED_UNIDAD_DE_MEDIDA = UnidadDeMedida.LITRO;
 
     @Autowired
     private ProductoRepository productoRepository;
@@ -146,6 +145,7 @@ public class ProductoResourceIntTest {
     public static Producto createEntity(EntityManager em) {
         Producto producto = new Producto()
             .codigo(DEFAULT_CODIGO)
+            .nombre(DEFAULT_NOMBRE)
             .descripcion(DEFAULT_DESCRIPCION)
             .fechaExpiracion(DEFAULT_FECHA_EXPIRACION)
             .esFavorito(DEFAULT_ES_FAVORITO)
@@ -154,8 +154,7 @@ public class ProductoResourceIntTest {
             .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE)
             .stock(DEFAULT_STOCK)
             .notificacionDeLimiteDeStock(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)
-            .tipoDeProducto(DEFAULT_TIPO_DE_PRODUCTO)
-            .unidadDeMedida(DEFAULT_UNIDAD_DE_MEDIDA);
+            .tipoDeProducto(DEFAULT_TIPO_DE_PRODUCTO);
         return producto;
     }
 
@@ -181,6 +180,7 @@ public class ProductoResourceIntTest {
         assertThat(productoList).hasSize(databaseSizeBeforeCreate + 1);
         Producto testProducto = productoList.get(productoList.size() - 1);
         assertThat(testProducto.getCodigo()).isEqualTo(DEFAULT_CODIGO);
+        assertThat(testProducto.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testProducto.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
         assertThat(testProducto.getFechaExpiracion()).isEqualTo(DEFAULT_FECHA_EXPIRACION);
         assertThat(testProducto.isEsFavorito()).isEqualTo(DEFAULT_ES_FAVORITO);
@@ -190,7 +190,6 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getStock()).isEqualTo(DEFAULT_STOCK);
         assertThat(testProducto.getNotificacionDeLimiteDeStock()).isEqualTo(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK);
         assertThat(testProducto.getTipoDeProducto()).isEqualTo(DEFAULT_TIPO_DE_PRODUCTO);
-        assertThat(testProducto.getUnidadDeMedida()).isEqualTo(DEFAULT_UNIDAD_DE_MEDIDA);
 
         // Validate the Producto in Elasticsearch
         verify(mockProductoSearchRepository, times(1)).save(testProducto);
@@ -240,6 +239,25 @@ public class ProductoResourceIntTest {
 
     @Test
     @Transactional
+    public void checkNombreIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productoRepository.findAll().size();
+        // set the field null
+        producto.setNombre(null);
+
+        // Create the Producto, which fails.
+        ProductoDTO productoDTO = productoMapper.toDto(producto);
+
+        restProductoMockMvc.perform(post("/api/productos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(productoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Producto> productoList = productoRepository.findAll();
+        assertThat(productoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void checkStockIsRequired() throws Exception {
         int databaseSizeBeforeTest = productoRepository.findAll().size();
         // set the field null
@@ -269,6 +287,7 @@ public class ProductoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(producto.getId().intValue())))
             .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
             .andExpect(jsonPath("$.[*].fechaExpiracion").value(hasItem(DEFAULT_FECHA_EXPIRACION.toString())))
             .andExpect(jsonPath("$.[*].esFavorito").value(hasItem(DEFAULT_ES_FAVORITO.booleanValue())))
@@ -277,8 +296,7 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
-            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())))
-            .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())));
+            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -326,6 +344,7 @@ public class ProductoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(producto.getId().intValue()))
             .andExpect(jsonPath("$.codigo").value(DEFAULT_CODIGO.toString()))
+            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()))
             .andExpect(jsonPath("$.fechaExpiracion").value(DEFAULT_FECHA_EXPIRACION.toString()))
             .andExpect(jsonPath("$.esFavorito").value(DEFAULT_ES_FAVORITO.booleanValue()))
@@ -334,8 +353,7 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
             .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK))
             .andExpect(jsonPath("$.notificacionDeLimiteDeStock").value(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK))
-            .andExpect(jsonPath("$.tipoDeProducto").value(DEFAULT_TIPO_DE_PRODUCTO.toString()))
-            .andExpect(jsonPath("$.unidadDeMedida").value(DEFAULT_UNIDAD_DE_MEDIDA.toString()));
+            .andExpect(jsonPath("$.tipoDeProducto").value(DEFAULT_TIPO_DE_PRODUCTO.toString()));
     }
 
     @Test
@@ -360,6 +378,7 @@ public class ProductoResourceIntTest {
         em.detach(updatedProducto);
         updatedProducto
             .codigo(UPDATED_CODIGO)
+            .nombre(UPDATED_NOMBRE)
             .descripcion(UPDATED_DESCRIPCION)
             .fechaExpiracion(UPDATED_FECHA_EXPIRACION)
             .esFavorito(UPDATED_ES_FAVORITO)
@@ -368,8 +387,7 @@ public class ProductoResourceIntTest {
             .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
             .stock(UPDATED_STOCK)
             .notificacionDeLimiteDeStock(UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK)
-            .tipoDeProducto(UPDATED_TIPO_DE_PRODUCTO)
-            .unidadDeMedida(UPDATED_UNIDAD_DE_MEDIDA);
+            .tipoDeProducto(UPDATED_TIPO_DE_PRODUCTO);
         ProductoDTO productoDTO = productoMapper.toDto(updatedProducto);
 
         restProductoMockMvc.perform(put("/api/productos")
@@ -382,6 +400,7 @@ public class ProductoResourceIntTest {
         assertThat(productoList).hasSize(databaseSizeBeforeUpdate);
         Producto testProducto = productoList.get(productoList.size() - 1);
         assertThat(testProducto.getCodigo()).isEqualTo(UPDATED_CODIGO);
+        assertThat(testProducto.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testProducto.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
         assertThat(testProducto.getFechaExpiracion()).isEqualTo(UPDATED_FECHA_EXPIRACION);
         assertThat(testProducto.isEsFavorito()).isEqualTo(UPDATED_ES_FAVORITO);
@@ -391,7 +410,6 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getStock()).isEqualTo(UPDATED_STOCK);
         assertThat(testProducto.getNotificacionDeLimiteDeStock()).isEqualTo(UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK);
         assertThat(testProducto.getTipoDeProducto()).isEqualTo(UPDATED_TIPO_DE_PRODUCTO);
-        assertThat(testProducto.getUnidadDeMedida()).isEqualTo(UPDATED_UNIDAD_DE_MEDIDA);
 
         // Validate the Producto in Elasticsearch
         verify(mockProductoSearchRepository, times(1)).save(testProducto);
@@ -453,6 +471,7 @@ public class ProductoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(producto.getId().intValue())))
             .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].fechaExpiracion").value(hasItem(DEFAULT_FECHA_EXPIRACION.toString())))
             .andExpect(jsonPath("$.[*].esFavorito").value(hasItem(DEFAULT_ES_FAVORITO.booleanValue())))
@@ -461,8 +480,7 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
-            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())))
-            .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())));
+            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())));
     }
 
     @Test

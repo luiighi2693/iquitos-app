@@ -26,6 +26,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="nombre" type="varchar(150)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="descripcion" type="varchar(150)">
                 <constraints nullable="true" />
             </column>
@@ -61,7 +65,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="unidad_de_medida" type="varchar(255)">
+            <column name="unidad_de_medida_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

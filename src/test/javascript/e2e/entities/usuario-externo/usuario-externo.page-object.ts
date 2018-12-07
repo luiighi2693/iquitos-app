@@ -28,6 +28,7 @@ export class UsuarioExternoUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     dniInput = element(by.id('field_dni'));
     pinInput = element(by.id('field_pin'));
+    userTypeInput = element(by.id('field_userType'));
     roleInput = element(by.id('field_role'));
 
     async getPageTitle() {
@@ -48,6 +49,14 @@ export class UsuarioExternoUpdatePage {
 
     async getPinInput() {
         return this.pinInput.getAttribute('value');
+    }
+
+    async setUserTypeInput(userType) {
+        await this.userTypeInput.sendKeys(userType);
+    }
+
+    async getUserTypeInput() {
+        return this.userTypeInput.getAttribute('value');
     }
 
     async setRoleInput(role) {

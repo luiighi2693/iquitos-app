@@ -41,10 +41,12 @@ describe('UsuarioExterno e2e test', () => {
         await promise.all([
             usuarioExternoUpdatePage.setDniInput('5'),
             usuarioExternoUpdatePage.setPinInput('5'),
+            usuarioExternoUpdatePage.setUserTypeInput('userType'),
             usuarioExternoUpdatePage.setRoleInput('role')
         ]);
         expect(await usuarioExternoUpdatePage.getDniInput()).to.eq('5');
         expect(await usuarioExternoUpdatePage.getPinInput()).to.eq('5');
+        expect(await usuarioExternoUpdatePage.getUserTypeInput()).to.eq('userType');
         expect(await usuarioExternoUpdatePage.getRoleInput()).to.eq('role');
         await usuarioExternoUpdatePage.save();
         expect(await usuarioExternoUpdatePage.getSaveButton().isPresent()).to.be.false;

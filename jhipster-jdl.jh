@@ -62,6 +62,7 @@ entity Empleado {
 
 entity Producto {
 	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 	descripcion String maxlength(DEFAULT_MAX_LENGTH_STRING),
     fechaExpiracion LocalDate,
     esFavorito Boolean,
@@ -69,7 +70,8 @@ entity Producto {
     imagen ImageBlob,
     stock Integer required,
     notificacionDeLimiteDeStock Integer,
-    tipoDeProducto ProductType
+    tipoDeProducto ProductType,
+    unidadDeMedida UnidadDeMedida
 }
 
 entity Variante {
@@ -147,7 +149,8 @@ entity Operacion {
 entity UsuarioExterno {
     dni Integer required,
     pin Integer required,
-    role String,
+    userType String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    role String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
 entity Pedido {
@@ -173,9 +176,9 @@ entity EstatusDeProductoEntregado { //Por Entregar, En Proceso, Entregado
 	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
-entity UnidadDeMedida { //LITRO, KILO, UNIDAD
-	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-}
+//entity UnidadDeMedida { //LITRO, KILO, UNIDAD
+//	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+//}
 
 entity TipoDeDocumentoDeCompra { //Boleta electronica, factura electronica, nota de credito, nota de debito, recibo de ingreso, recibo de egreso, ticket de ingreso
 	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
@@ -245,6 +248,10 @@ enum OrderStatus {
     CREADO, CANCELADO, ENVIADO_EN_PROCESO, ENVIADO_CANCELADO, ENTREGADO, ENTREGADO_ERROR
 }
 
+enum UnidadDeMedida {
+    KILO, LITRO
+}
+
 relationship ManyToOne {
 	Amortizacion{tipoDeDocumentoDeVenta(nombre)} to TipoDeDocumentoDeVenta,
     Amortizacion{tipoDePago(nombre)} to TipoDePago,
@@ -255,7 +262,7 @@ relationship ManyToOne {
     
     Cliente{tipoDeDocumento(nombre)} to TipoDeDocumento,
     
-    Producto{unidadDeMedida(nombre)} to UnidadDeMedida,
+    //Producto{unidadDeMedida(nombre)} to UnidadDeMedida,
     Producto{categoria(nombre)} to Categoria,
 
     Credito{venta} to Venta,
@@ -288,6 +295,7 @@ relationship OneToOne {
     
     Cliente{usuario(dni)} to UsuarioExterno,
     Empleado{usuario(dni)} to UsuarioExterno,
+    Proveedor{usuario(dni)} to UsuarioExterno,
 
     Pedido{proveedor(razonSocial)} to Proveedor,
 

@@ -7,7 +7,7 @@ import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { ProductoService } from 'app/entities/producto/producto.service';
-import { IProducto, Producto, ProductType, UnidadDeMedida } from 'app/shared/model/producto.model';
+import { IProducto, Producto, ProductType } from 'app/shared/model/producto.model';
 
 describe('Service Tests', () => {
     describe('Producto Service', () => {
@@ -29,6 +29,7 @@ describe('Service Tests', () => {
                 0,
                 'AAAAAAA',
                 'AAAAAAA',
+                'AAAAAAA',
                 currentDate,
                 false,
                 false,
@@ -36,8 +37,7 @@ describe('Service Tests', () => {
                 'AAAAAAA',
                 0,
                 0,
-                ProductType.BIENES,
-                UnidadDeMedida.KILO
+                ProductType.BIENES
             );
         });
 
@@ -84,6 +84,7 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         codigo: 'BBBBBB',
+                        nombre: 'BBBBBB',
                         descripcion: 'BBBBBB',
                         fechaExpiracion: currentDate.format(DATE_FORMAT),
                         esFavorito: true,
@@ -91,8 +92,7 @@ describe('Service Tests', () => {
                         imagen: 'BBBBBB',
                         stock: 1,
                         notificacionDeLimiteDeStock: 1,
-                        tipoDeProducto: 'BBBBBB',
-                        unidadDeMedida: 'BBBBBB'
+                        tipoDeProducto: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -115,6 +115,7 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         codigo: 'BBBBBB',
+                        nombre: 'BBBBBB',
                         descripcion: 'BBBBBB',
                         fechaExpiracion: currentDate.format(DATE_FORMAT),
                         esFavorito: true,
@@ -122,8 +123,7 @@ describe('Service Tests', () => {
                         imagen: 'BBBBBB',
                         stock: 1,
                         notificacionDeLimiteDeStock: 1,
-                        tipoDeProducto: 'BBBBBB',
-                        unidadDeMedida: 'BBBBBB'
+                        tipoDeProducto: 'BBBBBB'
                     },
                     elemDefault
                 );

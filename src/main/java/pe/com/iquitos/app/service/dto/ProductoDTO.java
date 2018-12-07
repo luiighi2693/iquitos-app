@@ -8,7 +8,6 @@ import java.util.Set;
 import java.util.Objects;
 import javax.persistence.Lob;
 import pe.com.iquitos.app.domain.enumeration.ProductType;
-import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
 
 /**
  * A DTO for the Producto entity.
@@ -20,6 +19,10 @@ public class ProductoDTO implements Serializable {
     @NotNull
     @Size(max = 150)
     private String codigo;
+
+    @NotNull
+    @Size(max = 150)
+    private String nombre;
 
     @Size(max = 150)
     private String descripcion;
@@ -41,7 +44,9 @@ public class ProductoDTO implements Serializable {
 
     private ProductType tipoDeProducto;
 
-    private UnidadDeMedida unidadDeMedida;
+    private Long unidadDeMedidaId;
+
+    private String unidadDeMedidaNombre;
 
     private Long categoriaId;
 
@@ -63,6 +68,14 @@ public class ProductoDTO implements Serializable {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -137,12 +150,20 @@ public class ProductoDTO implements Serializable {
         this.tipoDeProducto = tipoDeProducto;
     }
 
-    public UnidadDeMedida getUnidadDeMedida() {
-        return unidadDeMedida;
+    public Long getUnidadDeMedidaId() {
+        return unidadDeMedidaId;
     }
 
-    public void setUnidadDeMedida(UnidadDeMedida unidadDeMedida) {
-        this.unidadDeMedida = unidadDeMedida;
+    public void setUnidadDeMedidaId(Long unidadDeMedidaId) {
+        this.unidadDeMedidaId = unidadDeMedidaId;
+    }
+
+    public String getUnidadDeMedidaNombre() {
+        return unidadDeMedidaNombre;
+    }
+
+    public void setUnidadDeMedidaNombre(String unidadDeMedidaNombre) {
+        this.unidadDeMedidaNombre = unidadDeMedidaNombre;
     }
 
     public Long getCategoriaId() {
@@ -195,6 +216,7 @@ public class ProductoDTO implements Serializable {
         return "ProductoDTO{" +
             "id=" + getId() +
             ", codigo='" + getCodigo() + "'" +
+            ", nombre='" + getNombre() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
             ", fechaExpiracion='" + getFechaExpiracion() + "'" +
             ", esFavorito='" + isEsFavorito() + "'" +
@@ -203,7 +225,8 @@ public class ProductoDTO implements Serializable {
             ", stock=" + getStock() +
             ", notificacionDeLimiteDeStock=" + getNotificacionDeLimiteDeStock() +
             ", tipoDeProducto='" + getTipoDeProducto() + "'" +
-            ", unidadDeMedida='" + getUnidadDeMedida() + "'" +
+            ", unidadDeMedida=" + getUnidadDeMedidaId() +
+            ", unidadDeMedida='" + getUnidadDeMedidaNombre() + "'" +
             ", categoria=" + getCategoriaId() +
             ", categoria='" + getCategoriaNombre() + "'" +
             "}";

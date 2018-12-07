@@ -53,6 +53,9 @@ public class Proveedor implements Serializable {
     @Column(name = "sector", length = 150)
     private String sector;
 
+    @OneToOne    @JoinColumn(unique = true)
+    private UsuarioExterno usuario;
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "proveedor_cuenta_proveedor",
@@ -152,6 +155,19 @@ public class Proveedor implements Serializable {
 
     public void setSector(String sector) {
         this.sector = sector;
+    }
+
+    public UsuarioExterno getUsuario() {
+        return usuario;
+    }
+
+    public Proveedor usuario(UsuarioExterno usuarioExterno) {
+        this.usuario = usuarioExterno;
+        return this;
+    }
+
+    public void setUsuario(UsuarioExterno usuarioExterno) {
+        this.usuario = usuarioExterno;
     }
 
     public Set<CuentaProveedor> getCuentaProveedors() {

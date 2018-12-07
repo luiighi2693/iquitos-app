@@ -85,6 +85,13 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" for="field_usuario">Usuario</label>
+                    <select class="form-control" id="field_usuario" name="usuario" [(ngModel)]="proveedor.usuarioId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="usuarioExternoOption.id" *ngFor="let usuarioExternoOption of usuarios; trackBy: trackUsuarioExternoById">{{usuarioExternoOption.dni}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="field_cuentaProveedor">Cuenta Proveedor</label>
                     <select class="form-control" id="field_cuentaProveedor" multiple name="cuentaProveedor" [(ngModel)]="proveedor.cuentaProveedors">
                         <option [ngValue]="getSelected(proveedor.cuentaProveedors, cuentaProveedorOption)" *ngFor="let cuentaProveedorOption of cuentaproveedors; trackBy: trackCuentaProveedorById">{{cuentaProveedorOption.codigo}}</option>

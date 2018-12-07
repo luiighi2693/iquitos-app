@@ -6,6 +6,8 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IProveedor } from 'app/shared/model/proveedor.model';
 import { ProveedorService } from './proveedor.service';
+import { IUsuarioExterno } from 'app/shared/model/usuario-externo.model';
+import { UsuarioExternoService } from 'app/entities/usuario-externo';
 import { ICuentaProveedor } from 'app/shared/model/cuenta-proveedor.model';
 import { CuentaProveedorService } from 'app/entities/cuenta-proveedor';
 import { IContactoProveedor } from 'app/shared/model/contacto-proveedor.model';
@@ -19,6 +21,8 @@ export class ProveedorUpdateComponent implements OnInit {
     proveedor: IProveedor;
     isSaving: boolean;
 
+    usuarios: IUsuarioExterno[];
+
     cuentaproveedors: ICuentaProveedor[];
 
     contactoproveedors: IContactoProveedor[];
@@ -26,6 +30,7 @@ export class ProveedorUpdateComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private proveedorService: ProveedorService,
+        private usuarioExternoService: UsuarioExternoService,
         private cuentaProveedorService: CuentaProveedorService,
         private contactoProveedorService: ContactoProveedorService,
         private activatedRoute: ActivatedRoute
@@ -36,6 +41,21 @@ export class ProveedorUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ proveedor }) => {
             this.proveedor = proveedor;
         });
+        this.usuarioExternoService.query({ filter: 'proveedor-is-null' }).subscribe(
+            (res: HttpResponse<IUsuarioExterno[]>) => {
+                if (!this.proveedor.usuarioId) {
+                    this.usuarios = res.body;
+                } else {
+                    this.usuarioExternoService.find(this.proveedor.usuarioId).subscribe(
+                        (subRes: HttpResponse<IUsuarioExterno>) => {
+                            this.usuarios = [subRes.body].concat(res.body);
+                        },
+                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
+                    );
+                }
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
         this.cuentaProveedorService.query().subscribe(
             (res: HttpResponse<ICuentaProveedor[]>) => {
                 this.cuentaproveedors = res.body;
@@ -78,6 +98,10 @@ export class ProveedorUpdateComponent implements OnInit {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackUsuarioExternoById(index: number, item: IUsuarioExterno) {
+        return item.id;
     }
 
     trackCuentaProveedorById(index: number, item: ICuentaProveedor) {

@@ -44,6 +44,7 @@ describe('Producto e2e test', () => {
         await productoComponentsPage.clickOnCreateButton();
         await promise.all([
             productoUpdatePage.setCodigoInput('codigo'),
+            productoUpdatePage.setNombreInput('nombre'),
             productoUpdatePage.setDescripcionInput('descripcion'),
             productoUpdatePage.setFechaExpiracionInput('2000-12-31'),
             productoUpdatePage.setImagenInput(absolutePath),
@@ -55,6 +56,7 @@ describe('Producto e2e test', () => {
             // productoUpdatePage.variantesSelectLastOption(),
         ]);
         expect(await productoUpdatePage.getCodigoInput()).to.eq('codigo');
+        expect(await productoUpdatePage.getNombreInput()).to.eq('nombre');
         expect(await productoUpdatePage.getDescripcionInput()).to.eq('descripcion');
         expect(await productoUpdatePage.getFechaExpiracionInput()).to.eq('2000-12-31');
         const selectedEsFavorito = productoUpdatePage.getEsFavoritoInput();

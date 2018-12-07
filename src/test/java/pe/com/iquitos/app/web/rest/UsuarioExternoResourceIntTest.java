@@ -54,6 +54,9 @@ public class UsuarioExternoResourceIntTest {
     private static final Integer DEFAULT_PIN = 1;
     private static final Integer UPDATED_PIN = 2;
 
+    private static final String DEFAULT_USER_TYPE = "AAAAAAAAAA";
+    private static final String UPDATED_USER_TYPE = "BBBBBBBBBB";
+
     private static final String DEFAULT_ROLE = "AAAAAAAAAA";
     private static final String UPDATED_ROLE = "BBBBBBBBBB";
 
@@ -111,6 +114,7 @@ public class UsuarioExternoResourceIntTest {
         UsuarioExterno usuarioExterno = new UsuarioExterno()
             .dni(DEFAULT_DNI)
             .pin(DEFAULT_PIN)
+            .userType(DEFAULT_USER_TYPE)
             .role(DEFAULT_ROLE);
         return usuarioExterno;
     }
@@ -138,6 +142,7 @@ public class UsuarioExternoResourceIntTest {
         UsuarioExterno testUsuarioExterno = usuarioExternoList.get(usuarioExternoList.size() - 1);
         assertThat(testUsuarioExterno.getDni()).isEqualTo(DEFAULT_DNI);
         assertThat(testUsuarioExterno.getPin()).isEqualTo(DEFAULT_PIN);
+        assertThat(testUsuarioExterno.getUserType()).isEqualTo(DEFAULT_USER_TYPE);
         assertThat(testUsuarioExterno.getRole()).isEqualTo(DEFAULT_ROLE);
 
         // Validate the UsuarioExterno in Elasticsearch
@@ -207,6 +212,44 @@ public class UsuarioExternoResourceIntTest {
 
     @Test
     @Transactional
+    public void checkUserTypeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = usuarioExternoRepository.findAll().size();
+        // set the field null
+        usuarioExterno.setUserType(null);
+
+        // Create the UsuarioExterno, which fails.
+        UsuarioExternoDTO usuarioExternoDTO = usuarioExternoMapper.toDto(usuarioExterno);
+
+        restUsuarioExternoMockMvc.perform(post("/api/usuario-externos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(usuarioExternoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<UsuarioExterno> usuarioExternoList = usuarioExternoRepository.findAll();
+        assertThat(usuarioExternoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkRoleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = usuarioExternoRepository.findAll().size();
+        // set the field null
+        usuarioExterno.setRole(null);
+
+        // Create the UsuarioExterno, which fails.
+        UsuarioExternoDTO usuarioExternoDTO = usuarioExternoMapper.toDto(usuarioExterno);
+
+        restUsuarioExternoMockMvc.perform(post("/api/usuario-externos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(usuarioExternoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<UsuarioExterno> usuarioExternoList = usuarioExternoRepository.findAll();
+        assertThat(usuarioExternoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllUsuarioExternos() throws Exception {
         // Initialize the database
         usuarioExternoRepository.saveAndFlush(usuarioExterno);
@@ -218,6 +261,7 @@ public class UsuarioExternoResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(usuarioExterno.getId().intValue())))
             .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI)))
             .andExpect(jsonPath("$.[*].pin").value(hasItem(DEFAULT_PIN)))
+            .andExpect(jsonPath("$.[*].userType").value(hasItem(DEFAULT_USER_TYPE.toString())))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE.toString())));
     }
     
@@ -234,6 +278,7 @@ public class UsuarioExternoResourceIntTest {
             .andExpect(jsonPath("$.id").value(usuarioExterno.getId().intValue()))
             .andExpect(jsonPath("$.dni").value(DEFAULT_DNI))
             .andExpect(jsonPath("$.pin").value(DEFAULT_PIN))
+            .andExpect(jsonPath("$.userType").value(DEFAULT_USER_TYPE.toString()))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE.toString()));
     }
 
@@ -260,6 +305,7 @@ public class UsuarioExternoResourceIntTest {
         updatedUsuarioExterno
             .dni(UPDATED_DNI)
             .pin(UPDATED_PIN)
+            .userType(UPDATED_USER_TYPE)
             .role(UPDATED_ROLE);
         UsuarioExternoDTO usuarioExternoDTO = usuarioExternoMapper.toDto(updatedUsuarioExterno);
 
@@ -274,6 +320,7 @@ public class UsuarioExternoResourceIntTest {
         UsuarioExterno testUsuarioExterno = usuarioExternoList.get(usuarioExternoList.size() - 1);
         assertThat(testUsuarioExterno.getDni()).isEqualTo(UPDATED_DNI);
         assertThat(testUsuarioExterno.getPin()).isEqualTo(UPDATED_PIN);
+        assertThat(testUsuarioExterno.getUserType()).isEqualTo(UPDATED_USER_TYPE);
         assertThat(testUsuarioExterno.getRole()).isEqualTo(UPDATED_ROLE);
 
         // Validate the UsuarioExterno in Elasticsearch
@@ -337,6 +384,7 @@ public class UsuarioExternoResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(usuarioExterno.getId().intValue())))
             .andExpect(jsonPath("$.[*].dni").value(hasItem(DEFAULT_DNI)))
             .andExpect(jsonPath("$.[*].pin").value(hasItem(DEFAULT_PIN)))
+            .andExpect(jsonPath("$.[*].userType").value(hasItem(DEFAULT_USER_TYPE)))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE)));
     }
 
