@@ -7,8 +7,6 @@ import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from './producto.service';
-import { IUnidadDeMedida } from 'app/shared/model/unidad-de-medida.model';
-import { UnidadDeMedidaService } from 'app/entities/unidad-de-medida';
 import { ICategoria } from 'app/shared/model/categoria.model';
 import { CategoriaService } from 'app/entities/categoria';
 import { IVariante } from 'app/shared/model/variante.model';
@@ -22,8 +20,6 @@ export class ProductoUpdateComponent implements OnInit {
     producto: IProducto;
     isSaving: boolean;
 
-    unidaddemedidas: IUnidadDeMedida[];
-
     categorias: ICategoria[];
 
     variantes: IVariante[];
@@ -33,7 +29,6 @@ export class ProductoUpdateComponent implements OnInit {
         private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private productoService: ProductoService,
-        private unidadDeMedidaService: UnidadDeMedidaService,
         private categoriaService: CategoriaService,
         private varianteService: VarianteService,
         private elementRef: ElementRef,
@@ -45,12 +40,6 @@ export class ProductoUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ producto }) => {
             this.producto = producto;
         });
-        this.unidadDeMedidaService.query().subscribe(
-            (res: HttpResponse<IUnidadDeMedida[]>) => {
-                this.unidaddemedidas = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.categoriaService.query().subscribe(
             (res: HttpResponse<ICategoria[]>) => {
                 this.categorias = res.body;
@@ -109,10 +98,6 @@ export class ProductoUpdateComponent implements OnInit {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackUnidadDeMedidaById(index: number, item: IUnidadDeMedida) {
-        return item.id;
     }
 
     trackCategoriaById(index: number, item: ICategoria) {

@@ -65,7 +65,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="unidad_de_medida_id" type="bigint">
+            <column name="unidad_de_medida" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 

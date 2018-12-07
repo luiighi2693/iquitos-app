@@ -8,12 +8,6 @@
     -->
     <changeSet id="20181031175912-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="unidad_de_medida_id"
-                                 baseTableName="producto"
-                                 constraintName="fk_producto_unidad_de_medida_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="unidad_de_medida"/>
-
         <addForeignKeyConstraint baseColumnNames="categoria_id"
                                  baseTableName="producto"
                                  constraintName="fk_producto_categoria_id"

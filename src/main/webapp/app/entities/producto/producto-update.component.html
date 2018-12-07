@@ -114,14 +114,14 @@
                         <option value="SERVICIOS">SERVICIOS</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label class="form-control-label" for="field_unidadDeMedida">Unidad De Medida</label>
-                    <select class="form-control" id="field_unidadDeMedida" name="unidadDeMedida" [(ngModel)]="producto.unidadDeMedidaId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="unidadDeMedidaOption.id" *ngFor="let unidadDeMedidaOption of unidaddemedidas; trackBy: trackUnidadDeMedidaById">{{unidadDeMedidaOption.nombre}}</option>
+                    <select class="form-control" name="unidadDeMedida" [(ngModel)]="producto.unidadDeMedida" id="field_unidadDeMedida" >
+                        <option value="KILO">KILO</option>
+                        <option value="LITRO">LITRO</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" for="field_categoria">Categoria</label>
                     <select class="form-control" id="field_categoria" name="categoria" [(ngModel)]="producto.categoriaId" >

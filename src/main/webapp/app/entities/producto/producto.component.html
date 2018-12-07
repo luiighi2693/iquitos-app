@@ -40,7 +40,7 @@
             <th jhiSortBy="stock"><span>Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="notificacionDeLimiteDeStock"><span>Notificacion De Limite De Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDeProducto"><span>Tipo De Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="unidadDeMedidaNombre"><span>Unidad De Medida</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="unidadDeMedida"><span>Unidad De Medida</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="categoriaNombre"><span>Categoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -63,11 +63,7 @@
                 <td>{{producto.stock}}</td>
                 <td>{{producto.notificacionDeLimiteDeStock}}</td>
                 <td>{{producto.tipoDeProducto}}</td>
-                <td>
-                    <div *ngIf="producto.unidadDeMedidaId">
-                        <a [routerLink]="['../unidad-de-medida', producto.unidadDeMedidaId , 'view' ]" >{{producto.unidadDeMedidaNombre}}</a>
-                    </div>
-                </td>
+                <td>{{producto.unidadDeMedida}}</td>
                 <td>
                     <div *ngIf="producto.categoriaId">
                         <a [routerLink]="['../categoria', producto.categoriaId , 'view' ]" >{{producto.categoriaNombre}}</a>
