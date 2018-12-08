@@ -163,6 +163,7 @@ export class UserUpdateComponent implements OnInit {
         break;
       }
       default: {
+        this.onSaveSuccessSubEntity(null);
         break;
       }
     }
@@ -409,7 +410,7 @@ export class UserUpdateComponent implements OnInit {
       return false;
     }
 
-    if (this.entity.idEntity === undefined || this.entity.idEntity === null) {
+    if ( (this.entity.idEntity === undefined || this.entity.idEntity === null) && this.entity.userType !== 'ADMINISTRADOR') {
       this.errorMessage = 'Busqueda de usuario requerida';
       this.hasError = true;
       return false;
@@ -421,15 +422,17 @@ export class UserUpdateComponent implements OnInit {
       return false;
     }
 
-    if (this.getEntity(this.entity.userType).usuarioId !== null) {
-      if (this.entity.id !== undefined) {
-        if (this.entity.id !== this.getEntity(this.entity.userType).usuarioId) {
+    if (this.entity.userType !== 'ADMINISTRADOR') {
+      if (this.getEntity(this.entity.userType).usuarioId !== null) {
+        if (this.entity.id !== undefined) {
+          if (this.entity.id !== this.getEntity(this.entity.userType).usuarioId) {
+            this.errorMessage = 'Entidad ya tiene un usuario asociado';
+            return false;
+          }
+        } else {
           this.errorMessage = 'Entidad ya tiene un usuario asociado';
           return false;
         }
-      } else {
-        this.errorMessage = 'Entidad ya tiene un usuario asociado';
-        return false;
       }
     }
 
