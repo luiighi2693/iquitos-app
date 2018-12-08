@@ -7,14 +7,12 @@ import {JhiDataUtils} from 'ng-jhipster';
 import {IUsuarioExterno, UserType} from "../../models/usuario-externo.model";
 import {UsuarioExternoService} from "./usuario-externo.service";
 import {CustomValidators} from "ng2-validation";
-import {ICuentaProveedor} from "../../../../../src/main/webapp/app/shared/model/cuenta-proveedor.model";
 import {ProveedorService} from "../../contact/provider/proveedor.service";
 import {IProveedor} from "../../models/proveedor.model";
 import {IEmpleado} from "../../models/empleado.model";
 import {ICliente} from "../../models/cliente.model";
 import {ClienteService} from "../../contact/client/cliente.service";
 import {EmpleadoService} from "../../contact/employee/empleado.service";
-import {IProducto} from "../../models/producto.model";
 
 const password = new FormControl('', Validators.required);
 const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
