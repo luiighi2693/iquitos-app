@@ -5,4 +5,6 @@
 //DEVELOP
 // export const SERVER_API_URL = 'http://localhost:8080/';
 //QA
-export const SERVER_API_URL = 'http://35.236.203.83:8080/';
+// export const SERVER_API_URL = 'http://35.236.203.83:8080/';
+//PROD
+export const SERVER_API_URL = 'http://35.188.113.149:8080/';
