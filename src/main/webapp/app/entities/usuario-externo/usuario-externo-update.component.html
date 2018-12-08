@@ -40,19 +40,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_idEntity">Id Entity</label>
+                    <input type="number" class="form-control" name="idEntity" id="field_idEntity"
+                        [(ngModel)]="usuarioExterno.idEntity" />
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="field_userType">User Type</label>
-                    <input type="text" class="form-control" name="userType" id="field_userType"
-                        [(ngModel)]="usuarioExterno.userType" required maxlength="150"/>
-                    <div [hidden]="!(editForm.controls.userType?.dirty && editForm.controls.userType?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.userType?.errors?.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.userType?.errors?.maxlength">
-                        This field cannot be longer than 150 characters.
-                        </small>
-                    </div>
+                    <select class="form-control" name="userType" [(ngModel)]="usuarioExterno.userType" id="field_userType" >
+                        <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                        <option value="EMPLEADO">EMPLEADO</option>
+                        <option value="CLIENTE">CLIENTE</option>
+                        <option value="PROVEEDOR">PROVEEDOR</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_role">Role</label>

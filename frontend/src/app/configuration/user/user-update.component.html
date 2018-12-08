@@ -1,0 +1,234 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div style="display: flex;">
+      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="previousState()" style="cursor: pointer">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="goBackTag">Todos los Usuarios</span>
+      </div>
+
+      <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+        <div class="button-row">
+          <button mat-raised-button (click)="previousState()">Cancelar</button>
+          <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Usuario {{!entity.id ? 'Nuevo' : 'Edición'}} </mat-card-title>
+        <form class="basic-form">
+          <div fxLayout="row wrap">
+            <!-- column -->
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput type="number" minlength="8" maxlength="8" placeholder="DNI" name="dni" [(ngModel)]="entity.dni" [formControl]="form.controls['fdni']" (blur)="searchDni()">
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fdni'].hasError('required') && form.controls['fdni'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+            </div>
+
+            <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput type="password" minlength="4" maxlength="4" placeholder="Contraseña" name="pin" [(ngModel)]="entity.pin" [formControl]="form.controls['password']">
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+            </div>
+
+            <div class="p-10" fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100">
+              <mat-form-field>
+                <input matInput placeholder="Confirmar contraseña" [(ngModel)]="confirmPassword"  [formControl]="form.controls['confirmPassword']" type="password" minlength="4" maxlength="4">
+              </mat-form-field>
+              <small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="text-danger font-14">Campo Requerido.</small>
+              <small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="text-danger font-14">Las contraseñas no coinciden.</small>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <mat-select placeholder="Tipo de Usuario" [(ngModel)]="entity.userType" name="userType">
+                  <mat-option *ngFor="let type of tipos" [value]="type" (click)="setUserType()">
+                    {{type}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10" *ngIf="entity.userType === 'PROVEEDOR' || entity.userType === 'CLIENTE' || entity.userType === 'EMPLEADO'">
+              <mat-form-field>
+                <input matInput type="text" placeholder="Usuario" [(ngModel)]="entityFilteredSelectedInput" [formControl]="form.controls['fentitySelected']"
+                       [matAutocomplete]="autoTest" (keyup)="filterEntity()">
+                <button mat-button *ngIf="entityFilteredSelected" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelected()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autoTest="matAutocomplete">
+                  <mat-option *ngFor="let option of entitiesFiltered" [value]="option" (click)="setEntityFilter(option)">
+                    <span *ngIf="option.nombre">{{option.nombre}}</span>
+                    <span *ngIf="!option.nombre">{{option.razonSocial}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-hint *ngIf="form.controls['fentitySelected'].hasError('required') && form.controls['fentitySelected'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+              <mat-hint *ngIf="form.controls['fentitySelected'].hasError('maxlength') && form.controls['fentitySelected'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" *ngIf="entity.userType === 'PROVEEDOR' && proveedor">
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Razón social" name="socialReason" [(ngModel)]="proveedor.razonSocial" disabled>
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Número de Ruc" name="code" [(ngModel)]="proveedor.codigo" disabled>
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Dirección" name="address" [(ngModel)]="proveedor.direccion" disabled>
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput type="number" placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono" disabled>
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Email" name="email" [(ngModel)]="proveedor.correo" disabled>
+              </mat-form-field>
+            </div>
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Sector" name="email" [(ngModel)]="proveedor.sector" disabled>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" *ngIf="entity.userType === 'CLIENTE' && cliente">
+            <!-- column -->
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="cliente.nombre" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Documento" name="codigo" [(ngModel)]="cliente.codigo" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Dirección" name="direccion" [(ngModel)]="cliente.direccion" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input type="number" matInput placeholder="Teléfono" name="telefono" [(ngModel)]="cliente.telefono" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Email" name="email" [(ngModel)]="cliente.correo" disabled>
+              </mat-form-field>
+            </div>
+
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Fecha de nacimiento" name="birthday" [(ngModel)]="cliente.fechaDeNacimiento" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Tipo cliente" name="clientType" [(ngModel)]="cliente.tipoDeCliente" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10" *ngIf="cliente.tipoDeCliente !== 'JURIDICO'" disabled>
+              <mat-form-field>
+                <input matInput placeholder="Sexo" name="sex" [(ngModel)]="cliente.sexo" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10" *ngIf="cliente.tipoDeCliente !== 'JURIDICO'" disabled>
+              <mat-form-field>
+                <input matInput placeholder="Estado civil" name="civilStatus" [(ngModel)]="cliente.estatusCivil" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10" disabled>
+              <mat-form-field>
+                <input matInput placeholder="Tipo de documento" name="documentType" [(ngModel)]="cliente.tipoDeDocumentoNombre" disabled>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row wrap" *ngIf="entity.userType === 'EMPLEADO' && empleado">
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="empleado.nombre" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Apellido" name="apellido" [(ngModel)]="empleado.apellido" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput type="number" placeholder="Dni" name="dni" [(ngModel)]="empleado.dni" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Dirección" name="direccion" [(ngModel)]="empleado.direccion" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input type="number" matInput placeholder="Teléfono" name="telefono" [(ngModel)]="empleado.telefono" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Email" name="email" [(ngModel)]="empleado.correo" disabled>
+              </mat-form-field>
+            </div>
+
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Fecha de nacimiento" name="birthday" [(ngModel)]="empleado.fechaDeNacimiento" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Sexo" name="sex" [(ngModel)]="empleado.sexo" disabled>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <input matInput placeholder="Rol empleado" name="employeeRole" [(ngModel)]="empleado.rolEmpleado" disabled>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-hint *ngIf="hasError" class="text-danger font-14">{{errorMessage}}</mat-hint>
+          <mat-hint *ngIf="hasErrorRequest" class="text-danger font-14">Ha ocurrido un error ingresando los datos</mat-hint>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

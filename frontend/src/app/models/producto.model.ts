@@ -14,6 +14,7 @@ export const enum UnidadDeMedida {
 export interface IProducto {
     id?: number;
     codigo?: string;
+    nombre?: string;
     descripcion?: string;
     fechaExpiracion?: Moment;
     esFavorito?: boolean;
@@ -33,6 +34,7 @@ export class Producto implements IProducto {
     constructor(
         public id?: number,
         public codigo?: string,
+        public nombre?: string,
         public descripcion?: string,
         public fechaExpiracion?: Moment,
         public esFavorito?: boolean,

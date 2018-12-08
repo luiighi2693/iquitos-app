@@ -47,6 +47,11 @@ export const ConfigurationRoutes: Routes = [
         path: 'paymenttype',
         canActivate: [AuthGuard],
         loadChildren: './paymenttype/paymenttype.module#PaymenttypeModule'
+      },
+      {
+        path: 'user',
+        canActivate: [AuthGuard],
+        loadChildren: './user/user.module#UserModule'
       }
     ]
   }

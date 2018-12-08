@@ -30,8 +30,12 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="user_type" type="varchar(150)">
-                <constraints nullable="false" />
+            <column name="id_entity" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="user_type" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
 
             <column name="jhi_role" type="varchar(150)">

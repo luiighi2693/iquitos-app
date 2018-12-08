@@ -6,5 +6,5 @@
   { "value": "D. DE COMPRA", "uri": "/configuration/documenttypepurchase"},
   { "value": "D. DE VENTA", "uri": "/configuration/documenttypesell"},
   { "value": "TIPOS DE PAGO", "uri": "/configuration/paymenttype"},
-  { "value": "USUARIOS", "uri": "/configuration/documenttype"}
+  { "value": "USUARIOS", "uri": "/configuration/user"}
 ]

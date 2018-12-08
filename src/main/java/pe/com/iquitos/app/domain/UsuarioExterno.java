@@ -10,6 +10,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
+import pe.com.iquitos.app.domain.enumeration.UserType;
+
 /**
  * A UsuarioExterno.
  */
@@ -33,10 +35,12 @@ public class UsuarioExterno implements Serializable {
     @Column(name = "pin", nullable = false)
     private Integer pin;
 
-    @NotNull
-    @Size(max = 150)
-    @Column(name = "user_type", length = 150, nullable = false)
-    private String userType;
+    @Column(name = "id_entity")
+    private Integer idEntity;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
+    private UserType userType;
 
     @NotNull
     @Size(max = 150)
@@ -78,16 +82,29 @@ public class UsuarioExterno implements Serializable {
         this.pin = pin;
     }
 
-    public String getUserType() {
+    public Integer getIdEntity() {
+        return idEntity;
+    }
+
+    public UsuarioExterno idEntity(Integer idEntity) {
+        this.idEntity = idEntity;
+        return this;
+    }
+
+    public void setIdEntity(Integer idEntity) {
+        this.idEntity = idEntity;
+    }
+
+    public UserType getUserType() {
         return userType;
     }
 
-    public UsuarioExterno userType(String userType) {
+    public UsuarioExterno userType(UserType userType) {
         this.userType = userType;
         return this;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
@@ -131,6 +148,7 @@ public class UsuarioExterno implements Serializable {
             "id=" + getId() +
             ", dni=" + getDni() +
             ", pin=" + getPin() +
+            ", idEntity=" + getIdEntity() +
             ", userType='" + getUserType() + "'" +
             ", role='" + getRole() + "'" +
             "}";

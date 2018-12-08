@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { UsuarioExternoService } from 'app/entities/usuario-externo/usuario-externo.service';
-import { IUsuarioExterno, UsuarioExterno } from 'app/shared/model/usuario-externo.model';
+import { IUsuarioExterno, UsuarioExterno, UserType } from 'app/shared/model/usuario-externo.model';
 
 describe('Service Tests', () => {
     describe('UsuarioExterno Service', () => {
@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(UsuarioExternoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new UsuarioExterno(0, 0, 0, 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new UsuarioExterno(0, 0, 0, 0, UserType.ADMINISTRADOR, 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -57,6 +57,7 @@ describe('Service Tests', () => {
                     {
                         dni: 1,
                         pin: 1,
+                        idEntity: 1,
                         userType: 'BBBBBB',
                         role: 'BBBBBB'
                     },
@@ -77,6 +78,7 @@ describe('Service Tests', () => {
                     {
                         dni: 1,
                         pin: 1,
+                        idEntity: 1,
                         userType: 'BBBBBB',
                         role: 'BBBBBB'
                     },

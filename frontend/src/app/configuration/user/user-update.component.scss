@@ -1,0 +1,9 @@
+.no-padding{
+  padding: 0 !important;
+}
+
+@media (max-width: 520px) {
+  .goBackTag {
+    display: none;
+  }
+}

@@ -3,6 +3,7 @@ package pe.com.iquitos.app.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import pe.com.iquitos.app.domain.enumeration.UserType;
 
 /**
  * A DTO for the UsuarioExterno entity.
@@ -17,9 +18,9 @@ public class UsuarioExternoDTO implements Serializable {
     @NotNull
     private Integer pin;
 
-    @NotNull
-    @Size(max = 150)
-    private String userType;
+    private Integer idEntity;
+
+    private UserType userType;
 
     @NotNull
     @Size(max = 150)
@@ -49,11 +50,19 @@ public class UsuarioExternoDTO implements Serializable {
         this.pin = pin;
     }
 
-    public String getUserType() {
+    public Integer getIdEntity() {
+        return idEntity;
+    }
+
+    public void setIdEntity(Integer idEntity) {
+        this.idEntity = idEntity;
+    }
+
+    public UserType getUserType() {
         return userType;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
@@ -92,6 +101,7 @@ public class UsuarioExternoDTO implements Serializable {
             "id=" + getId() +
             ", dni=" + getDni() +
             ", pin=" + getPin() +
+            ", idEntity=" + getIdEntity() +
             ", userType='" + getUserType() + "'" +
             ", role='" + getRole() + "'" +
             "}";

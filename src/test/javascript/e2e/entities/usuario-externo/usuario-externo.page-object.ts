@@ -28,7 +28,8 @@ export class UsuarioExternoUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     dniInput = element(by.id('field_dni'));
     pinInput = element(by.id('field_pin'));
-    userTypeInput = element(by.id('field_userType'));
+    idEntityInput = element(by.id('field_idEntity'));
+    userTypeSelect = element(by.id('field_userType'));
     roleInput = element(by.id('field_role'));
 
     async getPageTitle() {
@@ -51,12 +52,27 @@ export class UsuarioExternoUpdatePage {
         return this.pinInput.getAttribute('value');
     }
 
-    async setUserTypeInput(userType) {
-        await this.userTypeInput.sendKeys(userType);
+    async setIdEntityInput(idEntity) {
+        await this.idEntityInput.sendKeys(idEntity);
     }
 
-    async getUserTypeInput() {
-        return this.userTypeInput.getAttribute('value');
+    async getIdEntityInput() {
+        return this.idEntityInput.getAttribute('value');
+    }
+
+    async setUserTypeSelect(userType) {
+        await this.userTypeSelect.sendKeys(userType);
+    }
+
+    async getUserTypeSelect() {
+        return this.userTypeSelect.element(by.css('option:checked')).getText();
+    }
+
+    async userTypeSelectLastOption() {
+        await this.userTypeSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
     }
 
     async setRoleInput(role) {

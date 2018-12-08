@@ -149,7 +149,8 @@ entity Operacion {
 entity UsuarioExterno {
     dni Integer required,
     pin Integer required,
-    userType String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    idEntity Integer,
+    userType UserType,
     role String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
@@ -250,6 +251,10 @@ enum OrderStatus {
 
 enum UnidadDeMedida {
     KILO, LITRO
+}
+
+enum UserType {
+    ADMINISTRADOR, EMPLEADO, CLIENTE, PROVEEDOR
 }
 
 relationship ManyToOne {

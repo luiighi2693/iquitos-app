@@ -1,0 +1,40 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <h4>Detalles del Empleado</h4>
+        <form class="basic-form">
+          <div fxLayout="row wrap">
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">DNI:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.dni}}</span>
+              </div>
+            </div>
+
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Tipo de Usuario:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.userType}}</span>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="p-10 text-right">
+          <div class="button-row">
+            <button mat-raised-button color="basic" class="bg-warning" (click)="previousState()">IMPRIMIR</button>
+            <button mat-raised-button color="primary" (click)="previousState()">ACEPTAR</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

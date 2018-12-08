@@ -16,13 +16,13 @@
             ]
         },
         {
+            "fieldName": "idEntity",
+            "fieldType": "Integer"
+        },
+        {
             "fieldName": "userType",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 150
+            "fieldType": "UserType",
+            "fieldValues": "ADMINISTRADOR,EMPLEADO,CLIENTE,PROVEEDOR"
         },
         {
             "fieldName": "role",
