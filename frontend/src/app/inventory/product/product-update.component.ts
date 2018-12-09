@@ -78,10 +78,10 @@ export class ProductUpdateComponent implements OnInit {
             Validators.maxLength(150)
           ])
         ],
-        fdate: [
-          null,
-          Validators.compose([CustomValidators.date])
-        ],
+        // fdate: [
+        //   null,
+        //   Validators.compose([CustomValidators.date])
+        // ],
       });
 
     });
@@ -135,6 +135,13 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   private updateEntity() {
+    if (this.entity.codigo === undefined) {
+      this.entity.codigo = 'COD00000' + Math.round(Math.random() * (10000 - 1) + 1);
+    }
+
+    if (this.entity.codigo.length === 0) {
+      this.entity.codigo = 'COD00000' + Math.round(Math.random() * (10000 - 1) + 1);
+    }
   }
 
   byteSize(field) {
