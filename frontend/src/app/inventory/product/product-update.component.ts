@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs';
 import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidators} from "ng2-validation";
-import {IProducto, ProductType, UnidadDeMedida} from "../../models/producto.model";
+import {IProducto, UnidadDeMedida} from "../../models/producto.model";
 import {ProductoService} from "./producto.service";
 import { JhiDataUtils } from 'ng-jhipster';
 import {CategoriaService} from "../category/categoria.service";
@@ -34,14 +34,15 @@ export class ProductUpdateComponent implements OnInit {
   reverse = true;
   totalItems: number;
 
-  tiposDeProducto: ProductType[] = [
-    ProductType.BIENES,
-    ProductType.SERVICIOS
-  ];
+  // tiposDeProducto: ProductType[] = [
+  //   ProductType.BIENES,
+  //   ProductType.SERVICIOS
+  // ];
 
   unidadesDeMedida: UnidadDeMedida[] = [
     UnidadDeMedida.KILO,
-    UnidadDeMedida.LITRO
+    UnidadDeMedida.LITRO,
+    UnidadDeMedida.UNIDAD
   ];
 
   public form: FormGroup;

@@ -29,13 +29,9 @@ export class ProductoUpdatePage {
     codigoInput = element(by.id('field_codigo'));
     nombreInput = element(by.id('field_nombre'));
     descripcionInput = element(by.id('field_descripcion'));
-    fechaExpiracionInput = element(by.id('field_fechaExpiracion'));
-    esFavoritoInput = element(by.id('field_esFavorito'));
-    visibleParaLaVentaInput = element(by.id('field_visibleParaLaVenta'));
     imagenInput = element(by.id('file_imagen'));
     stockInput = element(by.id('field_stock'));
     notificacionDeLimiteDeStockInput = element(by.id('field_notificacionDeLimiteDeStock'));
-    tipoDeProductoSelect = element(by.id('field_tipoDeProducto'));
     unidadDeMedidaSelect = element(by.id('field_unidadDeMedida'));
     categoriaSelect = element(by.id('field_categoria'));
     variantesSelect = element(by.id('field_variantes'));
@@ -68,20 +64,6 @@ export class ProductoUpdatePage {
         return this.descripcionInput.getAttribute('value');
     }
 
-    async setFechaExpiracionInput(fechaExpiracion) {
-        await this.fechaExpiracionInput.sendKeys(fechaExpiracion);
-    }
-
-    async getFechaExpiracionInput() {
-        return this.fechaExpiracionInput.getAttribute('value');
-    }
-
-    getEsFavoritoInput() {
-        return this.esFavoritoInput;
-    }
-    getVisibleParaLaVentaInput() {
-        return this.visibleParaLaVentaInput;
-    }
     async setImagenInput(imagen) {
         await this.imagenInput.sendKeys(imagen);
     }
@@ -104,21 +86,6 @@ export class ProductoUpdatePage {
 
     async getNotificacionDeLimiteDeStockInput() {
         return this.notificacionDeLimiteDeStockInput.getAttribute('value');
-    }
-
-    async setTipoDeProductoSelect(tipoDeProducto) {
-        await this.tipoDeProductoSelect.sendKeys(tipoDeProducto);
-    }
-
-    async getTipoDeProductoSelect() {
-        return this.tipoDeProductoSelect.element(by.css('option:checked')).getText();
-    }
-
-    async tipoDeProductoSelectLastOption() {
-        await this.tipoDeProductoSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
     }
 
     async setUnidadDeMedidaSelect(unidadDeMedida) {

@@ -46,11 +46,9 @@ describe('Producto e2e test', () => {
             productoUpdatePage.setCodigoInput('codigo'),
             productoUpdatePage.setNombreInput('nombre'),
             productoUpdatePage.setDescripcionInput('descripcion'),
-            productoUpdatePage.setFechaExpiracionInput('2000-12-31'),
             productoUpdatePage.setImagenInput(absolutePath),
             productoUpdatePage.setStockInput('5'),
             productoUpdatePage.setNotificacionDeLimiteDeStockInput('5'),
-            productoUpdatePage.tipoDeProductoSelectLastOption(),
             productoUpdatePage.unidadDeMedidaSelectLastOption(),
             productoUpdatePage.categoriaSelectLastOption()
             // productoUpdatePage.variantesSelectLastOption(),
@@ -58,23 +56,6 @@ describe('Producto e2e test', () => {
         expect(await productoUpdatePage.getCodigoInput()).to.eq('codigo');
         expect(await productoUpdatePage.getNombreInput()).to.eq('nombre');
         expect(await productoUpdatePage.getDescripcionInput()).to.eq('descripcion');
-        expect(await productoUpdatePage.getFechaExpiracionInput()).to.eq('2000-12-31');
-        const selectedEsFavorito = productoUpdatePage.getEsFavoritoInput();
-        if (await selectedEsFavorito.isSelected()) {
-            await productoUpdatePage.getEsFavoritoInput().click();
-            expect(await productoUpdatePage.getEsFavoritoInput().isSelected()).to.be.false;
-        } else {
-            await productoUpdatePage.getEsFavoritoInput().click();
-            expect(await productoUpdatePage.getEsFavoritoInput().isSelected()).to.be.true;
-        }
-        const selectedVisibleParaLaVenta = productoUpdatePage.getVisibleParaLaVentaInput();
-        if (await selectedVisibleParaLaVenta.isSelected()) {
-            await productoUpdatePage.getVisibleParaLaVentaInput().click();
-            expect(await productoUpdatePage.getVisibleParaLaVentaInput().isSelected()).to.be.false;
-        } else {
-            await productoUpdatePage.getVisibleParaLaVentaInput().click();
-            expect(await productoUpdatePage.getVisibleParaLaVentaInput().isSelected()).to.be.true;
-        }
         expect(await productoUpdatePage.getImagenInput()).to.endsWith(fileNameToUpload);
         expect(await productoUpdatePage.getStockInput()).to.eq('5');
         expect(await productoUpdatePage.getNotificacionDeLimiteDeStockInput()).to.eq('5');

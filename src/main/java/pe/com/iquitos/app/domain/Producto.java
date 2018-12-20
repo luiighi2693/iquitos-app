@@ -9,12 +9,9 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
-
-import pe.com.iquitos.app.domain.enumeration.ProductType;
 
 import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
 
@@ -47,15 +44,6 @@ public class Producto implements Serializable {
     @Column(name = "descripcion", length = 150)
     private String descripcion;
 
-    @Column(name = "fecha_expiracion")
-    private LocalDate fechaExpiracion;
-
-    @Column(name = "es_favorito")
-    private Boolean esFavorito;
-
-    @Column(name = "visible_para_la_venta")
-    private Boolean visibleParaLaVenta;
-
     @Lob
     @Column(name = "imagen")
     private byte[] imagen;
@@ -69,10 +57,6 @@ public class Producto implements Serializable {
 
     @Column(name = "notificacion_de_limite_de_stock")
     private Integer notificacionDeLimiteDeStock;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_de_producto")
-    private ProductType tipoDeProducto;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "unidad_de_medida")
@@ -137,45 +121,6 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public LocalDate getFechaExpiracion() {
-        return fechaExpiracion;
-    }
-
-    public Producto fechaExpiracion(LocalDate fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
-        return this;
-    }
-
-    public void setFechaExpiracion(LocalDate fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
-    }
-
-    public Boolean isEsFavorito() {
-        return esFavorito;
-    }
-
-    public Producto esFavorito(Boolean esFavorito) {
-        this.esFavorito = esFavorito;
-        return this;
-    }
-
-    public void setEsFavorito(Boolean esFavorito) {
-        this.esFavorito = esFavorito;
-    }
-
-    public Boolean isVisibleParaLaVenta() {
-        return visibleParaLaVenta;
-    }
-
-    public Producto visibleParaLaVenta(Boolean visibleParaLaVenta) {
-        this.visibleParaLaVenta = visibleParaLaVenta;
-        return this;
-    }
-
-    public void setVisibleParaLaVenta(Boolean visibleParaLaVenta) {
-        this.visibleParaLaVenta = visibleParaLaVenta;
-    }
-
     public byte[] getImagen() {
         return imagen;
     }
@@ -226,19 +171,6 @@ public class Producto implements Serializable {
 
     public void setNotificacionDeLimiteDeStock(Integer notificacionDeLimiteDeStock) {
         this.notificacionDeLimiteDeStock = notificacionDeLimiteDeStock;
-    }
-
-    public ProductType getTipoDeProducto() {
-        return tipoDeProducto;
-    }
-
-    public Producto tipoDeProducto(ProductType tipoDeProducto) {
-        this.tipoDeProducto = tipoDeProducto;
-        return this;
-    }
-
-    public void setTipoDeProducto(ProductType tipoDeProducto) {
-        this.tipoDeProducto = tipoDeProducto;
     }
 
     public UnidadDeMedida getUnidadDeMedida() {
@@ -318,14 +250,10 @@ public class Producto implements Serializable {
             ", codigo='" + getCodigo() + "'" +
             ", nombre='" + getNombre() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
-            ", fechaExpiracion='" + getFechaExpiracion() + "'" +
-            ", esFavorito='" + isEsFavorito() + "'" +
-            ", visibleParaLaVenta='" + isVisibleParaLaVenta() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", imagenContentType='" + getImagenContentType() + "'" +
             ", stock=" + getStock() +
             ", notificacionDeLimiteDeStock=" + getNotificacionDeLimiteDeStock() +
-            ", tipoDeProducto='" + getTipoDeProducto() + "'" +
             ", unidadDeMedida='" + getUnidadDeMedida() + "'" +
             "}";
     }

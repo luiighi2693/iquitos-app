@@ -1,13 +1,11 @@
 package pe.com.iquitos.app.service.dto;
 
-import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 import javax.persistence.Lob;
-import pe.com.iquitos.app.domain.enumeration.ProductType;
 import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
 
 /**
@@ -28,12 +26,6 @@ public class ProductoDTO implements Serializable {
     @Size(max = 150)
     private String descripcion;
 
-    private LocalDate fechaExpiracion;
-
-    private Boolean esFavorito;
-
-    private Boolean visibleParaLaVenta;
-
     @Lob
     private byte[] imagen;
     private String imagenContentType;
@@ -42,8 +34,6 @@ public class ProductoDTO implements Serializable {
     private Integer stock;
 
     private Integer notificacionDeLimiteDeStock;
-
-    private ProductType tipoDeProducto;
 
     private UnidadDeMedida unidadDeMedida;
 
@@ -85,30 +75,6 @@ public class ProductoDTO implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public LocalDate getFechaExpiracion() {
-        return fechaExpiracion;
-    }
-
-    public void setFechaExpiracion(LocalDate fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
-    }
-
-    public Boolean isEsFavorito() {
-        return esFavorito;
-    }
-
-    public void setEsFavorito(Boolean esFavorito) {
-        this.esFavorito = esFavorito;
-    }
-
-    public Boolean isVisibleParaLaVenta() {
-        return visibleParaLaVenta;
-    }
-
-    public void setVisibleParaLaVenta(Boolean visibleParaLaVenta) {
-        this.visibleParaLaVenta = visibleParaLaVenta;
-    }
-
     public byte[] getImagen() {
         return imagen;
     }
@@ -139,14 +105,6 @@ public class ProductoDTO implements Serializable {
 
     public void setNotificacionDeLimiteDeStock(Integer notificacionDeLimiteDeStock) {
         this.notificacionDeLimiteDeStock = notificacionDeLimiteDeStock;
-    }
-
-    public ProductType getTipoDeProducto() {
-        return tipoDeProducto;
-    }
-
-    public void setTipoDeProducto(ProductType tipoDeProducto) {
-        this.tipoDeProducto = tipoDeProducto;
     }
 
     public UnidadDeMedida getUnidadDeMedida() {
@@ -209,13 +167,9 @@ public class ProductoDTO implements Serializable {
             ", codigo='" + getCodigo() + "'" +
             ", nombre='" + getNombre() + "'" +
             ", descripcion='" + getDescripcion() + "'" +
-            ", fechaExpiracion='" + getFechaExpiracion() + "'" +
-            ", esFavorito='" + isEsFavorito() + "'" +
-            ", visibleParaLaVenta='" + isVisibleParaLaVenta() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", stock=" + getStock() +
             ", notificacionDeLimiteDeStock=" + getNotificacionDeLimiteDeStock() +
-            ", tipoDeProducto='" + getTipoDeProducto() + "'" +
             ", unidadDeMedida='" + getUnidadDeMedida() + "'" +
             ", categoria=" + getCategoriaId() +
             ", categoria='" + getCategoriaNombre() + "'" +

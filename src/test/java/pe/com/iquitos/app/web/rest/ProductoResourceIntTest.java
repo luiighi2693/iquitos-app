@@ -29,8 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +42,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import pe.com.iquitos.app.domain.enumeration.ProductType;
 import pe.com.iquitos.app.domain.enumeration.UnidadDeMedida;
 /**
  * Test class for the ProductoResource REST controller.
@@ -64,15 +61,6 @@ public class ProductoResourceIntTest {
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_FECHA_EXPIRACION = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_FECHA_EXPIRACION = LocalDate.now(ZoneId.systemDefault());
-
-    private static final Boolean DEFAULT_ES_FAVORITO = false;
-    private static final Boolean UPDATED_ES_FAVORITO = true;
-
-    private static final Boolean DEFAULT_VISIBLE_PARA_LA_VENTA = false;
-    private static final Boolean UPDATED_VISIBLE_PARA_LA_VENTA = true;
-
     private static final byte[] DEFAULT_IMAGEN = TestUtil.createByteArray(1, "0");
     private static final byte[] UPDATED_IMAGEN = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_IMAGEN_CONTENT_TYPE = "image/jpg";
@@ -83,9 +71,6 @@ public class ProductoResourceIntTest {
 
     private static final Integer DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK = 1;
     private static final Integer UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK = 2;
-
-    private static final ProductType DEFAULT_TIPO_DE_PRODUCTO = ProductType.BIENES;
-    private static final ProductType UPDATED_TIPO_DE_PRODUCTO = ProductType.SERVICIOS;
 
     private static final UnidadDeMedida DEFAULT_UNIDAD_DE_MEDIDA = UnidadDeMedida.KILO;
     private static final UnidadDeMedida UPDATED_UNIDAD_DE_MEDIDA = UnidadDeMedida.LITRO;
@@ -151,14 +136,10 @@ public class ProductoResourceIntTest {
             .codigo(DEFAULT_CODIGO)
             .nombre(DEFAULT_NOMBRE)
             .descripcion(DEFAULT_DESCRIPCION)
-            .fechaExpiracion(DEFAULT_FECHA_EXPIRACION)
-            .esFavorito(DEFAULT_ES_FAVORITO)
-            .visibleParaLaVenta(DEFAULT_VISIBLE_PARA_LA_VENTA)
             .imagen(DEFAULT_IMAGEN)
             .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE)
             .stock(DEFAULT_STOCK)
             .notificacionDeLimiteDeStock(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)
-            .tipoDeProducto(DEFAULT_TIPO_DE_PRODUCTO)
             .unidadDeMedida(DEFAULT_UNIDAD_DE_MEDIDA);
         return producto;
     }
@@ -187,14 +168,10 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getCodigo()).isEqualTo(DEFAULT_CODIGO);
         assertThat(testProducto.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testProducto.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
-        assertThat(testProducto.getFechaExpiracion()).isEqualTo(DEFAULT_FECHA_EXPIRACION);
-        assertThat(testProducto.isEsFavorito()).isEqualTo(DEFAULT_ES_FAVORITO);
-        assertThat(testProducto.isVisibleParaLaVenta()).isEqualTo(DEFAULT_VISIBLE_PARA_LA_VENTA);
         assertThat(testProducto.getImagen()).isEqualTo(DEFAULT_IMAGEN);
         assertThat(testProducto.getImagenContentType()).isEqualTo(DEFAULT_IMAGEN_CONTENT_TYPE);
         assertThat(testProducto.getStock()).isEqualTo(DEFAULT_STOCK);
         assertThat(testProducto.getNotificacionDeLimiteDeStock()).isEqualTo(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK);
-        assertThat(testProducto.getTipoDeProducto()).isEqualTo(DEFAULT_TIPO_DE_PRODUCTO);
         assertThat(testProducto.getUnidadDeMedida()).isEqualTo(DEFAULT_UNIDAD_DE_MEDIDA);
 
         // Validate the Producto in Elasticsearch
@@ -295,14 +272,10 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
-            .andExpect(jsonPath("$.[*].fechaExpiracion").value(hasItem(DEFAULT_FECHA_EXPIRACION.toString())))
-            .andExpect(jsonPath("$.[*].esFavorito").value(hasItem(DEFAULT_ES_FAVORITO.booleanValue())))
-            .andExpect(jsonPath("$.[*].visibleParaLaVenta").value(hasItem(DEFAULT_VISIBLE_PARA_LA_VENTA.booleanValue())))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
-            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())))
             .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())));
     }
     
@@ -353,14 +326,10 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.codigo").value(DEFAULT_CODIGO.toString()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()))
-            .andExpect(jsonPath("$.fechaExpiracion").value(DEFAULT_FECHA_EXPIRACION.toString()))
-            .andExpect(jsonPath("$.esFavorito").value(DEFAULT_ES_FAVORITO.booleanValue()))
-            .andExpect(jsonPath("$.visibleParaLaVenta").value(DEFAULT_VISIBLE_PARA_LA_VENTA.booleanValue()))
             .andExpect(jsonPath("$.imagenContentType").value(DEFAULT_IMAGEN_CONTENT_TYPE))
             .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
             .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK))
             .andExpect(jsonPath("$.notificacionDeLimiteDeStock").value(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK))
-            .andExpect(jsonPath("$.tipoDeProducto").value(DEFAULT_TIPO_DE_PRODUCTO.toString()))
             .andExpect(jsonPath("$.unidadDeMedida").value(DEFAULT_UNIDAD_DE_MEDIDA.toString()));
     }
 
@@ -388,14 +357,10 @@ public class ProductoResourceIntTest {
             .codigo(UPDATED_CODIGO)
             .nombre(UPDATED_NOMBRE)
             .descripcion(UPDATED_DESCRIPCION)
-            .fechaExpiracion(UPDATED_FECHA_EXPIRACION)
-            .esFavorito(UPDATED_ES_FAVORITO)
-            .visibleParaLaVenta(UPDATED_VISIBLE_PARA_LA_VENTA)
             .imagen(UPDATED_IMAGEN)
             .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
             .stock(UPDATED_STOCK)
             .notificacionDeLimiteDeStock(UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK)
-            .tipoDeProducto(UPDATED_TIPO_DE_PRODUCTO)
             .unidadDeMedida(UPDATED_UNIDAD_DE_MEDIDA);
         ProductoDTO productoDTO = productoMapper.toDto(updatedProducto);
 
@@ -411,14 +376,10 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getCodigo()).isEqualTo(UPDATED_CODIGO);
         assertThat(testProducto.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testProducto.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
-        assertThat(testProducto.getFechaExpiracion()).isEqualTo(UPDATED_FECHA_EXPIRACION);
-        assertThat(testProducto.isEsFavorito()).isEqualTo(UPDATED_ES_FAVORITO);
-        assertThat(testProducto.isVisibleParaLaVenta()).isEqualTo(UPDATED_VISIBLE_PARA_LA_VENTA);
         assertThat(testProducto.getImagen()).isEqualTo(UPDATED_IMAGEN);
         assertThat(testProducto.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
         assertThat(testProducto.getStock()).isEqualTo(UPDATED_STOCK);
         assertThat(testProducto.getNotificacionDeLimiteDeStock()).isEqualTo(UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK);
-        assertThat(testProducto.getTipoDeProducto()).isEqualTo(UPDATED_TIPO_DE_PRODUCTO);
         assertThat(testProducto.getUnidadDeMedida()).isEqualTo(UPDATED_UNIDAD_DE_MEDIDA);
 
         // Validate the Producto in Elasticsearch
@@ -483,14 +444,10 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
-            .andExpect(jsonPath("$.[*].fechaExpiracion").value(hasItem(DEFAULT_FECHA_EXPIRACION.toString())))
-            .andExpect(jsonPath("$.[*].esFavorito").value(hasItem(DEFAULT_ES_FAVORITO.booleanValue())))
-            .andExpect(jsonPath("$.[*].visibleParaLaVenta").value(hasItem(DEFAULT_VISIBLE_PARA_LA_VENTA.booleanValue())))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
-            .andExpect(jsonPath("$.[*].tipoDeProducto").value(hasItem(DEFAULT_TIPO_DE_PRODUCTO.toString())))
             .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())));
     }
 

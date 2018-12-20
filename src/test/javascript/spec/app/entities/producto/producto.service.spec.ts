@@ -4,10 +4,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { ProductoService } from 'app/entities/producto/producto.service';
-import { IProducto, Producto, ProductType, UnidadDeMedida } from 'app/shared/model/producto.model';
+import { IProducto, Producto, UnidadDeMedida } from 'app/shared/model/producto.model';
 
 describe('Service Tests', () => {
     describe('Producto Service', () => {
@@ -15,7 +13,6 @@ describe('Service Tests', () => {
         let service: ProductoService;
         let httpMock: HttpTestingController;
         let elemDefault: IProducto;
-        let currentDate: moment.Moment;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
@@ -23,33 +20,13 @@ describe('Service Tests', () => {
             injector = getTestBed();
             service = injector.get(ProductoService);
             httpMock = injector.get(HttpTestingController);
-            currentDate = moment();
 
-            elemDefault = new Producto(
-                0,
-                'AAAAAAA',
-                'AAAAAAA',
-                'AAAAAAA',
-                currentDate,
-                false,
-                false,
-                'image/png',
-                'AAAAAAA',
-                0,
-                0,
-                ProductType.BIENES,
-                UnidadDeMedida.KILO
-            );
+            elemDefault = new Producto(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'image/png', 'AAAAAAA', 0, 0, UnidadDeMedida.KILO);
         });
 
         describe('Service methods', async () => {
             it('should find an element', async () => {
-                const returnedFromService = Object.assign(
-                    {
-                        fechaExpiracion: currentDate.format(DATE_FORMAT)
-                    },
-                    elemDefault
-                );
+                const returnedFromService = Object.assign({}, elemDefault);
                 service
                     .find(123)
                     .pipe(take(1))
@@ -62,17 +39,11 @@ describe('Service Tests', () => {
             it('should create a Producto', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        id: 0,
-                        fechaExpiracion: currentDate.format(DATE_FORMAT)
+                        id: 0
                     },
                     elemDefault
                 );
-                const expected = Object.assign(
-                    {
-                        fechaExpiracion: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .create(new Producto(null))
                     .pipe(take(1))
@@ -87,24 +58,15 @@ describe('Service Tests', () => {
                         codigo: 'BBBBBB',
                         nombre: 'BBBBBB',
                         descripcion: 'BBBBBB',
-                        fechaExpiracion: currentDate.format(DATE_FORMAT),
-                        esFavorito: true,
-                        visibleParaLaVenta: true,
                         imagen: 'BBBBBB',
                         stock: 1,
                         notificacionDeLimiteDeStock: 1,
-                        tipoDeProducto: 'BBBBBB',
                         unidadDeMedida: 'BBBBBB'
                     },
                     elemDefault
                 );
 
-                const expected = Object.assign(
-                    {
-                        fechaExpiracion: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .update(expected)
                     .pipe(take(1))
@@ -119,23 +81,14 @@ describe('Service Tests', () => {
                         codigo: 'BBBBBB',
                         nombre: 'BBBBBB',
                         descripcion: 'BBBBBB',
-                        fechaExpiracion: currentDate.format(DATE_FORMAT),
-                        esFavorito: true,
-                        visibleParaLaVenta: true,
                         imagen: 'BBBBBB',
                         stock: 1,
                         notificacionDeLimiteDeStock: 1,
-                        tipoDeProducto: 'BBBBBB',
                         unidadDeMedida: 'BBBBBB'
                     },
                     elemDefault
                 );
-                const expected = Object.assign(
-                    {
-                        fechaExpiracion: currentDate
-                    },
-                    returnedFromService
-                );
+                const expected = Object.assign({}, returnedFromService);
                 service
                     .query(expected)
                     .pipe(

@@ -64,13 +64,13 @@ entity Producto {
 	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 	descripcion String maxlength(DEFAULT_MAX_LENGTH_STRING),
-    fechaExpiracion LocalDate,
-    esFavorito Boolean,
-    visibleParaLaVenta Boolean,
+    //fechaExpiracion LocalDate,
+    //esFavorito Boolean,
+    //visibleParaLaVenta Boolean,
     imagen ImageBlob,
     stock Integer required,
     notificacionDeLimiteDeStock Integer,
-    tipoDeProducto ProductType,
+    //tipoDeProducto ProductType,
     unidadDeMedida UnidadDeMedida
 }
 
@@ -250,7 +250,7 @@ enum OrderStatus {
 }
 
 enum UnidadDeMedida {
-    KILO, LITRO
+    KILO, LITRO, UNIDAD
 }
 
 enum UserType {

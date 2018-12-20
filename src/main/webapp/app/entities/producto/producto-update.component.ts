@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IProducto } from 'app/shared/model/producto.model';
@@ -23,7 +22,6 @@ export class ProductoUpdateComponent implements OnInit {
     categorias: ICategoria[];
 
     variantes: IVariante[];
-    fechaExpiracionDp: any;
 
     constructor(
         private dataUtils: JhiDataUtils,

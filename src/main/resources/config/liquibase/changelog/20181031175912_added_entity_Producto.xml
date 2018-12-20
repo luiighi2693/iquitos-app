@@ -34,18 +34,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="fecha_expiracion" type="date">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="es_favorito" type="bit">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="visible_para_la_venta" type="bit">
-                <constraints nullable="true" />
-            </column>
-
             <column name="imagen" type="longblob">
                 <constraints nullable="true" />
             </column>
@@ -58,10 +46,6 @@
             </column>
 
             <column name="notificacion_de_limite_de_stock" type="integer">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="tipo_de_producto" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 

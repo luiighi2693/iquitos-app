@@ -28,18 +28,6 @@
             "fieldValidateRulesMaxlength": 150
         },
         {
-            "fieldName": "fechaExpiracion",
-            "fieldType": "LocalDate"
-        },
-        {
-            "fieldName": "esFavorito",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "visibleParaLaVenta",
-            "fieldType": "Boolean"
-        },
-        {
             "fieldName": "imagen",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
@@ -56,14 +44,9 @@
             "fieldType": "Integer"
         },
         {
-            "fieldName": "tipoDeProducto",
-            "fieldType": "ProductType",
-            "fieldValues": "BIENES,SERVICIOS"
-        },
-        {
             "fieldName": "unidadDeMedida",
             "fieldType": "UnidadDeMedida",
-            "fieldValues": "KILO,LITRO"
+            "fieldValues": "KILO,LITRO,UNIDAD"
         }
     ],
     "relationships": [

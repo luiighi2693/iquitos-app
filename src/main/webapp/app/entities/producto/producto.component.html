@@ -33,13 +33,9 @@
             <th jhiSortBy="codigo"><span>Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nombre"><span>Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="descripcion"><span>Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fechaExpiracion"><span>Fecha Expiracion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="esFavorito"><span>Es Favorito</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="visibleParaLaVenta"><span>Visible Para La Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="imagen"><span>Imagen</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="stock"><span>Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="notificacionDeLimiteDeStock"><span>Notificacion De Limite De Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tipoDeProducto"><span>Tipo De Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="unidadDeMedida"><span>Unidad De Medida</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="categoriaNombre"><span>Categoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -51,9 +47,6 @@
                 <td>{{producto.codigo}}</td>
                 <td>{{producto.nombre}}</td>
                 <td>{{producto.descripcion}}</td>
-                <td>{{producto.fechaExpiracion | date:'mediumDate'}}</td>
-                <td>{{producto.esFavorito}}</td>
-                <td>{{producto.visibleParaLaVenta}}</td>
                 <td>
                     <a *ngIf="producto.imagen" (click)="openFile(producto.imagenContentType, producto.imagen)">
                         <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 30px;" alt="producto image"/>
@@ -62,7 +55,6 @@
                 </td>
                 <td>{{producto.stock}}</td>
                 <td>{{producto.notificacionDeLimiteDeStock}}</td>
-                <td>{{producto.tipoDeProducto}}</td>
                 <td>{{producto.unidadDeMedida}}</td>
                 <td>
                     <div *ngIf="producto.categoriaId">
