@@ -50,6 +50,8 @@ describe('Producto e2e test', () => {
             productoUpdatePage.setStockInput('5'),
             productoUpdatePage.setNotificacionDeLimiteDeStockInput('5'),
             productoUpdatePage.unidadDeMedidaSelectLastOption(),
+            productoUpdatePage.setPrecioVentaInput('5'),
+            productoUpdatePage.setPrecioCompraInput('5'),
             productoUpdatePage.categoriaSelectLastOption()
             // productoUpdatePage.variantesSelectLastOption(),
         ]);
@@ -59,6 +61,8 @@ describe('Producto e2e test', () => {
         expect(await productoUpdatePage.getImagenInput()).to.endsWith(fileNameToUpload);
         expect(await productoUpdatePage.getStockInput()).to.eq('5');
         expect(await productoUpdatePage.getNotificacionDeLimiteDeStockInput()).to.eq('5');
+        expect(await productoUpdatePage.getPrecioVentaInput()).to.eq('5');
+        expect(await productoUpdatePage.getPrecioCompraInput()).to.eq('5');
         await productoUpdatePage.save();
         expect(await productoUpdatePage.getSaveButton().isPresent()).to.be.false;
 

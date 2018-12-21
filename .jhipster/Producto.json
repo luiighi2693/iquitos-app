@@ -47,6 +47,20 @@
             "fieldName": "unidadDeMedida",
             "fieldType": "UnidadDeMedida",
             "fieldValues": "KILO,LITRO,UNIDAD"
+        },
+        {
+            "fieldName": "precioVenta",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "precioCompra",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [

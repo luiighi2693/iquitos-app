@@ -62,6 +62,14 @@ public class Producto implements Serializable {
     @Column(name = "unidad_de_medida")
     private UnidadDeMedida unidadDeMedida;
 
+    @NotNull
+    @Column(name = "precio_venta", nullable = false)
+    private Double precioVenta;
+
+    @NotNull
+    @Column(name = "precio_compra", nullable = false)
+    private Double precioCompra;
+
     @ManyToOne
     @JsonIgnoreProperties("")
     private Categoria categoria;
@@ -186,6 +194,32 @@ public class Producto implements Serializable {
         this.unidadDeMedida = unidadDeMedida;
     }
 
+    public Double getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public Producto precioVenta(Double precioVenta) {
+        this.precioVenta = precioVenta;
+        return this;
+    }
+
+    public void setPrecioVenta(Double precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public Double getPrecioCompra() {
+        return precioCompra;
+    }
+
+    public Producto precioCompra(Double precioCompra) {
+        this.precioCompra = precioCompra;
+        return this;
+    }
+
+    public void setPrecioCompra(Double precioCompra) {
+        this.precioCompra = precioCompra;
+    }
+
     public Categoria getCategoria() {
         return categoria;
     }
@@ -255,6 +289,8 @@ public class Producto implements Serializable {
             ", stock=" + getStock() +
             ", notificacionDeLimiteDeStock=" + getNotificacionDeLimiteDeStock() +
             ", unidadDeMedida='" + getUnidadDeMedida() + "'" +
+            ", precioVenta=" + getPrecioVenta() +
+            ", precioCompra=" + getPrecioCompra() +
             "}";
     }
 }

@@ -53,6 +53,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="precio_venta" type="double">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="precio_compra" type="double">
+                <constraints nullable="false" />
+            </column>
+
             <column name="categoria_id" type="bigint">
                 <constraints nullable="true" />
             </column>

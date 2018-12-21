@@ -1,14 +1,9 @@
-import { Moment } from 'moment';
 import { IVariante } from 'app/shared/model//variante.model';
-
-export const enum ProductType {
-    BIENES = 'BIENES',
-    SERVICIOS = 'SERVICIOS'
-}
 
 export const enum UnidadDeMedida {
     KILO = 'KILO',
-    LITRO = 'LITRO'
+    LITRO = 'LITRO',
+    UNIDAD = 'UNIDAD'
 }
 
 export interface IProducto {
@@ -16,15 +11,13 @@ export interface IProducto {
     codigo?: string;
     nombre?: string;
     descripcion?: string;
-    fechaExpiracion?: Moment;
-    esFavorito?: boolean;
-    visibleParaLaVenta?: boolean;
     imagenContentType?: string;
     imagen?: any;
     stock?: number;
     notificacionDeLimiteDeStock?: number;
-    tipoDeProducto?: ProductType;
     unidadDeMedida?: UnidadDeMedida;
+    precioVenta?: number;
+    precioCompra?: number;
     categoriaNombre?: string;
     categoriaId?: number;
     variantes?: IVariante[];
@@ -36,20 +29,15 @@ export class Producto implements IProducto {
         public codigo?: string,
         public nombre?: string,
         public descripcion?: string,
-        public fechaExpiracion?: Moment,
-        public esFavorito?: boolean,
-        public visibleParaLaVenta?: boolean,
         public imagenContentType?: string,
         public imagen?: any,
         public stock?: number,
         public notificacionDeLimiteDeStock?: number,
-        public tipoDeProducto?: ProductType,
         public unidadDeMedida?: UnidadDeMedida,
+        public precioVenta?: number,
+        public precioCompra?: number,
         public categoriaNombre?: string,
         public categoriaId?: number,
         public variantes?: IVariante[]
-    ) {
-        this.esFavorito = this.esFavorito || false;
-        this.visibleParaLaVenta = this.visibleParaLaVenta || false;
-    }
+    ) {}
 }

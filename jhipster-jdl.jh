@@ -71,7 +71,9 @@ entity Producto {
     stock Integer required,
     notificacionDeLimiteDeStock Integer,
     //tipoDeProducto ProductType,
-    unidadDeMedida UnidadDeMedida
+    unidadDeMedida UnidadDeMedida,
+    precioVenta Double required,
+        precioCompra Double required,
 }
 
 entity Variante {

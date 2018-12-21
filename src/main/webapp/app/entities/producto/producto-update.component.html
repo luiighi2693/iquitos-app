@@ -95,6 +95,36 @@
                         <option value="UNIDAD">UNIDAD</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_precioVenta">Precio Venta</label>
+                    <input type="number" class="form-control" name="precioVenta" id="field_precioVenta"
+                        [(ngModel)]="producto.precioVenta" required/>
+                    <div [hidden]="!(editForm.controls.precioVenta?.dirty && editForm.controls.precioVenta?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.precioVenta?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.precioVenta?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_precioCompra">Precio Compra</label>
+                    <input type="number" class="form-control" name="precioCompra" id="field_precioCompra"
+                        [(ngModel)]="producto.precioCompra" required/>
+                    <div [hidden]="!(editForm.controls.precioCompra?.dirty && editForm.controls.precioCompra?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.precioCompra?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.precioCompra?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_categoria">Categoria</label>

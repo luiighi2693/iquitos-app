@@ -33,6 +33,8 @@ export class ProductoUpdatePage {
     stockInput = element(by.id('field_stock'));
     notificacionDeLimiteDeStockInput = element(by.id('field_notificacionDeLimiteDeStock'));
     unidadDeMedidaSelect = element(by.id('field_unidadDeMedida'));
+    precioVentaInput = element(by.id('field_precioVenta'));
+    precioCompraInput = element(by.id('field_precioCompra'));
     categoriaSelect = element(by.id('field_categoria'));
     variantesSelect = element(by.id('field_variantes'));
 
@@ -101,6 +103,22 @@ export class ProductoUpdatePage {
             .all(by.tagName('option'))
             .last()
             .click();
+    }
+
+    async setPrecioVentaInput(precioVenta) {
+        await this.precioVentaInput.sendKeys(precioVenta);
+    }
+
+    async getPrecioVentaInput() {
+        return this.precioVentaInput.getAttribute('value');
+    }
+
+    async setPrecioCompraInput(precioCompra) {
+        await this.precioCompraInput.sendKeys(precioCompra);
+    }
+
+    async getPrecioCompraInput() {
+        return this.precioCompraInput.getAttribute('value');
     }
 
     async categoriaSelectLastOption() {

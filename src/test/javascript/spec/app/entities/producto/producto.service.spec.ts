@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ProductoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Producto(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'image/png', 'AAAAAAA', 0, 0, UnidadDeMedida.KILO);
+            elemDefault = new Producto(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'image/png', 'AAAAAAA', 0, 0, UnidadDeMedida.KILO, 0, 0);
         });
 
         describe('Service methods', async () => {
@@ -61,7 +61,9 @@ describe('Service Tests', () => {
                         imagen: 'BBBBBB',
                         stock: 1,
                         notificacionDeLimiteDeStock: 1,
-                        unidadDeMedida: 'BBBBBB'
+                        unidadDeMedida: 'BBBBBB',
+                        precioVenta: 1,
+                        precioCompra: 1
                     },
                     elemDefault
                 );
@@ -84,7 +86,9 @@ describe('Service Tests', () => {
                         imagen: 'BBBBBB',
                         stock: 1,
                         notificacionDeLimiteDeStock: 1,
-                        unidadDeMedida: 'BBBBBB'
+                        unidadDeMedida: 'BBBBBB',
+                        precioVenta: 1,
+                        precioCompra: 1
                     },
                     elemDefault
                 );

@@ -37,6 +37,12 @@ public class ProductoDTO implements Serializable {
 
     private UnidadDeMedida unidadDeMedida;
 
+    @NotNull
+    private Double precioVenta;
+
+    @NotNull
+    private Double precioCompra;
+
     private Long categoriaId;
 
     private String categoriaNombre;
@@ -115,6 +121,22 @@ public class ProductoDTO implements Serializable {
         this.unidadDeMedida = unidadDeMedida;
     }
 
+    public Double getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(Double precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public Double getPrecioCompra() {
+        return precioCompra;
+    }
+
+    public void setPrecioCompra(Double precioCompra) {
+        this.precioCompra = precioCompra;
+    }
+
     public Long getCategoriaId() {
         return categoriaId;
     }
@@ -171,6 +193,8 @@ public class ProductoDTO implements Serializable {
             ", stock=" + getStock() +
             ", notificacionDeLimiteDeStock=" + getNotificacionDeLimiteDeStock() +
             ", unidadDeMedida='" + getUnidadDeMedida() + "'" +
+            ", precioVenta=" + getPrecioVenta() +
+            ", precioCompra=" + getPrecioCompra() +
             ", categoria=" + getCategoriaId() +
             ", categoria='" + getCategoriaNombre() + "'" +
             "}";

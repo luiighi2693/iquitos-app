@@ -75,6 +75,12 @@ public class ProductoResourceIntTest {
     private static final UnidadDeMedida DEFAULT_UNIDAD_DE_MEDIDA = UnidadDeMedida.KILO;
     private static final UnidadDeMedida UPDATED_UNIDAD_DE_MEDIDA = UnidadDeMedida.LITRO;
 
+    private static final Double DEFAULT_PRECIO_VENTA = 1D;
+    private static final Double UPDATED_PRECIO_VENTA = 2D;
+
+    private static final Double DEFAULT_PRECIO_COMPRA = 1D;
+    private static final Double UPDATED_PRECIO_COMPRA = 2D;
+
     @Autowired
     private ProductoRepository productoRepository;
 
@@ -140,7 +146,9 @@ public class ProductoResourceIntTest {
             .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE)
             .stock(DEFAULT_STOCK)
             .notificacionDeLimiteDeStock(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)
-            .unidadDeMedida(DEFAULT_UNIDAD_DE_MEDIDA);
+            .unidadDeMedida(DEFAULT_UNIDAD_DE_MEDIDA)
+            .precioVenta(DEFAULT_PRECIO_VENTA)
+            .precioCompra(DEFAULT_PRECIO_COMPRA);
         return producto;
     }
 
@@ -173,6 +181,8 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getStock()).isEqualTo(DEFAULT_STOCK);
         assertThat(testProducto.getNotificacionDeLimiteDeStock()).isEqualTo(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK);
         assertThat(testProducto.getUnidadDeMedida()).isEqualTo(DEFAULT_UNIDAD_DE_MEDIDA);
+        assertThat(testProducto.getPrecioVenta()).isEqualTo(DEFAULT_PRECIO_VENTA);
+        assertThat(testProducto.getPrecioCompra()).isEqualTo(DEFAULT_PRECIO_COMPRA);
 
         // Validate the Producto in Elasticsearch
         verify(mockProductoSearchRepository, times(1)).save(testProducto);
@@ -260,6 +270,44 @@ public class ProductoResourceIntTest {
 
     @Test
     @Transactional
+    public void checkPrecioVentaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productoRepository.findAll().size();
+        // set the field null
+        producto.setPrecioVenta(null);
+
+        // Create the Producto, which fails.
+        ProductoDTO productoDTO = productoMapper.toDto(producto);
+
+        restProductoMockMvc.perform(post("/api/productos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(productoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Producto> productoList = productoRepository.findAll();
+        assertThat(productoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkPrecioCompraIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productoRepository.findAll().size();
+        // set the field null
+        producto.setPrecioCompra(null);
+
+        // Create the Producto, which fails.
+        ProductoDTO productoDTO = productoMapper.toDto(producto);
+
+        restProductoMockMvc.perform(post("/api/productos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(productoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Producto> productoList = productoRepository.findAll();
+        assertThat(productoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllProductos() throws Exception {
         // Initialize the database
         productoRepository.saveAndFlush(producto);
@@ -276,7 +324,9 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
-            .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())));
+            .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())))
+            .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))
+            .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -330,7 +380,9 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
             .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK))
             .andExpect(jsonPath("$.notificacionDeLimiteDeStock").value(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK))
-            .andExpect(jsonPath("$.unidadDeMedida").value(DEFAULT_UNIDAD_DE_MEDIDA.toString()));
+            .andExpect(jsonPath("$.unidadDeMedida").value(DEFAULT_UNIDAD_DE_MEDIDA.toString()))
+            .andExpect(jsonPath("$.precioVenta").value(DEFAULT_PRECIO_VENTA.doubleValue()))
+            .andExpect(jsonPath("$.precioCompra").value(DEFAULT_PRECIO_COMPRA.doubleValue()));
     }
 
     @Test
@@ -361,7 +413,9 @@ public class ProductoResourceIntTest {
             .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
             .stock(UPDATED_STOCK)
             .notificacionDeLimiteDeStock(UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK)
-            .unidadDeMedida(UPDATED_UNIDAD_DE_MEDIDA);
+            .unidadDeMedida(UPDATED_UNIDAD_DE_MEDIDA)
+            .precioVenta(UPDATED_PRECIO_VENTA)
+            .precioCompra(UPDATED_PRECIO_COMPRA);
         ProductoDTO productoDTO = productoMapper.toDto(updatedProducto);
 
         restProductoMockMvc.perform(put("/api/productos")
@@ -381,6 +435,8 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getStock()).isEqualTo(UPDATED_STOCK);
         assertThat(testProducto.getNotificacionDeLimiteDeStock()).isEqualTo(UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK);
         assertThat(testProducto.getUnidadDeMedida()).isEqualTo(UPDATED_UNIDAD_DE_MEDIDA);
+        assertThat(testProducto.getPrecioVenta()).isEqualTo(UPDATED_PRECIO_VENTA);
+        assertThat(testProducto.getPrecioCompra()).isEqualTo(UPDATED_PRECIO_COMPRA);
 
         // Validate the Producto in Elasticsearch
         verify(mockProductoSearchRepository, times(1)).save(testProducto);
@@ -448,7 +504,9 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
             .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
-            .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())));
+            .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())))
+            .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))
+            .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())));
     }
 
     @Test
