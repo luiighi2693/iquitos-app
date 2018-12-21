@@ -37,28 +37,9 @@
             <mat-hint *ngIf="form.controls['fnombre'].hasError('maxlength') && form.controls['fnombre'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
           </div>
 
-          <!--<div fxFlex.gt-sm="50" fxFlex="100" class="p-10">-->
-            <!--<mat-form-field>-->
-              <!--<input matInput placeholder="Descripción" name="descripcion" [(ngModel)]="entity.descripcion" [formControl]="form.controls['fdescripcion']">-->
-            <!--</mat-form-field>-->
-            <!--<mat-hint *ngIf="form.controls['fdescripcion'].hasError('maxlength') && form.controls['fdescripcion'].touched" class="text-danger font-14">Límite Excedido</mat-hint>-->
-          <!--</div>-->
-
-          <!--<div fxFlex.gt-sm="25" fxFlex="100" class="p-10">-->
-            <!--<mat-form-field>-->
-              <!--<input matInput type="number" placeholder="Stock" name="cantidad" [(ngModel)]="entity.stock" [disabled]="entity.id">-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-
-          <!--<div fxFlex.gt-sm="25" fxFlex="100" class="p-10">-->
-            <!--<mat-form-field>-->
-              <!--<input matInput type="number" placeholder="Stock Mínimo" name="cantidadMinima" [(ngModel)]="entity.notificacionDeLimiteDeStock" [disabled]="entity.id">-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-
           <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
             <mat-form-field>
-              <mat-select placeholder="Unidad de medida" [(ngModel)]="entity.unidadDeMedida" name="unit">
+              <mat-select placeholder="Unidad de medida" [(ngModel)]="entity.unidadDeMedida" name="unit"  (ngModelChange)="clearUnidadesDetalle()">
                 <mat-option *ngFor="let unit of unidadesDeMedida" [value]="unit">
                   {{unit}}
                 </mat-option>
@@ -110,36 +91,131 @@
       <form class="basic-form">
         <div fxLayout="row wrap">
           <!-- column -->
-          <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
             <mat-form-field>
-              <input matInput placeholder="Código de barras" name="codigo" [(ngModel)]="entity.codigo">
+              <input matInput placeholder="Precio de Venta" name="precioVenta" [(ngModel)]="entity.precioVenta" [formControl]="form.controls['fprecioVenta']">
+              <span matPrefix>S&nbsp;</span>
+            </mat-form-field>
+            <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('required') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+            <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('maxlength') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+          </div>
+
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+            <mat-form-field>
+              <input matInput placeholder="Precio de Compra" name="precioCompra" [(ngModel)]="entity.precioCompra" [formControl]="form.controls['fprecioCompra']">
+              <span matPrefix>S&nbsp;</span>
+            </mat-form-field>
+            <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('required') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+            <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('maxlength') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+          </div>
+
+          <div fxFlex="100" class="p-10">
+            <mat-card-title>Precios por unidad de medida</mat-card-title>
+          </div>
+
+          <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+            <mat-form-field>
+              <mat-select placeholder="Seleccione" [(ngModel)]="subUnidadDeMedidaDetalle" name="subUnidadDeMedida">
+                <mat-option *ngFor="let subUnidadDeMedida of getSubUnidadesDeMedida()" [value]="subUnidadDeMedida">
+                  {{subUnidadDeMedida.name}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
 
-          <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
-            <mat-form-field>
-              <input matInput placeholder="Descripción" name="nombre" [(ngModel)]="entity.nombre" [formControl]="form.controls['fnombre']">
-            </mat-form-field>
-            <mat-hint *ngIf="form.controls['fnombre'].hasError('required') && form.controls['fnombre'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
-            <mat-hint *ngIf="form.controls['fnombre'].hasError('maxlength') && form.controls['fnombre'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+          <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+            <div class="button-row">
+              <button mat-raised-button color="primary" (click)="addVariante()" [disabled]="!subUnidadDeMedidaDetalle">Agregar Precio</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="responsive-table">
+          <mat-table #table matSort [dataSource]="dataSourceVariantes" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i = index">
+                <span class="header-label">Nombre:</span>
+                <input matInput placeholder="Descripción" type="text" (blur)="saveChangesInVariantRow($event, i, 'nombre')" value="{{row.nombre}}" disabled>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="cantidad">
+              <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i = index">
+                <span class="header-label">Cantidad:</span>
+                <input matInput placeholder="Cantidad" type="text" (blur)="saveChangesInVariantRow($event, i, 'cantidad')" value="{{row.cantidad}}">
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="precioCompra">
+              <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i = index">
+                <span class="header-label">Precio:</span>
+                <input type="number" matInput placeholder="Precio" (blur)="saveChangesInVariantRow($event, i, 'precioCompra')" value="{{row.precioCompra}}">
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="quitar">
+              <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i = index">
+                <span class="header-label">Quitar:</span>
+                <a (click)="deleteVariant(i, row)" class="ng-star-inserted">
+                  <i class="ti-trash text-danger m-r-10"></i>
+                </a>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsVariantes"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsVariantes;let i = index"></mat-row>
+          </mat-table>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+    <mat-card-content>
+      <mat-card-title>Stock</mat-card-title>
+      <form class="basic-form">
+        <div fxLayout="row wrap">
+
+          <div class="responsive-table">
+            <mat-table #table matSort [dataSource]="dataSourceUnidadesDeMedidaLabel" class="mat-elevation-z8">
+
+              <ng-container matColumnDef="cantidad">
+                <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Cantidad:</span>
+                  <input *ngIf="row.esPrincipal" matInput placeholder="Cantidad" type="text" value="{{row.cantidad}}" disabled>
+                  <div *ngIf="!row.esPrincipal">
+                    <span class="header-label">Cantidad:</span>
+                    {{row.cantidad}}
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="unidadDeMedida">
+                <mat-header-cell *matHeaderCellDef> Unidad de Medida </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Unidad de Medida:</span>
+                  {{row.unidadLabel}}
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumnsUnidadesDeMedidaLabel"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsUnidadesDeMedidaLabel;let i = index"></mat-row>
+            </mat-table>
           </div>
 
-          <!--<div fxFlex.gt-sm="50" fxFlex="100" class="p-10">-->
-          <!--<mat-form-field>-->
-          <!--<input matInput placeholder="Descripción" name="descripcion" [(ngModel)]="entity.descripcion" [formControl]="form.controls['fdescripcion']">-->
-          <!--</mat-form-field>-->
-          <!--<mat-hint *ngIf="form.controls['fdescripcion'].hasError('maxlength') && form.controls['fdescripcion'].touched" class="text-danger font-14">Límite Excedido</mat-hint>-->
-          <!--</div>-->
-
-          <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
-            <mat-form-field>
-              <input matInput type="number" placeholder="Stock" name="cantidad" [(ngModel)]="entity.stock" [disabled]="entity.id">
-            </mat-form-field>
+          <div fxFlex="100" class="p-10">
+            <mat-card-title>Notificación Límite de stock</mat-card-title>
           </div>
 
-          <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
+          <div fxFlex="100" class="p-10">
             <mat-form-field>
-              <input matInput type="number" placeholder="Stock Mínimo" name="cantidadMinima" [(ngModel)]="entity.notificacionDeLimiteDeStock" [disabled]="entity.id">
+              <input matInput placeholder="Al quedar solo" name="notificacionDeLimiteDeStock" [(ngModel)]="entity.notificacionDeLimiteDeStock">
             </mat-form-field>
           </div>
         </div>

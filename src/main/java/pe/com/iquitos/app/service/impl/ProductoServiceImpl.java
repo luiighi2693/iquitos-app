@@ -1,10 +1,14 @@
 package pe.com.iquitos.app.service.impl;
 
+import pe.com.iquitos.app.domain.Variante;
+import pe.com.iquitos.app.repository.VarianteRepository;
+import pe.com.iquitos.app.repository.search.VarianteSearchRepository;
 import pe.com.iquitos.app.service.ProductoService;
 import pe.com.iquitos.app.domain.Producto;
 import pe.com.iquitos.app.repository.ProductoRepository;
 import pe.com.iquitos.app.repository.search.ProductoSearchRepository;
 import pe.com.iquitos.app.service.dto.ProductoDTO;
+import pe.com.iquitos.app.service.dto.VarianteDTO;
 import pe.com.iquitos.app.service.mapper.ProductoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +17,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pe.com.iquitos.app.service.mapper.VarianteMapper;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -33,10 +41,19 @@ public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoSearchRepository productoSearchRepository;
 
-    public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper, ProductoSearchRepository productoSearchRepository) {
+    private final VarianteRepository varianteRepository;
+    private final VarianteMapper varianteMapper;
+    private final VarianteSearchRepository varianteSearchRepository;
+
+    public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper, ProductoSearchRepository productoSearchRepository,
+                               VarianteRepository varianteRepository, VarianteMapper varianteMapper, VarianteSearchRepository varianteSearchRepository) {
         this.productoRepository = productoRepository;
         this.productoMapper = productoMapper;
         this.productoSearchRepository = productoSearchRepository;
+
+        this.varianteRepository = varianteRepository;
+        this.varianteMapper = varianteMapper;
+        this.varianteSearchRepository = varianteSearchRepository;
     }
 
     /**
@@ -48,6 +65,31 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoDTO save(ProductoDTO productoDTO) {
         log.debug("Request to save Producto : {}", productoDTO);
+
+        if (productoDTO.getId() != null) {
+            //delete contacts and accounts that was erased in frontend
+            productoRepository
+                .findById(productoDTO.getId())
+                .get()
+                .getVariantes()
+                .stream()
+                .filter(variante -> !productoMapper
+                    .toEntity(productoDTO)
+                    .getVariantes()
+                    .contains(variante))
+                .collect(Collectors.toSet()).forEach(varianteRepository::delete);
+        }
+
+        Set<VarianteDTO> varianteDTOList = new HashSet<>();
+
+        productoDTO.getVariantes().forEach(varianteDTO -> {
+            Variante variante = varianteMapper.toEntity(varianteDTO);
+            variante = varianteRepository.save(variante);
+            varianteDTOList.add(varianteMapper.toDto(variante));
+            varianteSearchRepository.save(variante);
+        });
+
+        productoDTO.setVariantes(varianteDTOList);
 
         Producto producto = productoMapper.toEntity(productoDTO);
         producto = productoRepository.save(producto);
