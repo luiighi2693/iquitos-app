@@ -10,6 +10,7 @@ import {AuthenticationService} from '../../shared/util/authentication.service';
 import {UsuarioExterno} from '../../models/usuario-externo.model';
 import {finalize} from 'rxjs/operators';
 import {UsuarioExternoService} from './usuario-externo.service';
+import Util from "../../shared/util/util";
 
 @Component({
   selector: 'app-login',
@@ -30,8 +31,8 @@ export class LoginComponent implements OnInit {
     this.authenticationService.logout();
 
     this.form = this.fb.group({
-      uname: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required])]
+      uname: [null, Validators.compose([Validators.required, Validators.minLength(8)])],
+      password: [null, Validators.compose([Validators.required, Validators.minLength(4)])]
     });
   }
 
@@ -66,5 +67,21 @@ export class LoginComponent implements OnInit {
           this.hasError = true;
         });
     }
+  }
+
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
+
+  checkCharactersOnly(event: any): boolean {
+    return Util.checkCharactersOnly(event);
+  }
+
+  checkCharactersAndNumbersOnly(event: any): boolean {
+    return Util.checkCharactersAndNumbersOnly(event);
+  }
+
+  checkNumbersDecimalOnly(event: any): boolean {
+    return Util.checkNumbersDecimalOnly(event);
   }
 }

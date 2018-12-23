@@ -12,14 +12,14 @@
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput type="number" placeholder="Dni" minlength="1" maxlength="8" [formControl]="form.controls['uname']">
+                                <input matInput placeholder="Dni" type="text" maxlength="8" (keypress)="checkNumbersOnly($event)" [formControl]="form.controls['uname']">
                             </mat-form-field>
                             <small *ngIf="form.controls['uname'].hasError('required') && form.controls['uname'].touched" class="text-danger support-text">Dni es requerido.</small>
                         </div>
                         <!-- col full-->
                         <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                             <mat-form-field>
-                                <input matInput type="password" placeholder="Clave" minlength="1" maxlength="4" [formControl]="form.controls['password']">
+                                <input matInput type="password" placeholder="Clave" maxlength="4" (keypress)="checkNumbersOnly($event)" [formControl]="form.controls['password']">
                             </mat-form-field>
                             <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="text-danger support-text">Clave es requerida.</small>
                         </div>

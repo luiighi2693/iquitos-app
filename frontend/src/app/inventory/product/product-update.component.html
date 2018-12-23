@@ -94,7 +94,7 @@
           <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
             <mat-form-field>
               <input matInput placeholder="Precio de Venta" name="precioVenta" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="entity.precioVenta" [formControl]="form.controls['fprecioVenta']">
-              <span matPrefix>S&nbsp;</span>
+              <span matPrefix>S/&nbsp;</span>
             </mat-form-field>
             <mat-hint *ngIf="form.controls['fprecioVenta'].hasError('required') && form.controls['fprecioVenta'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
           </div>
@@ -102,7 +102,7 @@
           <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
             <mat-form-field>
               <input matInput placeholder="Precio de Compra" name="precioCompra" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="entity.precioCompra" [formControl]="form.controls['fprecioCompra']">
-              <span matPrefix>S&nbsp;</span>
+              <span matPrefix>S/&nbsp;</span>
             </mat-form-field>
             <mat-hint *ngIf="form.controls['fprecioCompra'].hasError('required') && form.controls['fprecioCompra'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
           </div>
