@@ -10,7 +10,7 @@ export const ContactModuleRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/inventory/category',
+        redirectTo: '/inventory/product',
         pathMatch: 'full'
       },
       {

@@ -11,6 +11,7 @@ import {CategoriaService} from "../category/categoria.service";
 import {ICategoria} from "../../models/categoria.model";
 import {IVariante, Variante} from "../../models/variante.model";
 import {MatTableDataSource} from "@angular/material";
+import Util from "../../shared/util/util";
 
 export interface Tab {
   label: string;
@@ -136,6 +137,7 @@ export class ProductUpdateComponent implements OnInit {
 
   displayedColumnsUnidadesDeMedidaLabel = ['cantidad', 'unidadDeMedida'];
   dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(null);
+  private editFlag: boolean;
 
   constructor(private dataUtils: JhiDataUtils,
               private service: ProductoService,
@@ -156,27 +158,31 @@ export class ProductUpdateComponent implements OnInit {
           null,
           Validators.compose([
             Validators.required,
-            Validators.maxLength(150)
           ])
         ],
-        fdescripcion: [
-          null,
-          Validators.compose([
-            Validators.maxLength(150)
-          ])
-        ],
+        // fdescripcion: [
+        //   null,
+        //   Validators.compose([
+        //     Validators.maxLength(150)
+        //   ])
+        // ],
         fprecioVenta: [
           null,
           Validators.compose([
             Validators.required,
-            Validators.maxLength(10)
+            // Validators.maxLength(10)
           ])
         ],
         fprecioCompra: [
           null,
           Validators.compose([
+            // Validators.maxLength(10)
+          ])
+        ],
+        funidadDeMedida: [
+          null,
+          Validators.compose([
             Validators.required,
-            Validators.maxLength(10)
           ])
         ],
         // fdate: [
@@ -186,12 +192,16 @@ export class ProductUpdateComponent implements OnInit {
       });
 
       if (this.entity.id) {
+        console.log(this.entity);
+        this.editFlag = true;
         this.primerUnidadDeMedidaLabel.unidadLabel = this.entity.unidadDeMedida;
         this.primerUnidadDeMedidaLabel.cantidad = this.entity.stock;
         this.unidadesDeMedidaLabel.push(this.primerUnidadDeMedidaLabel);
-        this.entity.variantes.forEach(variante => {
+
+        this.variantes = this.entity.variantes;
+        this.variantes.forEach(variante => {
           let unidadDeMedidaLabel: UnidadDeMedidaLabel = {
-            cantidad: variante.cantidad,
+            cantidad: this.primerUnidadDeMedidaLabel.cantidad / variante.cantidad,
             unidadLabel: variante.nombre,
             esPrincipal: false
           };
@@ -200,13 +210,12 @@ export class ProductUpdateComponent implements OnInit {
         });
 
         this.dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(this.unidadesDeMedidaLabel);
-        this.dataSourceVariantes = new MatTableDataSource<IVariante>(this.entity.variantes);
+        this.dataSourceVariantes = new MatTableDataSource<IVariante>(this.variantes);
 
       } else {
         this.unidadesDeMedidaLabel.push(this.primerUnidadDeMedidaLabel);
         this.dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(this.unidadesDeMedidaLabel);
       }
-
     });
 
     this.categoriaService.query().subscribe(
@@ -262,11 +271,19 @@ export class ProductUpdateComponent implements OnInit {
       this.entity.codigo = 'COD00000' + Math.round(Math.random() * (10000 - 1) + 1);
     }
 
+    if (this.entity.precioCompra === undefined) {
+      this.entity.precioCompra = 0;
+    }
+
+    if (this.entity.stock === undefined) {
+      this.entity.stock = 0;
+    }
+
     if (this.entity.codigo.length === 0) {
       this.entity.codigo = 'COD00000' + Math.round(Math.random() * (10000 - 1) + 1);
     }
 
-    this.entity.variantes = this.variantes
+    this.entity.variantes = this.variantes;
     this.entity.stock = this.unidadesDeMedidaLabel[0].cantidad;
   }
 
@@ -330,7 +347,7 @@ export class ProductUpdateComponent implements OnInit {
         this.unidadesDeMedidaLabel[this.unidadesDeMedidaLabel.indexOf(this.unidadesDeMedidaLabel
           .find(x => x.unidadLabel === this.variantes[indexFromAccount].nombre))].cantidad = this.variantes[indexFromAccount].cantidad;
 
-        this.setUnidadesDeMedidaTotal();
+        this.setCalculoDeUnidadesDeMedida();
 
         this.dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(this.unidadesDeMedidaLabel);
       }
@@ -348,7 +365,6 @@ export class ProductUpdateComponent implements OnInit {
     this.unidadesDeMedidaLabel.splice(this.unidadesDeMedidaLabel.indexOf(this.unidadesDeMedidaLabel
       .find(x => x.unidadLabel === row.nombre)), 1);
     this.dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(this.unidadesDeMedidaLabel);
-    this.setUnidadesDeMedidaTotal();
 
     this.dataSourceVariantes.data.splice(i, 1);
     this.dataSourceVariantes = new MatTableDataSource<IVariante>(this.dataSourceVariantes.data);
@@ -356,21 +372,48 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   clearUnidadesDetalle() {
-    this.subUnidadDeMedidaDetalle = undefined;
-    this.variantes = [];
-    this.dataSourceVariantes = new MatTableDataSource<IVariante>(this.variantes);
+    if (this.editFlag) {
+      this.editFlag = !this.editFlag;
+    } else {
+      this.subUnidadDeMedidaDetalle = undefined;
+      this.variantes = [];
+      this.dataSourceVariantes = new MatTableDataSource<IVariante>(this.variantes);
 
-    this.primerUnidadDeMedidaLabel.unidadLabel = this.entity.unidadDeMedida;
-    this.unidadesDeMedidaLabel = [];
-    this.unidadesDeMedidaLabel.push(this.primerUnidadDeMedidaLabel);
+      this.primerUnidadDeMedidaLabel.unidadLabel = this.entity.unidadDeMedida;
+      this.unidadesDeMedidaLabel = [];
+      this.unidadesDeMedidaLabel.push(this.primerUnidadDeMedidaLabel);
+      this.dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(this.unidadesDeMedidaLabel);
+    }
+
+  }
+
+  private setCalculoDeUnidadesDeMedida() {
+    for (let i = 1; i < this.unidadesDeMedidaLabel.length; i++) {
+      this.unidadesDeMedidaLabel[i].cantidad = this.unidadesDeMedidaLabel[0].cantidad / this.variantes[i - 1].cantidad;
+    }
+
     this.dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(this.unidadesDeMedidaLabel);
   }
 
-  private setUnidadesDeMedidaTotal() {
-    this.unidadesDeMedidaLabel[0].cantidad = this.unidadesDeMedidaLabel
-      .filter(x => !x.esPrincipal).map(y => parseInt( String(y.cantidad))).reduce((a, b) => a + b, 0);
-    this.dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(this.unidadesDeMedidaLabel);
+
+  updateStock($event: any) {
+    this.unidadesDeMedidaLabel[0].cantidad = $event.target.value;
+    this.setCalculoDeUnidadesDeMedida();
   }
 
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
 
+  checkCharactersOnly(event: any): boolean {
+    return Util.checkCharactersOnly(event);
+  }
+
+  checkCharactersAndNumbersOnly(event: any): boolean {
+    return Util.checkCharactersAndNumbersOnly(event);
+  }
+
+  checkNumbersDecimalOnly(event: any): boolean {
+    return Util.checkNumbersDecimalOnly(event);
+  }
 }

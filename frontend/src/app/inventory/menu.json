@@ -1,5 +1,4 @@
 [
-  { "value": "CATEGORIAS", "uri": "/inventory/category"},
-  { "value": "VARIANTES", "uri": "/inventory/variant"},
-  { "value": "PRODUCTOS", "uri": "/inventory/product"}
+  { "value": "PRODUCTOS", "uri": "/inventory/product"},
+  { "value": "CATEGORIAS", "uri": "/inventory/category"}
 ]
