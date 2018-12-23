@@ -15,6 +15,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {CustomValidators} from 'ng2-validation';
+import Util from "../../shared/util/util";
 
 export interface Tab {
   label: string;
@@ -127,8 +128,7 @@ export class ProviderUpdateComponent implements OnInit {
         frazonSocial: [
           null,
           Validators.compose([
-            Validators.required,
-            Validators.maxLength(150)
+            Validators.required
           ])
         ],
         fdireccion: [
@@ -374,5 +374,21 @@ export class ProviderUpdateComponent implements OnInit {
     } else {
       return field.toString().length !== 0;
     }
+  }
+
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
+
+  checkCharactersOnly(event: any): boolean {
+    return Util.checkCharactersOnly(event);
+  }
+
+  checkCharactersAndNumbersOnly(event: any): boolean {
+    return Util.checkCharactersAndNumbersOnly(event);
+  }
+
+  checkNumbersDecimalOnly(event: any): boolean {
+    return Util.checkNumbersDecimalOnly(event);
   }
 }

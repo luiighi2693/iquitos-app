@@ -17,13 +17,13 @@
           </div>
 
           <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'flex'" [rowHeight]="'auto'"
-                         [rows]="rows" [messages]="{emptyMessage:'No hay Resultados'}">
+                         [rows]="rows" [messages]="{emptyMessage:'Agregue un nuevo item'}">
             <ngx-datatable-column name="Nombre">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
           <span *ngIf="!editing[rowIndex + '-nombre']">
             {{value}}
           </span>
-                <input #valueInput autofocus *ngIf="editing[rowIndex+ '-nombre']" type="text" [value]="value"/>
+                <input #valueInput autofocus *ngIf="editing[rowIndex+ '-nombre']" type="text" [value]="value" (keypress)="checkCharactersOnly($event)"/>
                 <!--<small *ngIf="value === ''" class="text-danger font-14">Campo Requerido</small>-->
                 <a class="ng-star-inserted" (click)="editing[rowIndex + '-nombre'] = true" *ngIf="!editing[rowIndex+ '-nombre']">
                   <i class="ti-pencil text-info m-r-10"></i>

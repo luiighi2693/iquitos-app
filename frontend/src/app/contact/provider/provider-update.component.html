@@ -22,21 +22,20 @@
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Razón social" name="socialReason" [(ngModel)]="proveedor.razonSocial" [formControl]="form.controls['frazonSocial']">
+                <input matInput placeholder="Razón social" name="socialReason" type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [(ngModel)]="proveedor.razonSocial" [formControl]="form.controls['frazonSocial']">
               </mat-form-field>
               <mat-hint *ngIf="form.controls['frazonSocial'].hasError('required') && form.controls['frazonSocial'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
-              <mat-hint *ngIf="form.controls['frazonSocial'].hasError('maxlength') && form.controls['frazonSocial'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Número de Ruc" name="code" [(ngModel)]="proveedor.codigo">
+                <input matInput placeholder="Número de Ruc" name="code" type="text" maxlength="11" (keypress)="checkCharactersOnly($event)" [(ngModel)]="proveedor.codigo">
               </mat-form-field>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Dirección" name="address" [(ngModel)]="proveedor.direccion" [formControl]="form.controls['fdireccion']">
+                <input matInput placeholder="Dirección" name="address" type="text" maxlength="150" [(ngModel)]="proveedor.direccion" [formControl]="form.controls['fdireccion']">
               </mat-form-field>
               <mat-hint *ngIf="form.controls['fdireccion'].hasError('required') && form.controls['fdireccion'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
               <mat-hint *ngIf="form.controls['fdireccion'].hasError('maxlength') && form.controls['fdireccion'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
@@ -44,20 +43,20 @@
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput type="number" placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono">
+                <input matInput type="text" maxlength="15" (keypress)="checkNumbersOnly($event)" placeholder="Teléfono" name="phone" [(ngModel)]="proveedor.telefono">
               </mat-form-field>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Email" name="email" [(ngModel)]="proveedor.correo" [formControl]="form.controls['email']">
+                <input matInput type="text" maxlength="50" placeholder="Email" name="email" [(ngModel)]="proveedor.correo" [formControl]="form.controls['email']">
               </mat-form-field>
               <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger font-14">Correo inválido</small>
             </div>
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Sector" name="email" [(ngModel)]="proveedor.sector">
+                <input matInput placeholder="Sector" name="sector" type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [(ngModel)]="proveedor.sector">
               </mat-form-field>
             </div>
           </div>
@@ -106,7 +105,7 @@
                             <mat-header-cell *matHeaderCellDef> Nombre del Banco </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
                               <span class="header-label">Nombre del Banco:</span>
-                              <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'banco')" value="{{row.banco}}">
+                              <input type="text" maxlength="50" (keypress)="checkCharactersOnly($event)" (blur)="saveChangesInAccountsRow($event, i, 'banco')" value="{{row.banco}}">
                             </mat-cell>
                           </ng-container>
 
@@ -114,7 +113,7 @@
                             <mat-header-cell *matHeaderCellDef> Numero de cuenta </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
                               <span class="header-label">Numero de cuenta:</span>
-                              <input type="number" (blur)="saveChangesInAccountsRow($event, i, 'numeroDeCuenta')" value="{{row.numeroDeCuenta}}">
+                              <input type="text" maxlength="20" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInAccountsRow($event, i, 'numeroDeCuenta')" value="{{row.numeroDeCuenta}}">
                             </mat-cell>
                           </ng-container>
 
@@ -122,7 +121,7 @@
                             <mat-header-cell *matHeaderCellDef> Titular de la cuenta </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
                               <span class="header-label">Titular de la cuenta:</span>
-                              <input type="text" (blur)="saveChangesInAccountsRow($event, i, 'nombreCuenta')" value="{{row.nombreCuenta}}">
+                              <input type="text" maxlength="50" (keypress)="checkCharactersOnly($event)" (blur)="saveChangesInAccountsRow($event, i, 'nombreCuenta')" value="{{row.nombreCuenta}}">
                             </mat-cell>
                           </ng-container>
 
@@ -157,7 +156,7 @@
                             <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
                               <span class="header-label">Nombre:</span>
-                              <input type="text" (blur)="saveChangesInContactsRow($event, i, 'nombre')" value="{{row.nombre}}">
+                              <input type="text" maxlength="50" (keypress)="checkCharactersOnly($event)" (blur)="saveChangesInContactsRow($event, i, 'nombre')" value="{{row.nombre}}">
                             </mat-cell>
                           </ng-container>
 
@@ -165,7 +164,7 @@
                             <mat-header-cell *matHeaderCellDef> Cargo </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
                               <span class="header-label">Cargo:</span>
-                              <input type="text" (blur)="saveChangesInContactsRow($event, i, 'cargo')" value="{{row.cargo}}">
+                              <input type="text" maxlength="50" (keypress)="checkCharactersOnly($event)" (blur)="saveChangesInContactsRow($event, i, 'cargo')" value="{{row.cargo}}">
                             </mat-cell>
                           </ng-container>
 
@@ -173,7 +172,7 @@
                             <mat-header-cell *matHeaderCellDef> Teléfono </mat-header-cell>
                             <mat-cell *matCellDef="let row;let i = index">
                               <span class="header-label">Teléfono:</span>
-                              <input type="number" (blur)="saveChangesInContactsRow($event, i, 'telefono')" value="{{row.telefono}}">
+                              <input type="text" maxlength="15" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInContactsRow($event, i, 'telefono')" value="{{row.telefono}}">
                             </mat-cell>
                           </ng-container>
 

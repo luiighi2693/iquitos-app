@@ -9,6 +9,7 @@ import {CivilStatus, ClientType, ICliente, Sex} from "../../models/cliente.model
 import {ClienteService} from "./cliente.service";
 import {ITipoDeDocumento} from "../../models/tipo-de-documento.model";
 import {TipoDeDocumentoService} from "../../configuration/documenttype/tipo-de-documento.service";
+import Util from "../../shared/util/util";
 
 @Component({
   selector: 'app-client-update',
@@ -160,5 +161,21 @@ export class ClientUpdateComponent implements OnInit {
 
   clearInputImage(field: string, fieldContentType: string, idInput: string) {
     this.dataUtils.clearInputImage(this.entity, this.elementRef, field, fieldContentType, idInput);
+  }
+
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
+
+  checkCharactersOnly(event: any): boolean {
+    return Util.checkCharactersOnly(event);
+  }
+
+  checkCharactersAndNumbersOnly(event: any): boolean {
+    return Util.checkCharactersAndNumbersOnly(event);
+  }
+
+  checkNumbersDecimalOnly(event: any): boolean {
+    return Util.checkNumbersDecimalOnly(event);
   }
 }

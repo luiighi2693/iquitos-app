@@ -6,6 +6,7 @@ import { RelatedproductstagDeleteComponent } from './relatedproductstag-delete.c
 import {FullService} from '../../layouts/full/full.service';
 import {IProductosRelacionadosTags} from '../../models/productos-relacionados-tags.model';
 import {ProductosRelacionadosTagsService} from './productos-relacionados-tags.service';
+import Util from "../../shared/util/util";
 
 declare var require: any;
 const menu: any = require('../menu.json');
@@ -190,5 +191,21 @@ export class RelatedproductstagComponent implements OnInit, OnDestroy {
       nombre: ''
     });
     this.editing[this.rows.length - 1 + '-nombre'] = true;
+  }
+
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
+
+  checkCharactersOnly(event: any): boolean {
+    return Util.checkCharactersOnly(event);
+  }
+
+  checkCharactersAndNumbersOnly(event: any): boolean {
+    return Util.checkCharactersAndNumbersOnly(event);
+  }
+
+  checkNumbersDecimalOnly(event: any): boolean {
+    return Util.checkNumbersDecimalOnly(event);
   }
 }

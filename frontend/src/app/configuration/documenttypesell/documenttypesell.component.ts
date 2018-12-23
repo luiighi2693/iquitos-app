@@ -6,6 +6,7 @@ import {FullService} from '../../layouts/full/full.service';
 import {DocumenttypesellDeleteComponent} from "./documenttypesell-delete.component";
 import {TipoDeDocumentoDeVentaService} from "./tipo-de-documento-de-venta.service";
 import {ITipoDeDocumentoDeVenta} from "../../models/tipo-de-documento-de-venta.model";
+import Util from "../../shared/util/util";
 
 declare var require: any;
 const menu: any = require('../menu.json');
@@ -190,5 +191,21 @@ export class DocumenttypesellComponent implements OnInit, OnDestroy {
       nombre: ''
     });
     this.editing[this.rows.length - 1 + '-nombre'] = true;
+  }
+
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
+
+  checkCharactersOnly(event: any): boolean {
+    return Util.checkCharactersOnly(event);
+  }
+
+  checkCharactersAndNumbersOnly(event: any): boolean {
+    return Util.checkCharactersAndNumbersOnly(event);
+  }
+
+  checkNumbersDecimalOnly(event: any): boolean {
+    return Util.checkNumbersDecimalOnly(event);
   }
 }

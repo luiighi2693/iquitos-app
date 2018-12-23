@@ -6,6 +6,7 @@ import {FullService} from '../../layouts/full/full.service';
 import {EstatusDeCompraService} from "./estatus-de-compra.service";
 import {IEstatusDeCompra} from "../../models/estatus-de-compra.model";
 import {PurchasestatusDeleteComponent} from "./purchasestatus-delete.component";
+import Util from "../../shared/util/util";
 
 declare var require: any;
 const menu: any = require('../menu.json');
@@ -190,5 +191,21 @@ export class PurchasestatusComponent implements OnInit, OnDestroy {
       nombre: ''
     });
     this.editing[this.rows.length - 1 + '-nombre'] = true;
+  }
+
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
+
+  checkCharactersOnly(event: any): boolean {
+    return Util.checkCharactersOnly(event);
+  }
+
+  checkCharactersAndNumbersOnly(event: any): boolean {
+    return Util.checkCharactersAndNumbersOnly(event);
+  }
+
+  checkNumbersDecimalOnly(event: any): boolean {
+    return Util.checkNumbersDecimalOnly(event);
   }
 }
