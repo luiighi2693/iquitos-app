@@ -1,9 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Observer } from 'rxjs';
-import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidators} from "ng2-validation";
+import { Observable } from 'rxjs';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {FormBuilder, Validators} from '@angular/forms';
 import {IProducto, UnidadDeMedida} from "../../models/producto.model";
 import {ProductoService} from "./producto.service";
 import { JhiDataUtils } from 'ng-jhipster';
@@ -11,7 +10,7 @@ import {CategoriaService} from "../category/categoria.service";
 import {ICategoria} from "../../models/categoria.model";
 import {IVariante, Variante} from "../../models/variante.model";
 import {MatTableDataSource} from "@angular/material";
-import Util from "../../shared/util/util";
+import {BaseProducto} from "./BaseProducto";
 
 export interface Tab {
   label: string;
@@ -37,27 +36,13 @@ export interface UnidadDeMedidaLabel {
   templateUrl: './product-update.component.html',
   styleUrls: ['./product-update.component.scss']
 })
-export class ProductUpdateComponent implements OnInit {
-
-  entity: IProducto;
-  isSaving: boolean;
-
-  editing = {};
-  rows = [];
-
-  itemsPerPage = 500;
-  page: 0;
-  predicate = 'id';
-  reverse = true;
-  totalItems: number;
+export class ProductUpdateComponent extends BaseProducto implements OnInit {
 
   unidadesDeMedida: UnidadDeMedida[] = [
     UnidadDeMedida.KILO,
     UnidadDeMedida.LITRO,
     UnidadDeMedida.UNIDAD
   ];
-
-  public form: FormGroup;
 
   categorias: ICategoria[];
 
@@ -139,12 +124,13 @@ export class ProductUpdateComponent implements OnInit {
   dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(null);
   private editFlag: boolean;
 
-  constructor(private dataUtils: JhiDataUtils,
-              private service: ProductoService,
-              private categoriaService: CategoriaService,
-              private activatedRoute: ActivatedRoute,
-              private elementRef: ElementRef,
-              private fb: FormBuilder) {
+  constructor(public dataUtils: JhiDataUtils,
+              public service: ProductoService,
+              public categoriaService: CategoriaService,
+              public activatedRoute: ActivatedRoute,
+              public elementRef: ElementRef,
+              public fb: FormBuilder) {
+    super(service, null,null,null, dataUtils, elementRef);
   }
 
   ngOnInit() {
@@ -160,12 +146,6 @@ export class ProductUpdateComponent implements OnInit {
             Validators.required,
           ])
         ],
-        // fdescripcion: [
-        //   null,
-        //   Validators.compose([
-        //     Validators.maxLength(150)
-        //   ])
-        // ],
         fprecioVenta: [
           null,
           Validators.compose([
@@ -185,10 +165,6 @@ export class ProductUpdateComponent implements OnInit {
             Validators.required,
           ])
         ],
-        // fdate: [
-        //   null,
-        //   Validators.compose([CustomValidators.date])
-        // ],
       });
 
       if (this.entity.id) {
@@ -226,47 +202,21 @@ export class ProductUpdateComponent implements OnInit {
     );
   }
 
-  private onError(errorMessage: string) {
-    console.log(errorMessage);
-  }
-
-  sort() {
-    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-    if (this.predicate !== 'id') {
-      result.push('id');
-    }
-    return result;
-  }
-
-  previousState() {
-    window.history.back();
-  }
-
   save() {
-      this.updateEntity();
-      console.log(this.entity.toString());
-      this.isSaving = true;
-      if (this.entity.id !== undefined) {
-        this.subscribeToSaveResponse(this.service.update(this.entity));
-      } else {
-        this.subscribeToSaveResponse(this.service.create(this.entity));
-      }
+    this.updateEntity();
+    super.save();
   }
 
-  private subscribeToSaveResponse(result: Observable<HttpResponse<IProducto>>) {
-    result.subscribe((res: HttpResponse<IProducto>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
+  public subscribeToSaveResponse(result: Observable<HttpResponse<IProducto>>) {
+    result.subscribe((res: HttpResponse<IProducto>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
   }
 
-  private onSaveSuccess(res) {
+  public onSaveSuccess() {
     this.isSaving = false;
     this.previousState();
   }
 
-  private onSaveError() {
-    this.isSaving = false;
-  }
-
-  private updateEntity() {
+  public updateEntity() {
     if (this.entity.codigo === undefined) {
       this.entity.codigo = 'COD00000' + Math.round(Math.random() * (10000 - 1) + 1);
     }
@@ -285,22 +235,6 @@ export class ProductUpdateComponent implements OnInit {
 
     this.entity.variantes = this.variantes;
     this.entity.stock = this.unidadesDeMedidaLabel[0].cantidad;
-  }
-
-  byteSize(field) {
-    return this.dataUtils.byteSize(field);
-  }
-
-  openFile(contentType, field) {
-    return this.dataUtils.openFile(contentType, field);
-  }
-
-  setFileData(event, entity, field, isImage) {
-    this.dataUtils.setFileData(event, entity, field, isImage);
-  }
-
-  clearInputImage(field: string, fieldContentType: string, idInput: string) {
-    this.dataUtils.clearInputImage(this.entity, this.elementRef, field, fieldContentType, idInput);
   }
 
   getSubUnidadesDeMedida() {
@@ -387,7 +321,7 @@ export class ProductUpdateComponent implements OnInit {
 
   }
 
-  private setCalculoDeUnidadesDeMedida() {
+  public setCalculoDeUnidadesDeMedida() {
     for (let i = 1; i < this.unidadesDeMedidaLabel.length; i++) {
       this.unidadesDeMedidaLabel[i].cantidad = this.unidadesDeMedidaLabel[0].cantidad / this.variantes[i - 1].cantidad;
     }
@@ -395,25 +329,8 @@ export class ProductUpdateComponent implements OnInit {
     this.dataSourceUnidadesDeMedidaLabel = new MatTableDataSource<UnidadDeMedidaLabel>(this.unidadesDeMedidaLabel);
   }
 
-
   updateStock($event: any) {
     this.unidadesDeMedidaLabel[0].cantidad = $event.target.value;
     this.setCalculoDeUnidadesDeMedida();
-  }
-
-  checkNumbersOnly(event: any): boolean {
-    return Util.checkNumbersOnly(event);
-  }
-
-  checkCharactersOnly(event: any): boolean {
-    return Util.checkCharactersOnly(event);
-  }
-
-  checkCharactersAndNumbersOnly(event: any): boolean {
-    return Util.checkCharactersAndNumbersOnly(event);
-  }
-
-  checkNumbersDecimalOnly(event: any): boolean {
-    return Util.checkNumbersDecimalOnly(event);
   }
 }

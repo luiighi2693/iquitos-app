@@ -3,7 +3,7 @@
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
     <mat-card>
       <mat-card-content>
-        <mat-card-title>Productos</mat-card-title>
+        <mat-card-title>Ventas</mat-card-title>
 
         <div class="responsive-table">
           <div fxLayout="row wrap">
@@ -13,7 +13,7 @@
             </mat-form-field>
 
             <div fxFlex.gt-sm="25" fxFlex="25" id="newSection">
-              <button mat-raised-button color="primary" [routerLink]="['/inventory/product/new']">Nuevo</button>
+              <button mat-raised-button color="primary" [routerLink]="['/ventas/sell/new']">Nuevo</button>
             </div>
           </div>
 
@@ -37,37 +37,53 @@
             </ng-container>
 
             <ng-container matColumnDef="codigo">
-              <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <span class="header-label">Nombre:</span>
-                {{element.nombre}}
+                <span class="header-label">Código:</span>
+                {{element.codigo}}
               </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="descripcion">
-              <mat-header-cell *matHeaderCellDef> Descripción </mat-header-cell>
+            <ng-container matColumnDef="fecha">
+              <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <span class="header-label">Descripción:</span>
-                {{element.descripcion}}
+                <span class="header-label">Fecha:</span>
+                {{element.fecha}}
               </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="stock">
-              <mat-header-cell *matHeaderCellDef> Stock </mat-header-cell>
+            <ng-container matColumnDef="clienteNombre">
+              <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <span class="header-label">Stock:</span>
-                {{element.stock}}
+                <span class="header-label">Cliente:</span>
+                {{element.clienteNombre}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+              <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Total:</span>
+                S/.{{element.montoTotal}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+              <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Estado:</span>
+                <span [ngStyle]="{'color': element.estatus ? 'yellow' : 'green'}">{{element.estatus}}</span>
               </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="star">
               <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <a class="ng-star-inserted" [routerLink]="['/inventory/product', element.id, 'view' ]">
+                <a class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">
                   <i class="ti-eye text-info m-r-10"></i>
                 </a>
 
-                <a class="ng-star-inserted" [routerLink]="['/inventory/product', element.id, 'edit']">
+                <a class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">
                   <i class="ti-pencil text-info m-r-10"></i>
                 </a>
                 <!--<a class="ng-star-inserted" (click)="deleteRow(element)">-->

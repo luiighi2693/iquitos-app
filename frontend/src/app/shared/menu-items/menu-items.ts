@@ -252,6 +252,11 @@ const MENUITEMS = [
     name: 'Contactos',
     type: 'link',
     icon: 'av_timer',
+  },{
+    state: 'ventas',
+    name: 'Ventas',
+    type: 'link',
+    icon: 'av_timer',
   },
   {
     state: 'configuration',

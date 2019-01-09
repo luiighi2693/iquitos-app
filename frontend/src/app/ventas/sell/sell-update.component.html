@@ -1,0 +1,110 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div style="display: flex;">
+      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="previousState()" style="cursor: pointer">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="goBackTag">Todas las ventas</span>
+      </div>
+
+      <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+        <div class="button-row">
+          <button mat-raised-button style="background-color: #60c71f; color: white;" [disabled]="!form.valid" (click)="save()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vender&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+          <button mat-raised-button (click)="previousState()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <mat-card fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+    <mat-card-content>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+          <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup.enter)="searchProduct(currentSearchProduct)" >
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+
+        <div fxFlex.gt-lg="25" fxFlex.gt-md="33" fxFlex.gt-xs="33" fxFlex="100" *ngFor="let product of productos ">
+          <mat-card class="oh">
+            <img mat-card-image [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/img1.jpg'" alt="Photo of a Shiba Inu">
+              <h6 class="m-0">S/. {{product.precioVenta}}</h6>
+              <h6 class="m-0">stock: {{product.stock}}</h6>
+              <small>{{product.nombre}}</small>
+          </mat-card>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+    <mat-card-content>
+      <mat-card-title>Venta {{!entity.id ? 'Nuevo' : 'Edición'}} </mat-card-title>
+      <form class="basic-form">
+        <div fxLayout="row wrap">
+          <div class="responsive-table">
+            <mat-table #table matSort [dataSource]="dataSourceProductosDetalles" class="mat-elevation-z8">
+
+              <ng-container matColumnDef="cantidad">
+                <mat-header-cell *matHeaderCellDef> Cant. </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Cant:</span>
+                  <input matInput placeholder="Cant" type="text" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'cantidad')" value="{{row.cantidad}}">
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="producto">
+                <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Producto:</span>
+                  <input matInput placeholder="Producto" type="text" maxlength="10" (blur)="saveChangesInProductosDetallesRow($event, i, 'producto')" value="{{row.producto}}" disabled>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="precioVenta">
+                <mat-header-cell *matHeaderCellDef> PU. </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">PU.:</span>
+                  <input matInput placeholder="PU." type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')" value="{{row.precioVenta}}">
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="quitar">
+                <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Quitar:</span>
+                  <a (click)="deleteProductosDetalles(i, row)" class="ng-star-inserted">
+                    <i class="ti-trash text-danger m-r-10"></i>
+                  </a>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumnsProductosDetalles"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsProductosDetalles;let i = index"></mat-row>
+            </mat-table>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-content class="bg-light">
+      <div class="d-flex align-items-center">
+
+        <div class="text-right ml-auto">
+          <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
+          <h6 class="text-uppercase text-md ma-0 text-bold">Impuesto(0%) :</h6>
+          <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
+        </div>
+        <div class="m-l-10">
+          <h4 class="font-medium">{{0.00}}</h4>
+          <h4 class="font-medium">{{0.00}}</h4>
+          <h4 class="font-medium">{{0.00}}</h4>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

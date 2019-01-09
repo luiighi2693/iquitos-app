@@ -189,7 +189,7 @@
                   <input *ngIf="row.esPrincipal" matInput placeholder="Cantidad" type="text" maxlength="10" (keypress)="checkNumbersOnly($event)" value="{{row.cantidad}}" (blur)="updateStock($event)">
                   <div *ngIf="!row.esPrincipal">
                     <span class="header-label">Cantidad:</span>
-                    {{row.cantidad}}
+                    {{parseFloatCustom(row.cantidad)}}
                   </div>
                 </mat-cell>
               </ng-container>

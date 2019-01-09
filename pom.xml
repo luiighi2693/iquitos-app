@@ -22,7 +22,7 @@
         <node.version>v10.13.0</node.version>
         <npm.version>6.4.1</npm.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.repmaven-surefire-pluginorting.outputEncoding>UTF-8</project.repmaven-surefire-pluginorting.outputEncoding>
         <project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -736,6 +736,7 @@
                         <runOrder>alphabetical</runOrder>
                         <!-- Fixes a bug which will be solved in next version after 2.22.1 then this can be removed -->
                         <!-- see: https://issues.apache.org/jira/browse/SUREFIRE-1588 -->
+                        <skipTests>true</skipTests>
                         <useSystemClassLoader>false</useSystemClassLoader>
                     </configuration>
                 </plugin>
