@@ -6,14 +6,15 @@
         <mat-card-title>Ventas</mat-card-title>
 
         <div class="responsive-table">
-          <div fxLayout="row wrap">
-            <mat-form-field fxFlex.gt-sm="75" fxFlex="75">
+          <div fxLayout="row wrap">    
+              <button mat-icon-button color= "primary" (click)="search(currentSearch)"><mat-icon>search</mat-icon></button>
+            <mat-form-field fxFlex.gt-sm="60" fxFlex="60">
               <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">-->
-              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)" >
+              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)">
             </mat-form-field>
-
-            <div fxFlex.gt-sm="25" fxFlex="25" id="newSection">
-              <button mat-raised-button color="primary" [routerLink]="['/ventas/sell/new']">Nuevo</button>
+            
+            <div fxFlex.gt-sm="35" fxFlex="35" id="newSection">
+              <button mat-raised-button color="primary" [routerLink]="['/ventas/sell/new']">Nueva Venta</button>
             </div>
           </div>
 
