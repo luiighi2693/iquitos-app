@@ -21,7 +21,8 @@
     <mat-card-content>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+        <button mat-icon-button color= "primary" (click)="search(currentSearch)"><mat-icon>search</mat-icon></button>
+        <mat-form-field fxFlex.gt-sm="80" fxFlex="80">
           <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
         </mat-form-field>
       </div>
@@ -30,14 +31,16 @@
 
         <div fxFlex.gt-lg="25" fxFlex.gt-md="33" fxFlex.gt-xs="33" fxFlex="100" *ngFor="let product of productos ">
           <mat-card class="oh">
-            <img mat-card-image [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/img1.jpg'" alt="Photo of a Shiba Inu">
               <h6 class="m-0">S/. {{product.precioVenta}}</h6>
-              <h6 class="m-0">stock: {{product.stock}}</h6>
+            <img mat-card-image [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/img1.jpg'" alt="Photo of a Shiba Inu">
+              <!--<h6 class="m-0">stock: {{product.stock}}</h6>-->
+              <h6 class="m-0">{{product.stock}}</h6>
               <small>{{product.nombre}}</small>
           </mat-card>
         </div>
       </div>
-
+      <div>
+      </div>
     </mat-card-content>
   </mat-card>
 

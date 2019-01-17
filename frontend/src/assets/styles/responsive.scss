@@ -33,7 +33,7 @@ File: scss
 @media(min-width:1024px) {
   .card-group{
     padding: 0 15px;
-    display: flex;
+    display: initial;
     flex-flow:row wrap;
     .mat-card{
        margin: 15px 0px !important;
