@@ -22,7 +22,7 @@
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup.enter)="searchProduct(currentSearchProduct)" >
+          <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
         </mat-form-field>
       </div>
 
@@ -41,8 +41,21 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+  <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
     <mat-card-content>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+          <div style="display: flex;">
+            <div fxFlex.gt-xs="100" fxFlex="100" class="p-10 text-right">
+              <div class="button-row">
+                <span *ngIf="client.nombre !== ''">{{client.nombre}}</span><button mat-raised-button (click)="goStep('clientList', null, null)">Seleccionar Cliente</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <mat-card-title>Venta {{!entity.id ? 'Nuevo' : 'Edición'}} </mat-card-title>
       <form class="basic-form">
         <div fxLayout="row wrap">
@@ -105,6 +118,163 @@
           <h4 class="font-medium">{{0.00}}</h4>
         </div>
       </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="stateStep === 'clientList'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+    <mat-card-content>
+      <!--<form class="basic-form">-->
+
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="goStep('sell', null, null)" style="cursor: pointer">
+            <mat-icon>arrow_back</mat-icon>
+            <span class="goBackTag">Regresar a la venta</span>
+          </div>
+        </div>
+
+        <div fxLayout="row wrap">
+          <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+            <input matInput [(ngModel)]="currentSearchClient" placeholder="Escriba para buscar clientes" (keyup)="validateSearchClient()" (keyup.enter)="searchClient(currentSearchClient)" >
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row wrap">
+          <div class="p-10">
+            <div class="button-row">
+              <button mat-raised-button (click)="goStep('clientUpdate', 'new', null)">Agregar nuevo cliente</button>
+            </div>
+          </div>
+        </div>
+
+        <!--<div fxLayout="row wrap">-->
+          <div class="responsive-table">
+            <mat-table #table matSort [dataSource]="dataSourceClientes" class="mat-elevation-z8">
+
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index" (click)="setClient(row)">
+                  <span class="header-label">Nombre</span>
+                  {{row.nombre}}
+                  <br>
+                  {{row.tipoDeCliente === 'NATURAL' ? 'DNI' : 'RUC'}}:{{row.codigo}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Editar </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Editar:</span>
+                  <a (click)="goStep('clientUpdate', 'edit', row)" class="ng-star-inserted">
+                    <i class="ti-pencil text-info m-r-10"></i>
+                  </a>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumnsClientes"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsClientes;let i = index"></mat-row>
+            </mat-table>
+          </div>
+        <!--</div>-->
+      <!--</form>-->
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="stateStep === 'clientUpdate'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+    <mat-card-content>
+      <!--<form class="basic-form">-->
+
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-xs="50" fxFlex="25" class="p-10"  (click)="goStep('clientList', null, null)" style="cursor: pointer">
+          <mat-icon>arrow_back</mat-icon>
+          <span class="goBackTag">Todos los clientes</span>
+        </div>
+      </div>
+
+
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+          <mat-select placeholder="Tipo de Cliente" [(ngModel)]="client.tipoDeCliente" name="tipoDeCliente">
+            <mat-option *ngFor="let tipoCliente of tiposDeCliente" [value]="tipoCliente">
+              {{tipoCliente}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+          <mat-select placeholder="Tipo de Documento" [(ngModel)]="client.tipoDeDocumentoId" name="tipoDeDocumento">
+            <mat-option [value]="null"></mat-option>
+            <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
+              {{tipoDocumento.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+          <input matInput [(ngModel)]="client.codigo" placeholder="Documento">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+          <input matInput [matDatepicker]="picker" [(ngModel)]="client.fechaDeNacimiento" placeholder="Fecha de Nacimiento" [disabled]="client.tipoDeCliente === 'JURIDICO'">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+          <input matInput [(ngModel)]="client.telefono" placeholder="Teléfono">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+          <mat-select placeholder="Sexo" [(ngModel)]="client.sexo" name="sex" [disabled]="client.tipoDeCliente === 'JURIDICO'">
+            <mat-option *ngFor="let sex of sexos" [value]="sex">
+              {{sex}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+          <mat-select placeholder="Estado Civil" [(ngModel)]="client.estatusCivil" name="estatusCivil">
+            <mat-option *ngFor="let estadoCivil of estatusCiviles" [value]="estadoCivil" [disabled]="client.tipoDeCliente === 'JURIDICO'">
+              {{estadoCivil}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+          <input matInput [(ngModel)]="client.correo" placeholder="Email">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+        <div class="p-10">
+          <div class="button-row">
+            <button mat-raised-button  (click)="goStep('clientList', null, null)">Cancelar</button>
+            <button mat-raised-button (click)="saveClient()">Guardar</button>
+          </div>
+        </div>
+      </div>
+
+
     </mat-card-content>
   </mat-card>
 </div>
