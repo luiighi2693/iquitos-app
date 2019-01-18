@@ -27,7 +27,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
   private editFlag: boolean;
   currentSearchProduct: any;
-  productos: IProducto[];
+  productos: IProducto[] = [];
   displayedColumnsProductosDetalles = ['cantidad', 'producto', 'precioVenta', 'quitar'];
 
   productosDetalles: ProductoDetalle[]  = [
@@ -118,4 +118,6 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   deleteProductosDetalles(i: any, row: any) {
     
   }
+
+  
 }
