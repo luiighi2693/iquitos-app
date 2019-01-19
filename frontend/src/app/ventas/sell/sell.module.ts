@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SellDetailComponent } from './sell-detail.component';
 import { SellUpdateComponent } from './sell-update.component';
 import { SellDeleteComponent } from './sell-delete.component';
+import { SellVariantselectionComponent } from './sell-variantselection.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { SellDeleteComponent } from './sell-delete.component';
     ReactiveFormsModule,
     RouterModule.forChild(SellRoutes)
   ],
-  entryComponents: [SellDeleteComponent],
-  declarations: [SellComponent, SellDetailComponent, SellUpdateComponent, SellDeleteComponent]
+  entryComponents: [SellDeleteComponent, SellVariantselectionComponent],
+  declarations: [SellComponent, SellDetailComponent, SellUpdateComponent,
+    SellDeleteComponent, SellVariantselectionComponent]
 })
 export class SellModule {}

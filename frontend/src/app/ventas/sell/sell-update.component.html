@@ -29,7 +29,7 @@
       <div fxLayout="row wrap">
 
         <div fxFlex.gt-lg="25" fxFlex.gt-md="33" fxFlex.gt-xs="33" fxFlex="100" *ngFor="let product of productos ">
-          <mat-card class="oh">
+          <mat-card class="oh" (click)="openDialogVariantSelection(product)">
             <img mat-card-image [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/img1.jpg'" alt="Photo of a Shiba Inu">
               <h6 class="m-0">S/. {{product.precioVenta}}</h6>
               <h6 class="m-0">stock: {{product.stock}}</h6>
@@ -74,7 +74,7 @@
                 <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
                 <mat-cell *matCellDef="let row;let i = index">
                   <span class="header-label">Producto:</span>
-                  <input matInput placeholder="Producto" type="text" maxlength="10" (blur)="saveChangesInProductosDetallesRow($event, i, 'producto')" value="{{row.producto}}" disabled>
+                  <input matInput placeholder="Producto" type="text" maxlength="10" (blur)="saveChangesInProductosDetallesRow($event, i, 'producto')" value="{{row.productoLabel}}" disabled>
                 </mat-cell>
               </ng-container>
 
@@ -83,6 +83,14 @@
                 <mat-cell *matCellDef="let row;let i = index">
                   <span class="header-label">PU.:</span>
                   <input matInput placeholder="PU." type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')" value="{{row.precioVenta}}">
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="precioTotal">
+                <mat-header-cell *matHeaderCellDef> PT. </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">PT.:</span>
+                  <input matInput placeholder="PT." type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')" value="S/ {{row.precioVenta*row.cantidad}}" disabled>
                 </mat-cell>
               </ng-container>
 
@@ -113,9 +121,9 @@
           <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
         </div>
         <div class="m-l-10">
+          <h4 class="font-medium">{{subtotalMonto}}</h4>
           <h4 class="font-medium">{{0.00}}</h4>
-          <h4 class="font-medium">{{0.00}}</h4>
-          <h4 class="font-medium">{{0.00}}</h4>
+          <h4 class="font-medium">{{totalMonto}}</h4>
         </div>
       </div>
     </mat-card-content>

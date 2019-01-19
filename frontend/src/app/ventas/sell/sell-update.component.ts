@@ -6,19 +6,24 @@ import {FormBuilder} from '@angular/forms';
 import {IVenta} from "../../models/venta.model";
 import {VentaService} from "./venta.service";
 import {JhiDataUtils} from 'ng-jhipster';
-import {MatTableDataSource} from "@angular/material";
+import {MatDialog, MatTableDataSource} from "@angular/material";
 import {BaseVenta} from "./BaseVenta";
-import {IProducto} from "../../models/producto.model";
+import {IProducto, Producto} from "../../models/producto.model";
 import {ProductoService} from "../../inventory/product/producto.service";
 import {CivilStatus, Cliente, ClientType, ICliente, Sex} from "../../models/cliente.model";
 import {ClienteService} from "../../contact/client/cliente.service";
 import {ITipoDeDocumento} from "../../models/tipo-de-documento.model";
 import {TipoDeDocumentoService} from "../../configuration/documenttype/tipo-de-documento.service";
+import {SellVariantselectionComponent} from "./sell-variantselection.component";
+import {SellDeleteComponent} from "./sell-delete.component";
+import {Variante} from "../../models/variante.model";
 
 export interface ProductoDetalle {
   cantidad: number;
-  producto: string;
+  productoLabel: string;
   precioVenta: number;
+  producto: Producto;
+  variante: Variante;
 }
 
 @Component({
@@ -33,16 +38,11 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   currentSearchClient: string;
   productos: IProducto[];
   clientes: ICliente[];
-  displayedColumnsProductosDetalles = ['cantidad', 'producto', 'precioVenta', 'quitar'];
+  displayedColumnsProductosDetalles = ['cantidad', 'producto', 'precioVenta', 'precioTotal', 'quitar'];
   displayedColumnsClientes = ['name', 'action'];
 
-  productosDetalles: ProductoDetalle[]  = [
-    {
-      cantidad: 2,
-      producto: 'harina',
-      precioVenta: 4
-    }
-  ];
+  productosDetalles: ProductoDetalle[]  = [];
+
   dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.productosDetalles);
   dataSourceClientes = new MatTableDataSource<Cliente>(this.clientes);
   stateStep: string = 'sell';
@@ -65,6 +65,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   ];
 
   tiposDeDocumento: ITipoDeDocumento[];
+  subtotalMonto = 0.00;
+  totalMonto = 0.00;
 
   constructor(public dataUtils: JhiDataUtils,
               public service: VentaService,
@@ -73,7 +75,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
               private tiposDeDocumentoService: TipoDeDocumentoService,
               public activatedRoute: ActivatedRoute,
               public elementRef: ElementRef,
-              public fb: FormBuilder) {
+              public fb: FormBuilder,
+              public dialogVariant: MatDialog) {
     super(service, null,null,null, dataUtils, elementRef);
   }
 
@@ -186,16 +189,29 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
 
-  saveChangesInProductosDetallesRow($event: FocusEvent, i: any, producto: string) {
-    
+  saveChangesInProductosDetallesRow($event: FocusEvent, i: any, label: string) {
+    // @ts-ignore
+    console.log($event.target.value, i, label);
+
+    if (label === 'cantidad') {
+      // @ts-ignore
+      this.productosDetalles[i].cantidad = parseInt($event.target.value);
+    }
+
+    if (label === 'precioVenta') {
+      // @ts-ignore
+      this.productosDetalles[i].precioVenta = parseFloat($event.target.value);
+    }
+
+    this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.productosDetalles);
+    this.setAmmount();
   }
 
   deleteProductosDetalles(i: any, row: any) {
-    
-  }
+    this.productosDetalles.splice(i,1);
 
-  editarCliente(row: Cliente) {
-    console.log(row);
+    this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.productosDetalles);
+    this.setAmmount();
   }
 
   goStep(step: string, view: string, row: Cliente) {
@@ -261,6 +277,55 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   validateSearchClient() {
     if (this.currentSearchClient.length > 2 || this.currentSearchClient.length === 0) {
       this.searchClient(this.currentSearchClient)
+    }
+  }
+
+  openDialogVariantSelection(entity): void {
+    const dialogRef = this.dialogVariant.open(SellVariantselectionComponent, {
+      width: '50%',
+      data: { entity: entity }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        console.log(result);
+
+        let productoLabelExtra = null;
+
+        if (result.isVariant) {
+          productoLabelExtra = result.variant.nombre;
+        } else {
+          productoLabelExtra = entity.unidadDeMedida;
+        }
+
+        const productoDetalle = <ProductoDetalle>{
+          cantidad: 1,
+          precioVenta: result.isVariant ? result.variant.precioCompra : entity.precioVenta,
+          producto: entity,
+          productoLabel: entity.nombre + '('+productoLabelExtra+')',
+          variante: result.variant
+        };
+
+        const index = this.productosDetalles.map(x => x.productoLabel).indexOf(productoDetalle.productoLabel);
+
+        if (index !== -1) {
+          this.productosDetalles[index].cantidad += 1;
+          this.productosDetalles[index].precioVenta += productoDetalle.precioVenta;
+        } else {
+          this.productosDetalles.push(productoDetalle);
+        }
+
+        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.productosDetalles);
+        this.setAmmount();
+      }
+    });
+  }
+
+  setAmmount(){
+    if (this.productosDetalles.length === 0) {
+      this.subtotalMonto = this.totalMonto = 0;
+    } else {
+      this.subtotalMonto = this.totalMonto = this.productosDetalles.map(x => x.precioVenta * x.cantidad).reduce((a, b) => a + b, 0);
     }
   }
 }
