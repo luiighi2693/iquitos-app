@@ -322,6 +322,8 @@ relationship ManyToMany {
     Variante{productos(codigo)} to Producto,
     Venta{productos(codigo)} to Producto,
     Venta{productoDetalles} to ProductoDetalle,
+    ProductoDetalle{variantes(nombre)} to Variante,
+    ProductoDetalle{productos(codigo)} to Producto,
     Compra{productos(codigo)} to Producto,
 
     Proveedor{cuentaProveedor(codigo)} to CuentaProveedor,

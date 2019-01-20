@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-producto-detalle-heading">Create or edit a Producto Detalle</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!productoDetalle.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="productoDetalle.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cantidad">Cantidad</label>
+                    <input type="number" class="form-control" name="cantidad" id="field_cantidad"
+                        [(ngModel)]="productoDetalle.cantidad" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_productoLabel">Producto Label</label>
+                    <input type="text" class="form-control" name="productoLabel" id="field_productoLabel"
+                        [(ngModel)]="productoDetalle.productoLabel" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_precioVenta">Precio Venta</label>
+                    <input type="number" class="form-control" name="precioVenta" id="field_precioVenta"
+                        [(ngModel)]="productoDetalle.precioVenta" />
+                </div>
+
+                <div class="form-group">
+                    <label for="field_variantes">Variantes</label>
+                    <select class="form-control" id="field_variantes" multiple name="variantes" [(ngModel)]="productoDetalle.variantes">
+                        <option [ngValue]="getSelected(productoDetalle.variantes, varianteOption)" *ngFor="let varianteOption of variantes; trackBy: trackVarianteById">{{varianteOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_productos">Productos</label>
+                    <select class="form-control" id="field_productos" multiple name="productos" [(ngModel)]="productoDetalle.productos">
+                        <option [ngValue]="getSelected(productoDetalle.productos, productoOption)" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.codigo}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

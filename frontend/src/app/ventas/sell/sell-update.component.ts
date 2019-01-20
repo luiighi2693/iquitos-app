@@ -17,14 +17,15 @@ import {TipoDeDocumentoService} from "../../configuration/documenttype/tipo-de-d
 import {SellVariantselectionComponent} from "./sell-variantselection.component";
 import {SellDeleteComponent} from "./sell-delete.component";
 import {Variante} from "../../models/variante.model";
+import {ProductoDetalle} from "../../models/producto-detalle.model";
 
-export interface ProductoDetalle {
-  cantidad: number;
-  productoLabel: string;
-  precioVenta: number;
-  producto: Producto;
-  variante: Variante;
-}
+// export interface ProductoDetalle {
+//   cantidad: number;
+//   productoLabel: string;
+//   precioVenta: number;
+//   producto: Producto;
+//   variante: Variante;
+// }
 
 @Component({
   selector: 'app-sell-update',
@@ -36,14 +37,14 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   private editFlag: boolean;
   currentSearchProduct: string;
   currentSearchClient: string;
-  productos: IProducto[];
+  productos: IProducto[] = [];
   clientes: ICliente[];
   displayedColumnsProductosDetalles = ['cantidad', 'producto', 'precioVenta', 'precioTotal', 'quitar'];
   displayedColumnsClientes = ['name', 'action'];
 
-  productosDetalles: ProductoDetalle[]  = [];
+  // productosDetalles: ProductoDetalle[]  = [];
 
-  dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.productosDetalles);
+  dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(null);
   dataSourceClientes = new MatTableDataSource<Cliente>(this.clientes);
   stateStep: string = 'sell';
 
@@ -65,8 +66,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   ];
 
   tiposDeDocumento: ITipoDeDocumento[];
-  subtotalMonto = 0.00;
-  totalMonto = 0.00;
+  // subtotalMonto = 0.00;
+  // totalMonto = 0.00;
 
   constructor(public dataUtils: JhiDataUtils,
               public service: VentaService,
@@ -81,8 +82,6 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.productosDetalles);
-
     this.isSaving = false;
 
     this.activatedRoute.data.subscribe(({ entity }) => {
@@ -96,6 +95,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         this.editFlag = true;
 
       } else {
+        this.entity.subTotal = 0;
+        this.entity.montoTotal = 0;
+        this.entity.productoDetalles = [];
       }
     });
 
@@ -195,22 +197,22 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
     if (label === 'cantidad') {
       // @ts-ignore
-      this.productosDetalles[i].cantidad = parseInt($event.target.value);
+      this.entity.productoDetalles[i].cantidad = parseInt($event.target.value);
     }
 
     if (label === 'precioVenta') {
       // @ts-ignore
-      this.productosDetalles[i].precioVenta = parseFloat($event.target.value);
+      this.entity.productoDetalles[i].precioVenta = parseFloat($event.target.value);
     }
 
-    this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.productosDetalles);
+    this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
     this.setAmmount();
   }
 
   deleteProductosDetalles(i: any, row: any) {
-    this.productosDetalles.splice(i,1);
+    this.entity.productoDetalles.splice(i,1);
 
-    this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.productosDetalles);
+    this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
     this.setAmmount();
   }
 
@@ -301,36 +303,36 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         const productoDetalle = <ProductoDetalle>{
           cantidad: 1,
           precioVenta: result.isVariant ? result.variant.precioCompra : entity.precioVenta,
-          producto: entity,
+          productos: [entity],
           productoLabel: entity.nombre + '('+productoLabelExtra+')',
-          variante: result.variant
+          variantes: result.isVariant ? [result.variant] : []
         };
 
-        const index = this.productosDetalles.map(x => x.productoLabel).indexOf(productoDetalle.productoLabel);
+        const index = this.entity.productoDetalles.map(x => x.productoLabel).indexOf(productoDetalle.productoLabel);
 
         if (index !== -1) {
-          this.productosDetalles[index].cantidad += 1;
-          this.productosDetalles[index].precioVenta += productoDetalle.precioVenta;
+          this.entity.productoDetalles[index].cantidad += 1;
+          this.entity.productoDetalles[index].precioVenta += productoDetalle.precioVenta;
         } else {
-          this.productosDetalles.push(productoDetalle);
+          this.entity.productoDetalles.push(productoDetalle);
         }
 
-        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.productosDetalles);
+        console.log(this.entity.productoDetalles);
+
+        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
         this.setAmmount();
       }
     });
   }
 
   setAmmount(){
-    if (this.productosDetalles.length === 0) {
-      this.subtotalMonto = this.totalMonto = 0;
+    if (this.entity.productoDetalles.length === 0) {
+      this.entity.subTotal= this.entity.montoTotal = 0;
     } else {
-      this.subtotalMonto = this.totalMonto = this.productosDetalles.map(x => x.precioVenta * x.cantidad).reduce((a, b) => a + b, 0);
+      this.entity.subTotal= this.entity.montoTotal = this.entity.productoDetalles.map(x => x.precioVenta * x.cantidad).reduce((a, b) => a + b, 0);
     }
   }
 
   addExtraInfoSell() {
-    console.log(JSON.stringify(this.productosDetalles));
-    console.log(JSON.stringify(this.productosDetalles).length);
   }
 }
