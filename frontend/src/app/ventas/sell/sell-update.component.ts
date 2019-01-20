@@ -328,4 +328,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       this.subtotalMonto = this.totalMonto = this.productosDetalles.map(x => x.precioVenta * x.cantidad).reduce((a, b) => a + b, 0);
     }
   }
+
+  addExtraInfoSell() {
+    console.log(JSON.stringify(this.productosDetalles));
+    console.log(JSON.stringify(this.productosDetalles).length);
+  }
 }

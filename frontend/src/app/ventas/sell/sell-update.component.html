@@ -129,6 +129,11 @@
         </div>
       </div>
     </mat-card-content>
+
+    <div class="button-row">
+      <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:75%" [disabled]="!form.valid" (click)="addExtraInfoSell()">Vender</button>
+      <button mat-raised-button style="width:136px; border-radius: initial;"(click)="previousState()">Cancelar</button>
+    </div>
   </mat-card>
 
   <mat-card *ngIf="stateStep === 'clientList'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
@@ -284,10 +289,6 @@
         </div>
       </div>
     </mat-card-content>
-    <div class="button-row">
-        <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:75%" [disabled]="!form.valid" (click)="save()">Vender</button>
-        <button mat-raised-button style="width:136px; border-radius: initial;"(click)="previousState()">Cancelar</button>
-      </div>
   </mat-card>
   <!--<div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
       <div class="button-row">
