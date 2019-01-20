@@ -51,9 +51,9 @@ describe('Venta e2e test', () => {
             ventaUpdatePage.empleadoSelectLastOption(),
             ventaUpdatePage.cajaSelectLastOption(),
             ventaUpdatePage.tipoDeDocumentoDeVentaSelectLastOption(),
-            ventaUpdatePage.tipoDePagoSelectLastOption(),
-            ventaUpdatePage.estatusDeProductoEntregadoSelectLastOption()
+            ventaUpdatePage.tipoDePagoSelectLastOption()
             // ventaUpdatePage.productosSelectLastOption(),
+            // ventaUpdatePage.productoDetallesSelectLastOption(),
         ]);
         expect(await ventaUpdatePage.getCodigoInput()).to.eq('codigo');
         expect(await ventaUpdatePage.getSubTotalInput()).to.eq('5');

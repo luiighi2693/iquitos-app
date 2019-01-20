@@ -57,11 +57,9 @@ public class VentaDTO implements Serializable {
 
     private String tipoDePagoNombre;
 
-    private Long estatusDeProductoEntregadoId;
-
-    private String estatusDeProductoEntregadoNombre;
-
     private Set<ProductoDTO> productos = new HashSet<>();
+
+    private Set<ProductoDetalleDTO> productoDetalles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -207,28 +205,20 @@ public class VentaDTO implements Serializable {
         this.tipoDePagoNombre = tipoDePagoNombre;
     }
 
-    public Long getEstatusDeProductoEntregadoId() {
-        return estatusDeProductoEntregadoId;
-    }
-
-    public void setEstatusDeProductoEntregadoId(Long estatusDeProductoEntregadoId) {
-        this.estatusDeProductoEntregadoId = estatusDeProductoEntregadoId;
-    }
-
-    public String getEstatusDeProductoEntregadoNombre() {
-        return estatusDeProductoEntregadoNombre;
-    }
-
-    public void setEstatusDeProductoEntregadoNombre(String estatusDeProductoEntregadoNombre) {
-        this.estatusDeProductoEntregadoNombre = estatusDeProductoEntregadoNombre;
-    }
-
     public Set<ProductoDTO> getProductos() {
         return productos;
     }
 
     public void setProductos(Set<ProductoDTO> productos) {
         this.productos = productos;
+    }
+
+    public Set<ProductoDetalleDTO> getProductoDetalles() {
+        return productoDetalles;
+    }
+
+    public void setProductoDetalles(Set<ProductoDetalleDTO> productoDetalles) {
+        this.productoDetalles = productoDetalles;
     }
 
     @Override
@@ -273,8 +263,6 @@ public class VentaDTO implements Serializable {
             ", tipoDeDocumentoDeVenta='" + getTipoDeDocumentoDeVentaNombre() + "'" +
             ", tipoDePago=" + getTipoDePagoId() +
             ", tipoDePago='" + getTipoDePagoNombre() + "'" +
-            ", estatusDeProductoEntregado=" + getEstatusDeProductoEntregadoId() +
-            ", estatusDeProductoEntregado='" + getEstatusDeProductoEntregadoNombre() + "'" +
             "}";
     }
 }

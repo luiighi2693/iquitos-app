@@ -39,8 +39,8 @@ export class VentaUpdatePage {
     cajaSelect = element(by.id('field_caja'));
     tipoDeDocumentoDeVentaSelect = element(by.id('field_tipoDeDocumentoDeVenta'));
     tipoDePagoSelect = element(by.id('field_tipoDePago'));
-    estatusDeProductoEntregadoSelect = element(by.id('field_estatusDeProductoEntregado'));
     productosSelect = element(by.id('field_productos'));
+    productoDetallesSelect = element(by.id('field_productoDetalles'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -212,25 +212,6 @@ export class VentaUpdatePage {
         return this.tipoDePagoSelect.element(by.css('option:checked')).getText();
     }
 
-    async estatusDeProductoEntregadoSelectLastOption() {
-        await this.estatusDeProductoEntregadoSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async estatusDeProductoEntregadoSelectOption(option) {
-        await this.estatusDeProductoEntregadoSelect.sendKeys(option);
-    }
-
-    getEstatusDeProductoEntregadoSelect(): ElementFinder {
-        return this.estatusDeProductoEntregadoSelect;
-    }
-
-    async getEstatusDeProductoEntregadoSelectedOption() {
-        return this.estatusDeProductoEntregadoSelect.element(by.css('option:checked')).getText();
-    }
-
     async productosSelectLastOption() {
         await this.productosSelect
             .all(by.tagName('option'))
@@ -248,6 +229,25 @@ export class VentaUpdatePage {
 
     async getProductosSelectedOption() {
         return this.productosSelect.element(by.css('option:checked')).getText();
+    }
+
+    async productoDetallesSelectLastOption() {
+        await this.productoDetallesSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async productoDetallesSelectOption(option) {
+        await this.productoDetallesSelect.sendKeys(option);
+    }
+
+    getProductoDetallesSelect(): ElementFinder {
+        return this.productoDetallesSelect;
+    }
+
+    async getProductoDetallesSelectedOption() {
+        return this.productoDetallesSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

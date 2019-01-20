@@ -24,6 +24,12 @@ entity Venta {
     metaData String required maxlength(DEFAULT_MAX_LENGTH_METADATA), //quantity, discount, variantId
 }
 
+entity ProductoDetalle { //detalles de los productos que se van a vender
+    cantidad Integer,
+    productoLabel String,
+    precioVenta Double,
+}
+
 entity Credito {
 	monto Double required,
 	fecha LocalDate,
@@ -265,7 +271,7 @@ relationship ManyToOne {
     
     Venta{tipoDeDocumentoDeVenta(nombre)} to TipoDeDocumentoDeVenta,
     Venta{tipoDePago(nombre)} to TipoDePago,
-    Venta{estatusDeProductoEntregado(nombre)} to EstatusDeProductoEntregado,
+    //Venta{estatusDeProductoEntregado(nombre)} to EstatusDeProductoEntregado,
     
     Cliente{tipoDeDocumento(nombre)} to TipoDeDocumento,
     
@@ -315,6 +321,7 @@ relationship ManyToMany {
     Producto{variantes(nombre)} to Variante,
     Variante{productos(codigo)} to Producto,
     Venta{productos(codigo)} to Producto,
+    Venta{productoDetalles} to ProductoDetalle,
     Compra{productos(codigo)} to Producto,
 
     Proveedor{cuentaProveedor(codigo)} to CuentaProveedor,

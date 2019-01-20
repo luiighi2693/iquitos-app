@@ -8,7 +8,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Venta and its DTO VentaDTO.
  */
-@Mapper(componentModel = "spring", uses = {ClienteMapper.class, EmpleadoMapper.class, CajaMapper.class, TipoDeDocumentoDeVentaMapper.class, TipoDePagoMapper.class, EstatusDeProductoEntregadoMapper.class, ProductoMapper.class})
+@Mapper(componentModel = "spring", uses = {ClienteMapper.class, EmpleadoMapper.class, CajaMapper.class, TipoDeDocumentoDeVentaMapper.class, TipoDePagoMapper.class, ProductoMapper.class, ProductoDetalleMapper.class})
 public interface VentaMapper extends EntityMapper<VentaDTO, Venta> {
 
     @Mapping(source = "cliente.id", target = "clienteId")
@@ -20,8 +20,6 @@ public interface VentaMapper extends EntityMapper<VentaDTO, Venta> {
     @Mapping(source = "tipoDeDocumentoDeVenta.nombre", target = "tipoDeDocumentoDeVentaNombre")
     @Mapping(source = "tipoDePago.id", target = "tipoDePagoId")
     @Mapping(source = "tipoDePago.nombre", target = "tipoDePagoNombre")
-    @Mapping(source = "estatusDeProductoEntregado.id", target = "estatusDeProductoEntregadoId")
-    @Mapping(source = "estatusDeProductoEntregado.nombre", target = "estatusDeProductoEntregadoNombre")
     VentaDTO toDto(Venta venta);
 
     @Mapping(source = "clienteId", target = "cliente")
@@ -30,7 +28,6 @@ public interface VentaMapper extends EntityMapper<VentaDTO, Venta> {
     @Mapping(target = "amortizacions", ignore = true)
     @Mapping(source = "tipoDeDocumentoDeVentaId", target = "tipoDeDocumentoDeVenta")
     @Mapping(source = "tipoDePagoId", target = "tipoDePago")
-    @Mapping(source = "estatusDeProductoEntregadoId", target = "estatusDeProductoEntregado")
     Venta toEntity(VentaDTO ventaDTO);
 
     default Venta fromId(Long id) {

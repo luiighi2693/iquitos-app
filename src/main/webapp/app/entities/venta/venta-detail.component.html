@@ -67,16 +67,16 @@
                         <a [routerLink]="['/tipo-de-pago', venta.tipoDePagoId, 'view']">{{venta.tipoDePagoNombre}}</a>
                     </div>
                 </dd>
-                <dt><span>Estatus De Producto Entregado</span></dt>
-                <dd>
-                    <div *ngIf="venta.estatusDeProductoEntregadoId">
-                        <a [routerLink]="['/estatus-de-producto-entregado', venta.estatusDeProductoEntregadoId, 'view']">{{venta.estatusDeProductoEntregadoNombre}}</a>
-                    </div>
-                </dd>
                 <dt><span>Productos</span></dt>
                 <dd>
                     <span *ngFor="let productos of venta.productos; let last = last">
                         <a [routerLink]="['/producto', productos?.id, 'view' ]">{{productos.codigo}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Producto Detalles</span></dt>
+                <dd>
+                    <span *ngFor="let productoDetalles of venta.productoDetalles; let last = last">
+                        <a [routerLink]="['/producto-detalle', productoDetalles?.id, 'view' ]">{{productoDetalles.id}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
             </dl>

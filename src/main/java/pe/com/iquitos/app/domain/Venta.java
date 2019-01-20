@@ -85,16 +85,19 @@ public class Venta implements Serializable {
     @JsonIgnoreProperties("")
     private TipoDePago tipoDePago;
 
-    @ManyToOne
-    @JsonIgnoreProperties("")
-    private EstatusDeProductoEntregado estatusDeProductoEntregado;
-
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "venta_productos",
                joinColumns = @JoinColumn(name = "ventas_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "productos_id", referencedColumnName = "id"))
     private Set<Producto> productos = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "venta_producto_detalles",
+               joinColumns = @JoinColumn(name = "ventas_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "producto_detalles_id", referencedColumnName = "id"))
+    private Set<ProductoDetalle> productoDetalles = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -299,19 +302,6 @@ public class Venta implements Serializable {
         this.tipoDePago = tipoDePago;
     }
 
-    public EstatusDeProductoEntregado getEstatusDeProductoEntregado() {
-        return estatusDeProductoEntregado;
-    }
-
-    public Venta estatusDeProductoEntregado(EstatusDeProductoEntregado estatusDeProductoEntregado) {
-        this.estatusDeProductoEntregado = estatusDeProductoEntregado;
-        return this;
-    }
-
-    public void setEstatusDeProductoEntregado(EstatusDeProductoEntregado estatusDeProductoEntregado) {
-        this.estatusDeProductoEntregado = estatusDeProductoEntregado;
-    }
-
     public Set<Producto> getProductos() {
         return productos;
     }
@@ -333,6 +323,29 @@ public class Venta implements Serializable {
 
     public void setProductos(Set<Producto> productos) {
         this.productos = productos;
+    }
+
+    public Set<ProductoDetalle> getProductoDetalles() {
+        return productoDetalles;
+    }
+
+    public Venta productoDetalles(Set<ProductoDetalle> productoDetalles) {
+        this.productoDetalles = productoDetalles;
+        return this;
+    }
+
+    public Venta addProductoDetalles(ProductoDetalle productoDetalle) {
+        this.productoDetalles.add(productoDetalle);
+        return this;
+    }
+
+    public Venta removeProductoDetalles(ProductoDetalle productoDetalle) {
+        this.productoDetalles.remove(productoDetalle);
+        return this;
+    }
+
+    public void setProductoDetalles(Set<ProductoDetalle> productoDetalles) {
+        this.productoDetalles = productoDetalles;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

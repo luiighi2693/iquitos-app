@@ -43,7 +43,6 @@
             <th jhiSortBy="cajaId"><span>Caja</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDeDocumentoDeVentaNombre"><span>Tipo De Documento De Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDePagoNombre"><span>Tipo De Pago</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="estatusDeProductoEntregadoNombre"><span>Estatus De Producto Entregado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -81,11 +80,6 @@
                 <td>
                     <div *ngIf="venta.tipoDePagoId">
                         <a [routerLink]="['../tipo-de-pago', venta.tipoDePagoId , 'view' ]" >{{venta.tipoDePagoNombre}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="venta.estatusDeProductoEntregadoId">
-                        <a [routerLink]="['../estatus-de-producto-entregado', venta.estatusDeProductoEntregadoId , 'view' ]" >{{venta.estatusDeProductoEntregadoNombre}}</a>
                     </div>
                 </td>
                 <td class="text-right">

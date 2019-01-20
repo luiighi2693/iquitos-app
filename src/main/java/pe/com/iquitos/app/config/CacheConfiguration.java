@@ -73,6 +73,8 @@ public class CacheConfiguration {
             cm.createCache(pe.com.iquitos.app.domain.Proveedor.class.getName() + ".contactoProveedors", jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.ProductosRelacionadosTags.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.CuentaProveedor.class.getName(), jcacheConfiguration);
+            cm.createCache(pe.com.iquitos.app.domain.Venta.class.getName() + ".productoDetalles", jcacheConfiguration);
+            cm.createCache(pe.com.iquitos.app.domain.ProductoDetalle.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

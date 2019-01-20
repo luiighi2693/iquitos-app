@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { IAmortizacion } from 'app/shared/model//amortizacion.model';
 import { IProducto } from 'app/shared/model//producto.model';
+import { IProductoDetalle } from 'app/shared/model//producto-detalle.model';
 
 export const enum SellStatus {
     PENDIENTE = 'PENDIENTE',
@@ -27,9 +28,8 @@ export interface IVenta {
     tipoDeDocumentoDeVentaId?: number;
     tipoDePagoNombre?: string;
     tipoDePagoId?: number;
-    estatusDeProductoEntregadoNombre?: string;
-    estatusDeProductoEntregadoId?: number;
     productos?: IProducto[];
+    productoDetalles?: IProductoDetalle[];
 }
 
 export class Venta implements IVenta {
@@ -53,8 +53,7 @@ export class Venta implements IVenta {
         public tipoDeDocumentoDeVentaId?: number,
         public tipoDePagoNombre?: string,
         public tipoDePagoId?: number,
-        public estatusDeProductoEntregadoNombre?: string,
-        public estatusDeProductoEntregadoId?: number,
-        public productos?: IProducto[]
+        public productos?: IProducto[],
+        public productoDetalles?: IProductoDetalle[]
     ) {}
 }

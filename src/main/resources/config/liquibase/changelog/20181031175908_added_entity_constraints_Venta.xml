@@ -38,12 +38,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="tipo_de_pago"/>
 
-        <addForeignKeyConstraint baseColumnNames="estatus_de_producto_entregado_id"
-                                 baseTableName="venta"
-                                 constraintName="fk_venta_estatus_de_producto_entregado_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="estatus_de_producto_entregado"/>
-
         <addForeignKeyConstraint baseColumnNames="ventas_id"
                                  baseTableName="venta_productos"
                                  constraintName="fk_venta_productos_ventas_id"
@@ -54,6 +48,17 @@
                                  constraintName="fk_venta_productos_productos_id"
                                  referencedColumnNames="id"
                                  referencedTableName="producto"/>
+        
+        <addForeignKeyConstraint baseColumnNames="ventas_id"
+                                 baseTableName="venta_producto_detalles"
+                                 constraintName="fk_venta_producto_detalles_ventas_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venta"/>
+        <addForeignKeyConstraint baseColumnNames="producto_detalles_id"
+                                 baseTableName="venta_producto_detalles"
+                                 constraintName="fk_venta_producto_detalles_producto_detalles_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="producto_detalle"/>
         
     </changeSet>
 </databaseChangeLog>

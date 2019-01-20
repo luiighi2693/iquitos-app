@@ -102,17 +102,19 @@
             "otherEntityField": "nombre"
         },
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "estatusDeProductoEntregado",
-            "otherEntityName": "estatusDeProductoEntregado",
-            "otherEntityField": "nombre"
-        },
-        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
             "relationshipName": "productos",
             "otherEntityName": "producto",
             "otherEntityField": "codigo",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "productoDetalles",
+            "otherEntityName": "productoDetalle",
+            "otherEntityField": "id",
             "ownerSide": true
         }
     ],

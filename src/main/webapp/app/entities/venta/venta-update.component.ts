@@ -17,10 +17,10 @@ import { ITipoDeDocumentoDeVenta } from 'app/shared/model/tipo-de-documento-de-v
 import { TipoDeDocumentoDeVentaService } from 'app/entities/tipo-de-documento-de-venta';
 import { ITipoDePago } from 'app/shared/model/tipo-de-pago.model';
 import { TipoDePagoService } from 'app/entities/tipo-de-pago';
-import { IEstatusDeProductoEntregado } from 'app/shared/model/estatus-de-producto-entregado.model';
-import { EstatusDeProductoEntregadoService } from 'app/entities/estatus-de-producto-entregado';
 import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
+import { IProductoDetalle } from 'app/shared/model/producto-detalle.model';
+import { ProductoDetalleService } from 'app/entities/producto-detalle';
 
 @Component({
     selector: 'jhi-venta-update',
@@ -40,9 +40,9 @@ export class VentaUpdateComponent implements OnInit {
 
     tipodepagos: ITipoDePago[];
 
-    estatusdeproductoentregados: IEstatusDeProductoEntregado[];
-
     productos: IProducto[];
+
+    productodetalles: IProductoDetalle[];
     fechaDp: any;
 
     constructor(
@@ -53,8 +53,8 @@ export class VentaUpdateComponent implements OnInit {
         private cajaService: CajaService,
         private tipoDeDocumentoDeVentaService: TipoDeDocumentoDeVentaService,
         private tipoDePagoService: TipoDePagoService,
-        private estatusDeProductoEntregadoService: EstatusDeProductoEntregadoService,
         private productoService: ProductoService,
+        private productoDetalleService: ProductoDetalleService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -120,15 +120,15 @@ export class VentaUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.estatusDeProductoEntregadoService.query().subscribe(
-            (res: HttpResponse<IEstatusDeProductoEntregado[]>) => {
-                this.estatusdeproductoentregados = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.productoService.query().subscribe(
             (res: HttpResponse<IProducto[]>) => {
                 this.productos = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.productoDetalleService.query().subscribe(
+            (res: HttpResponse<IProductoDetalle[]>) => {
+                this.productodetalles = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -184,11 +184,11 @@ export class VentaUpdateComponent implements OnInit {
         return item.id;
     }
 
-    trackEstatusDeProductoEntregadoById(index: number, item: IEstatusDeProductoEntregado) {
+    trackProductoById(index: number, item: IProducto) {
         return item.id;
     }
 
-    trackProductoById(index: number, item: IProducto) {
+    trackProductoDetalleById(index: number, item: IProductoDetalle) {
         return item.id;
     }
 
