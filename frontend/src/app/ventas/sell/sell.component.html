@@ -73,7 +73,7 @@
               <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Estado:</span>
-                <span [ngStyle]="{'color': element.estatus ? 'yellow' : 'green'}">{{element.estatus}}</span>
+                <span [ngStyle]="{'color': element.estatus === 'PENDIENTE' ? 'yellow' : 'green'}">{{element.estatus}}</span>
               </mat-cell>
             </ng-container>
 
@@ -84,9 +84,9 @@
                   <i class="ti-eye text-info m-r-10"></i>
                 </a>
 
-                <a class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">
-                  <i class="ti-pencil text-info m-r-10"></i>
-                </a>
+                <!--<a class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">-->
+                  <!--<i class="ti-pencil text-info m-r-10"></i>-->
+                <!--</a>-->
                 <!--<a class="ng-star-inserted" (click)="deleteRow(element)">-->
                 <a class="ng-star-inserted" (click)="openDialog(element)">
                   <i class="ti-trash text-danger m-r-10"></i>

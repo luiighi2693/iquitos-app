@@ -1,0 +1,12 @@
+<h1 mat-dialog-title style="text-align: center;">Atención</h1>
+<div mat-dialog-content>
+  <div fxLayout="row wrap">
+  </div>
+  <div fxLayout="row wrap">
+    <p>La cantidad ingresada supera el inventario actual del producto {{data.productLabel}}. No es posible seguir agregando.</p>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" tabindex="2">Listo</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Aceptar</button>
+</div>

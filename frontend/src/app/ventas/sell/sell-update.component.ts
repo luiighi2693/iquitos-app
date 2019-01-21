@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {FormBuilder} from '@angular/forms';
-import {IVenta} from "../../models/venta.model";
+import {IVenta, SellStatus} from "../../models/venta.model";
 import {VentaService} from "./venta.service";
 import {JhiDataUtils} from 'ng-jhipster';
 import {MatDialog, MatTableDataSource} from "@angular/material";
@@ -15,17 +15,11 @@ import {ClienteService} from "../../contact/client/cliente.service";
 import {ITipoDeDocumento} from "../../models/tipo-de-documento.model";
 import {TipoDeDocumentoService} from "../../configuration/documenttype/tipo-de-documento.service";
 import {SellVariantselectionComponent} from "./sell-variantselection.component";
-import {SellDeleteComponent} from "./sell-delete.component";
-import {Variante} from "../../models/variante.model";
 import {ProductoDetalle} from "../../models/producto-detalle.model";
-
-// export interface ProductoDetalle {
-//   cantidad: number;
-//   productoLabel: string;
-//   precioVenta: number;
-//   producto: Producto;
-//   variante: Variante;
-// }
+import {SellLimitStockErrorComponent} from "./sell-limit-stock-error.component";
+import {SellExtraInfoComponent} from "./sell-extra-info.component";
+import {Amortizacion} from "../../models/amortizacion.model";
+import {AmortizacionService} from "../amortizacion.service";
 
 @Component({
   selector: 'app-sell-update',
@@ -41,8 +35,6 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   clientes: ICliente[];
   displayedColumnsProductosDetalles = ['cantidad', 'producto', 'precioVenta', 'precioTotal', 'quitar'];
   displayedColumnsClientes = ['name', 'action'];
-
-  // productosDetalles: ProductoDetalle[]  = [];
 
   dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(null);
   dataSourceClientes = new MatTableDataSource<Cliente>(this.clientes);
@@ -66,19 +58,18 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   ];
 
   tiposDeDocumento: ITipoDeDocumento[];
-  // subtotalMonto = 0.00;
-  // totalMonto = 0.00;
 
   constructor(public dataUtils: JhiDataUtils,
               public service: VentaService,
               public productoService: ProductoService,
               public clienteService: ClienteService,
               private tiposDeDocumentoService: TipoDeDocumentoService,
+              private amortizacionService: AmortizacionService,
               public activatedRoute: ActivatedRoute,
               public elementRef: ElementRef,
               public fb: FormBuilder,
-              public dialogVariant: MatDialog) {
-    super(service, null,null,null, dataUtils, elementRef);
+              public dialog: MatDialog) {
+    super(service, null,null,dialog, dataUtils, elementRef);
   }
 
   ngOnInit() {
@@ -98,6 +89,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         this.entity.subTotal = 0;
         this.entity.montoTotal = 0;
         this.entity.productoDetalles = [];
+        this.entity.metaData = '{}';
+        this.entity.impuesto = 0;
       }
     });
 
@@ -197,7 +190,21 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
     if (label === 'cantidad') {
       // @ts-ignore
-      this.entity.productoDetalles[i].cantidad = parseInt($event.target.value);
+      const newQuantity = parseInt($event.target.value);
+      // @ts-ignore
+      const oldQuantity = this.entity.productoDetalles[i].cantidad;
+
+      // @ts-ignore
+      this.entity.productoDetalles[i].cantidad = newQuantity;
+
+      const newStockConsum = this.getStockConsumFromProduct(this.entity.productoDetalles[i].productos[0]);
+
+      if (newStockConsum > this.entity.productoDetalles[i].productos[0].stock) {
+        console.log(newQuantity, oldQuantity);
+        this.entity.productoDetalles[i].cantidad = oldQuantity;
+
+        this.openDialogErrorStock(this.entity.productoDetalles[i].productoLabel);
+      }
     }
 
     if (label === 'precioVenta') {
@@ -254,6 +261,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         (res: HttpResponse<Cliente>) => {
           console.log(res.body);
           this.client = res.body;
+          this.entity.clienteId = this.client.id;
+          this.entity.clienteNombre = this.client.nombre;
           this.goStep('sell', null, null);
         },
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -263,6 +272,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         (res: HttpResponse<Cliente>) => {
           console.log(res.body);
           this.client = res.body;
+          this.entity.clienteId = this.client.id;
+          this.entity.clienteNombre = this.client.nombre;
           this.goStep('sell', null, null);
         },
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -283,7 +294,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   openDialogVariantSelection(entity): void {
-    const dialogRef = this.dialogVariant.open(SellVariantselectionComponent, {
+    const dialogRef = this.dialog.open(SellVariantselectionComponent, {
       width: '50%',
       data: { entity: entity }
     });
@@ -317,11 +328,35 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
           this.entity.productoDetalles.push(productoDetalle);
         }
 
-        console.log(this.entity.productoDetalles);
+        if (this.getStockConsumFromProduct(productoDetalle.productos[0]) >
+          this.entity.productoDetalles.find(x => x.productos[0] === productoDetalle.productos[0]).productos[0].stock) {
 
-        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
-        this.setAmmount();
+          if (index !== -1) {
+            this.entity.productoDetalles[index].cantidad -= 1;
+            this.entity.productoDetalles[index].precioVenta -= productoDetalle.precioVenta;
+          } else {
+            this.entity.productoDetalles.splice(this.entity.productoDetalles.length-1, 1);
+          }
+
+          this.openDialogErrorStock(productoDetalle.productoLabel);
+        } else {
+          console.log(this.entity.productoDetalles);
+
+          this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
+          this.setAmmount();
+        }
       }
+    });
+  }
+
+  openDialogErrorStock(productLabel): void {
+    const dialogRef = this.dialog.open(SellLimitStockErrorComponent, {
+      width: '50%',
+      data: { productLabel: productLabel }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     this.refreshProductDetails();
     });
   }
 
@@ -333,6 +368,68 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     }
   }
 
+  private getStockConsumFromProduct(product: IProducto) {
+    let sum = 0;
+    this.entity.productoDetalles.filter(x => x.productos[0].id === product.id ).forEach(productDetalle => {
+      if (productDetalle.variantes.length === 0) {
+        //unidad
+        sum += productDetalle.cantidad;
+      } else {
+        sum += productDetalle.variantes[0].cantidad * productDetalle.cantidad;
+      }
+    });
+
+    console.log(sum);
+    return sum;
+  }
+
+  private refreshProductDetails() {
+    setTimeout(() => {
+      this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(null);
+      setTimeout(() => {
+        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
+      }, 500);
+    }, 500);
+  }
+
   addExtraInfoSell() {
+    //save the sell first ?
+    const dialogRef = this.dialog.open(SellExtraInfoComponent, {
+      width: '50%',
+      data: {
+        entity: this.entity,
+        client: this.client
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result !== undefined) {
+        if (result.flag === 'exit'){
+          this.entity.productoDetalles = [];
+          this.refreshProductDetails();
+        }
+
+        if (result.flag === 'save'){
+          this.entity.estatus = SellStatus.PENDIENTE;
+          this.save();
+        }
+
+        if (result.flag === 'pay'){
+          this.entity.estatus = SellStatus.COMPLETADO;
+          this.amortizacionService.create(result.amortization).subscribe(
+            (res: HttpResponse<Amortizacion>) => {
+              console.log(res.body);
+              this.entity.amortizacions = [res.body];
+              this.save();
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+          );
+        }
+      } else {
+        this.entity.estatus = SellStatus.PENDIENTE;
+        this.save();
+      }
+    });
   }
 }

@@ -1,0 +1,88 @@
+<!--<h1 mat-dialog-title>Información de la venta</h1>-->
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div style="display: flex;">
+      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10">
+        <span>Información de la venta</span>
+      </div>
+
+      <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+        <div class="button-row">
+          <button mat-raised-button color="warn" (click)="closeAndCheckSell('exit')">Eliminar Venta (x)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-content>
+  <div fxLayout="row wrap">
+
+    <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <mat-select placeholder="Tipo de Documento" [(ngModel)]="data.entity.tipoDeDocumentoDeVentaId" name="documentTypeSell">
+          <mat-option [value]="null"></mat-option>
+          <mat-option *ngFor="let documentTypeSellOption of documentTypeSells;" [value]="documentTypeSellOption.id">
+            {{documentTypeSellOption.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- column -->
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <input matInput placeholder="Cliente / Razón Social" name="Cliente / Razón Social" type="text" maxlength="150" [(ngModel)]="data.client.nombre" disabled>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <input matInput placeholder="Dni o Ruc" name="Dni o Ruc" type="text" maxlength="150" [(ngModel)]="amortization.codigoDocumento">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <input matInput placeholder="Dirección" name="Dirección" type="text" maxlength="150" [(ngModel)]="data.client.direccion" disabled>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <mat-select placeholder="Tipo de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType">
+          <mat-option [value]="null"></mat-option>
+          <mat-option *ngFor="let paymentTypeOption of paymentTypes;" [value]="paymentTypeOption.id">
+            {{paymentTypeOption.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <input matInput placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" disabled>
+        <span matPrefix>S/&nbsp;</span>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <input matInput placeholder="Glosa" name="Glosa" type="text" maxlength="150" [(ngModel)]="data.entity.glosa">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap">
+    <h1 mat-dialog-title style="text-align: center;">Total : S/ {{amortization.montoPagado}}</h1>
+  </div>
+
+  <div fxLayout="row wrap">
+    <h1 mat-dialog-title style="text-align: center;">Vuelto : 0 soles</h1>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button tabindex="2" (click)="closeAndCheckSell('pay')">Pagar</button>
+  <button mat-button tabindex="-1" (click)="closeAndCheckSell('save')">Guardar</button>
+</div>
