@@ -66,3 +66,36 @@ margin-top: 6px;
   margin-bottom: 0;
   margin-top: -15px;
 }
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 109%;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  justify-content: center;
+  display: flex;
+  margin-left: -25px;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: list-item;
+  overflow: hidden;
+  margin-left: -25px;
+  width: 109%;
+}
+
+.empleado-lbl{
+    padding-right: 190px;
+    display: flex;
+    align-items: center;
+}
