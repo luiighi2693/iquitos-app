@@ -115,6 +115,23 @@
     </mat-card-content>
 
     <mat-card-content class="bg-light">
+
+      <button class="accordion">∧</button>
+      <div class="panel">
+          <div fxLayout="row wrap">
+                  <span class="empleado-lbl">Empleado</span>
+
+              <mat-form-field fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50" >
+                <mat-select placeholder="Elegir empleado" [(ngModel)]="client.tipoDeDocumentoId" name="tipoDeDocumento">
+                  <mat-option [value]="null"></mat-option>
+                  <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
+                    {{tipoDocumento.nombre}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+      </div>
+
       <div class="d-flex align-items-center">
 
         <div class="text-right ml-auto">
