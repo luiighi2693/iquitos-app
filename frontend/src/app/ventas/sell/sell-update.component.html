@@ -68,7 +68,7 @@
                 <mat-header-cell *matHeaderCellDef> Cant. </mat-header-cell>
                 <mat-cell *matCellDef="let row;let i = index">
                   <span class="header-label">Cant:</span>
-                  <input matInput placeholder="Cant" type="text" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'cantidad')" value="{{row.cantidad}}">
+                  <input matInput placeholder="Cant" type="text" (keypress)="checkNumbersOnly($event)" (keyup)="validateStock($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'cantidad')" value="{{row.cantidad}}">
                 </mat-cell>
               </ng-container>
 

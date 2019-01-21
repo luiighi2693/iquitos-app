@@ -18,6 +18,7 @@ import {SellVariantselectionComponent} from "./sell-variantselection.component";
 import {SellDeleteComponent} from "./sell-delete.component";
 import {Variante} from "../../models/variante.model";
 import {ProductoDetalle} from "../../models/producto-detalle.model";
+import {SellLimitStockErrorComponent} from "./sell-limit-stock-error.component";
 
 // export interface ProductoDetalle {
 //   cantidad: number;
@@ -197,7 +198,21 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
     if (label === 'cantidad') {
       // @ts-ignore
-      this.entity.productoDetalles[i].cantidad = parseInt($event.target.value);
+      const newQuantity = parseInt($event.target.value);
+      // @ts-ignore
+      const oldQuantity = this.entity.productoDetalles[i].cantidad;
+
+      // @ts-ignore
+      this.entity.productoDetalles[i].cantidad = newQuantity;
+
+      const newStockConsum = this.getStockConsumFromProduct(this.entity.productoDetalles[i].productos[0]);
+
+      if (newStockConsum > this.entity.productoDetalles[i].productos[0].stock) {
+        console.log(newQuantity, oldQuantity);
+        this.entity.productoDetalles[i].cantidad = oldQuantity;
+
+        this.openDialogErrorStock(this.entity.productoDetalles[i].productoLabel);
+      }
     }
 
     if (label === 'precioVenta') {
@@ -317,11 +332,35 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
           this.entity.productoDetalles.push(productoDetalle);
         }
 
-        console.log(this.entity.productoDetalles);
+        if (this.getStockConsumFromProduct(productoDetalle.productos[0]) >
+          this.entity.productoDetalles.find(x => x.productos[0] === productoDetalle.productos[0]).productos[0].stock) {
 
-        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
-        this.setAmmount();
+          if (index !== -1) {
+            this.entity.productoDetalles[index].cantidad -= 1;
+            this.entity.productoDetalles[index].precioVenta -= productoDetalle.precioVenta;
+          } else {
+            this.entity.productoDetalles.splice(this.entity.productoDetalles.length-1, 1);
+          }
+
+          this.openDialogErrorStock(productoDetalle.productoLabel);
+        } else {
+          console.log(this.entity.productoDetalles);
+
+          this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
+          this.setAmmount();
+        }
       }
+    });
+  }
+
+  openDialogErrorStock(productLabel): void {
+    const dialogRef = this.dialogVariant.open(SellLimitStockErrorComponent, {
+      width: '50%',
+      data: { productLabel: productLabel }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     this.refreshProductDetails();
     });
   }
 
@@ -334,5 +373,33 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   addExtraInfoSell() {
+  }
+
+  private getStockConsumFromProduct(product: IProducto) {
+    let sum = 0;
+    this.entity.productoDetalles.filter(x => x.productos[0].id === product.id ).forEach(productDetalle => {
+      if (productDetalle.variantes.length === 0) {
+        //unidad
+        sum += productDetalle.cantidad;
+      } else {
+        sum += productDetalle.variantes[0].cantidad * productDetalle.cantidad;
+      }
+    });
+
+    console.log(sum);
+    return sum;
+  }
+
+  validateStock() {
+
+  }
+
+  private refreshProductDetails() {
+    setTimeout(() => {
+      this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(null);
+      setTimeout(() => {
+        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
+      }, 500);
+    }, 500);
   }
 }
