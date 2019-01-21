@@ -1,10 +1,15 @@
 package pe.com.iquitos.app.service.impl;
 
+import pe.com.iquitos.app.domain.ProductoDetalle;
+import pe.com.iquitos.app.repository.ProductoDetalleRepository;
+import pe.com.iquitos.app.repository.search.ProductoDetalleSearchRepository;
 import pe.com.iquitos.app.service.VentaService;
 import pe.com.iquitos.app.domain.Venta;
 import pe.com.iquitos.app.repository.VentaRepository;
 import pe.com.iquitos.app.repository.search.VentaSearchRepository;
+import pe.com.iquitos.app.service.dto.ProductoDetalleDTO;
 import pe.com.iquitos.app.service.dto.VentaDTO;
+import pe.com.iquitos.app.service.mapper.ProductoDetalleMapper;
 import pe.com.iquitos.app.service.mapper.VentaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -33,10 +41,18 @@ public class VentaServiceImpl implements VentaService {
 
     private final VentaSearchRepository ventaSearchRepository;
 
-    public VentaServiceImpl(VentaRepository ventaRepository, VentaMapper ventaMapper, VentaSearchRepository ventaSearchRepository) {
+    private final ProductoDetalleRepository productoDetalleRepository;
+    private final ProductoDetalleMapper productoDetalleMapper;
+    private final ProductoDetalleSearchRepository productoDetalleSearchRepository;
+
+    public VentaServiceImpl(VentaRepository ventaRepository, VentaMapper ventaMapper, VentaSearchRepository ventaSearchRepository,
+                            ProductoDetalleRepository productoDetalleRepository, ProductoDetalleMapper productoDetalleMapper, ProductoDetalleSearchRepository productoDetalleSearchRepository) {
         this.ventaRepository = ventaRepository;
         this.ventaMapper = ventaMapper;
         this.ventaSearchRepository = ventaSearchRepository;
+        this.productoDetalleRepository = productoDetalleRepository;
+        this.productoDetalleMapper = productoDetalleMapper;
+        this.productoDetalleSearchRepository = productoDetalleSearchRepository;
     }
 
     /**
@@ -48,6 +64,30 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public VentaDTO save(VentaDTO ventaDTO) {
         log.debug("Request to save Venta : {}", ventaDTO);
+
+        if (ventaDTO.getId() != null) {
+            ventaRepository
+                .findById(ventaDTO.getId())
+                .get()
+                .getProductoDetalles()
+                .stream()
+                .filter(variante -> !ventaMapper
+                    .toEntity(ventaDTO)
+                    .getProductoDetalles()
+                    .contains(variante))
+                .collect(Collectors.toSet()).forEach(productoDetalleRepository::delete);
+        }
+
+        Set<ProductoDetalleDTO> productoDetalleDTOList = new HashSet<>();
+
+        ventaDTO.getProductoDetalles().forEach(productoDetalleDTO -> {
+            ProductoDetalle productoDetalle = productoDetalleMapper.toEntity(productoDetalleDTO);
+            productoDetalle = productoDetalleRepository.save(productoDetalle);
+            productoDetalleDTOList.add(productoDetalleMapper.toDto(productoDetalle));
+            productoDetalleSearchRepository.save(productoDetalle);
+        });
+
+        ventaDTO.setProductoDetalles(productoDetalleDTOList);
 
         Venta venta = ventaMapper.toEntity(ventaDTO);
         venta = ventaRepository.save(venta);
