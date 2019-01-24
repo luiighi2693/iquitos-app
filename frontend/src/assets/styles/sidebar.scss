@@ -11,8 +11,11 @@ Main sidebar
 ******************/
 
 .mat-sidenav {
-  width: 240px;
+  width: 185px;
   padding-top: 0px;
+  height: auto;
+  overflow-y: auto;
+
 }
 #snav {
   box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
@@ -37,7 +40,7 @@ Main sidebar
     }
 
     a {
-      height: 45px;
+      height: 30px;
       padding: 0 10px;
       margin-bottom: 10px;
       align-items: center;

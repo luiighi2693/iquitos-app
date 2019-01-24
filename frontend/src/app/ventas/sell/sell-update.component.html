@@ -1,28 +1,28 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
-    <div style="display: flex;">
+    <!--<div style="display: flex;">
       <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="previousState()" style="cursor: pointer">
         <mat-icon>arrow_back</mat-icon>
         <span class="goBackTag">Todas las ventas</span>
       </div>
 
-      <!--<div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+      <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
         <div class="button-row">
           <button mat-raised-button style="background-color: #60c71f; color: white;" [disabled]="!form.valid" (click)="save()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vender&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
           <button mat-raised-button (click)="previousState()">Cancelar</button>
         </div>
-      </div>-->
-    </div>
+      </div>
+    </div>-->
   </div>
 </div>
 
 <div fxLayout="row wrap">
-  <mat-card fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+  <mat-card fxFlex.gt-lg="55" fxFlex.gt-md="55" fxFlex.gt-sm="55" fxFlex="100">
     <mat-card-content>
 
       <div fxLayout="row wrap">
         <button mat-icon-button color= "primary" (click)="searchProduct(currentSearchProduct)"><mat-icon>search</mat-icon></button>
-        <mat-form-field fxFlex.gt-sm="80" fxFlex="80">
+        <mat-form-field fxFlex.gt-sm="90" fxFlex="90">
           <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
         </mat-form-field>
       </div>
@@ -45,7 +45,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+  <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
     <mat-card-content>
       <div fxLayout="row wrap">
         <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
@@ -116,12 +116,12 @@
 
     <mat-card-content class="bg-light">
 
-      <button class="accordion">∧</button>
-      <div class="panel">
-          <div fxLayout="row wrap">
-                  <span class="empleado-lbl">Empleado</span>
+      <!--<button class="accordion">∧</button>
+      <div class="panel">-->
+          <div fxLayout="row wrap" id= lblempleado>
+                  <!--<span class="empleado-lbl">Empleado</span>-->
 
-              <mat-form-field fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50" >
+              <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
                 <mat-select placeholder="Elegir empleado" [(ngModel)]="client.tipoDeDocumentoId" name="tipoDeDocumento">
                   <mat-option [value]="null"></mat-option>
                   <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
@@ -130,7 +130,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-      </div>
+      <!--/div>-->
 
       <div class="d-flex align-items-center">
 
@@ -148,12 +148,12 @@
     </mat-card-content>
 
     <div class="button-row">
-      <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:75%" [disabled]="!form.valid" (click)="addExtraInfoSell()">Vender</button>
-      <button mat-raised-button style="width:136px; border-radius: initial;"(click)="previousState()">Cancelar</button>
+      <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" [disabled]="!form.valid" (click)="addExtraInfoSell()">Vender</button>
+      <button mat-raised-button style="width:26%; border-radius: initial;"(click)="previousState()">Cancelar</button>
     </div>
   </mat-card>
 
-  <mat-card *ngIf="stateStep === 'clientList'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+  <mat-card *ngIf="stateStep === 'clientList'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
     <mat-card-content>
       <!--<form class="basic-form">-->
 
