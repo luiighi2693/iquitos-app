@@ -1,10 +1,11 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
     <div style="display: flex;">
-      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="previousState()" style="cursor: pointer">
-        <mat-icon>arrow_back</mat-icon>
-        <span class="goBackTag">Todas las ventas</span>
+      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" style="cursor: pointer">
+        <a [routerLink]="['/ventas/sell/list']"> <mat-icon>arrow_back</mat-icon>
+          <span class="goBackTag">Todas las ventas</span> </a>
       </div>
+
 
       <!--<div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
         <div class="button-row">

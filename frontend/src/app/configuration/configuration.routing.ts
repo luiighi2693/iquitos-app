@@ -52,6 +52,11 @@ export const ConfigurationRoutes: Routes = [
         path: 'user',
         canActivate: [AuthGuard],
         loadChildren: './user/user.module#UserModule'
+      },
+      {
+        path: 'systemparam',
+        canActivate: [AuthGuard],
+        loadChildren: './systemparam/systemparam.module#SystemparamModule'
       }
     ]
   }

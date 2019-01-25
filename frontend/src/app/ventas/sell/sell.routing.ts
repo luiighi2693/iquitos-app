@@ -28,7 +28,7 @@ export class VentaResolve implements Resolve<IVenta> {
 
 export const SellRoutes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: SellComponent
   },
   {
@@ -39,7 +39,7 @@ export const SellRoutes: Routes = [
     }
   },
   {
-    path: 'new',
+    path: '',
     component: SellUpdateComponent,
     resolve: {
       entity: VentaResolve

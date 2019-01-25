@@ -18,7 +18,7 @@ export class SellComponent extends BaseVenta implements OnInit, OnDestroy {
       service,
       fullService,
       ['select', 'codigo', 'fecha', 'clienteNombre', 'total', 'estado', 'star'],
-      dialog, null, null);
+      dialog, null, null, require('../menu.json'), 'VENTAS');
   }
 
   ngOnInit() {

@@ -20,6 +20,9 @@ import {SellLimitStockErrorComponent} from "./sell-limit-stock-error.component";
 import {SellExtraInfoComponent} from "./sell-extra-info.component";
 import {Amortizacion} from "../../models/amortizacion.model";
 import {AmortizacionService} from "../amortizacion.service";
+import {FullService} from "../../layouts/full/full.service";
+
+declare var require: any;
 
 @Component({
   selector: 'app-sell-update',
@@ -61,6 +64,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
   constructor(public dataUtils: JhiDataUtils,
               public service: VentaService,
+              public fullService: FullService,
               public productoService: ProductoService,
               public clienteService: ClienteService,
               private tiposDeDocumentoService: TipoDeDocumentoService,
@@ -69,7 +73,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
               public elementRef: ElementRef,
               public fb: FormBuilder,
               public dialog: MatDialog) {
-    super(service, null,null,dialog, dataUtils, elementRef);
+    super(service, fullService,null,dialog, dataUtils, elementRef, require('../menu.json'), 'NUEVA VENTA');
   }
 
   ngOnInit() {

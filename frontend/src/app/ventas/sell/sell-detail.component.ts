@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {BaseVenta} from "./BaseVenta";
 
+declare var require: any;
+
 @Component({
   selector: 'app-sell-detail',
   templateUrl: './sell-detail.component.html',
@@ -9,7 +11,7 @@ import {BaseVenta} from "./BaseVenta";
 })
 export class SellDetailComponent extends BaseVenta implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) {
-    super(null,null,null,null, null, null);
+    super(null,null,null,null, null, null, require('../menu.json'), 'VENTAS');
   }
 
   ngOnInit() {

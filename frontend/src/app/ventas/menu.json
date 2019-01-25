@@ -1,3 +1,4 @@
 [
-  { "value": "VENTAS", "uri": "/ventas/sell"}
+  { "value": "NUEVA VENTA", "uri": "/ventas/sell"},
+  { "value": "VENTAS", "uri": "/ventas/sell/list"}
 ]

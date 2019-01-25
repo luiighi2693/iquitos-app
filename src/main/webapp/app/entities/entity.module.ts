@@ -28,6 +28,7 @@ import { IquitosAppProveedorModule } from './proveedor/proveedor.module';
 import { IquitosAppProductosRelacionadosTagsModule } from './productos-relacionados-tags/productos-relacionados-tags.module';
 import { IquitosAppCuentaProveedorModule } from './cuenta-proveedor/cuenta-proveedor.module';
 import { IquitosAppProductoDetalleModule } from './producto-detalle/producto-detalle.module';
+import { IquitosAppParametroSistemaModule } from './parametro-sistema/parametro-sistema.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -61,6 +62,7 @@ import { IquitosAppProductoDetalleModule } from './producto-detalle/producto-det
         IquitosAppProductosRelacionadosTagsModule,
         IquitosAppCuentaProveedorModule,
         IquitosAppProductoDetalleModule,
+        IquitosAppParametroSistemaModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

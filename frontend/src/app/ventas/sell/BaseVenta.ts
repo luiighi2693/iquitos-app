@@ -16,9 +16,11 @@ export class BaseVenta extends Base<IVenta, Venta> {
               public displayedColumns: string[],
               public dialog: MatDialog,
               public dataUtils: JhiDataUtils,
-              public elementRef: ElementRef) {
-    super(fullService, require('../menu.json'),
-      'VENTAS', displayedColumns, dialog, dataUtils, elementRef);
+              public elementRef: ElementRef,
+              public menu: any,
+              public menuDisplay: string) {
+    super(fullService, menu,
+      menuDisplay, displayedColumns, dialog, dataUtils, elementRef);
   }
 
   loadAll() {

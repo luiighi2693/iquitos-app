@@ -77,6 +77,7 @@ public class CacheConfiguration {
             cm.createCache(pe.com.iquitos.app.domain.ProductoDetalle.class.getName(), jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.ProductoDetalle.class.getName() + ".variantes", jcacheConfiguration);
             cm.createCache(pe.com.iquitos.app.domain.ProductoDetalle.class.getName() + ".productos", jcacheConfiguration);
+            cm.createCache(pe.com.iquitos.app.domain.ParametroSistema.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
