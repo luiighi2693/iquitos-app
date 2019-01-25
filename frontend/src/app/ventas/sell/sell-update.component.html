@@ -27,7 +27,7 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row wrap">
+      <div fxLayout="bg-light">
 
         <div fxFlex.gt-lg="25" fxFlex.gt-md="33" fxFlex.gt-xs="33" fxFlex="100" *ngFor="let product of productos ">
           <mat-card class="oh" (click)="openDialogVariantSelection(product)">
@@ -47,17 +47,23 @@
 
   <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
     <mat-card-content>
-      <div fxLayout="row wrap">
+        <div fxLayout="row wrap">      
+            <mat-form-field fxFlex.gt-sm="87" fxFlex="87">
+              <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
+            </mat-form-field>
+            <button mat-icon-button color= "primary" (click)="searchProduct(currentSearchProduct)"><mat-icon>person_add</mat-icon></button>
+          </div>
+      <!--<div fxLayout="row wrap">
         <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
           <div style="display: flex;">
             <div fxFlex.gt-xs="100" fxFlex="100" class="p-10 text-right">
-              <div class="button-row">
+              <div class="button-row" width=100%>
                 <span *ngIf="client.nombre !== ''">{{client.nombre}}</span><button mat-raised-button (click)="goStep('clientList', null, null)">Seleccionar Cliente</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <form class="basic-form">
         <div fxLayout="row wrap">
@@ -71,7 +77,6 @@
                   <input matInput placeholder="Cant" type="text" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'cantidad')" value="{{row.cantidad}}">
                 </mat-cell>
               </ng-container>
-
               <ng-container matColumnDef="producto">
                 <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
                 <mat-cell *matCellDef="let row;let i = index">
@@ -114,7 +119,7 @@
       </form>
     </mat-card-content>
 
-    <mat-card-content class="bg-light">
+    <mat-card-content class="row wrap">
 
       <!--<button class="accordion">∧</button>
       <div class="panel">-->
@@ -149,7 +154,7 @@
 
     <div class="button-row">
       <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" [disabled]="!form.valid" (click)="addExtraInfoSell()">Vender</button>
-      <button mat-raised-button style="width:26%; border-radius: initial;"(click)="previousState()">Cancelar</button>
+      <button mat-raised-button style="width:28%; border-radius: initial;"(click)="previousState()">Cancelar</button>
     </div>
   </mat-card>
 
