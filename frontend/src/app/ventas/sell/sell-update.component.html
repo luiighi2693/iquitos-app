@@ -136,13 +136,13 @@
 
         <div class="text-right ml-auto">
           <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
-          <h6 class="text-uppercase text-md ma-0 text-bold">Impuesto(0%) :</h6>
+          <h6 class="text-uppercase text-md ma-0 text-bold">Impuesto({{entity.impuesto}}%) :</h6>
           <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
         </div>
         <div class="m-l-10">
           <h4 class="font-medium">{{parseFloatCustom(entity.subTotal)}}</h4>
-          <h4 class="font-medium">{{0.00}}</h4>
-          <h4 class="font-medium">{{parseFloatCustom(entity.montoTotal)}}</h4>
+          <h4 class="font-medium">{{(entity.subTotal * entity.impuesto) / 100}}</h4>
+          <h4 class="font-medium">{{entity.montoTotal}}</h4>
         </div>
       </div>
     </mat-card-content>

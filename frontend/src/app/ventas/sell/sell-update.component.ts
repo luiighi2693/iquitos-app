@@ -23,6 +23,8 @@ import {AmortizacionService} from "../amortizacion.service";
 import {FullService} from "../../layouts/full/full.service";
 import {EmpleadoService} from "../../contact/employee/empleado.service";
 import {Empleado, IEmpleado} from "../../models/empleado.model";
+import {ParametroSistemaService} from "../../configuration/systemparam/parametro-sistema.service";
+import {IParametroSistema} from "../../models/parametro-sistema.model";
 
 declare var require: any;
 
@@ -74,6 +76,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
               public empleadoService: EmpleadoService,
               private tiposDeDocumentoService: TipoDeDocumentoService,
               private amortizacionService: AmortizacionService,
+              public parametrosSistemaService: ParametroSistemaService,
               public activatedRoute: ActivatedRoute,
               public elementRef: ElementRef,
               public fb: FormBuilder,
@@ -102,7 +105,6 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         this.entity.montoTotal = 0;
         this.entity.productoDetalles = [];
         this.entity.metaData = '{}';
-        this.entity.impuesto = 0;
       }
     });
 
@@ -132,6 +134,13 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         if (this.empleados.length > 0){
           this.entity.empleadoId = this.empleados[0].id;
         }
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+
+    this.parametrosSistemaService.search({query:'Impuesto'}).subscribe(
+      (res: HttpResponse<IParametroSistema[]>) => {
+       this.entity.impuesto = res.body.length  > 0 ? parseInt(res.body[0].nombre.split('=')[1].slice(0,res.body[0].nombre.split('=')[1].length -1)) : 0;
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -393,6 +402,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       this.entity.subTotal= this.entity.montoTotal = 0;
     } else {
       this.entity.subTotal= this.entity.montoTotal = this.entity.productoDetalles.map(x => x.precioVenta * x.cantidad).reduce((a, b) => a + b, 0);
+      this.entity.montoTotal = this.parseFloatCustom(this.entity.subTotal + ((this.entity.subTotal * this.entity.impuesto) / 100))
     }
   }
 
