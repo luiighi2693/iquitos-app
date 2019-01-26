@@ -88,6 +88,10 @@ export class SellExtraInfoComponent {
     return Util.checkNumbersDecimalOnly(event);
   }
 
+  checkNumbersOnly(event: any): boolean {
+    return Util.checkNumbersOnly(event);
+  }
+
   parseFloatCustom(cantidad: number) {
     // @ts-ignore
     return parseFloat(Math.round(cantidad * 100) / 100).toFixed(2)

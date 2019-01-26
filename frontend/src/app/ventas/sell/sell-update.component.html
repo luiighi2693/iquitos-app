@@ -85,7 +85,7 @@
                 <mat-header-cell *matHeaderCellDef> PU. </mat-header-cell>
                 <mat-cell *matCellDef="let row;let i = index">
                   <span class="header-label">PU.:</span>
-                  <input matInput placeholder="PU." type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')" value="{{row.precioVenta}}">
+                  <input matInput placeholder="PU." type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')" value="{{parseFloatCustom(row.precioVenta)}}">
                 </mat-cell>
               </ng-container>
 
@@ -93,7 +93,7 @@
                 <mat-header-cell *matHeaderCellDef> PT. </mat-header-cell>
                 <mat-cell *matCellDef="let row;let i = index">
                   <span class="header-label">PT.:</span>
-                  <input matInput placeholder="PT." type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')" value="S/ {{row.precioVenta*row.cantidad}}" disabled>
+                  <input matInput placeholder="PT." type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')" value="S/ {{parseFloatCustom(row.precioVenta*row.cantidad)}}" disabled>
                 </mat-cell>
               </ng-container>
 
@@ -123,10 +123,9 @@
                   <span class="empleado-lbl">Empleado</span>
 
               <mat-form-field fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50" >
-                <mat-select placeholder="Elegir empleado" [(ngModel)]="client.tipoDeDocumentoId" name="tipoDeDocumento">
-                  <mat-option [value]="null"></mat-option>
-                  <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
-                    {{tipoDocumento.nombre}}
+                <mat-select placeholder="Elegir empleado" [(ngModel)]="entity.empleadoId" name="empleado">
+                  <mat-option *ngFor="let empleado of empleados;" [value]="empleado.id">
+                    {{empleado.nombre}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -141,15 +140,15 @@
           <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
         </div>
         <div class="m-l-10">
-          <h4 class="font-medium">{{entity.subTotal}}</h4>
+          <h4 class="font-medium">{{parseFloatCustom(entity.subTotal)}}</h4>
           <h4 class="font-medium">{{0.00}}</h4>
-          <h4 class="font-medium">{{entity.montoTotal}}</h4>
+          <h4 class="font-medium">{{parseFloatCustom(entity.montoTotal)}}</h4>
         </div>
       </div>
     </mat-card-content>
 
     <div class="button-row">
-      <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:75%" [disabled]="!form.valid" (click)="addExtraInfoSell()">Vender</button>
+      <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:75%" [disabled]="client.id === undefined || entity.productoDetalles.length === 0 || entity.montoTotal < 1" (click)="addExtraInfoSell()">Vender</button>
       <button mat-raised-button style="width:136px; border-radius: initial;"(click)="previousState()">Cancelar</button>
     </div>
   </mat-card>
@@ -227,13 +226,13 @@
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *">
+          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección">
+          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)">
         </mat-form-field>
       </div>
 
@@ -258,7 +257,7 @@
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.codigo" placeholder="Documento">
+          <input matInput [(ngModel)]="client.codigo"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Documento">
         </mat-form-field>
       </div>
 
@@ -270,7 +269,7 @@
         </mat-form-field>
 
         <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
-          <input matInput [(ngModel)]="client.telefono" placeholder="Teléfono">
+          <input matInput [(ngModel)]="client.telefono"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Teléfono">
         </mat-form-field>
       </div>
 

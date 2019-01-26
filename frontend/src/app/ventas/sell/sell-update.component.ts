@@ -21,9 +21,10 @@ import {SellExtraInfoComponent} from "./sell-extra-info.component";
 import {Amortizacion} from "../../models/amortizacion.model";
 import {AmortizacionService} from "../amortizacion.service";
 import {FullService} from "../../layouts/full/full.service";
+import {EmpleadoService} from "../../contact/employee/empleado.service";
+import {Empleado, IEmpleado} from "../../models/empleado.model";
 
 declare var require: any;
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-sell-update',
@@ -63,11 +64,14 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
   tiposDeDocumento: ITipoDeDocumento[];
 
+  empleados: Empleado[] = [];
+
   constructor(public dataUtils: JhiDataUtils,
               public service: VentaService,
               public fullService: FullService,
               public productoService: ProductoService,
               public clienteService: ClienteService,
+              public empleadoService: EmpleadoService,
               private tiposDeDocumentoService: TipoDeDocumentoService,
               private amortizacionService: AmortizacionService,
               public activatedRoute: ActivatedRoute,
@@ -79,6 +83,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
+
+    this.client.tipoDeCliente = ClientType.NATURAL;
+    this.client.sexo = Sex.MASCULINO;
 
     this.activatedRoute.data.subscribe(({ entity }) => {
       this.entity = entity;
@@ -102,6 +109,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     this.tiposDeDocumentoService.query().subscribe(
       (res: HttpResponse<ITipoDeDocumento[]>) => {
         this.tiposDeDocumento = res.body;
+        if (this.tiposDeDocumento.length > 0){
+          this.client.tipoDeDocumentoId = this.tiposDeDocumento[0].id;
+        }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -109,6 +119,19 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     this.productoService.query().subscribe(
       (res: HttpResponse<ITipoDeDocumento[]>) => {
         this.productos = res.body;
+        if (this.productos.length > 15){
+          this.productos = this.productos.slice(0,14);
+        }
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+
+    this.empleadoService.query().subscribe(
+      (res: HttpResponse<IEmpleado[]>) => {
+        this.empleados = res.body;
+        if (this.empleados.length > 0){
+          this.entity.empleadoId = this.empleados[0].id;
+        }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -416,19 +439,32 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         }
 
         if (result.flag === 'save'){
-          this.entity.fecha =  moment.now();
           this.entity.estatus = SellStatus.PENDIENTE;
           this.save();
         }
 
         if (result.flag === 'pay'){
-          console.log(result.entity);
-          this.entity.estatus = SellStatus.COMPLETADO;
+          this.entity.estatus = result.amortization.montoPagado >= result.amortization.monto ? SellStatus.COMPLETADO : SellStatus.PENDIENTE;
           this.amortizacionService.create(result.amortization).subscribe(
             (res: HttpResponse<Amortizacion>) => {
-              console.log(res.body);
               this.entity.amortizacions = [res.body];
-              this.save();
+              this.entity.productoDetalles.forEach(productoDetalle => {
+                productoDetalle.productos[0].stock = productoDetalle.productos[0].stock - this.getStockConsumFromProduct(productoDetalle.productos[0]);
+                console.log('producto ' + productoDetalle.productos[0]);
+                this.productoService.update(productoDetalle.productos[0]).subscribe(
+                  (res: HttpResponse<Producto>) => {
+
+                  },
+                  (res: HttpErrorResponse) => this.onError(res.message)
+                );
+              });
+              // this.productoService.update(product).subscribe(
+              //   (res: HttpResponse<Amortizacion>) => {
+                  this.save();
+              //   },
+              //   (res: HttpErrorResponse) => this.onError(res.message)
+              // );
+
             },
             (res: HttpErrorResponse) => this.onError(res.message)
           );
