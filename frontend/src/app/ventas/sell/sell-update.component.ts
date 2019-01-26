@@ -23,6 +23,7 @@ import {AmortizacionService} from "../amortizacion.service";
 import {FullService} from "../../layouts/full/full.service";
 
 declare var require: any;
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-sell-update',
@@ -415,11 +416,13 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         }
 
         if (result.flag === 'save'){
+          this.entity.fecha =  moment.now();
           this.entity.estatus = SellStatus.PENDIENTE;
           this.save();
         }
 
         if (result.flag === 'pay'){
+          console.log(result.entity);
           this.entity.estatus = SellStatus.COMPLETADO;
           this.amortizacionService.create(result.amortization).subscribe(
             (res: HttpResponse<Amortizacion>) => {

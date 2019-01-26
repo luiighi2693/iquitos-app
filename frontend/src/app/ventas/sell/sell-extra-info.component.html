@@ -22,7 +22,6 @@
     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
       <mat-form-field>
         <mat-select placeholder="Tipo de Documento" [(ngModel)]="data.entity.tipoDeDocumentoDeVentaId" name="documentTypeSell">
-          <mat-option [value]="null"></mat-option>
           <mat-option *ngFor="let documentTypeSellOption of documentTypeSells;" [value]="documentTypeSellOption.id">
             {{documentTypeSellOption.nombre}}
           </mat-option>
@@ -31,13 +30,13 @@
     </div>
 
     <!-- column -->
-    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="60" fxFlex="100" class="p-10">
       <mat-form-field>
         <input matInput placeholder="Cliente / Razón Social" name="Cliente / Razón Social" type="text" maxlength="150" [(ngModel)]="data.client.nombre" disabled>
       </mat-form-field>
     </div>
 
-    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="40" fxFlex="100" class="p-10">
       <mat-form-field>
         <input matInput placeholder="Dni o Ruc" name="Dni o Ruc" type="text" maxlength="150" [(ngModel)]="amortization.codigoDocumento">
       </mat-form-field>
@@ -51,8 +50,7 @@
 
     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
       <mat-form-field>
-        <mat-select placeholder="Tipo de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType">
-          <mat-option [value]="null"></mat-option>
+        <mat-select placeholder="Medio de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType">
           <mat-option *ngFor="let paymentTypeOption of paymentTypes;" [value]="paymentTypeOption.id">
             {{paymentTypeOption.nombre}}
           </mat-option>
@@ -62,7 +60,7 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" disabled>
+        <input matInput placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado">
         <span matPrefix>S/&nbsp;</span>
       </mat-form-field>
     </div>
@@ -79,7 +77,7 @@
   </div>
 
   <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="text-align: center;">Vuelto : 0 soles</h1>
+    <h1 mat-dialog-title style="text-align: center;">Vuelto : {{parseFloatCustom(amortization.montoPagado - data.entity.montoTotal)}} soles</h1>
   </div>
 </div>
 <div mat-dialog-actions>

@@ -32,6 +32,9 @@ export class SellExtraInfoComponent {
     this.tipoDePagoService.query().subscribe(
       (res: HttpResponse<ITipoDePago[]>) => {
         this.paymentTypes = res.body;
+        if (this.paymentTypes.length > 0){
+          this.data.entity.tipoDePagoId = this.paymentTypes[0].id;
+        }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -39,6 +42,9 @@ export class SellExtraInfoComponent {
     this.tipoDeDocumentoDeVenta.query().subscribe(
       (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => {
         this.documentTypeSells = res.body;
+        if (this.documentTypeSells.length > 0){
+          this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells[0].id;
+        }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -80,5 +86,10 @@ export class SellExtraInfoComponent {
 
   checkNumbersDecimalOnly(event: KeyboardEvent) {
     return Util.checkNumbersDecimalOnly(event);
+  }
+
+  parseFloatCustom(cantidad: number) {
+    // @ts-ignore
+    return parseFloat(Math.round(cantidad * 100) / 100).toFixed(2)
   }
 }
