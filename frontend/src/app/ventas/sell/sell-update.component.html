@@ -18,17 +18,17 @@
 </div>
 
 <div fxLayout="row wrap">
-  <mat-card fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+  <mat-card fxFlex.gt-lg="55" fxFlex.gt-md="55" fxFlex.gt-sm="55" fxFlex="100">
     <mat-card-content>
 
       <div fxLayout="row wrap">
         <button mat-icon-button color= "primary" (click)="searchProduct(currentSearchProduct)"><mat-icon>search</mat-icon></button>
-        <mat-form-field fxFlex.gt-sm="80" fxFlex="80">
+        <mat-form-field fxFlex.gt-sm="90" fxFlex="90">
           <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
         </mat-form-field>
       </div>
 
-      <div fxLayout="row wrap">
+      <div fxLayout="bg-light">
 
         <div fxFlex.gt-lg="25" fxFlex.gt-md="33" fxFlex.gt-xs="33" fxFlex="100" *ngFor="let product of productos ">
           <mat-card class="oh" (click)="openDialogVariantSelection(product)">
@@ -46,19 +46,25 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+  <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
     <mat-card-content>
-      <div fxLayout="row wrap">
+        <div fxLayout="row wrap">
+            <mat-form-field fxFlex.gt-sm="87" fxFlex="87">
+              <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
+            </mat-form-field>
+            <button mat-icon-button color= "primary" (click)="searchProduct(currentSearchProduct)"><mat-icon>person_add</mat-icon></button>
+          </div>
+      <!--<div fxLayout="row wrap">
         <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
           <div style="display: flex;">
             <div fxFlex.gt-xs="100" fxFlex="100" class="p-10 text-right">
-              <div class="button-row">
+              <div class="button-row" width=100%>
                 <span *ngIf="client.nombre !== ''">{{client.nombre}}</span><button mat-raised-button (click)="goStep('clientList', null, null)">Seleccionar Cliente</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <form class="basic-form">
         <div fxLayout="row wrap">
@@ -72,7 +78,6 @@
                   <input matInput placeholder="Cant" type="text" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInProductosDetallesRow($event, i, 'cantidad')" value="{{row.cantidad}}">
                 </mat-cell>
               </ng-container>
-
               <ng-container matColumnDef="producto">
                 <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
                 <mat-cell *matCellDef="let row;let i = index">
@@ -115,14 +120,14 @@
       </form>
     </mat-card-content>
 
-    <mat-card-content class="bg-light">
+    <mat-card-content class="row wrap">
 
-      <button class="accordion">∧</button>
-      <div class="panel">
-          <div fxLayout="row wrap">
-                  <span class="empleado-lbl">Empleado</span>
+      <!--<button class="accordion">∧</button>
+      <div class="panel">-->
+          <div fxLayout="row wrap" id= lblempleado>
+                  <!--<span class="empleado-lbl">Empleado</span>-->
 
-              <mat-form-field fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50" >
+              <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
                 <mat-select placeholder="Elegir empleado" [(ngModel)]="entity.empleadoId" name="empleado">
                   <mat-option *ngFor="let empleado of empleados;" [value]="empleado.id">
                     {{empleado.nombre}}
@@ -130,7 +135,7 @@
                 </mat-select>
               </mat-form-field>
             </div>
-      </div>
+      <!--/div>-->
 
       <div class="d-flex align-items-center">
 
@@ -148,12 +153,12 @@
     </mat-card-content>
 
     <div class="button-row">
-      <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:75%" [disabled]="client.id === undefined || entity.productoDetalles.length === 0 || entity.montoTotal < 1" (click)="addExtraInfoSell()">Vender</button>
+      <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" [disabled]="client.id === undefined || entity.productoDetalles.length === 0 || entity.montoTotal < 1" (click)="addExtraInfoSell()">Vender</button>
       <button mat-raised-button style="width:136px; border-radius: initial;"(click)="previousState()">Cancelar</button>
     </div>
   </mat-card>
 
-  <mat-card *ngIf="stateStep === 'clientList'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+  <mat-card *ngIf="stateStep === 'clientList'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
     <mat-card-content>
       <!--<form class="basic-form">-->
 

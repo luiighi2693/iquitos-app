@@ -47,6 +47,11 @@ margin-top: 6px;
 
 .oh mat-card{
   text-align: right;
+  width: 50%;
+}
+
+.mat-card{
+  width: 50%;
 }
 
 .mat-card-content > :first-child, .mat-card > :first-child{
@@ -56,6 +61,7 @@ margin-top: 6px;
 
 .mat-elevation-z8{
   text-align: initial;
+  width: 100%;
 }
 
 .p-10{
@@ -98,4 +104,14 @@ margin-top: 6px;
     padding-right: 190px;
     display: flex;
     align-items: center;
+}
+
+.button-row button{
+  margin-right: 0%;
+  margin-left: 0%;
+  margin-top: 3%;
+}
+
+.button-row {
+  width: 100%;
 }
