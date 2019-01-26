@@ -90,6 +90,11 @@ export const AppRoutes: Routes = [
         path: 'authentication',
         loadChildren:
           './authentication/authentication.module#AuthenticationModule'
+      },
+      {
+        path: 'print',
+        loadChildren:
+          './pages2/pages2.module#Pages2Module'
       }
     ]
   },
