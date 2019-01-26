@@ -26,7 +26,4 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
 
     @Query("select venta from Venta venta left join fetch venta.productos left join fetch venta.productoDetalles where venta.id =:id")
     Optional<Venta> findOneWithEagerRelationships(@Param("id") Long id);
-
-    @Query("select count(venta) from Venta venta left join fetch venta.tipoDeDocumentoDeVenta where venta.tipoDeDocumentoDeVenta =:tipoDocumentoVenta")
-    Optional<Long> countVentaByTipoDeDocumentoDeVenta(String tipoDocumentoVenta);
 }
