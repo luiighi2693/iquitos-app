@@ -1,14 +1,19 @@
 package pe.com.iquitos.app.service.impl;
 
+import pe.com.iquitos.app.domain.Amortizacion;
 import pe.com.iquitos.app.domain.ProductoDetalle;
+import pe.com.iquitos.app.repository.AmortizacionRepository;
 import pe.com.iquitos.app.repository.ProductoDetalleRepository;
+import pe.com.iquitos.app.repository.search.AmortizacionSearchRepository;
 import pe.com.iquitos.app.repository.search.ProductoDetalleSearchRepository;
 import pe.com.iquitos.app.service.VentaService;
 import pe.com.iquitos.app.domain.Venta;
 import pe.com.iquitos.app.repository.VentaRepository;
 import pe.com.iquitos.app.repository.search.VentaSearchRepository;
+import pe.com.iquitos.app.service.dto.AmortizacionDTO;
 import pe.com.iquitos.app.service.dto.ProductoDetalleDTO;
 import pe.com.iquitos.app.service.dto.VentaDTO;
+import pe.com.iquitos.app.service.mapper.AmortizacionMapper;
 import pe.com.iquitos.app.service.mapper.ProductoDetalleMapper;
 import pe.com.iquitos.app.service.mapper.VentaMapper;
 import org.slf4j.Logger;
@@ -45,14 +50,22 @@ public class VentaServiceImpl implements VentaService {
     private final ProductoDetalleMapper productoDetalleMapper;
     private final ProductoDetalleSearchRepository productoDetalleSearchRepository;
 
+    private final AmortizacionRepository amortizacionRepository;
+    private final AmortizacionMapper amortizacionMapper;
+    private final AmortizacionSearchRepository amortizacionSearchRepository;
+
     public VentaServiceImpl(VentaRepository ventaRepository, VentaMapper ventaMapper, VentaSearchRepository ventaSearchRepository,
-                            ProductoDetalleRepository productoDetalleRepository, ProductoDetalleMapper productoDetalleMapper, ProductoDetalleSearchRepository productoDetalleSearchRepository) {
+                            ProductoDetalleRepository productoDetalleRepository, ProductoDetalleMapper productoDetalleMapper, ProductoDetalleSearchRepository productoDetalleSearchRepository,
+                            AmortizacionRepository amortizacionRepository, AmortizacionMapper amortizacionMapper, AmortizacionSearchRepository amortizacionSearchRepository) {
         this.ventaRepository = ventaRepository;
         this.ventaMapper = ventaMapper;
         this.ventaSearchRepository = ventaSearchRepository;
         this.productoDetalleRepository = productoDetalleRepository;
         this.productoDetalleMapper = productoDetalleMapper;
         this.productoDetalleSearchRepository = productoDetalleSearchRepository;
+        this.amortizacionRepository = amortizacionRepository;
+        this.amortizacionMapper = amortizacionMapper;
+        this.amortizacionSearchRepository = amortizacionSearchRepository;
     }
 
     /**
@@ -76,9 +89,21 @@ public class VentaServiceImpl implements VentaService {
                     .getProductoDetalles()
                     .contains(variante))
                 .collect(Collectors.toSet()).forEach(productoDetalleRepository::delete);
+
+//            ventaRepository
+//                .findById(ventaDTO.getId())
+//                .get()
+//                .getAmortizacions()
+//                .stream()
+//                .filter(amortizacion -> !ventaMapper
+//                    .toEntity(ventaDTO)
+//                    .getAmortizacions()
+//                    .contains(amortizacion))
+//                .collect(Collectors.toSet()).forEach(amortizacionRepository::delete);
         }
 
         Set<ProductoDetalleDTO> productoDetalleDTOList = new HashSet<>();
+//        Set<AmortizacionDTO> amortizacionDTOList = new HashSet<>();
 
         ventaDTO.getProductoDetalles().forEach(productoDetalleDTO -> {
             ProductoDetalle productoDetalle = productoDetalleMapper.toEntity(productoDetalleDTO);
@@ -87,12 +112,29 @@ public class VentaServiceImpl implements VentaService {
             productoDetalleSearchRepository.save(productoDetalle);
         });
 
+//        ventaDTO.getAmortizacions().forEach(amortizacionDTO -> {
+//            Amortizacion amortizacion = amortizacionMapper.toEntity(amortizacionDTO);
+//            amortizacion = amortizacionRepository.save(amortizacion);
+//            amortizacionDTOList.add(amortizacionMapper.toDto(amortizacion));
+//            amortizacionSearchRepository.save(amortizacion);
+//        });
+
         ventaDTO.setProductoDetalles(productoDetalleDTOList);
+//        ventaDTO.setAmortizacions(amortizacionDTOList);
 
         Venta venta = ventaMapper.toEntity(ventaDTO);
         venta = ventaRepository.save(venta);
         VentaDTO result = ventaMapper.toDto(venta);
         ventaSearchRepository.save(venta);
+
+        Venta finalVenta = venta;
+        ventaDTO.getAmortizacions().forEach(amortizacionDTO -> {
+            Amortizacion amortizacion = amortizacionMapper.toEntity(amortizacionDTO);
+            amortizacion.setVenta(finalVenta);
+            amortizacion = amortizacionRepository.save(amortizacion);
+            amortizacionSearchRepository.save(amortizacion);
+        });
+
         return result;
     }
 

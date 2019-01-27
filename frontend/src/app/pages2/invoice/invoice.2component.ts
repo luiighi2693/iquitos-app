@@ -1,4 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {VentaService} from "../../ventas/sell/venta.service";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {IEmpleado} from "../../models/empleado.model";
+import {IVenta} from "../../models/venta.model";
+import {ClienteService} from "../../contact/client/cliente.service";
+import {ICliente} from "../../models/cliente.model";
 
 @Component({
   selector: 'app-invoice',
@@ -41,6 +48,8 @@ export class Invoice2Component implements OnInit{
       total: 0
     }
   ];
+  private venta: IVenta;
+  private cliente: ICliente;
 
   getSubTotal() {
     let total = 0.0;
@@ -58,13 +67,42 @@ export class Invoice2Component implements OnInit{
     return this.getSubTotal() + this.getCalculatedTax();
   }
 
-  constructor() {}
+  constructor(route: ActivatedRoute,
+              ventaService: VentaService,
+              clienteService: ClienteService) {
+    console.log(route.snapshot.params['id']);
+
+    ventaService.find(route.snapshot.params['id']).subscribe(
+      (res: HttpResponse<IVenta>) => {
+        this.venta = res.body;
+        console.log(this.venta);
+
+        clienteService.find(this.venta.clienteId).subscribe(
+          (res: HttpResponse<ICliente>) => {
+            this.cliente = res.body;
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
 
   ngOnInit(): void {
     // this.print();
   }
 
+  onError(errorMessage: string) {
+    console.log(errorMessage);
+  }
+
   print(){
     window.print();
+  }
+
+  getFormatedDate(): string {
+    const d = new Date();
+    return d.getDate()+'-'+d.getMonth()+1+'-'+d.getFullYear();
   }
 }

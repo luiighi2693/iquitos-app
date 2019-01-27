@@ -20,8 +20,10 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -112,6 +114,13 @@ public class AmortizacionResource {
         log.debug("REST request to get Amortizacion : {}", id);
         Optional<AmortizacionDTO> amortizacionDTO = amortizacionService.findOne(id);
         return ResponseUtil.wrapOrNotFound(amortizacionDTO);
+    }
+
+    @GetMapping("/amortizacions/sell/{id}")
+    @Timed
+    public ResponseEntity<List<AmortizacionDTO>> getAmortizacionBySellId(@PathVariable Long id) {
+        log.debug("REST request to getAmortizacionBySellId : {}", id);
+        return ResponseEntity.ok().body(amortizacionService.findByVentaId(id).get());
     }
 
     /**

@@ -1,28 +1,37 @@
-<mat-card>
+<mat-card style="max-width: 695px;" *ngIf="venta && cliente">
   <mat-card-content>
     <div class="mb-1">
       <h1 class="mt-0" (click)="print()">
-        <strong>INVOICE</strong>
+        <strong>PRO ECONOMICA S.A.C.</strong>
       </h1>
+      <div fxLayout="column">
+        <span>CAL. ALFONZO UGARTE NRO. 127 - LORETO BELEN</span>
+        <span>949451724</span>
+        <span>RUC: 20603441223</span>
+        <span>{{venta.tipoDeDocumentoDeVentaNombre}}</span>
+        <span>{{venta.codigo}}</span>
+      </div>
     </div>
 
     <div fxLayout="row wrap">
       <div fxFlex.gt-xs="50" fxFlex="100">
-        <h4 class="text-danger font-bold">Material Pro Admin</h4>
+        <h4 class="font-bold"></h4>
         <div fxLayout="column">
-          <span>Invoice No: #0001</span>
-          <span>E 104, Dharti-2,</span>
-          <span>Nr' Viswakarma Temple,
-            <br/>Talaja Road, Bhavnagar - 364002</span>
+          <span>Fecha: {{getFormatedDate()}}</span>
+          <span>Nombre o Razón Social</span>
+          <span>{{venta.clienteNombre}}</span>
+          <span>Dirección</span>
+          <span>{{cliente.direccion}}</span>
         </div>
       </div>
       <div fxFlex.gt-xs="50" fxFlex="100" class="text-right">
-        <h4 class="font-bold">Gaala &amp; Sons,</h4>
+        <h4 class="font-bold"></h4>
         <div fxLayout="column">
-          <span>company@address.com</span>
-          <span>E 105, ODharti-2,</span>
-          <span>Nr' Viswakarma Temple,
-            <br/>Talaja Road, Ahmedabad - 364002</span>
+          <span></span>
+          <span>DNI/RUC</span>
+          <span>{{venta.amortizacions[0].codigoDocumento}}</span>
+          <span></span>
+          <span></span>
         </div>
       </div>
     </div>
@@ -55,21 +64,30 @@
     </ngx-datatable>
   </mat-card-content>
 
-  <mat-card-content class="bg-light">
-    <div class="d-flex align-items-center">
-
-      <div class="text-right ml-auto">
-        <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
-        <h6 class="text-uppercase text-md ma-0 text-bold">Tax (2%) :</h6>
-        <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-xs="50" fxFlex="100">
+        <div fxLayout="column">
+          <span>Invoice No: #0001</span>
+          <span>E 104, Dharti-2,</span>
+        </div>
       </div>
-      <div class="m-l-10">
-        <h4 class="font-medium">{{getSubTotal() | currency:'USD':'symbol':'1.2-2'}}</h4>
-        <h4 class="font-medium">{{getCalculatedTax() | currency:'USD':'symbol':'1.2-2'}}</h4>
-        <h4 class="font-medium">{{ getTotal() | currency:'USD':'symbol':'1.2-2'}}</h4>
+      <div fxFlex.gt-xs="50" fxFlex="100" class="text-right">
+        <div class="d-flex align-items-center">
+
+          <div class="text-right ml-auto">
+            <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
+            <h6 class="text-uppercase text-md ma-0 text-bold">Tax (2%) :</h6>
+            <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
+          </div>
+          <div class="m-l-10">
+            <h4 class="font-medium">{{getSubTotal() | currency:'USD':'symbol':'1.2-2'}}</h4>
+            <h4 class="font-medium">{{getCalculatedTax() | currency:'USD':'symbol':'1.2-2'}}</h4>
+            <h4 class="font-medium">{{ getTotal() | currency:'USD':'symbol':'1.2-2'}}</h4>
+          </div>
+        </div>
       </div>
     </div>
   </mat-card-content>
-
 
 </mat-card>

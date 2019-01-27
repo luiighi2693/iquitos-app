@@ -5,7 +5,9 @@ import pe.com.iquitos.app.service.dto.AmortizacionDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Interface for managing Amortizacion.
@@ -53,4 +55,6 @@ public interface AmortizacionService {
      * @return the list of entities
      */
     Page<AmortizacionDTO> search(String query, Pageable pageable);
+
+    Optional<ArrayList<AmortizacionDTO>> findByVentaId(Long id);
 }

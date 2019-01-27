@@ -50,7 +50,7 @@
     <mat-card-content>
         <div *ngIf="client.nombre === undefined" fxLayout="row wrap">
             <mat-form-field fxFlex.gt-sm="87" fxFlex="87" (click)="stateStep = 'clientList'">
-              <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
+              <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente">
             </mat-form-field>
             <button mat-icon-button color= "primary" (click)="stateStep = 'clientUpdate'"><mat-icon>person_add</mat-icon></button>
           </div>
@@ -153,8 +153,8 @@
         </div>
         <div class="m-l-10">
           <h4 class="font-medium">{{parseFloatCustom(entity.subTotal)}}</h4>
-          <h4 class="font-medium">{{(entity.subTotal * entity.impuesto) / 100}}</h4>
-          <h4 class="font-medium">{{entity.montoTotal}}</h4>
+          <h4 class="font-medium">{{parseFloatCustom((entity.subTotal * entity.impuesto) / 100)}}</h4>
+          <h4 class="font-medium">{{parseFloatCustom(entity.montoTotal)}}</h4>
         </div>
       </div>
     </mat-card-content>

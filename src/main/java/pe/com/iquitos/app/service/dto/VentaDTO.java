@@ -61,6 +61,8 @@ public class VentaDTO implements Serializable {
 
     private Set<ProductoDetalleDTO> productoDetalles = new HashSet<>();
 
+    private Set<AmortizacionDTO> amortizacions = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -219,6 +221,14 @@ public class VentaDTO implements Serializable {
 
     public void setProductoDetalles(Set<ProductoDetalleDTO> productoDetalles) {
         this.productoDetalles = productoDetalles;
+    }
+
+    public Set<AmortizacionDTO> getAmortizacions() {
+        return amortizacions;
+    }
+
+    public void setAmortizacions(Set<AmortizacionDTO> amortizacions) {
+        this.amortizacions = amortizacions;
     }
 
     @Override

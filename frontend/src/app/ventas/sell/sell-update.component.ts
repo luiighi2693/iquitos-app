@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {FormBuilder} from '@angular/forms';
-import {IVenta, SellStatus} from "../../models/venta.model";
+import {IVenta, SellStatus, Venta} from "../../models/venta.model";
 import {VentaService} from "./venta.service";
 import {JhiDataUtils} from 'ng-jhipster';
 import {MatDialog, MatTableDataSource} from "@angular/material";
@@ -135,6 +135,14 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         if (this.empleados.length > 0){
           this.entity.empleadoId = this.empleados[0].id;
         }
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+
+    this.clienteService.query().subscribe(
+      (res: HttpResponse<ICliente[]>) => {
+        this.clientes = res.body;
+        this.dataSourceClientes = new MatTableDataSource<Cliente>(this.clientes);
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -288,6 +296,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
   setClient(row: Cliente) {
     this.client = row;
+    this.entity.clienteId = this.client.id;
     this.goStep('sell', null, null);
   }
 

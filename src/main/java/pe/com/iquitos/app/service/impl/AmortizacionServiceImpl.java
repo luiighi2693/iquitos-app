@@ -14,7 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -83,6 +86,16 @@ public class AmortizacionServiceImpl implements AmortizacionService {
         log.debug("Request to get Amortizacion : {}", id);
         return amortizacionRepository.findById(id)
             .map(amortizacionMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ArrayList<AmortizacionDTO>> findByVentaId(Long id) {
+        log.debug("Request to findByVentaId : {}", id);
+        ArrayList<Amortizacion> amortizacionSet = amortizacionRepository.findAmortizacionsByVentaId(id).get();
+        ArrayList<AmortizacionDTO> amortizacionDTOArrayList = new ArrayList<>();
+        amortizacionSet.forEach(amortizacion -> amortizacionDTOArrayList.add(amortizacionMapper.toDto(amortizacion)));
+        return Optional.of(amortizacionDTOArrayList);
     }
 
     /**

@@ -32,6 +32,11 @@ export class AmortizacionService {
             .get<IAmortizacion>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    findBySell(id: number): Observable<EntityArrayResponseType> {
+        return this.http
+            .get<IAmortizacion[]>(`${this.resourceUrl}/sell/${id}`, { observe: 'response' });
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http
