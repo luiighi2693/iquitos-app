@@ -48,8 +48,8 @@ export class Invoice2Component implements OnInit{
       total: 0
     }
   ];
-  private venta: IVenta;
-  private cliente: ICliente;
+  public venta: IVenta;
+  public cliente: ICliente;
 
   getSubTotal() {
     let total = 0.0;
