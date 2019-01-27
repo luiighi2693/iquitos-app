@@ -48,11 +48,18 @@
 
   <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
     <mat-card-content>
-        <div fxLayout="row wrap">
-            <mat-form-field fxFlex.gt-sm="87" fxFlex="87">
+        <div *ngIf="client.nombre === undefined" fxLayout="row wrap">
+            <mat-form-field fxFlex.gt-sm="87" fxFlex="87" (click)="stateStep = 'clientList'">
               <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
             </mat-form-field>
-            <button mat-icon-button color= "primary" (click)="searchProduct(currentSearchProduct)"><mat-icon>person_add</mat-icon></button>
+            <button mat-icon-button color= "primary" (click)="stateStep = 'clientUpdate'"><mat-icon>person_add</mat-icon></button>
+          </div>
+
+        <div fxLayout="row wrap" *ngIf="client.nombre !== undefined">
+            <mat-form-field fxFlex.gt-sm="87" fxFlex="87">
+              <input matInput [(ngModel)]="client.nombre" disabled >
+            </mat-form-field>
+            <button mat-icon-button color= "primary" (click)="removeCliente()"><mat-icon>delete</mat-icon></button>
           </div>
       <!--<div fxLayout="row wrap">
         <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
@@ -216,7 +223,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card *ngIf="stateStep === 'clientUpdate'" fxFlex.gt-lg="47" fxFlex.gt-md="47" fxFlex.gt-sm="47" fxFlex="100">
+  <mat-card *ngIf="stateStep === 'clientUpdate'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
     <mat-card-content>
       <!--<form class="basic-form">-->
 

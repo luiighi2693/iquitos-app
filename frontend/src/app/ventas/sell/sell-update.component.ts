@@ -85,6 +85,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.client);
     this.isSaving = false;
 
     this.client.tipoDeCliente = ClientType.NATURAL;
@@ -484,5 +485,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         this.save();
       }
     });
+  }
+
+  removeCliente(){
+    this.client = new Cliente();
   }
 }
