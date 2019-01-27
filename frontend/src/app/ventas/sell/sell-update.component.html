@@ -22,10 +22,12 @@
     <mat-card-content>
 
       <div fxLayout="row wrap">
-        <button mat-icon-button color= "primary" (click)="searchProduct(currentSearchProduct)"><mat-icon>search</mat-icon></button>
-        <mat-form-field fxFlex.gt-sm="90" fxFlex="90">
-          <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
-        </mat-form-field>
+        <div style="display: flex; width: 100%">
+          <button fxFlex="10" mat-icon-button color= "primary" (click)="searchProduct(currentSearchProduct)"><mat-icon>search</mat-icon></button>
+          <mat-form-field fxFlex="90">
+            <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
+          </mat-form-field>
+        </div>
       </div>
 
       <div id="product-layout"fxLayout="bg-light">
@@ -74,7 +76,7 @@
       </div>-->
 
       <form class="basic-form">
-        <div fxLayout="row wrap">
+        <!--<div fxLayout="row wrap">-->
           <div class="responsive-table">
             <mat-table #table matSort [dataSource]="dataSourceProductosDetalles" class="mat-elevation-z8">
 
@@ -123,7 +125,7 @@
               <mat-row *matRowDef="let row; columns: displayedColumnsProductosDetalles;let i = index"></mat-row>
             </mat-table>
           </div>
-        </div>
+        <!--</div>-->
       </form>
     </mat-card-content>
 
@@ -134,7 +136,7 @@
           <div fxLayout="row wrap" id= lblempleado>
                   <!--<span class="empleado-lbl">Empleado</span>-->
 
-              <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+              <mat-form-field fxFlex.gt-xs="100" fxFlex="100" >
                 <mat-select placeholder="Elegir empleado" [(ngModel)]="entity.empleadoId" name="empleado">
                   <mat-option *ngFor="let empleado of empleados;" [value]="empleado.id">
                     {{empleado.nombre}}
