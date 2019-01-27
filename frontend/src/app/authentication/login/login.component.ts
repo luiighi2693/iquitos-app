@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
               )
               .subscribe(
                 credentials => {
+                  sessionStorage.setItem('correlativo.Facturas', 'F00');
+                  sessionStorage.setItem('correlativo.Boletas', 'B00');
                   this.router.navigate(['/dashboards'], { replaceUrl: true });
                 },
                 error => {
