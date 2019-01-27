@@ -38,27 +38,25 @@
   </mat-card-content>
 
   <mat-card-content class="table-rasponsive">
-    <ngx-datatable class="material" [rows]="invoiceItems" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'">
-      <ngx-datatable-column name="Description" [flexGrow]="4">
+    <ngx-datatable class="material" [rows]="venta.productoDetalles" [columnMode]="'flex'" [headerHeight]="50" [footerHeight]="0" [rowHeight]="'auto'">
+      <ngx-datatable-column name="Descripción" [flexGrow]="4">
         <ng-template ngx-datatable-cell-template let-row="row">
-          <strong>{{row.title}}</strong>
-          <br/>
-          <span class="mat-text-muted">{{row.subtitle}}</span>
+          <strong>{{row.productoLabel}}</strong>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Unit Price" [flexGrow]="1">
+      <ngx-datatable-column name="P.U." [flexGrow]="1">
         <ng-template ngx-datatable-cell-template let-row="row">
-          <strong>{{row.price | currency:'USD':'symbol':'1.2-2'}}</strong>
+          <strong>{{row.precioVenta}}</strong>
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column name="Cant" [flexGrow]="1">
+      <ngx-datatable-column name="Cant." [flexGrow]="1">
         <ng-template ngx-datatable-cell-template let-row="row">
-          <strong>{{row.quantity}}</strong>
+          <strong>{{row.cantidad}}</strong>
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column name="Total" [flexGrow]="1">
         <ng-template ngx-datatable-cell-template let-row="row">
-          <strong>{{ (row.price * row.quantity) | currency:'USD':'symbol':'1.2-2'}}</strong>
+          <strong>{{parseFloatCustom(row.precioVenta * row.cantidad)}}</strong>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>
@@ -68,8 +66,8 @@
     <div fxLayout="row wrap">
       <div fxFlex.gt-xs="50" fxFlex="100">
         <div fxLayout="column">
-          <span>Invoice No: #0001</span>
-          <span>E 104, Dharti-2,</span>
+          <span>ITEMS: {{venta.productoDetalles.length}}</span>
+          <span>FORMA PAGO: {{venta.tipoDePagoNombre.toUpperCase()}}</span>
         </div>
       </div>
       <div fxFlex.gt-xs="50" fxFlex="100" class="text-right">
@@ -77,13 +75,13 @@
 
           <div class="text-right ml-auto">
             <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
-            <h6 class="text-uppercase text-md ma-0 text-bold">Tax (2%) :</h6>
+            <h6 class="text-uppercase text-md ma-0 text-bold">Tax ({{venta.impuesto}}%) :</h6>
             <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
           </div>
           <div class="m-l-10">
-            <h4 class="font-medium">{{getSubTotal() | currency:'USD':'symbol':'1.2-2'}}</h4>
-            <h4 class="font-medium">{{getCalculatedTax() | currency:'USD':'symbol':'1.2-2'}}</h4>
-            <h4 class="font-medium">{{ getTotal() | currency:'USD':'symbol':'1.2-2'}}</h4>
+            <h4 class="font-medium">{{parseFloatCustom(venta.subTotal)}}</h4>
+            <h4 class="font-medium">{{parseFloatCustom((venta.subTotal * venta.impuesto) / 100)}}</h4>
+            <h4 class="font-medium">{{parseFloatCustom(venta.montoTotal)}}</h4>
           </div>
         </div>
       </div>

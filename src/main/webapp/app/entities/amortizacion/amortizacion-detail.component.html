@@ -37,12 +37,6 @@
                         <a [routerLink]="['/tipo-de-pago', amortizacion.tipoDePagoId, 'view']">{{amortizacion.tipoDePagoNombre}}</a>
                     </div>
                 </dd>
-                <dt><span>Venta</span></dt>
-                <dd>
-                    <div *ngIf="amortizacion.ventaId">
-                        <a [routerLink]="['/venta', amortizacion.ventaId, 'view']">{{amortizacion.ventaId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

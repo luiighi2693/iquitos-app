@@ -39,14 +39,6 @@ public class VentaDTO implements Serializable {
     @Size(max = 5000)
     private String metaData;
 
-    private Long clienteId;
-
-    private String clienteNombre;
-
-    private Long empleadoId;
-
-    private String empleadoNombre;
-
     private Long cajaId;
 
     private Long tipoDeDocumentoDeVentaId;
@@ -56,6 +48,14 @@ public class VentaDTO implements Serializable {
     private Long tipoDePagoId;
 
     private String tipoDePagoNombre;
+
+    private Long clienteId;
+
+    private String clienteNombre;
+
+    private Long empleadoId;
+
+    private String empleadoNombre;
 
     private Set<ProductoDTO> productos = new HashSet<>();
 
@@ -135,38 +135,6 @@ public class VentaDTO implements Serializable {
         this.metaData = metaData;
     }
 
-    public Long getClienteId() {
-        return clienteId;
-    }
-
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
-    }
-
-    public String getClienteNombre() {
-        return clienteNombre;
-    }
-
-    public void setClienteNombre(String clienteNombre) {
-        this.clienteNombre = clienteNombre;
-    }
-
-    public Long getEmpleadoId() {
-        return empleadoId;
-    }
-
-    public void setEmpleadoId(Long empleadoId) {
-        this.empleadoId = empleadoId;
-    }
-
-    public String getEmpleadoNombre() {
-        return empleadoNombre;
-    }
-
-    public void setEmpleadoNombre(String empleadoNombre) {
-        this.empleadoNombre = empleadoNombre;
-    }
-
     public Long getCajaId() {
         return cajaId;
     }
@@ -205,6 +173,38 @@ public class VentaDTO implements Serializable {
 
     public void setTipoDePagoNombre(String tipoDePagoNombre) {
         this.tipoDePagoNombre = tipoDePagoNombre;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public String getClienteNombre() {
+        return clienteNombre;
+    }
+
+    public void setClienteNombre(String clienteNombre) {
+        this.clienteNombre = clienteNombre;
+    }
+
+    public Long getEmpleadoId() {
+        return empleadoId;
+    }
+
+    public void setEmpleadoId(Long empleadoId) {
+        this.empleadoId = empleadoId;
+    }
+
+    public String getEmpleadoNombre() {
+        return empleadoNombre;
+    }
+
+    public void setEmpleadoNombre(String empleadoNombre) {
+        this.empleadoNombre = empleadoNombre;
     }
 
     public Set<ProductoDTO> getProductos() {
@@ -264,15 +264,15 @@ public class VentaDTO implements Serializable {
             ", estatus='" + getEstatus() + "'" +
             ", glosa='" + getGlosa() + "'" +
             ", metaData='" + getMetaData() + "'" +
-            ", cliente=" + getClienteId() +
-            ", cliente='" + getClienteNombre() + "'" +
-            ", empleado=" + getEmpleadoId() +
-            ", empleado='" + getEmpleadoNombre() + "'" +
             ", caja=" + getCajaId() +
             ", tipoDeDocumentoDeVenta=" + getTipoDeDocumentoDeVentaId() +
             ", tipoDeDocumentoDeVenta='" + getTipoDeDocumentoDeVentaNombre() + "'" +
             ", tipoDePago=" + getTipoDePagoId() +
             ", tipoDePago='" + getTipoDePagoNombre() + "'" +
+            ", cliente=" + getClienteId() +
+            ", cliente='" + getClienteNombre() + "'" +
+            ", empleado=" + getEmpleadoId() +
+            ", empleado='" + getEmpleadoNombre() + "'" +
             "}";
     }
 }

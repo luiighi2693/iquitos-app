@@ -81,6 +81,6 @@
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button tabindex="2" (click)="closeAndCheckSell('pay')">Pagar</button>
+  <button mat-button tabindex="2" (click)="closeAndCheckSell('pay')" [disabled]="validateDocumentCodeInvalid()">Pagar</button>
   <button mat-button tabindex="-1" (click)="closeAndCheckSell('save')">Guardar</button>
 </div>

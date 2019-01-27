@@ -15,5 +15,4 @@ import java.util.Set;
 @SuppressWarnings("unused")
 @Repository
 public interface AmortizacionRepository extends JpaRepository<Amortizacion, Long> {
-    Optional<ArrayList<Amortizacion>> findAmortizacionsByVentaId(Long ventaId);
 }

@@ -72,6 +72,9 @@ export class SellExtraInfoComponent {
     }
 
     if (param ==='pay') {
+      this.amortization.tipoDeDocumentoDeVentaId = this.data.entity.tipoDeDocumentoDeVentaId;
+      this.amortization.tipoDePagoId = this.data.entity.tipoDePagoId;
+      this.amortization.glosa = this.data.entity.glosa;
       this.dialogRef.close({
         entity: this.data.entity,
         amortization: this.amortization,
@@ -95,5 +98,13 @@ export class SellExtraInfoComponent {
   parseFloatCustom(cantidad: number) {
     // @ts-ignore
     return parseFloat(Math.round(cantidad * 100) / 100).toFixed(2)
+  }
+
+  validateDocumentCodeInvalid(){
+    if (this.amortization.codigoDocumento === undefined) {
+      return true;
+    } else {
+      return this.amortization.codigoDocumento.length === 0;
+    }
   }
 }

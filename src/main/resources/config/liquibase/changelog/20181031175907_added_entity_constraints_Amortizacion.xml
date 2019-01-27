@@ -20,11 +20,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="tipo_de_pago"/>
 
-        <addForeignKeyConstraint baseColumnNames="venta_id"
-                                 baseTableName="amortizacion"
-                                 constraintName="fk_amortizacion_venta_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="venta"/>
-
     </changeSet>
 </databaseChangeLog>

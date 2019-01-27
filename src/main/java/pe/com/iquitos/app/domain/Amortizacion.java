@@ -55,10 +55,6 @@ public class Amortizacion implements Serializable {
     @JsonIgnoreProperties("")
     private TipoDePago tipoDePago;
 
-    @ManyToOne
-    @JsonIgnoreProperties("amortizacions")
-    private Venta venta;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -157,19 +153,6 @@ public class Amortizacion implements Serializable {
 
     public void setTipoDePago(TipoDePago tipoDePago) {
         this.tipoDePago = tipoDePago;
-    }
-
-    public Venta getVenta() {
-        return venta;
-    }
-
-    public Amortizacion venta(Venta venta) {
-        this.venta = venta;
-        return this;
-    }
-
-    public void setVenta(Venta venta) {
-        this.venta = venta;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

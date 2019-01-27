@@ -53,11 +53,7 @@
             <column name="meta_data" type="varchar(5000)">
                 <constraints nullable="false" />
             </column>
-            <column name="cliente_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_venta_cliente_id" />
-            </column>            <column name="empleado_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_venta_empleado_id" />
-            </column>            <column name="caja_id" type="bigint">
+            <column name="caja_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_venta_caja_id" />
             </column>
             <column name="tipo_de_documento_de_venta_id" type="bigint">
@@ -65,6 +61,14 @@
             </column>
 
             <column name="tipo_de_pago_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="cliente_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="empleado_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
@@ -92,6 +96,17 @@
         </createTable>
 
         <addPrimaryKey columnNames="ventas_id, producto_detalles_id" tableName="venta_producto_detalles"/>
+        
+        <createTable tableName="venta_amortizacion">
+            <column name="amortizacions_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ventas_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="ventas_id, amortizacions_id" tableName="venta_amortizacion"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

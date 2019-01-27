@@ -8,26 +8,25 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Venta and its DTO VentaDTO.
  */
-@Mapper(componentModel = "spring", uses = {ClienteMapper.class, EmpleadoMapper.class, CajaMapper.class, TipoDeDocumentoDeVentaMapper.class, TipoDePagoMapper.class, ProductoMapper.class, ProductoDetalleMapper.class})
+@Mapper(componentModel = "spring", uses = {CajaMapper.class, TipoDeDocumentoDeVentaMapper.class, TipoDePagoMapper.class, ClienteMapper.class, EmpleadoMapper.class, ProductoMapper.class, ProductoDetalleMapper.class, AmortizacionMapper.class})
 public interface VentaMapper extends EntityMapper<VentaDTO, Venta> {
 
-    @Mapping(source = "cliente.id", target = "clienteId")
-    @Mapping(source = "cliente.nombre", target = "clienteNombre")
-    @Mapping(source = "empleado.id", target = "empleadoId")
-    @Mapping(source = "empleado.nombre", target = "empleadoNombre")
     @Mapping(source = "caja.id", target = "cajaId")
     @Mapping(source = "tipoDeDocumentoDeVenta.id", target = "tipoDeDocumentoDeVentaId")
     @Mapping(source = "tipoDeDocumentoDeVenta.nombre", target = "tipoDeDocumentoDeVentaNombre")
     @Mapping(source = "tipoDePago.id", target = "tipoDePagoId")
     @Mapping(source = "tipoDePago.nombre", target = "tipoDePagoNombre")
+    @Mapping(source = "cliente.id", target = "clienteId")
+    @Mapping(source = "cliente.nombre", target = "clienteNombre")
+    @Mapping(source = "empleado.id", target = "empleadoId")
+    @Mapping(source = "empleado.nombre", target = "empleadoNombre")
     VentaDTO toDto(Venta venta);
 
-    @Mapping(source = "clienteId", target = "cliente")
-    @Mapping(source = "empleadoId", target = "empleado")
     @Mapping(source = "cajaId", target = "caja")
-    @Mapping(target = "amortizacions", ignore = true)
     @Mapping(source = "tipoDeDocumentoDeVentaId", target = "tipoDeDocumentoDeVenta")
     @Mapping(source = "tipoDePagoId", target = "tipoDePago")
+    @Mapping(source = "clienteId", target = "cliente")
+    @Mapping(source = "empleadoId", target = "empleado")
     Venta toEntity(VentaDTO ventaDTO);
 
     default Venta fromId(Long id) {

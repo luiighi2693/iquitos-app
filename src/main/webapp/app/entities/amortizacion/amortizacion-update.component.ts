@@ -11,8 +11,6 @@ import { ITipoDeDocumentoDeVenta } from 'app/shared/model/tipo-de-documento-de-v
 import { TipoDeDocumentoDeVentaService } from 'app/entities/tipo-de-documento-de-venta';
 import { ITipoDePago } from 'app/shared/model/tipo-de-pago.model';
 import { TipoDePagoService } from 'app/entities/tipo-de-pago';
-import { IVenta } from 'app/shared/model/venta.model';
-import { VentaService } from 'app/entities/venta';
 
 @Component({
     selector: 'jhi-amortizacion-update',
@@ -25,8 +23,6 @@ export class AmortizacionUpdateComponent implements OnInit {
     tipodedocumentodeventas: ITipoDeDocumentoDeVenta[];
 
     tipodepagos: ITipoDePago[];
-
-    ventas: IVenta[];
     fechaDp: any;
 
     constructor(
@@ -34,7 +30,6 @@ export class AmortizacionUpdateComponent implements OnInit {
         private amortizacionService: AmortizacionService,
         private tipoDeDocumentoDeVentaService: TipoDeDocumentoDeVentaService,
         private tipoDePagoService: TipoDePagoService,
-        private ventaService: VentaService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -52,12 +47,6 @@ export class AmortizacionUpdateComponent implements OnInit {
         this.tipoDePagoService.query().subscribe(
             (res: HttpResponse<ITipoDePago[]>) => {
                 this.tipodepagos = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.ventaService.query().subscribe(
-            (res: HttpResponse<IVenta[]>) => {
-                this.ventas = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -98,10 +87,6 @@ export class AmortizacionUpdateComponent implements OnInit {
     }
 
     trackTipoDePagoById(index: number, item: ITipoDePago) {
-        return item.id;
-    }
-
-    trackVentaById(index: number, item: IVenta) {
         return item.id;
     }
 }

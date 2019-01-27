@@ -45,8 +45,7 @@ describe('Amortizacion e2e test', () => {
             amortizacionUpdatePage.setCodigoDocumentoInput('codigoDocumento'),
             amortizacionUpdatePage.setGlosaInput('glosa'),
             amortizacionUpdatePage.tipoDeDocumentoDeVentaSelectLastOption(),
-            amortizacionUpdatePage.tipoDePagoSelectLastOption(),
-            amortizacionUpdatePage.ventaSelectLastOption()
+            amortizacionUpdatePage.tipoDePagoSelectLastOption()
         ]);
         expect(await amortizacionUpdatePage.getMontoInput()).to.eq('5');
         expect(await amortizacionUpdatePage.getMontoPagadoInput()).to.eq('5');

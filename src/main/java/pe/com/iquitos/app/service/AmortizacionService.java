@@ -55,6 +55,4 @@ public interface AmortizacionService {
      * @return the list of entities
      */
     Page<AmortizacionDTO> search(String query, Pageable pageable);
-
-    Optional<ArrayList<AmortizacionDTO>> findByVentaId(Long id);
 }

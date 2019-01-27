@@ -34,13 +34,14 @@ export class VentaUpdatePage {
     estatusSelect = element(by.id('field_estatus'));
     glosaInput = element(by.id('field_glosa'));
     metaDataInput = element(by.id('field_metaData'));
-    clienteSelect = element(by.id('field_cliente'));
-    empleadoSelect = element(by.id('field_empleado'));
     cajaSelect = element(by.id('field_caja'));
     tipoDeDocumentoDeVentaSelect = element(by.id('field_tipoDeDocumentoDeVenta'));
     tipoDePagoSelect = element(by.id('field_tipoDePago'));
+    clienteSelect = element(by.id('field_cliente'));
+    empleadoSelect = element(by.id('field_empleado'));
     productosSelect = element(by.id('field_productos'));
     productoDetallesSelect = element(by.id('field_productoDetalles'));
+    amortizacionSelect = element(by.id('field_amortizacion'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -117,44 +118,6 @@ export class VentaUpdatePage {
         return this.metaDataInput.getAttribute('value');
     }
 
-    async clienteSelectLastOption() {
-        await this.clienteSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async clienteSelectOption(option) {
-        await this.clienteSelect.sendKeys(option);
-    }
-
-    getClienteSelect(): ElementFinder {
-        return this.clienteSelect;
-    }
-
-    async getClienteSelectedOption() {
-        return this.clienteSelect.element(by.css('option:checked')).getText();
-    }
-
-    async empleadoSelectLastOption() {
-        await this.empleadoSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async empleadoSelectOption(option) {
-        await this.empleadoSelect.sendKeys(option);
-    }
-
-    getEmpleadoSelect(): ElementFinder {
-        return this.empleadoSelect;
-    }
-
-    async getEmpleadoSelectedOption() {
-        return this.empleadoSelect.element(by.css('option:checked')).getText();
-    }
-
     async cajaSelectLastOption() {
         await this.cajaSelect
             .all(by.tagName('option'))
@@ -212,6 +175,44 @@ export class VentaUpdatePage {
         return this.tipoDePagoSelect.element(by.css('option:checked')).getText();
     }
 
+    async clienteSelectLastOption() {
+        await this.clienteSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async clienteSelectOption(option) {
+        await this.clienteSelect.sendKeys(option);
+    }
+
+    getClienteSelect(): ElementFinder {
+        return this.clienteSelect;
+    }
+
+    async getClienteSelectedOption() {
+        return this.clienteSelect.element(by.css('option:checked')).getText();
+    }
+
+    async empleadoSelectLastOption() {
+        await this.empleadoSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async empleadoSelectOption(option) {
+        await this.empleadoSelect.sendKeys(option);
+    }
+
+    getEmpleadoSelect(): ElementFinder {
+        return this.empleadoSelect;
+    }
+
+    async getEmpleadoSelectedOption() {
+        return this.empleadoSelect.element(by.css('option:checked')).getText();
+    }
+
     async productosSelectLastOption() {
         await this.productosSelect
             .all(by.tagName('option'))
@@ -248,6 +249,25 @@ export class VentaUpdatePage {
 
     async getProductoDetallesSelectedOption() {
         return this.productoDetallesSelect.element(by.css('option:checked')).getText();
+    }
+
+    async amortizacionSelectLastOption() {
+        await this.amortizacionSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async amortizacionSelectOption(option) {
+        await this.amortizacionSelect.sendKeys(option);
+    }
+
+    getAmortizacionSelect(): ElementFinder {
+        return this.amortizacionSelect;
+    }
+
+    async getAmortizacionSelectedOption() {
+        return this.amortizacionSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

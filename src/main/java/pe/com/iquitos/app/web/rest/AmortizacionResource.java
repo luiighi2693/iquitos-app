@@ -116,13 +116,6 @@ public class AmortizacionResource {
         return ResponseUtil.wrapOrNotFound(amortizacionDTO);
     }
 
-    @GetMapping("/amortizacions/sell/{id}")
-    @Timed
-    public ResponseEntity<List<AmortizacionDTO>> getAmortizacionBySellId(@PathVariable Long id) {
-        log.debug("REST request to getAmortizacionBySellId : {}", id);
-        return ResponseEntity.ok().body(amortizacionService.findByVentaId(id).get());
-    }
-
     /**
      * DELETE  /amortizacions/:id : delete the "id" amortizacion.
      *

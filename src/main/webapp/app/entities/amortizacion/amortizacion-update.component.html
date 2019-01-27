@@ -90,13 +90,6 @@
                         <option [ngValue]="tipoDePagoOption.id" *ngFor="let tipoDePagoOption of tipodepagos; trackBy: trackTipoDePagoById">{{tipoDePagoOption.nombre}}</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_venta">Venta</label>
-                    <select class="form-control" id="field_venta" name="venta" [(ngModel)]="amortizacion.ventaId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="ventaOption.id" *ngFor="let ventaOption of ventas; trackBy: trackVentaById">{{ventaOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

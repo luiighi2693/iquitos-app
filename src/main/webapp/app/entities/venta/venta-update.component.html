@@ -114,20 +114,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_cliente">Cliente</label>
-                    <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="venta.clienteId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.nombre}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_empleado">Empleado</label>
-                    <select class="form-control" id="field_empleado" name="empleado" [(ngModel)]="venta.empleadoId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="empleadoOption.id" *ngFor="let empleadoOption of empleados; trackBy: trackEmpleadoById">{{empleadoOption.nombre}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" for="field_caja">Caja</label>
                     <select class="form-control" id="field_caja" name="caja" [(ngModel)]="venta.cajaId">
                         <option [ngValue]="null"></option>
@@ -149,6 +135,20 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_cliente">Cliente</label>
+                    <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="venta.clienteId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_empleado">Empleado</label>
+                    <select class="form-control" id="field_empleado" name="empleado" [(ngModel)]="venta.empleadoId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="empleadoOption.id" *ngFor="let empleadoOption of empleados; trackBy: trackEmpleadoById">{{empleadoOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="field_productos">Productos</label>
                     <select class="form-control" id="field_productos" multiple name="productos" [(ngModel)]="venta.productos">
                         <option [ngValue]="getSelected(venta.productos, productoOption)" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.codigo}}</option>
@@ -158,6 +158,12 @@
                     <label for="field_productoDetalles">Producto Detalles</label>
                     <select class="form-control" id="field_productoDetalles" multiple name="productoDetalles" [(ngModel)]="venta.productoDetalles">
                         <option [ngValue]="getSelected(venta.productoDetalles, productoDetalleOption)" *ngFor="let productoDetalleOption of productodetalles; trackBy: trackProductoDetalleById">{{productoDetalleOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_amortizacion">Amortizacion</label>
+                    <select class="form-control" id="field_amortizacion" multiple name="amortizacion" [(ngModel)]="venta.amortizacions">
+                        <option [ngValue]="getSelected(venta.amortizacions, amortizacionOption)" *ngFor="let amortizacionOption of amortizacions; trackBy: trackAmortizacionById">{{amortizacionOption.id}}</option>
                     </select>
                 </div>
             </div>

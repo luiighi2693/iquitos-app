@@ -88,16 +88,6 @@ public class AmortizacionServiceImpl implements AmortizacionService {
             .map(amortizacionMapper::toDto);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<ArrayList<AmortizacionDTO>> findByVentaId(Long id) {
-        log.debug("Request to findByVentaId : {}", id);
-        ArrayList<Amortizacion> amortizacionSet = amortizacionRepository.findAmortizacionsByVentaId(id).get();
-        ArrayList<AmortizacionDTO> amortizacionDTOArrayList = new ArrayList<>();
-        amortizacionSet.forEach(amortizacion -> amortizacionDTOArrayList.add(amortizacionMapper.toDto(amortizacion)));
-        return Optional.of(amortizacionDTOArrayList);
-    }
-
     /**
      * Delete the amortizacion by id.
      *

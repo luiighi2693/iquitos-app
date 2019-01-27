@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
-import { IAmortizacion } from 'app/shared/model//amortizacion.model';
 import { IProducto } from 'app/shared/model//producto.model';
 import { IProductoDetalle } from 'app/shared/model//producto-detalle.model';
+import { IAmortizacion } from 'app/shared/model//amortizacion.model';
 
 export const enum SellStatus {
     PENDIENTE = 'PENDIENTE',
@@ -18,18 +18,18 @@ export interface IVenta {
     estatus?: SellStatus;
     glosa?: string;
     metaData?: string;
-    clienteNombre?: string;
-    clienteId?: number;
-    empleadoNombre?: string;
-    empleadoId?: number;
     cajaId?: number;
-    amortizacions?: IAmortizacion[];
     tipoDeDocumentoDeVentaNombre?: string;
     tipoDeDocumentoDeVentaId?: number;
     tipoDePagoNombre?: string;
     tipoDePagoId?: number;
+    clienteNombre?: string;
+    clienteId?: number;
+    empleadoNombre?: string;
+    empleadoId?: number;
     productos?: IProducto[];
     productoDetalles?: IProductoDetalle[];
+    amortizacions?: IAmortizacion[];
 }
 
 export class Venta implements IVenta {
@@ -43,17 +43,17 @@ export class Venta implements IVenta {
         public estatus?: SellStatus,
         public glosa?: string,
         public metaData?: string,
-        public clienteNombre?: string,
-        public clienteId?: number,
-        public empleadoNombre?: string,
-        public empleadoId?: number,
         public cajaId?: number,
-        public amortizacions?: IAmortizacion[],
         public tipoDeDocumentoDeVentaNombre?: string,
         public tipoDeDocumentoDeVentaId?: number,
         public tipoDePagoNombre?: string,
         public tipoDePagoId?: number,
+        public clienteNombre?: string,
+        public clienteId?: number,
+        public empleadoNombre?: string,
+        public empleadoId?: number,
         public productos?: IProducto[],
-        public productoDetalles?: IProductoDetalle[]
+        public productoDetalles?: IProductoDetalle[],
+        public amortizacions?: IAmortizacion[]
     ) {}
 }

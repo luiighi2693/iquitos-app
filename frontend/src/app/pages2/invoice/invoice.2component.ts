@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {VentaService} from "../../ventas/sell/venta.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {IEmpleado} from "../../models/empleado.model";
@@ -68,6 +68,7 @@ export class Invoice2Component implements OnInit{
   }
 
   constructor(route: ActivatedRoute,
+              private router: Router,
               ventaService: VentaService,
               clienteService: ClienteService) {
     console.log(route.snapshot.params['id']);
@@ -80,6 +81,11 @@ export class Invoice2Component implements OnInit{
         clienteService.find(this.venta.clienteId).subscribe(
           (res: HttpResponse<ICliente>) => {
             this.cliente = res.body;
+
+            setTimeout(() => {
+              window.print();
+              this.router.navigate(['/ventas/sell/list']);
+            });
           },
           (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -104,5 +110,10 @@ export class Invoice2Component implements OnInit{
   getFormatedDate(): string {
     const d = new Date();
     return d.getDate()+'-'+d.getMonth()+1+'-'+d.getFullYear();
+  }
+
+  parseFloatCustom(cantidad: number) {
+    // @ts-ignore
+    return parseFloat(Math.round(cantidad * 100) / 100).toFixed(2)
   }
 }

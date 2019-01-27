@@ -47,13 +47,14 @@ describe('Venta e2e test', () => {
             ventaUpdatePage.estatusSelectLastOption(),
             ventaUpdatePage.setGlosaInput('glosa'),
             ventaUpdatePage.setMetaDataInput('metaData'),
-            ventaUpdatePage.clienteSelectLastOption(),
-            ventaUpdatePage.empleadoSelectLastOption(),
             ventaUpdatePage.cajaSelectLastOption(),
             ventaUpdatePage.tipoDeDocumentoDeVentaSelectLastOption(),
-            ventaUpdatePage.tipoDePagoSelectLastOption()
+            ventaUpdatePage.tipoDePagoSelectLastOption(),
+            ventaUpdatePage.clienteSelectLastOption(),
+            ventaUpdatePage.empleadoSelectLastOption()
             // ventaUpdatePage.productosSelectLastOption(),
             // ventaUpdatePage.productoDetallesSelectLastOption(),
+            // ventaUpdatePage.amortizacionSelectLastOption(),
         ]);
         expect(await ventaUpdatePage.getCodigoInput()).to.eq('codigo');
         expect(await ventaUpdatePage.getSubTotalInput()).to.eq('5');

@@ -49,12 +49,6 @@
             "relationshipName": "tipoDePago",
             "otherEntityName": "tipoDePago",
             "otherEntityField": "nombre"
-        },
-        {
-            "relationshipName": "venta",
-            "otherEntityName": "venta",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20181031175907",

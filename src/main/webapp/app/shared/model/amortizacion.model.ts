@@ -11,7 +11,6 @@ export interface IAmortizacion {
     tipoDeDocumentoDeVentaId?: number;
     tipoDePagoNombre?: string;
     tipoDePagoId?: number;
-    ventaId?: number;
 }
 
 export class Amortizacion implements IAmortizacion {
@@ -25,7 +24,6 @@ export class Amortizacion implements IAmortizacion {
         public tipoDeDocumentoDeVentaNombre?: string,
         public tipoDeDocumentoDeVentaId?: number,
         public tipoDePagoNombre?: string,
-        public tipoDePagoId?: number,
-        public ventaId?: number
+        public tipoDePagoId?: number
     ) {}
 }

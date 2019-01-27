@@ -17,13 +17,14 @@ import java.util.Optional;
 @Repository
 public interface VentaRepository extends JpaRepository<Venta, Long> {
 
-    @Query(value = "select distinct venta from Venta venta left join fetch venta.productos left join fetch venta.productoDetalles",
+    @Query(value = "select distinct venta from Venta venta left join fetch venta.productos left join fetch venta.productoDetalles left join fetch venta.amortizacions",
         countQuery = "select count(distinct venta) from Venta venta")
     Page<Venta> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query(value = "select distinct venta from Venta venta left join fetch venta.productos left join fetch venta.productoDetalles")
+    @Query(value = "select distinct venta from Venta venta left join fetch venta.productos left join fetch venta.productoDetalles left join fetch venta.amortizacions")
     List<Venta> findAllWithEagerRelationships();
 
-    @Query("select venta from Venta venta left join fetch venta.productos left join fetch venta.productoDetalles where venta.id =:id")
+    @Query("select venta from Venta venta left join fetch venta.productos left join fetch venta.productoDetalles left join fetch venta.amortizacions where venta.id =:id")
     Optional<Venta> findOneWithEagerRelationships(@Param("id") Long id);
+
 }

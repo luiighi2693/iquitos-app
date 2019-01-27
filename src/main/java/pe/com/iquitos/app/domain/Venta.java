@@ -1,6 +1,5 @@
 package pe.com.iquitos.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -66,17 +65,8 @@ public class Venta implements Serializable {
     private String metaData;
 
     @OneToOne    @JoinColumn(unique = true)
-    private Cliente cliente;
-
-    @OneToOne    @JoinColumn(unique = true)
-    private Empleado empleado;
-
-    @OneToOne    @JoinColumn(unique = true)
     private Caja caja;
 
-    @OneToMany(mappedBy = "venta")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Amortizacion> amortizacions = new HashSet<>();
     @ManyToOne
     @JsonIgnoreProperties("")
     private TipoDeDocumentoDeVenta tipoDeDocumentoDeVenta;
@@ -84,6 +74,14 @@ public class Venta implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("")
     private TipoDePago tipoDePago;
+
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private Cliente cliente;
+
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private Empleado empleado;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -98,6 +96,13 @@ public class Venta implements Serializable {
                joinColumns = @JoinColumn(name = "ventas_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "producto_detalles_id", referencedColumnName = "id"))
     private Set<ProductoDetalle> productoDetalles = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "venta_amortizacion",
+               joinColumns = @JoinColumn(name = "ventas_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "amortizacions_id", referencedColumnName = "id"))
+    private Set<Amortizacion> amortizacions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -212,32 +217,6 @@ public class Venta implements Serializable {
         this.metaData = metaData;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public Venta cliente(Cliente cliente) {
-        this.cliente = cliente;
-        return this;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public Venta empleado(Empleado empleado) {
-        this.empleado = empleado;
-        return this;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
-
     public Caja getCaja() {
         return caja;
     }
@@ -249,31 +228,6 @@ public class Venta implements Serializable {
 
     public void setCaja(Caja caja) {
         this.caja = caja;
-    }
-
-    public Set<Amortizacion> getAmortizacions() {
-        return amortizacions;
-    }
-
-    public Venta amortizacions(Set<Amortizacion> amortizacions) {
-        this.amortizacions = amortizacions;
-        return this;
-    }
-
-    public Venta addAmortizacion(Amortizacion amortizacion) {
-        this.amortizacions.add(amortizacion);
-        amortizacion.setVenta(this);
-        return this;
-    }
-
-    public Venta removeAmortizacion(Amortizacion amortizacion) {
-        this.amortizacions.remove(amortizacion);
-        amortizacion.setVenta(null);
-        return this;
-    }
-
-    public void setAmortizacions(Set<Amortizacion> amortizacions) {
-        this.amortizacions = amortizacions;
     }
 
     public TipoDeDocumentoDeVenta getTipoDeDocumentoDeVenta() {
@@ -300,6 +254,32 @@ public class Venta implements Serializable {
 
     public void setTipoDePago(TipoDePago tipoDePago) {
         this.tipoDePago = tipoDePago;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Venta cliente(Cliente cliente) {
+        this.cliente = cliente;
+        return this;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public Venta empleado(Empleado empleado) {
+        this.empleado = empleado;
+        return this;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
 
     public Set<Producto> getProductos() {
@@ -346,6 +326,29 @@ public class Venta implements Serializable {
 
     public void setProductoDetalles(Set<ProductoDetalle> productoDetalles) {
         this.productoDetalles = productoDetalles;
+    }
+
+    public Set<Amortizacion> getAmortizacions() {
+        return amortizacions;
+    }
+
+    public Venta amortizacions(Set<Amortizacion> amortizacions) {
+        this.amortizacions = amortizacions;
+        return this;
+    }
+
+    public Venta addAmortizacion(Amortizacion amortizacion) {
+        this.amortizacions.add(amortizacion);
+        return this;
+    }
+
+    public Venta removeAmortizacion(Amortizacion amortizacion) {
+        this.amortizacions.remove(amortizacion);
+        return this;
+    }
+
+    public void setAmortizacions(Set<Amortizacion> amortizacions) {
+        this.amortizacions = amortizacions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -8,18 +8,6 @@
     -->
     <changeSet id="20181031175908-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="cliente_id"
-                                 baseTableName="venta"
-                                 constraintName="fk_venta_cliente_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="cliente"/>
-
-        <addForeignKeyConstraint baseColumnNames="empleado_id"
-                                 baseTableName="venta"
-                                 constraintName="fk_venta_empleado_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="empleado"/>
-
         <addForeignKeyConstraint baseColumnNames="caja_id"
                                  baseTableName="venta"
                                  constraintName="fk_venta_caja_id"
@@ -37,6 +25,18 @@
                                  constraintName="fk_venta_tipo_de_pago_id"
                                  referencedColumnNames="id"
                                  referencedTableName="tipo_de_pago"/>
+
+        <addForeignKeyConstraint baseColumnNames="cliente_id"
+                                 baseTableName="venta"
+                                 constraintName="fk_venta_cliente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cliente"/>
+
+        <addForeignKeyConstraint baseColumnNames="empleado_id"
+                                 baseTableName="venta"
+                                 constraintName="fk_venta_empleado_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="empleado"/>
 
         <addForeignKeyConstraint baseColumnNames="ventas_id"
                                  baseTableName="venta_productos"
@@ -59,6 +59,17 @@
                                  constraintName="fk_venta_producto_detalles_producto_detalles_id"
                                  referencedColumnNames="id"
                                  referencedTableName="producto_detalle"/>
+        
+        <addForeignKeyConstraint baseColumnNames="ventas_id"
+                                 baseTableName="venta_amortizacion"
+                                 constraintName="fk_venta_amortizacion_ventas_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venta"/>
+        <addForeignKeyConstraint baseColumnNames="amortizacions_id"
+                                 baseTableName="venta_amortizacion"
+                                 constraintName="fk_venta_amortizacion_amortizacions_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="amortizacion"/>
         
     </changeSet>
 </databaseChangeLog>

@@ -38,11 +38,11 @@
             <th jhiSortBy="estatus"><span>Estatus</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="glosa"><span>Glosa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="metaData"><span>Meta Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="clienteNombre"><span>Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empleadoNombre"><span>Empleado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cajaId"><span>Caja</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDeDocumentoDeVentaNombre"><span>Tipo De Documento De Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDePagoNombre"><span>Tipo De Pago</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="clienteNombre"><span>Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="empleadoNombre"><span>Empleado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -58,16 +58,6 @@
                 <td>{{venta.glosa}}</td>
                 <td>{{venta.metaData}}</td>
                 <td>
-                    <div *ngIf="venta.clienteId">
-                        <a [routerLink]="['../cliente', venta.clienteId , 'view' ]" >{{venta.clienteNombre}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="venta.empleadoId">
-                        <a [routerLink]="['../empleado', venta.empleadoId , 'view' ]" >{{venta.empleadoNombre}}</a>
-                    </div>
-                </td>
-                <td>
                     <div *ngIf="venta.cajaId">
                         <a [routerLink]="['../caja', venta.cajaId , 'view' ]" >{{venta.cajaId}}</a>
                     </div>
@@ -80,6 +70,16 @@
                 <td>
                     <div *ngIf="venta.tipoDePagoId">
                         <a [routerLink]="['../tipo-de-pago', venta.tipoDePagoId , 'view' ]" >{{venta.tipoDePagoNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="venta.clienteId">
+                        <a [routerLink]="['../cliente', venta.clienteId , 'view' ]" >{{venta.clienteNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="venta.empleadoId">
+                        <a [routerLink]="['../empleado', venta.empleadoId , 'view' ]" >{{venta.empleadoNombre}}</a>
                     </div>
                 </td>
                 <td class="text-right">

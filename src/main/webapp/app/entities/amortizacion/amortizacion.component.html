@@ -37,7 +37,6 @@
             <th jhiSortBy="glosa"><span>Glosa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDeDocumentoDeVentaNombre"><span>Tipo De Documento De Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDePagoNombre"><span>Tipo De Pago</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="ventaId"><span>Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -57,11 +56,6 @@
                 <td>
                     <div *ngIf="amortizacion.tipoDePagoId">
                         <a [routerLink]="['../tipo-de-pago', amortizacion.tipoDePagoId , 'view' ]" >{{amortizacion.tipoDePagoNombre}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="amortizacion.ventaId">
-                        <a [routerLink]="['../venta', amortizacion.ventaId , 'view' ]" >{{amortizacion.ventaId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

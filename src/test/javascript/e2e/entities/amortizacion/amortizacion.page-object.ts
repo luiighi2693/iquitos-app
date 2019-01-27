@@ -33,7 +33,6 @@ export class AmortizacionUpdatePage {
     glosaInput = element(by.id('field_glosa'));
     tipoDeDocumentoDeVentaSelect = element(by.id('field_tipoDeDocumentoDeVenta'));
     tipoDePagoSelect = element(by.id('field_tipoDePago'));
-    ventaSelect = element(by.id('field_venta'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -115,25 +114,6 @@ export class AmortizacionUpdatePage {
 
     async getTipoDePagoSelectedOption() {
         return this.tipoDePagoSelect.element(by.css('option:checked')).getText();
-    }
-
-    async ventaSelectLastOption() {
-        await this.ventaSelect
-            .all(by.tagName('option'))
-            .last()
-            .click();
-    }
-
-    async ventaSelectOption(option) {
-        await this.ventaSelect.sendKeys(option);
-    }
-
-    getVentaSelect(): ElementFinder {
-        return this.ventaSelect;
-    }
-
-    async getVentaSelectedOption() {
-        return this.ventaSelect.element(by.css('option:checked')).getText();
     }
 
     async save() {

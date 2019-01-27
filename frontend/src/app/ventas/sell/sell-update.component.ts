@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {FormBuilder} from '@angular/forms';
@@ -80,7 +80,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
               public activatedRoute: ActivatedRoute,
               public elementRef: ElementRef,
               public fb: FormBuilder,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private router: Router) {
     super(service, fullService,null,dialog, dataUtils, elementRef, require('../menu.json'), 'NUEVA VENTA');
   }
 
@@ -161,12 +162,16 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   public subscribeToSaveResponse(result: Observable<HttpResponse<IVenta>>) {
-    result.subscribe((res: HttpResponse<IVenta>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    result.subscribe((res: HttpResponse<IVenta>) => this.onSaveSuccessCustom(res.body), (res: HttpErrorResponse) => this.onSaveError());
   }
 
-  public onSaveSuccess() {
+  public onSaveSuccessCustom(sell) {
     this.isSaving = false;
-    this.previousState();
+    if (sell.amortizacions.length === 0) {
+      this.router.navigate(['/ventas/sell/list']);
+    } else {
+      this.router.navigate(['/print/invoice2/' + sell.id]);
+    }
   }
 
   public updateEntity() {
@@ -465,29 +470,19 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
         if (result.flag === 'pay'){
           this.entity.estatus = result.amortization.montoPagado >= result.amortization.monto ? SellStatus.COMPLETADO : SellStatus.PENDIENTE;
-          this.amortizacionService.create(result.amortization).subscribe(
-            (res: HttpResponse<Amortizacion>) => {
-              this.entity.amortizacions = [res.body];
-              this.entity.productoDetalles.forEach(productoDetalle => {
-                productoDetalle.productos[0].stock = productoDetalle.productos[0].stock - this.getStockConsumFromProduct(productoDetalle.productos[0]);
-                console.log('producto ' + productoDetalle.productos[0]);
-                this.productoService.update(productoDetalle.productos[0]).subscribe(
-                  (res: HttpResponse<Producto>) => {
+          this.entity.amortizacions = [result.amortization];
 
-                  },
-                  (res: HttpErrorResponse) => this.onError(res.message)
-                );
-              });
-              // this.productoService.update(product).subscribe(
-              //   (res: HttpResponse<Amortizacion>) => {
-                  this.save();
-              //   },
-              //   (res: HttpErrorResponse) => this.onError(res.message)
-              // );
+          this.entity.productoDetalles.forEach(productoDetalle => {
+            productoDetalle.productos[0].stock = productoDetalle.productos[0].stock - this.getStockConsumFromProduct(productoDetalle.productos[0]);
+            console.log('producto ' + productoDetalle.productos[0]);
+            this.productoService.update(productoDetalle.productos[0]).subscribe(
+              (res: HttpResponse<Producto>) => {
 
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-          );
+              },
+              (res: HttpErrorResponse) => this.onError(res.message)
+            );
+          });
+          this.save();
         }
       } else {
         this.entity.estatus = SellStatus.PENDIENTE;

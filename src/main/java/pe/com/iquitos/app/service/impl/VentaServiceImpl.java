@@ -90,20 +90,20 @@ public class VentaServiceImpl implements VentaService {
                     .contains(variante))
                 .collect(Collectors.toSet()).forEach(productoDetalleRepository::delete);
 
-//            ventaRepository
-//                .findById(ventaDTO.getId())
-//                .get()
-//                .getAmortizacions()
-//                .stream()
-//                .filter(amortizacion -> !ventaMapper
-//                    .toEntity(ventaDTO)
-//                    .getAmortizacions()
-//                    .contains(amortizacion))
-//                .collect(Collectors.toSet()).forEach(amortizacionRepository::delete);
+            ventaRepository
+                .findById(ventaDTO.getId())
+                .get()
+                .getAmortizacions()
+                .stream()
+                .filter(amortizacion -> !ventaMapper
+                    .toEntity(ventaDTO)
+                    .getAmortizacions()
+                    .contains(amortizacion))
+                .collect(Collectors.toSet()).forEach(amortizacionRepository::delete);
         }
 
         Set<ProductoDetalleDTO> productoDetalleDTOList = new HashSet<>();
-//        Set<AmortizacionDTO> amortizacionDTOList = new HashSet<>();
+        Set<AmortizacionDTO> amortizacionDTOList = new HashSet<>();
 
         ventaDTO.getProductoDetalles().forEach(productoDetalleDTO -> {
             ProductoDetalle productoDetalle = productoDetalleMapper.toEntity(productoDetalleDTO);
@@ -112,28 +112,28 @@ public class VentaServiceImpl implements VentaService {
             productoDetalleSearchRepository.save(productoDetalle);
         });
 
-//        ventaDTO.getAmortizacions().forEach(amortizacionDTO -> {
-//            Amortizacion amortizacion = amortizacionMapper.toEntity(amortizacionDTO);
-//            amortizacion = amortizacionRepository.save(amortizacion);
-//            amortizacionDTOList.add(amortizacionMapper.toDto(amortizacion));
-//            amortizacionSearchRepository.save(amortizacion);
-//        });
+        ventaDTO.getAmortizacions().forEach(amortizacionDTO -> {
+            Amortizacion amortizacion = amortizacionMapper.toEntity(amortizacionDTO);
+            amortizacion = amortizacionRepository.save(amortizacion);
+            amortizacionDTOList.add(amortizacionMapper.toDto(amortizacion));
+            amortizacionSearchRepository.save(amortizacion);
+        });
 
         ventaDTO.setProductoDetalles(productoDetalleDTOList);
-//        ventaDTO.setAmortizacions(amortizacionDTOList);
+        ventaDTO.setAmortizacions(amortizacionDTOList);
 
         Venta venta = ventaMapper.toEntity(ventaDTO);
         venta = ventaRepository.save(venta);
         VentaDTO result = ventaMapper.toDto(venta);
         ventaSearchRepository.save(venta);
 
-        Venta finalVenta = venta;
-        ventaDTO.getAmortizacions().forEach(amortizacionDTO -> {
-            Amortizacion amortizacion = amortizacionMapper.toEntity(amortizacionDTO);
-            amortizacion.setVenta(finalVenta);
-            amortizacion = amortizacionRepository.save(amortizacion);
-            amortizacionSearchRepository.save(amortizacion);
-        });
+//        Venta finalVenta = venta;
+//        ventaDTO.getAmortizacions().forEach(amortizacionDTO -> {
+//            Amortizacion amortizacion = amortizacionMapper.toEntity(amortizacionDTO);
+//            amortizacion.setVenta(finalVenta);
+//            amortizacion = amortizacionRepository.save(amortizacion);
+//            amortizacionSearchRepository.save(amortizacion);
+//        });
 
         return result;
     }

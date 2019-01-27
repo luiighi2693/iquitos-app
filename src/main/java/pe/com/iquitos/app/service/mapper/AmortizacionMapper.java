@@ -8,19 +8,17 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Amortizacion and its DTO AmortizacionDTO.
  */
-@Mapper(componentModel = "spring", uses = {TipoDeDocumentoDeVentaMapper.class, TipoDePagoMapper.class, VentaMapper.class})
+@Mapper(componentModel = "spring", uses = {TipoDeDocumentoDeVentaMapper.class, TipoDePagoMapper.class})
 public interface AmortizacionMapper extends EntityMapper<AmortizacionDTO, Amortizacion> {
 
     @Mapping(source = "tipoDeDocumentoDeVenta.id", target = "tipoDeDocumentoDeVentaId")
     @Mapping(source = "tipoDeDocumentoDeVenta.nombre", target = "tipoDeDocumentoDeVentaNombre")
     @Mapping(source = "tipoDePago.id", target = "tipoDePagoId")
     @Mapping(source = "tipoDePago.nombre", target = "tipoDePagoNombre")
-    @Mapping(source = "venta.id", target = "ventaId")
     AmortizacionDTO toDto(Amortizacion amortizacion);
 
     @Mapping(source = "tipoDeDocumentoDeVentaId", target = "tipoDeDocumentoDeVenta")
     @Mapping(source = "tipoDePagoId", target = "tipoDePago")
-    @Mapping(source = "ventaId", target = "venta")
     Amortizacion toEntity(AmortizacionDTO amortizacionDTO);
 
     default Amortizacion fromId(Long id) {

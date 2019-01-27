@@ -292,16 +292,16 @@ relationship ManyToOne {
     Operacion{tipoDePago(nombre)} to TipoDePago,
     Operacion{tipoDeOperacionDeIngreso(nombre)} to TipoDeOperacionDeIngreso
     Operacion{tipoDeOperacionDeGasto(nombre)} to TipoDeOperacionDeGasto
+
+    Venta{cliente(nombre)} to Cliente,
+        Venta{empleado(nombre)} to Empleado,
 }
 
-relationship OneToMany {
-	Venta{amortizacion} to Amortizacion,
-}
+//relationship OneToMany {
+
+//}
 
 relationship OneToOne {
-	Venta{cliente(nombre)} to Cliente,
-    Venta{empleado(nombre)} to Empleado,
-    
     Compra{proveedor} to Proveedor,
     Compra{tipoDeDocumentoDeCompra(nombre)} to TipoDeDocumentoDeCompra,
     Compra{estatusDeCompra(nombre)} to EstatusDeCompra,
@@ -326,6 +326,7 @@ relationship ManyToMany {
     Variante{productos(codigo)} to Producto,
     Venta{productos(codigo)} to Producto,
     Venta{productoDetalles} to ProductoDetalle,
+    Venta{amortizacion} to Amortizacion,
     ProductoDetalle{variantes(nombre)} to Variante,
     ProductoDetalle{productos(codigo)} to Producto,
     Compra{productos(codigo)} to Producto,

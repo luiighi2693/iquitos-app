@@ -61,32 +61,10 @@
     "relationships": [
         {
             "relationshipType": "one-to-one",
-            "relationshipName": "cliente",
-            "otherEntityName": "cliente",
-            "otherEntityField": "nombre",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "venta"
-        },
-        {
-            "relationshipType": "one-to-one",
-            "relationshipName": "empleado",
-            "otherEntityName": "empleado",
-            "otherEntityField": "nombre",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "venta"
-        },
-        {
-            "relationshipType": "one-to-one",
             "relationshipName": "caja",
             "otherEntityName": "caja",
             "otherEntityField": "id",
             "ownerSide": true,
-            "otherEntityRelationshipName": "venta"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "amortizacion",
-            "otherEntityName": "amortizacion",
             "otherEntityRelationshipName": "venta"
         },
         {
@@ -102,6 +80,18 @@
             "otherEntityField": "nombre"
         },
         {
+            "relationshipType": "many-to-one",
+            "relationshipName": "cliente",
+            "otherEntityName": "cliente",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "empleado",
+            "otherEntityName": "empleado",
+            "otherEntityField": "nombre"
+        },
+        {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "",
             "relationshipName": "productos",
@@ -114,6 +104,14 @@
             "otherEntityRelationshipName": "",
             "relationshipName": "productoDetalles",
             "otherEntityName": "productoDetalle",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "",
+            "relationshipName": "amortizacion",
+            "otherEntityName": "amortizacion",
             "otherEntityField": "id",
             "ownerSide": true
         }

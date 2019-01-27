@@ -7,20 +7,22 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IVenta } from 'app/shared/model/venta.model';
 import { VentaService } from './venta.service';
-import { ICliente } from 'app/shared/model/cliente.model';
-import { ClienteService } from 'app/entities/cliente';
-import { IEmpleado } from 'app/shared/model/empleado.model';
-import { EmpleadoService } from 'app/entities/empleado';
 import { ICaja } from 'app/shared/model/caja.model';
 import { CajaService } from 'app/entities/caja';
 import { ITipoDeDocumentoDeVenta } from 'app/shared/model/tipo-de-documento-de-venta.model';
 import { TipoDeDocumentoDeVentaService } from 'app/entities/tipo-de-documento-de-venta';
 import { ITipoDePago } from 'app/shared/model/tipo-de-pago.model';
 import { TipoDePagoService } from 'app/entities/tipo-de-pago';
+import { ICliente } from 'app/shared/model/cliente.model';
+import { ClienteService } from 'app/entities/cliente';
+import { IEmpleado } from 'app/shared/model/empleado.model';
+import { EmpleadoService } from 'app/entities/empleado';
 import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
 import { IProductoDetalle } from 'app/shared/model/producto-detalle.model';
 import { ProductoDetalleService } from 'app/entities/producto-detalle';
+import { IAmortizacion } from 'app/shared/model/amortizacion.model';
+import { AmortizacionService } from 'app/entities/amortizacion';
 
 @Component({
     selector: 'jhi-venta-update',
@@ -30,31 +32,34 @@ export class VentaUpdateComponent implements OnInit {
     venta: IVenta;
     isSaving: boolean;
 
-    clientes: ICliente[];
-
-    empleados: IEmpleado[];
-
     cajas: ICaja[];
 
     tipodedocumentodeventas: ITipoDeDocumentoDeVenta[];
 
     tipodepagos: ITipoDePago[];
 
+    clientes: ICliente[];
+
+    empleados: IEmpleado[];
+
     productos: IProducto[];
 
     productodetalles: IProductoDetalle[];
+
+    amortizacions: IAmortizacion[];
     fechaDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private ventaService: VentaService,
-        private clienteService: ClienteService,
-        private empleadoService: EmpleadoService,
         private cajaService: CajaService,
         private tipoDeDocumentoDeVentaService: TipoDeDocumentoDeVentaService,
         private tipoDePagoService: TipoDePagoService,
+        private clienteService: ClienteService,
+        private empleadoService: EmpleadoService,
         private productoService: ProductoService,
         private productoDetalleService: ProductoDetalleService,
+        private amortizacionService: AmortizacionService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -63,36 +68,6 @@ export class VentaUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ venta }) => {
             this.venta = venta;
         });
-        this.clienteService.query({ filter: 'venta-is-null' }).subscribe(
-            (res: HttpResponse<ICliente[]>) => {
-                if (!this.venta.clienteId) {
-                    this.clientes = res.body;
-                } else {
-                    this.clienteService.find(this.venta.clienteId).subscribe(
-                        (subRes: HttpResponse<ICliente>) => {
-                            this.clientes = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.empleadoService.query({ filter: 'venta-is-null' }).subscribe(
-            (res: HttpResponse<IEmpleado[]>) => {
-                if (!this.venta.empleadoId) {
-                    this.empleados = res.body;
-                } else {
-                    this.empleadoService.find(this.venta.empleadoId).subscribe(
-                        (subRes: HttpResponse<IEmpleado>) => {
-                            this.empleados = [subRes.body].concat(res.body);
-                        },
-                        (subRes: HttpErrorResponse) => this.onError(subRes.message)
-                    );
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.cajaService.query({ filter: 'venta-is-null' }).subscribe(
             (res: HttpResponse<ICaja[]>) => {
                 if (!this.venta.cajaId) {
@@ -120,6 +95,18 @@ export class VentaUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.clienteService.query().subscribe(
+            (res: HttpResponse<ICliente[]>) => {
+                this.clientes = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.empleadoService.query().subscribe(
+            (res: HttpResponse<IEmpleado[]>) => {
+                this.empleados = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
         this.productoService.query().subscribe(
             (res: HttpResponse<IProducto[]>) => {
                 this.productos = res.body;
@@ -129,6 +116,12 @@ export class VentaUpdateComponent implements OnInit {
         this.productoDetalleService.query().subscribe(
             (res: HttpResponse<IProductoDetalle[]>) => {
                 this.productodetalles = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.amortizacionService.query().subscribe(
+            (res: HttpResponse<IAmortizacion[]>) => {
+                this.amortizacions = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -164,14 +157,6 @@ export class VentaUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackClienteById(index: number, item: ICliente) {
-        return item.id;
-    }
-
-    trackEmpleadoById(index: number, item: IEmpleado) {
-        return item.id;
-    }
-
     trackCajaById(index: number, item: ICaja) {
         return item.id;
     }
@@ -184,11 +169,23 @@ export class VentaUpdateComponent implements OnInit {
         return item.id;
     }
 
+    trackClienteById(index: number, item: ICliente) {
+        return item.id;
+    }
+
+    trackEmpleadoById(index: number, item: IEmpleado) {
+        return item.id;
+    }
+
     trackProductoById(index: number, item: IProducto) {
         return item.id;
     }
 
     trackProductoDetalleById(index: number, item: IProductoDetalle) {
+        return item.id;
+    }
+
+    trackAmortizacionById(index: number, item: IAmortizacion) {
         return item.id;
     }
 

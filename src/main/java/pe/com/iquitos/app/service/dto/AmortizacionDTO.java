@@ -35,8 +35,6 @@ public class AmortizacionDTO implements Serializable {
 
     private String tipoDePagoNombre;
 
-    private Long ventaId;
-
     public Long getId() {
         return id;
     }
@@ -117,14 +115,6 @@ public class AmortizacionDTO implements Serializable {
         this.tipoDePagoNombre = tipoDePagoNombre;
     }
 
-    public Long getVentaId() {
-        return ventaId;
-    }
-
-    public void setVentaId(Long ventaId) {
-        this.ventaId = ventaId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -159,7 +149,6 @@ public class AmortizacionDTO implements Serializable {
             ", tipoDeDocumentoDeVenta='" + getTipoDeDocumentoDeVentaNombre() + "'" +
             ", tipoDePago=" + getTipoDePagoId() +
             ", tipoDePago='" + getTipoDePagoNombre() + "'" +
-            ", venta=" + getVentaId() +
             "}";
     }
 }
