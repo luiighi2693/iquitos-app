@@ -10,12 +10,12 @@
     <!-- Profile - style you can find in header.scss -->
     <!-- ============================================================== -->
     <div class="profile-text">
-        <a [matMenuTriggerFor]="sdprofile" class=""> Markarn Doe
+        <a [matMenuTriggerFor]="sdprofile" class=""> Iquitos-app
             <i class="ti-angle-down font-12 m-l-5"></i>
         </a>
     </div>
     <mat-menu #sdprofile="matMenu" class="mymegamenu">
-        <button mat-menu-item>
+        <!--<button mat-menu-item>
             <mat-icon>settings</mat-icon> Settings
         </button>
         <button mat-menu-item>
@@ -23,9 +23,9 @@
         </button>
         <button mat-menu-item>
             <mat-icon>notifications_off</mat-icon> Disable notifications
-        </button>
-        <button mat-menu-item>
-            <mat-icon>exit_to_app</mat-icon> Sign Out
+        </button>-->
+        <button mat-menu-item (click)='goToLogin()'>
+            <mat-icon>exit_to_app</mat-icon> Cerrar sesión
         </button>
     </mat-menu>
 </div>
