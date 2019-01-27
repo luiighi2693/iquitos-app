@@ -7,6 +7,8 @@ import {IVenta} from "../../models/venta.model";
 import {ClienteService} from "../../contact/client/cliente.service";
 import {ICliente} from "../../models/cliente.model";
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice2.component.html',
@@ -108,8 +110,7 @@ export class Invoice2Component implements OnInit{
   }
 
   getFormatedDate(): string {
-    const d = new Date();
-    return d.getDate()+'-'+d.getMonth()+1+'-'+d.getFullYear();
+    return moment(this.venta.fecha).format("DD-MM-YYYY");
   }
 
   parseFloatCustom(cantidad: number) {

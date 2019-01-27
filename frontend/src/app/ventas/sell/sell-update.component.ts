@@ -26,6 +26,8 @@ import {Empleado, IEmpleado} from "../../models/empleado.model";
 import {ParametroSistemaService} from "../../configuration/systemparam/parametro-sistema.service";
 import {IParametroSistema} from "../../models/parametro-sistema.model";
 
+import * as moment from 'moment';
+
 declare var require: any;
 
 @Component({
@@ -464,6 +466,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         }
 
         if (result.flag === 'save'){
+          this.entity.fecha = moment();
           this.entity.estatus = SellStatus.PENDIENTE;
           this.save();
         }
@@ -482,6 +485,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
               (res: HttpErrorResponse) => this.onError(res.message)
             );
           });
+
+          this.entity.fecha = moment();
+          this.entity.amortizacions[0].fecha = moment();
           this.save();
         }
       } else {
