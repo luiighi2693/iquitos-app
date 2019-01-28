@@ -84,11 +84,11 @@
                   <i class="ti-eye text-info m-r-10"></i>
                 </a>
 
-                <!--<a class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">-->
-                  <!--<i class="ti-pencil text-info m-r-10"></i>-->
-                <!--</a>-->
+                <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">
+                  <i class="ti-pencil text-info m-r-10"></i>
+                </a>
                 <!--<a class="ng-star-inserted" (click)="deleteRow(element)">-->
-                <a class="ng-star-inserted" (click)="openDialog(element)">
+                <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" (click)="openDialog(element)">
                   <i class="ti-trash text-danger m-r-10"></i>
                 </a>
               </mat-cell>

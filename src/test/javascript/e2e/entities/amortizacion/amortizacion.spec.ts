@@ -39,6 +39,7 @@ describe('Amortizacion e2e test', () => {
 
         await amortizacionComponentsPage.clickOnCreateButton();
         await promise.all([
+            amortizacionUpdatePage.setCodigoInput('codigo'),
             amortizacionUpdatePage.setMontoInput('5'),
             amortizacionUpdatePage.setMontoPagadoInput('5'),
             amortizacionUpdatePage.setFechaInput('2000-12-31'),
@@ -47,6 +48,7 @@ describe('Amortizacion e2e test', () => {
             amortizacionUpdatePage.tipoDeDocumentoDeVentaSelectLastOption(),
             amortizacionUpdatePage.tipoDePagoSelectLastOption()
         ]);
+        expect(await amortizacionUpdatePage.getCodigoInput()).to.eq('codigo');
         expect(await amortizacionUpdatePage.getMontoInput()).to.eq('5');
         expect(await amortizacionUpdatePage.getMontoPagadoInput()).to.eq('5');
         expect(await amortizacionUpdatePage.getFechaInput()).to.eq('2000-12-31');

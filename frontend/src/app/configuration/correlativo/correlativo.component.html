@@ -1,0 +1,62 @@
+<div fxLayout="row wrap">
+  <!-- Column-->
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Correlativos</mat-card-title>
+
+        <div class="responsive-table">
+          <!--<div fxLayout="row wrap">-->
+
+            <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="correlativos">
+
+              <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </mat-header-cell>
+                <mat-header-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </mat-header-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="label">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="header-label"></span>
+                  {{element.label}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="serie">
+                <mat-header-cell *matHeaderCellDef> Serie </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="header-label">Serie:</span>
+                  {{element.serie}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="correlativo">
+                <mat-header-cell *matHeaderCellDef> Correlativo </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="header-label">Correlativo:</span>
+                  {{element.valor}}
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          <!--</div>-->
+        </div>
+        <!--<mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">-->
+        <!--</mat-paginator>-->
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -7,5 +7,6 @@
   { "value": "D. DE VENTA", "uri": "/configuration/documenttypesell"},
   { "value": "TIPOS DE PAGO", "uri": "/configuration/paymenttype"},
   { "value": "USUARIOS", "uri": "/configuration/user"},
-  { "value": "PARAMETROS SISTEMA", "uri": "/configuration/systemparam"}
+  { "value": "PARAMETROS SISTEMA", "uri": "/configuration/systemparam"},
+  { "value": "CORRELATIVOS", "uri": "/configuration/correlativo"}
 ]

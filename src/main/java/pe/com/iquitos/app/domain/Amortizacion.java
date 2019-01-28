@@ -28,6 +28,11 @@ public class Amortizacion implements Serializable {
     private Long id;
 
     @NotNull
+    @Size(max = 150)
+    @Column(name = "codigo", length = 150, nullable = false)
+    private String codigo;
+
+    @NotNull
     @Column(name = "monto", nullable = false)
     private Double monto;
 
@@ -62,6 +67,19 @@ public class Amortizacion implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public Amortizacion codigo(String codigo) {
+        this.codigo = codigo;
+        return this;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public Double getMonto() {
@@ -180,6 +198,7 @@ public class Amortizacion implements Serializable {
     public String toString() {
         return "Amortizacion{" +
             "id=" + getId() +
+            ", codigo='" + getCodigo() + "'" +
             ", monto=" + getMonto() +
             ", montoPagado=" + getMontoPagado() +
             ", fecha='" + getFecha() + "'" +

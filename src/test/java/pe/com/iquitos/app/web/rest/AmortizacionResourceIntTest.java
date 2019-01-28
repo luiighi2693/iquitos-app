@@ -50,6 +50,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = IquitosApp.class)
 public class AmortizacionResourceIntTest {
 
+    private static final String DEFAULT_CODIGO = "AAAAAAAAAA";
+    private static final String UPDATED_CODIGO = "BBBBBBBBBB";
+
     private static final Double DEFAULT_MONTO = 1D;
     private static final Double UPDATED_MONTO = 2D;
 
@@ -117,6 +120,7 @@ public class AmortizacionResourceIntTest {
      */
     public static Amortizacion createEntity(EntityManager em) {
         Amortizacion amortizacion = new Amortizacion()
+            .codigo(DEFAULT_CODIGO)
             .monto(DEFAULT_MONTO)
             .montoPagado(DEFAULT_MONTO_PAGADO)
             .fecha(DEFAULT_FECHA)
@@ -146,6 +150,7 @@ public class AmortizacionResourceIntTest {
         List<Amortizacion> amortizacionList = amortizacionRepository.findAll();
         assertThat(amortizacionList).hasSize(databaseSizeBeforeCreate + 1);
         Amortizacion testAmortizacion = amortizacionList.get(amortizacionList.size() - 1);
+        assertThat(testAmortizacion.getCodigo()).isEqualTo(DEFAULT_CODIGO);
         assertThat(testAmortizacion.getMonto()).isEqualTo(DEFAULT_MONTO);
         assertThat(testAmortizacion.getMontoPagado()).isEqualTo(DEFAULT_MONTO_PAGADO);
         assertThat(testAmortizacion.getFecha()).isEqualTo(DEFAULT_FECHA);
@@ -177,6 +182,25 @@ public class AmortizacionResourceIntTest {
 
         // Validate the Amortizacion in Elasticsearch
         verify(mockAmortizacionSearchRepository, times(0)).save(amortizacion);
+    }
+
+    @Test
+    @Transactional
+    public void checkCodigoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = amortizacionRepository.findAll().size();
+        // set the field null
+        amortizacion.setCodigo(null);
+
+        // Create the Amortizacion, which fails.
+        AmortizacionDTO amortizacionDTO = amortizacionMapper.toDto(amortizacion);
+
+        restAmortizacionMockMvc.perform(post("/api/amortizacions")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(amortizacionDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Amortizacion> amortizacionList = amortizacionRepository.findAll();
+        assertThat(amortizacionList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -247,6 +271,7 @@ public class AmortizacionResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(amortizacion.getId().intValue())))
+            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO.toString())))
             .andExpect(jsonPath("$.[*].monto").value(hasItem(DEFAULT_MONTO.doubleValue())))
             .andExpect(jsonPath("$.[*].montoPagado").value(hasItem(DEFAULT_MONTO_PAGADO.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
@@ -265,6 +290,7 @@ public class AmortizacionResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(amortizacion.getId().intValue()))
+            .andExpect(jsonPath("$.codigo").value(DEFAULT_CODIGO.toString()))
             .andExpect(jsonPath("$.monto").value(DEFAULT_MONTO.doubleValue()))
             .andExpect(jsonPath("$.montoPagado").value(DEFAULT_MONTO_PAGADO.doubleValue()))
             .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()))
@@ -293,6 +319,7 @@ public class AmortizacionResourceIntTest {
         // Disconnect from session so that the updates on updatedAmortizacion are not directly saved in db
         em.detach(updatedAmortizacion);
         updatedAmortizacion
+            .codigo(UPDATED_CODIGO)
             .monto(UPDATED_MONTO)
             .montoPagado(UPDATED_MONTO_PAGADO)
             .fecha(UPDATED_FECHA)
@@ -309,6 +336,7 @@ public class AmortizacionResourceIntTest {
         List<Amortizacion> amortizacionList = amortizacionRepository.findAll();
         assertThat(amortizacionList).hasSize(databaseSizeBeforeUpdate);
         Amortizacion testAmortizacion = amortizacionList.get(amortizacionList.size() - 1);
+        assertThat(testAmortizacion.getCodigo()).isEqualTo(UPDATED_CODIGO);
         assertThat(testAmortizacion.getMonto()).isEqualTo(UPDATED_MONTO);
         assertThat(testAmortizacion.getMontoPagado()).isEqualTo(UPDATED_MONTO_PAGADO);
         assertThat(testAmortizacion.getFecha()).isEqualTo(UPDATED_FECHA);
@@ -374,6 +402,7 @@ public class AmortizacionResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(amortizacion.getId().intValue())))
+            .andExpect(jsonPath("$.[*].codigo").value(hasItem(DEFAULT_CODIGO)))
             .andExpect(jsonPath("$.[*].monto").value(hasItem(DEFAULT_MONTO.doubleValue())))
             .andExpect(jsonPath("$.[*].montoPagado").value(hasItem(DEFAULT_MONTO_PAGADO.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))

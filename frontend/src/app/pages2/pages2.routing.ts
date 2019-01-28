@@ -6,7 +6,7 @@ export const Pages2Routes: Routes = [
     path: '',
     children: [
       {
-        path: 'invoice2/:id',
+        path: 'invoice2/:id/:index',
         component: Invoice2Component
       }
     ]

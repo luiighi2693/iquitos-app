@@ -26,6 +26,7 @@ export class AmortizacionUpdatePage {
     pageTitle = element(by.id('jhi-amortizacion-heading'));
     saveButton = element(by.id('save-entity'));
     cancelButton = element(by.id('cancel-save'));
+    codigoInput = element(by.id('field_codigo'));
     montoInput = element(by.id('field_monto'));
     montoPagadoInput = element(by.id('field_montoPagado'));
     fechaInput = element(by.id('field_fecha'));
@@ -36,6 +37,14 @@ export class AmortizacionUpdatePage {
 
     async getPageTitle() {
         return this.pageTitle.getText();
+    }
+
+    async setCodigoInput(codigo) {
+        await this.codigoInput.sendKeys(codigo);
+    }
+
+    async getCodigoInput() {
+        return this.codigoInput.getAttribute('value');
     }
 
     async setMontoInput(monto) {

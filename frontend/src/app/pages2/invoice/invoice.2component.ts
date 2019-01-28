@@ -8,6 +8,7 @@ import {ClienteService} from "../../contact/client/cliente.service";
 import {ICliente} from "../../models/cliente.model";
 
 import * as moment from 'moment';
+import {IAmortizacion} from "../../models/amortizacion.model";
 
 @Component({
   selector: 'app-invoice',
@@ -52,6 +53,7 @@ export class Invoice2Component implements OnInit{
   ];
   public venta: IVenta;
   public cliente: ICliente;
+  public amortizationSelected: IAmortizacion;
 
   getSubTotal() {
     let total = 0.0;
@@ -78,6 +80,7 @@ export class Invoice2Component implements OnInit{
     ventaService.find(route.snapshot.params['id']).subscribe(
       (res: HttpResponse<IVenta>) => {
         this.venta = res.body;
+        this.amortizationSelected = this.venta.amortizacions[route.snapshot.params['index']];
         console.log(this.venta);
 
         clienteService.find(this.venta.clienteId).subscribe(

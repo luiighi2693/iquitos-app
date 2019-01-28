@@ -2,6 +2,15 @@
     "name": "Amortizacion",
     "fields": [
         {
+            "fieldName": "codigo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
+        },
+        {
             "fieldName": "monto",
             "fieldType": "Double",
             "fieldValidateRules": [

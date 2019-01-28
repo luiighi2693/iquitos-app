@@ -22,6 +22,10 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="codigo" type="varchar(150)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="monto" type="double">
                 <constraints nullable="false" />
             </column>

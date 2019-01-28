@@ -30,6 +30,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="codigo"><span>Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="monto"><span>Monto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montoPagado"><span>Monto Pagado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="fecha"><span>Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -43,6 +44,7 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let amortizacion of amortizacions ;trackBy: trackId">
                 <td><a [routerLink]="['/amortizacion', amortizacion.id, 'view' ]">{{amortizacion.id}}</a></td>
+                <td>{{amortizacion.codigo}}</td>
                 <td>{{amortizacion.monto}}</td>
                 <td>{{amortizacion.montoPagado}}</td>
                 <td>{{amortizacion.fecha | date:'mediumDate'}}</td>

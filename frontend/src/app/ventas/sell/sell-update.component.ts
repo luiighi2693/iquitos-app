@@ -103,6 +103,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       if (this.entity.id) {
         console.log(this.entity);
         this.editFlag = true;
+        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
 
       } else {
         this.entity.subTotal = 0;
@@ -136,7 +137,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       (res: HttpResponse<IEmpleado[]>) => {
         this.empleados = res.body;
         if (this.empleados.length > 0){
-          this.entity.empleadoId = this.empleados[0].id;
+          if (!this.entity.id){
+            this.entity.empleadoId = this.empleados[0].id;
+          }
         }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -146,6 +149,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       (res: HttpResponse<ICliente[]>) => {
         this.clientes = res.body;
         this.dataSourceClientes = new MatTableDataSource<Cliente>(this.clientes);
+        if (this.entity.id){
+          this.client = this.clientes.find(x => x.id === this.entity.clienteId);
+        }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -172,16 +178,14 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     if (sell.amortizacions.length === 0) {
       this.router.navigate(['/ventas/sell/list']);
     } else {
-      this.router.navigate(['/print/invoice2/' + sell.id]);
+      this.router.navigate(['/print/invoice2/' + sell.id + '/' + 0]);
     }
   }
 
   public updateEntity() {
     if (this.entity.codigo === undefined) {
       this.entity.codigo = 'COD00000' + Math.round(Math.random() * (10000 - 1) + 1);
-    }
-
-    if (this.entity.codigo.length === 0) {
+    } else if (this.entity.codigo.length === 0) {
       this.entity.codigo = 'COD00000' + Math.round(Math.random() * (10000 - 1) + 1);
     }
   }
@@ -461,8 +465,18 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       console.log(result);
       if (result !== undefined) {
         if (result.flag === 'exit'){
-          this.entity.productoDetalles = [];
-          this.refreshProductDetails();
+          if (this.entity.id) {
+            this.service.delete(this.entity.id).subscribe(
+              (res: HttpResponse<Producto>) => {
+                this.router.navigate(['/ventas/sell/list']);
+              },
+              (res: HttpErrorResponse) => this.onError(res.message)
+            );
+          } else {
+            this.entity.productoDetalles = [];
+            this.refreshProductDetails();
+            this.removeCliente();
+          }
         }
 
         if (result.flag === 'save'){

@@ -2,6 +2,7 @@ import { Moment } from 'moment';
 
 export interface IAmortizacion {
   id?: number;
+  codigo?: string;
   monto?: number;
   montoPagado?: number;
   fecha?: Moment;
@@ -16,6 +17,7 @@ export interface IAmortizacion {
 export class Amortizacion implements IAmortizacion {
   constructor(
     public id?: number,
+    public codigo?: string,
     public monto?: number,
     public montoPagado?: number,
     public fecha?: Moment,

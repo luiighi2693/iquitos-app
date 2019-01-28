@@ -57,6 +57,11 @@ export const ConfigurationRoutes: Routes = [
         path: 'systemparam',
         canActivate: [AuthGuard],
         loadChildren: './systemparam/systemparam.module#SystemparamModule'
+      },
+      {
+        path: 'correlativo',
+        canActivate: [AuthGuard],
+        loadChildren: './correlativo/correlativo.module#CorrelativoModule'
       }
     ]
   }

@@ -75,6 +75,13 @@ export class SellExtraInfoComponent {
       this.amortization.tipoDeDocumentoDeVentaId = this.data.entity.tipoDeDocumentoDeVentaId;
       this.amortization.tipoDePagoId = this.data.entity.tipoDePagoId;
       this.amortization.glosa = this.data.entity.glosa;
+
+      let tipoDocumentoVenta = this.documentTypeSells.find(x => x.id === this.amortization.tipoDeDocumentoDeVentaId);
+      const countTipoDocumentoVenta = sessionStorage.getItem('correlativo.contador.' + tipoDocumentoVenta.nombre);
+      sessionStorage.setItem('correlativo.contador.' + tipoDocumentoVenta.nombre, (parseInt(countTipoDocumentoVenta) + 1).toString());
+
+      this.updateEntity();
+
       this.dialogRef.close({
         entity: this.data.entity,
         amortization: this.amortization,
@@ -105,6 +112,24 @@ export class SellExtraInfoComponent {
       return true;
     } else {
       return this.amortization.codigoDocumento.length === 0;
+    }
+  }
+
+  public updateEntity() {
+    let flag = true;
+
+    if (this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
+      this.amortization.codigo = 'B001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
+      flag = false;
+    }
+
+    if (this.documentTypeSells.find(x => x.nombre === 'Factura Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
+      this.amortization.codigo = 'F001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
+      flag = false;
+    }
+
+    if (flag) {
+      this.amortization.codigo = 'M001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
     }
   }
 }

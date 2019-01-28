@@ -6,6 +6,7 @@ DEFAULT_MAX_LENGTH_DESCRIPTION = 1000
 DEFAULT_MAX_LENGTH_METADATA = 5000
 
 entity Amortizacion {
+    codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
 	monto Double required,
 	montoPagado Double required,
     fecha LocalDate,

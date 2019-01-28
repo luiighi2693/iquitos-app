@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Amortizacion(0, 0, 0, currentDate, 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Amortizacion(0, 'AAAAAAA', 0, 0, currentDate, 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -70,6 +70,7 @@ describe('Service Tests', () => {
             it('should update a Amortizacion', async () => {
                 const returnedFromService = Object.assign(
                     {
+                        codigo: 'BBBBBB',
                         monto: 1,
                         montoPagado: 1,
                         fecha: currentDate.format(DATE_FORMAT),
@@ -96,6 +97,7 @@ describe('Service Tests', () => {
             it('should return a list of Amortizacion', async () => {
                 const returnedFromService = Object.assign(
                     {
+                        codigo: 'BBBBBB',
                         monto: 1,
                         montoPagado: 1,
                         fecha: currentDate.format(DATE_FORMAT),

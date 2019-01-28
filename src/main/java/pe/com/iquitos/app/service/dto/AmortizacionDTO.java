@@ -13,6 +13,10 @@ public class AmortizacionDTO implements Serializable {
     private Long id;
 
     @NotNull
+    @Size(max = 150)
+    private String codigo;
+
+    @NotNull
     private Double monto;
 
     @NotNull
@@ -41,6 +45,14 @@ public class AmortizacionDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public Double getMonto() {
@@ -140,6 +152,7 @@ public class AmortizacionDTO implements Serializable {
     public String toString() {
         return "AmortizacionDTO{" +
             "id=" + getId() +
+            ", codigo='" + getCodigo() + "'" +
             ", monto=" + getMonto() +
             ", montoPagado=" + getMontoPagado() +
             ", fecha='" + getFecha() + "'" +
