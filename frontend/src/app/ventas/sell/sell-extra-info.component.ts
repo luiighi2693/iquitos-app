@@ -80,7 +80,7 @@ export class SellExtraInfoComponent {
       const countTipoDocumentoVenta = sessionStorage.getItem('correlativo.contador.' + tipoDocumentoVenta.nombre);
       sessionStorage.setItem('correlativo.contador.' + tipoDocumentoVenta.nombre, (parseInt(countTipoDocumentoVenta) + 1).toString());
 
-      this.updateEntity();
+      this.updateEntityCustom();
 
       this.dialogRef.close({
         entity: this.data.entity,
@@ -115,7 +115,7 @@ export class SellExtraInfoComponent {
     }
   }
 
-  public updateEntity() {
+  public updateEntityCustom() {
     let flag = true;
 
     if (this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
