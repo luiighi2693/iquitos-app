@@ -30,9 +30,9 @@
         </div>
       </div>
 
-      <div id="product-layout"fxLayout="bg-light">
+      <div id="product-layout" fxLayout="row wrap">
 
-        <div fxFlex.gt-lg="25" fxFlex.gt-md="33" fxFlex.gt-xs="33" fxFlex="100" *ngFor="let product of productos ">
+        <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-xs="25" fxFlex="100" *ngFor="let product of productos ">
           <mat-card class="oh" (click)="openDialogVariantSelection(product)">
               <h6 class="m-0">S/. {{product.precioVenta}}</h6>
             <img mat-card-image [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/img1.jpg'" alt="Photo of a Shiba Inu">
