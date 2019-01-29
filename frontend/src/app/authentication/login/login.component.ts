@@ -11,12 +11,12 @@ import {UsuarioExterno} from '../../models/usuario-externo.model';
 import {finalize} from 'rxjs/operators';
 import {UsuarioExternoService} from './usuario-externo.service';
 import Util from "../../shared/util/util";
-import {AmortizacionService} from "../../ventas/amortizacion.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {IEmpleado} from "../../models/empleado.model";
 import {IAmortizacion} from "../../models/amortizacion.model";
 import {ITipoDeDocumentoDeVenta} from "../../models/tipo-de-documento-de-venta.model";
 import {TipoDeDocumentoDeVentaService} from "../../configuration/documenttypesell/tipo-de-documento-de-venta.service";
+import {AmortizacionService} from 'app/ventas/amortizacion/amortizacion.service';
 
 @Component({
   selector: 'app-login',

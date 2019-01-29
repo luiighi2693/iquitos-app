@@ -1,4 +1,5 @@
 [
   { "value": "NUEVA VENTA", "uri": "/ventas/sell"},
-  { "value": "VENTAS", "uri": "/ventas/sell/list"}
+  { "value": "VENTAS", "uri": "/ventas/sell/list"},
+  { "value": "COBROS", "uri": "/ventas/amortizacion/list"}
 ]

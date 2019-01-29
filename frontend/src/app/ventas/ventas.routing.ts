@@ -17,6 +17,11 @@ export const VentasModuleRoutes: Routes = [
         path: 'sell',
         canActivate: [AuthGuard],
         loadChildren: './sell/sell.module#SellModule'
+      },
+      {
+        path: 'amortizacion',
+        canActivate: [AuthGuard],
+        loadChildren: './amortizacion/amortizacion.module#AmortizacionModule'
       }
     ]
   }

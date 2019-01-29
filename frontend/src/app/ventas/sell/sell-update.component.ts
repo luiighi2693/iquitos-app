@@ -19,7 +19,6 @@ import {ProductoDetalle} from "../../models/producto-detalle.model";
 import {SellLimitStockErrorComponent} from "./sell-limit-stock-error.component";
 import {SellExtraInfoComponent} from "./sell-extra-info.component";
 import {Amortizacion} from "../../models/amortizacion.model";
-import {AmortizacionService} from "../amortizacion.service";
 import {FullService} from "../../layouts/full/full.service";
 import {EmpleadoService} from "../../contact/employee/empleado.service";
 import {Empleado, IEmpleado} from "../../models/empleado.model";
@@ -27,6 +26,7 @@ import {ParametroSistemaService} from "../../configuration/systemparam/parametro
 import {IParametroSistema} from "../../models/parametro-sistema.model";
 
 import * as moment from 'moment';
+import {AmortizacionService} from "../amortizacion/amortizacion.service";
 
 declare var require: any;
 
@@ -486,7 +486,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         }
 
         if (result.flag === 'pay'){
-          this.entity.estatus = result.amortization.montoPagado >= result.amortization.monto ? SellStatus.COMPLETADO : SellStatus.PENDIENTE;
+          console.log('estatus');
+          this.entity.estatus = parseFloat(result.amortization.montoPagado) >= parseFloat(result.amortization.monto) ? SellStatus.COMPLETADO : SellStatus.PENDIENTE;
           this.entity.amortizacions = [result.amortization];
 
           this.entity.productoDetalles.forEach(productoDetalle => {

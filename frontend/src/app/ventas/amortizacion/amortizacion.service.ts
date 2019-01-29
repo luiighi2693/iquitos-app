@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from '../shared/util';
-import { IAmortizacion } from '../models/amortizacion.model';
+import { createRequestOption } from '../../shared/util';
+import { IAmortizacion } from '../../models/amortizacion.model';
 
 type EntityResponseType = HttpResponse<IAmortizacion>;
 type EntityArrayResponseType = HttpResponse<IAmortizacion[]>;

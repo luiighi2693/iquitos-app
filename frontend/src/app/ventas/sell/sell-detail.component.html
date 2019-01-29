@@ -1,155 +1,202 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div style="display: flex;">
+    <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" style="cursor: pointer">
+    <a [routerLink]="['/ventas/sell/list']"> <mat-icon>arrow_back</mat-icon>
+    <span class="goBackTag">Todas las ventas</span> </a>
+    </div>
+
+
+    <!--<div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+    <div class="button-row">
+    <button mat-raised-button style="background-color: #60c71f; color: white;" [disabled]="!form.valid" (click)="save()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vender&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    <button mat-raised-button (click)="previousState()">Cancelar</button>
+    </div>
+    </div>-->
+    </div>
+  </div>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
     <mat-card>
       <mat-card-content>
-        <h4>Detalles del Producto</h4>
+        <h4>Detalles de la Venta</h4>
         <form class="basic-form">
           <div fxLayout="row wrap">
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Código:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.codigo}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Código de la Venta:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.codigo}}</span>
+              </div>
+            </div>
 
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Nombre:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.nombre}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Cliente:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.clienteNombre}}</span>
+              </div>
+            </div>
 
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Descripción:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.descripcion}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Fecha:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.fecha}}</span>
+              </div>
+            </div>
 
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Fecha de Expiración:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.fechaExpiracion}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">¿Es Favorito?:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.esFavorito}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">¿Visible para la Venta?:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.visibleParaLaVenta}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Stock:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.stock}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Stock Mínimo:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.notificacionDeLimiteDeStock}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Tipo de producto:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.tipoDeProducto}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Unidad De Medida:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span>{{entity.unidadDeMedida}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Categoria:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<div *ngIf="entity.categoriaId">-->
-                  <!--<span>{{entity.categoriaNombre}}</span>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div fxFlex.gt-xs="25" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<span class="font-bold">Imagen:</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div fxFlex.gt-xs="75" fxFlex="100">-->
-              <!--<div fxLayout="column">-->
-                <!--<div>-->
-                  <!--<img [src]="'data:' + entity.imagenContentType + ';base64,' + entity.imagen" style="max-height: 100px;" *ngIf="entity.imagen" alt="entity image"/>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-
+            <div fxFlex.gt-xs="25" fxFlex="100">
+              <div fxLayout="column">
+                <span class="font-bold">Estado:</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="75" fxFlex="100">
+              <div fxLayout="column">
+                <span>{{entity.estatus}}</span>
+              </div>
+            </div>
 
           </div>
+
+
+          <div class="responsive-table">
+            <mat-table #table matSort [dataSource]="dataSourceProductosDetalles" class="mat-elevation-z8">
+
+              <ng-container matColumnDef="producto">
+                <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Producto:</span>
+                  {{row.productoLabel}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="cantidad">
+                <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Cant:</span>
+                  {{row.cantidad}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="precioVenta">
+                <mat-header-cell *matHeaderCellDef> Precio </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">PU.:</span>
+                  {{parseFloatCustom(row.precioVenta)}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="precioTotal">
+                <mat-header-cell *matHeaderCellDef> Importe </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">PT.:</span>
+                  {{parseFloatCustom(row.precioVenta*row.cantidad)}}
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumnsProductosDetalles"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsProductosDetalles;let i = index"></mat-row>
+            </mat-table>
+          </div>
+
+
+          <div class="responsive-table">
+            <mat-table #table matSort [dataSource]="dataSourceAmortizaciones" class="mat-elevation-z8">
+
+              <ng-container matColumnDef="codigo">
+                <mat-header-cell *matHeaderCellDef> Codigo </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Codigo:</span>
+                  {{row.codigo}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="fecha">
+                <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Fecha:</span>
+                  {{row.fecha}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="glosa">
+                <mat-header-cell *matHeaderCellDef> Glosa </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Glosa:</span>
+                  {{row.glosa}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="metodo">
+                <mat-header-cell *matHeaderCellDef> Metodo </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Metodo:</span>
+                  {{row.tipoDePagoNombre}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="importe">
+                <mat-header-cell *matHeaderCellDef> Importe </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <span class="header-label">Importe:</span>
+                  {{row.montoPagado}}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="imprimir">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index">
+                  <a class="ng-star-inserted" [routerLink]="['/print/invoice2/' + entity.id + '/' + i ]">
+                    <i class="ti-printer text-info m-r-10"></i>
+                  </a>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumnsAmortizaciones"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsAmortizaciones;let i = index"></mat-row>
+            </mat-table>
+          </div>
+
         </form>
-        <div class="p-10 text-right">
-          <div class="button-row">
-            <button mat-raised-button color="basic" class="bg-warning" (click)="previousState()">IMPRIMIR</button>
-            <button mat-raised-button color="primary" (click)="previousState()">ACEPTAR</button>
+        <!--<div class="p-10 text-right">-->
+          <!--<div class="button-row">-->
+            <!--<button mat-raised-button color="basic" class="bg-warning" (click)="previousState()">IMPRIMIR</button>-->
+            <!--<button mat-raised-button color="primary" (click)="previousState()">ACEPTAR</button>-->
+          <!--</div>-->
+        <!--</div>-->
+      </mat-card-content>
+
+      <mat-card-content class="row wrap">
+        <div fxLayout="row wrap" id= lblempleado>
+
+          <div class="d-flex align-items-center">
+
+            <div class="text-right ml-auto">
+              <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
+              <h6 class="text-uppercase text-md ma-0 text-bold">Impuesto({{entity.impuesto}}%) :</h6>
+              <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
+            </div>
+            <div class="m-l-10">
+              <h4 class="font-medium">{{parseFloatCustom(entity.subTotal)}}</h4>
+              <h4 class="font-medium">{{parseFloatCustom((entity.subTotal * entity.impuesto) / 100)}}</h4>
+              <h4 class="font-medium">{{parseFloatCustom(entity.montoTotal)}}</h4>
+            </div>
           </div>
         </div>
+
+
       </mat-card-content>
     </mat-card>
   </div>

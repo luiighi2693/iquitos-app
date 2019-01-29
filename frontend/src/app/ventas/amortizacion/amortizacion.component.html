@@ -1,0 +1,125 @@
+<div fxLayout="row wrap">
+  <!-- Column-->
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Todas las operaciones</mat-card-title>
+
+        <div class="responsive-table">
+          <div fxLayout="row wrap">    
+              <button mat-icon-button color= "primary" (click)="search(currentSearch)"><mat-icon>search</mat-icon></button>
+            <mat-form-field fxFlex.gt-sm="60" fxFlex="60">
+              <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">-->
+              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)">
+            </mat-form-field>
+            
+            <div fxFlex.gt-sm="35" fxFlex="35" id="newSection">
+              <button mat-raised-button color="primary" [disabled]="!entity" (click)="addExtraInfoSell()">Amortizar</button>
+            </div>
+          </div>
+
+          <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="data">
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>
+                <!--<mat-checkbox (change)="$event ? masterToggle() : null"-->
+                              <!--[checked]="selection.hasValue() && isAllSelected()"-->
+                              <!--[indeterminate]="selection.hasValue() && !isAllSelected()">-->
+                <!--</mat-checkbox>-->
+              </mat-header-cell>
+              <mat-header-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="changeToggle($event, row)"
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-header-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="codigo">
+              <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Código:</span>
+                {{element.codigo}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fecha">
+              <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Fecha:</span>
+                {{element.fecha}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="clienteNombre">
+              <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Cliente:</span>
+                {{element.clienteNombre}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+              <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Total:</span>
+                S/.{{element.montoTotal}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="amortizado">
+              <mat-header-cell *matHeaderCellDef> Amortizado </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Amortizado:</span>
+                S/.{{getMontoAmortizado(element)}}
+                <!--
+                this.entity.subTotal= this.entity.montoTotal = this.entity.productoDetalles.map(x => x.precioVenta * x.cantidad).reduce((a, b) => a + b, 0);
+                -->
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="restante">
+              <mat-header-cell *matHeaderCellDef> Restante </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Restante:</span>
+                S/.{{element.montoTotal - getMontoAmortizado(element)}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="documento">
+              <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Documento:</span>
+                {{getDocumentListFromSell(element)}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="glosa">
+              <mat-header-cell *matHeaderCellDef> Glosa </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Glosa:</span>
+                {{element.amortizacions[element.amortizacions.length - 1].glosa}}
+              </mat-cell>
+            </ng-container>
+
+            <!--<ng-container matColumnDef="estado">-->
+              <!--<mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>-->
+              <!--<mat-cell *matCellDef="let element">-->
+                <!--<span class="header-label">Estado:</span>-->
+                <!--<span [ngStyle]="{'color': element.estatus === 'PENDIENTE' ? 'yellow' : 'green'}">{{element.estatus}}</span>-->
+              <!--</mat-cell>-->
+            <!--</ng-container>-->
+            <!---->
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </div>
+        <!--<mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">-->
+        <!--</mat-paginator>-->
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
