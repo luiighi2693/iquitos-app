@@ -19,7 +19,7 @@ export class AmortizacionExtraInfoComponent {
   public paymentTypes: TipoDePago[] = [];
   public documentTypeSells: TipoDeDocumentoDeVenta[] = [];
   amortization: Amortizacion = new Amortizacion();
-  private montoTotal: number;
+  public montoTotal: number;
 
   constructor(
     public dialogRef: MatDialogRef<AmortizacionExtraInfoComponent>,
