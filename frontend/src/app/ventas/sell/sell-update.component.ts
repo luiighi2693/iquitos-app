@@ -515,4 +515,10 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   removeCliente(){
     this.client = new Cliente();
   }
+
+  refreshSell() {
+    this.entity.productoDetalles = [];
+    this.refreshProductDetails();
+    this.removeCliente();
+  }
 }
