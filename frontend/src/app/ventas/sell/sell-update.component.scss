@@ -62,7 +62,7 @@ cursor: pointer;
 }
 
 .mat-card{
-  width: 65%;
+  width: 90%;
 }
 
 .mat-card-content > :first-child, .mat-card > :first-child{
@@ -126,6 +126,44 @@ cursor: pointer;
 
 .button-row {
   width: 100%;
+}
+
+//.mat-table {
+  //font-family: Poppins;
+  //flex: 0 0 100px;
+//}
+
+.mat-header-cell {
+  font-size: 10px;
+  font-weight: 500;
+  flex: auto;
+  text-align: center;
+}
+
+mat-cell, mat-footer-cell, mat-header-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  min-height: inherit;
+  flex: auto;
+}
+
+.mat-header-cell {
+  color: rgba(0, 0, 0, 0.54);
+  flex: auto;
+}
+
+mat-footer-row, mat-header-row, mat-row {
+    display: flex;
+    border-width: 0;
+        border-bottom-width: 0px;
+    border-bottom-width: 1px;
+    border-style: solid;
+    align-items: center;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 @media (min-width: 1350px) and (max-width: 1600px){
