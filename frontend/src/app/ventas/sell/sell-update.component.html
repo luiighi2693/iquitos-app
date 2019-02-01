@@ -19,7 +19,7 @@
 
 <div fxLayout="row wrap">
   <mat-card fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-sm="50" fxFlex="100">
-    <mat-card-content>
+    <mat-card-content style="height: 100%">
 
       <div fxLayout="row wrap">
         <div style="display: flex; width: 100%">
@@ -42,7 +42,7 @@
           </mat-card>
         </div>
       </div>
-          <div id="foot-div" *ngIf="productos.length > 0">
+          <div class="foot-div" *ngIf="productos.length > 0">
               <div id="foot">productos encontrados {{productos.length}} unid</div>
           </div>
     </mat-card-content>
