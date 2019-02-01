@@ -32,7 +32,7 @@
 
       <div id="product-layout" fxLayout="row wrap">
 
-        <div fxFlex.gt-lg="20" fxFlex.gt-md="20" fxFlex.gt-xs="20" fxFlex="100" *ngFor="let product of productos ">
+        <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-xs="25" fxFlex="100" *ngFor="let product of productos ">
           <mat-card class="oh" (click)="openDialogVariantSelection(product)">
               <h6 class="m-0">S/. {{product.precioVenta}}</h6>
             <img mat-card-image [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/img1.jpg'" alt="Photo of a Shiba Inu">
@@ -52,10 +52,16 @@
     <mat-card-content>
         <div *ngIf="client.nombre === undefined" fxLayout="row wrap">
           <div style="display: flex; width: 100%"></div>
-            <mat-form-field fxFlex.gt-sm="80" fxFlex="80" (click)="stateStep = 'clientList'">
+            <!--<mat-form-field fxFlex.gt-sm="80" fxFlex="80" (click)="stateStep = 'clientList'">
               <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
             </mat-form-field>
-            <button id= "btn-add-person" mat-icon-button color= "primary" (click)="stateStep = 'clientUpdate'"><mat-icon>person_add</mat-icon></button>
+            <button id= "btn-add-person" mat-icon-button color= "primary" (click)="stateStep = 'clientUpdate'"><mat-icon>person_add</mat-icon></button>-->
+            <mat-form-field>
+              <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente" [type]="hide ? 'password' : 'text'">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </mat-form-field>
+          
+          
           </div>
 
         <div fxLayout="row wrap" *ngIf="client.nombre !== undefined">
@@ -64,18 +70,6 @@
             </mat-form-field>
             <button mat-icon-button color= "primary" (click)="removeCliente()"><mat-icon>delete</mat-icon></button>
           </div>
-      <!--<div fxLayout="row wrap">
-        <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
-          <div style="display: flex;">
-            <div fxFlex.gt-xs="100" fxFlex="100" class="p-10 text-right">
-              <div class="button-row" width=100%>
-                <span *ngIf="client.nombre !== ''">{{client.nombre}}</span><button mat-raised-button (click)="goStep('clientList', null, null)">Seleccionar Cliente</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>-->
-
       <form class="basic-form">
         <!--<div fxLayout="row wrap">-->
           <div class="responsive-table">
@@ -188,7 +182,7 @@
         <div fxLayout="row wrap">
           <div class="p-10">
             <div class="button-row">
-              <button mat-raised-button (click)="goStep('clientUpdate', 'new', null)">Agregar nuevo cliente</button>
+              <button mat-icon-button (click)="goStep('clientUpdate', 'new', null)">Agregar nuevo cliente</button>
             </div>
           </div>
         </div>
@@ -228,31 +222,29 @@
 
   <mat-card *ngIf="stateStep === 'clientUpdate'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
     <mat-card-content>
-      <!--<form class="basic-form">-->
+      <!--<form class="basic-form">
 
       <div fxLayout="row wrap">
         <div fxFlex.gt-xs="50" fxFlex="25" class="p-10"  (click)="goStep('clientList', null, null)" style="cursor: pointer">
           <mat-icon>arrow_back</mat-icon>
           <span class="goBackTag">Todos los clientes</span>
         </div>
-      </div>
-
-
+      </div>-->
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100" appearance="outline">
           <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100" appearance="outline">
           <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
           <mat-select placeholder="Tipo de Cliente" [(ngModel)]="client.tipoDeCliente" name="tipoDeCliente">
             <mat-option *ngFor="let tipoCliente of tiposDeCliente" [value]="tipoCliente">
               {{tipoCliente}}
@@ -260,7 +252,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
           <mat-select placeholder="Tipo de Documento" [(ngModel)]="client.tipoDeDocumentoId" name="tipoDeDocumento">
             <mat-option [value]="null"></mat-option>
             <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
@@ -271,25 +263,25 @@
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100" appearance="outline" >
           <input matInput [(ngModel)]="client.codigo"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Documento">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
           <input matInput [matDatepicker]="picker" [(ngModel)]="client.fechaDeNacimiento" placeholder="Fecha de Nacimiento" [disabled]="client.tipoDeCliente === 'JURIDICO'">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
           <input matInput [(ngModel)]="client.telefono"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Teléfono">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
           <mat-select placeholder="Sexo" [(ngModel)]="client.sexo" name="sex" [disabled]="client.tipoDeCliente === 'JURIDICO'">
             <mat-option *ngFor="let sex of sexos" [value]="sex">
               {{sex}}
@@ -297,7 +289,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" >
+        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
           <mat-select placeholder="Estado Civil" [(ngModel)]="client.estatusCivil" name="estatusCivil">
             <mat-option *ngFor="let estadoCivil of estatusCiviles" [value]="estadoCivil" [disabled]="client.tipoDeCliente === 'JURIDICO'">
               {{estadoCivil}}
@@ -307,7 +299,7 @@
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100" appearance="outline">
           <input matInput [(ngModel)]="client.correo" placeholder="Email">
         </mat-form-field>
       </div>
