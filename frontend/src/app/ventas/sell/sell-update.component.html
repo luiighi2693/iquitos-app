@@ -48,8 +48,8 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="40" fxFlex.gt-md=40 fxFlex.gt-sm=40 fxFlex="100">
-    <mat-card-content>
+  <mat-card *ngIf="stateStep === 'sell'" fxFlex.gt-lg="45" fxFlex.gt-md=42 fxFlex.gt-sm=40 fxFlex="100">
+    <mat-card-content style="    padding-bottom: 0;margin-bottom: 0;     padding-top: 0;">
         <div *ngIf="client.nombre === undefined" fxLayout="row wrap">
           <div style="display: flex; width: 100%"></div>
             <!--<mat-form-field fxFlex.gt-sm="80" fxFlex="80" (click)="stateStep = 'clientList'">
@@ -70,10 +70,10 @@
             </mat-form-field>
             <button mat-icon-button color= "primary" (click)="removeCliente()"><mat-icon>delete</mat-icon></button>
           </div>
-      <form class="basic-form" style="height:100%">
+      <form class="basic-form">
         <!--<div fxLayout="row wrap">-->
-          <div class="responsive-table" style="height:100%">
-            <mat-table #table matSort [dataSource]="dataSourceProductosDetalles" class="mat-elevation-z8">
+          <div class="responsive-table">
+            <mat-table #table matSort [dataSource]="dataSourceProductosDetalles" class="mat-elevation-z8" style="max-height: 200px; overflow:auto;">
 
               <ng-container matColumnDef="cantidad">
                 <mat-header-cell *matHeaderCellDef> Cant. </mat-header-cell>
@@ -124,7 +124,7 @@
       </form>
     </mat-card-content>
 
-    <mat-card-content class="row wrap">
+    <mat-card-content class="row wrap" style="padding-bottom: 0;margin-bottom: 0;">
 
       <!--<button class="accordion">∧</button>
       <div class="panel">-->
@@ -144,19 +144,19 @@
       <div class="d-flex align-items-center">
 
         <div class="text-right ml-auto">
-          <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
-          <h6 class="text-uppercase text-md ma-0 text-bold">Impuesto({{entity.impuesto}}%) :</h6>
-          <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
+          <h6 style="line-height: 0;" class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
+          <h6 style="line-height: 0;" class="text-uppercase text-md ma-0 text-bold">Impuesto({{entity.impuesto}}%) :</h6>
+          <h6 style="line-height: 0;" class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
         </div>
         <div class="m-l-10">
-          <h4 class="font-medium">{{parseFloatCustom(entity.subTotal)}}</h4>
-          <h4 class="font-medium">{{parseFloatCustom((entity.subTotal * entity.impuesto) / 100)}}</h4>
-          <h4 class="font-medium">{{parseFloatCustom(entity.montoTotal)}}</h4>
+          <h6 style="line-height: 0;" class="font-medium">{{parseFloatCustom(entity.subTotal)}}</h6>
+          <h6 style="line-height: 0;" class="font-medium">{{parseFloatCustom((entity.subTotal * entity.impuesto) / 100)}}</h6>
+          <h6 style="line-height: 0;" class="font-medium">{{parseFloatCustom(entity.montoTotal)}}</h6>
         </div>
       </div>
     </mat-card-content>
 
-    <div class="button-row">
+    <div class="button-row" [ngClass]="{ 'button-row-sell-custom': entity.productoDetalles.length < 2}">
       <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" [disabled]="client.id === undefined || entity.productoDetalles.length === 0 || entity.montoTotal < 1" (click)="addExtraInfoSell()">Vender</button>
       <button mat-raised-button style="width:28%; border-radius: initial;" (click)="refreshSell()">Cancelar</button>
     </div>
@@ -221,7 +221,7 @@
   </mat-card>
 
   <mat-card *ngIf="stateStep === 'clientUpdate'" fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-sm="40" fxFlex="100">
-    <mat-card-content>
+    <mat-card-content style="height: 65%;">
       <!--<form class="basic-form">
 
       <div fxLayout="row wrap">
@@ -304,19 +304,19 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row wrap">
-        <div class="p-10">
-          <!--<div class="button-row">
-            <button mat-raised-button (click)="saveClient()">Guardar</button>
-            <button mat-raised-button  (click)="goStep('clientList', null, null)">Cancelar</button>
-          </div>-->
-          <div class="button-row">
-            <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" (click)="saveClient()">Guardar</button>
-            <button mat-raised-button style="width:28%; border-radius: initial;" (click)="goStep('clientList', null, null)">Cancelar</button>
-          </div>
+    </mat-card-content>
+    <div fxLayout="row wrap">
+      <div class="p-10">
+        <!--<div class="button-row">
+          <button mat-raised-button (click)="saveClient()">Guardar</button>
+          <button mat-raised-button  (click)="goStep('clientList', null, null)">Cancelar</button>
+        </div>-->
+        <div class="button-row">
+          <button mat-raised-button color="primary" style="color: white; border-radius: initial; width:72%" (click)="saveClient()">Guardar</button>
+          <button mat-raised-button style="width:28%; border-radius: initial;" (click)="goStep('clientList', null, null)">Cancelar</button>
         </div>
       </div>
-    </mat-card-content>
+    </div>
   </mat-card>
   <!--<div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
       <div class="button-row">

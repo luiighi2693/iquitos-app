@@ -160,6 +160,11 @@ mat-cell, mat-footer-cell, mat-header-cell {
   flex: auto;
 }
 
+.button-row-sell-custom {
+  position: absolute;
+  top: 93%;
+}
+
 mat-footer-row, mat-header-row, mat-row {
     display: flex;
     border-width: 0;
@@ -188,9 +193,9 @@ mat-footer-row, mat-header-row, mat-row {
     left: 30%;
   }
 
-.mat-form-field-appearance-outline .mat-form-field-infix {
-  padding: 0em 0 1em 0;
-  margin: auto;
-} 
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0em 0 1em 0;
+    margin: auto;
+  }
 
 }
