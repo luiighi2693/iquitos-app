@@ -518,6 +518,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
   refreshSell() {
     this.entity.productoDetalles = [];
+    this.entity.subTotal = 0;
+    this.entity.montoTotal = 0;
     this.refreshProductDetails();
     this.removeCliente();
   }

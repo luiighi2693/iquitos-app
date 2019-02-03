@@ -57,7 +57,7 @@
             </mat-form-field>
             <button id= "btn-add-person" mat-icon-button color= "primary" (click)="stateStep = 'clientUpdate'"><mat-icon>person_add</mat-icon></button>-->
             <mat-form-field (click)="stateStep = 'clientList'">
-              <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)">
+              <input matInput placeholder="Seleccionar Cliente">
               <mat-icon (click)="stateStep = 'clientUpdate'" matSuffix color= "primary" style="cursor: pointer;">person_add</mat-icon>
             </mat-form-field>
 

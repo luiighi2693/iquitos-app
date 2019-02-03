@@ -89,7 +89,7 @@ export class Invoice2Component implements OnInit{
 
             setTimeout(() => {
               window.print();
-              this.router.navigate(['/ventas/sell/list']);
+              this.router.navigate(['/ventas/sell']);
             });
           },
           (res: HttpErrorResponse) => this.onError(res.message)
