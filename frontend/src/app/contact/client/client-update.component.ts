@@ -10,6 +10,7 @@ import {ClienteService} from "./cliente.service";
 import {ITipoDeDocumento} from "../../models/tipo-de-documento.model";
 import {TipoDeDocumentoService} from "../../configuration/documenttype/tipo-de-documento.service";
 import Util from "../../shared/util/util";
+import {IParametroSistema} from "../../models/parametro-sistema.model";
 
 @Component({
   selector: 'app-client-update',
@@ -48,6 +49,8 @@ export class ClientUpdateComponent implements OnInit {
   tiposDeDocumento: ITipoDeDocumento[];
 
   public form: FormGroup;
+
+  clientRepeated = false;
 
   constructor(private dataUtils: JhiDataUtils,
               private service: ClienteService,
@@ -121,6 +124,7 @@ export class ClientUpdateComponent implements OnInit {
   }
 
   save() {
+    if (!this.clientRepeated){
       this.updateEntity();
       console.log(this.entity.toString());
       this.isSaving = true;
@@ -129,6 +133,7 @@ export class ClientUpdateComponent implements OnInit {
       } else {
         this.subscribeToSaveResponse(this.service.create(this.entity));
       }
+    }
   }
 
   private subscribeToSaveResponse(result: Observable<HttpResponse<ICliente>>) {
@@ -177,5 +182,24 @@ export class ClientUpdateComponent implements OnInit {
 
   checkNumbersDecimalOnly(event: any): boolean {
     return Util.checkNumbersDecimalOnly(event);
+  }
+
+  validateClient() {
+    console.log(this.entity.codigo);
+    this.clientRepeated = false;
+
+    if(this.entity.codigo.length > 2 && this.entity.id === undefined) {
+      this.service.search({query:this.entity.codigo}).subscribe(
+        (res: HttpResponse<ICliente[]>) => {
+          console.log(res.body);
+          res.body.forEach(client => {
+            if (client.codigo === this.entity.codigo) {
+              this.clientRepeated = true;
+            }
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    }
   }
 }

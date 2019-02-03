@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {TipoDePagoService} from "../../configuration/paymenttype/tipo-de-pago.service";
 import {ITipoDePago, TipoDePago} from "../../models/tipo-de-pago.model";
@@ -7,6 +7,7 @@ import {ITipoDeDocumentoDeVenta, TipoDeDocumentoDeVenta} from "../../models/tipo
 import {TipoDeDocumentoDeVentaService} from "../../configuration/documenttypesell/tipo-de-documento-de-venta.service";
 import Util from "../../shared/util/util";
 import {Amortizacion} from "../../models/amortizacion.model";
+import {ClientType} from "../../models/cliente.model";
 
 @Component({
   selector: 'app-sell-extra-info',
@@ -18,6 +19,9 @@ export class SellExtraInfoComponent {
   public paymentTypes: TipoDePago[] = [];
   public documentTypeSells: TipoDeDocumentoDeVenta[] = [];
   amortization: Amortizacion = new Amortizacion();
+  isCredit = false;
+
+  // @ViewChild('inputAmount') inputAmount: ElementRef;
 
   constructor(
     public dialogRef: MatDialogRef<SellExtraInfoComponent>,
@@ -28,6 +32,7 @@ export class SellExtraInfoComponent {
     console.log(this.data);
     this.amortization.montoPagado = this.data.entity.montoTotal;
     this.amortization.monto = this.data.entity.montoTotal;
+    this.amortization.codigoDocumento = this.data.client.codigo;
 
     this.tipoDePagoService.query().subscribe(
       (res: HttpResponse<ITipoDePago[]>) => {
@@ -43,7 +48,9 @@ export class SellExtraInfoComponent {
       (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => {
         this.documentTypeSells = res.body;
         if (this.documentTypeSells.length > 0){
-          this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells[0].id;
+          this.data.entity.tipoDeDocumentoDeVentaId = this.data.client.tipoDeCliente === ClientType.JURIDICO ?
+            this.documentTypeSells.find(x => x.nombre === 'Factura Electronica').id :
+            this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id
         }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -132,4 +139,18 @@ export class SellExtraInfoComponent {
       this.amortization.codigo = 'M001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
     }
   }
+
+  validateCredit() {
+    // this.selectInputAmount();
+
+    this.isCredit = false;
+    if (this.paymentTypes.find(x => x.id === this.data.entity.tipoDePagoId).nombre === 'Credito' ) {
+      this.isCredit = true;
+      this.amortization.montoPagado = 0.0;
+    }
+  }
+
+  // selectInputAmount() {
+  //   this.inputAmount.nativeElement.focus();
+  // }
 }

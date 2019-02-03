@@ -38,7 +38,7 @@
 
     <div fxFlex.gt-sm="40" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput placeholder="Dni o Ruc" name="Dni o Ruc" type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" [(ngModel)]="amortization.codigoDocumento">
+        <input matInput placeholder="Dni o Ruc" name="Dni o Ruc" type="text" maxlength="11" [(ngModel)]="amortization.codigoDocumento" disabled>
       </mat-form-field>
     </div>
 
@@ -50,7 +50,7 @@
 
     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
       <mat-form-field>
-        <mat-select placeholder="Medio de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType">
+        <mat-select placeholder="Medio de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType" (ngModelChange)="validateCredit()">
           <mat-option *ngFor="let paymentTypeOption of paymentTypes;" [value]="paymentTypeOption.id">
             {{paymentTypeOption.nombre}}
           </mat-option>
@@ -60,7 +60,8 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado">
+        <!--<input matInput #inputAmount placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" [disabled]="isCredit">-->
+        <input matInput placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" [disabled]="isCredit">
         <span matPrefix>S/&nbsp;</span>
       </mat-form-field>
     </div>
