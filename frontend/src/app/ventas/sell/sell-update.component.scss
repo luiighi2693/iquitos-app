@@ -78,6 +78,8 @@ cursor: pointer;
 
 .p-10{
   display: inline-flex;
+  padding: 0px;
+  width: 100%;
 }
 
 .mat-card-content > :last-child:not(.mat-card-footer), .mat-card > :last-child:not(.mat-card-footer){
@@ -185,4 +187,10 @@ mat-footer-row, mat-header-row, mat-row {
   .foot-div{
     left: 30%;
   }
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0em 0 1em 0;
+  margin: auto;
+} 
+
 }
