@@ -57,7 +57,7 @@
             </mat-form-field>
             <button id= "btn-add-person" mat-icon-button color= "primary" (click)="stateStep = 'clientUpdate'"><mat-icon>person_add</mat-icon></button>-->
             <mat-form-field (click)="stateStep = 'clientList'">
-              <input matInput placeholder="Seleccionar Cliente">
+              <input style="cursor:pointer" matInput placeholder="Seleccionar Cliente">
               <mat-icon (click)="stateStep = 'clientUpdate'" matSuffix color= "primary" style="cursor: pointer;">person_add</mat-icon>
             </mat-form-field>
 
@@ -205,7 +205,7 @@
                 <mat-header-cell *matHeaderCellDef> Editar </mat-header-cell>
                 <mat-cell *matCellDef="let row;let i = index">
                   <span class="header-label">Editar:</span>
-                  <a (click)="goStep('clientUpdate', 'edit', row)" class="ng-star-inserted">
+                  <a style="cursor:pointer" (click)="goStep('clientUpdate', 'edit', row)" class="ng-star-inserted">
                     <i class="ti-pencil text-info m-r-10"></i>
                   </a>
                 </mat-cell>
