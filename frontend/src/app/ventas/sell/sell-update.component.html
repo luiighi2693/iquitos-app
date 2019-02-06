@@ -56,7 +56,7 @@
               <input matInput [(ngModel)]="currentSearchProduct" placeholder="Seleccionar Cliente" (keyup)="validateSearchProduct()" (keyup.enter)="searchProduct(currentSearchProduct)" >
             </mat-form-field>
             <button id= "btn-add-person" mat-icon-button color= "primary" (click)="stateStep = 'clientUpdate'"><mat-icon>person_add</mat-icon></button>-->
-            <mat-form-field (click)="stateStep = 'clientList'">
+            <mat-form-field  (click)="stateStep = 'clientList'">
               <input style="cursor:pointer" matInput placeholder="Seleccionar Cliente">
               <mat-icon (click)="stateStep = 'clientUpdate'" matSuffix color= "primary" style="cursor: pointer;">person_add</mat-icon>
             </mat-form-field>
@@ -65,10 +65,14 @@
           </div>
 
         <div fxLayout="row wrap" *ngIf="client.nombre !== undefined">
-            <mat-form-field fxFlex.gt-sm="80" fxFlex="80">
+            <mat-form-field>
+                <input matInput [(ngModel)]="client.nombre" disabled>
+                <mat-icon (click)="removeCliente()" matSuffix color= "primary" style="cursor: pointer;">delete</mat-icon>
+            </mat-form-field>
+            <!--<mat-form-field fxFlex.gt-sm="80" fxFlex="80">
               <input matInput [(ngModel)]="client.nombre" disabled >
             </mat-form-field>
-            <button mat-icon-button color= "primary" (click)="removeCliente()"><mat-icon>delete</mat-icon></button>
+            <button mat-icon-button color= "primary" (click)="removeCliente()"><mat-icon>delete</mat-icon></button>-->
           </div>
       <form class="basic-form">
         <!--<div fxLayout="row wrap">-->
@@ -193,7 +197,7 @@
 
               <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index" (click)="setClient(row)">
+                <mat-cell style="cursor:pointer" *matCellDef="let row;let i = index" (click)="setClient(row)">
                   <span class="header-label">Nombre</span>
                   {{row.nombre}}
                   <br>
