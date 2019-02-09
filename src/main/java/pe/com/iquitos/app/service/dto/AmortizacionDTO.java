@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Amortizacion entity.
@@ -30,6 +31,13 @@ public class AmortizacionDTO implements Serializable {
 
     @Size(max = 1000)
     private String glosa;
+
+    @Size(max = 1000)
+    private String comprobante;
+
+    @Lob
+    private byte[] fotoComprobante;
+    private String fotoComprobanteContentType;
 
     private Long tipoDeDocumentoDeVentaId;
 
@@ -95,6 +103,30 @@ public class AmortizacionDTO implements Serializable {
         this.glosa = glosa;
     }
 
+    public String getComprobante() {
+        return comprobante;
+    }
+
+    public void setComprobante(String comprobante) {
+        this.comprobante = comprobante;
+    }
+
+    public byte[] getFotoComprobante() {
+        return fotoComprobante;
+    }
+
+    public void setFotoComprobante(byte[] fotoComprobante) {
+        this.fotoComprobante = fotoComprobante;
+    }
+
+    public String getFotoComprobanteContentType() {
+        return fotoComprobanteContentType;
+    }
+
+    public void setFotoComprobanteContentType(String fotoComprobanteContentType) {
+        this.fotoComprobanteContentType = fotoComprobanteContentType;
+    }
+
     public Long getTipoDeDocumentoDeVentaId() {
         return tipoDeDocumentoDeVentaId;
     }
@@ -158,6 +190,8 @@ public class AmortizacionDTO implements Serializable {
             ", fecha='" + getFecha() + "'" +
             ", codigoDocumento='" + getCodigoDocumento() + "'" +
             ", glosa='" + getGlosa() + "'" +
+            ", comprobante='" + getComprobante() + "'" +
+            ", fotoComprobante='" + getFotoComprobante() + "'" +
             ", tipoDeDocumentoDeVenta=" + getTipoDeDocumentoDeVentaId() +
             ", tipoDeDocumentoDeVenta='" + getTipoDeDocumentoDeVentaNombre() + "'" +
             ", tipoDePago=" + getTipoDePagoId() +

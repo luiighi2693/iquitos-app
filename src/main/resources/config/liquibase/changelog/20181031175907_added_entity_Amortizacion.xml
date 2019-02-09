@@ -46,6 +46,17 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="comprobante" type="varchar(1000)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="foto_comprobante" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="foto_comprobante_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="tipo_de_documento_de_venta_id" type="bigint">
                 <constraints nullable="true" />
             </column>

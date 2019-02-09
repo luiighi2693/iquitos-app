@@ -34,6 +34,7 @@
             <th jhiSortBy="subTotal"><span>Sub Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="impuesto"><span>Impuesto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="montoTotal"><span>Monto Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="diasCredito"><span>Dias Credito</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="fecha"><span>Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="estatus"><span>Estatus</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="glosa"><span>Glosa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -53,6 +54,7 @@
                 <td>{{venta.subTotal}}</td>
                 <td>{{venta.impuesto}}</td>
                 <td>{{venta.montoTotal}}</td>
+                <td>{{venta.diasCredito}}</td>
                 <td>{{venta.fecha | date:'mediumDate'}}</td>
                 <td>{{venta.estatus}}</td>
                 <td>{{venta.glosa}}</td>

@@ -14,6 +14,7 @@ export interface IVenta {
     subTotal?: number;
     impuesto?: number;
     montoTotal?: number;
+    diasCredito?: number;
     fecha?: Moment;
     estatus?: SellStatus;
     glosa?: string;
@@ -39,6 +40,7 @@ export class Venta implements IVenta {
         public subTotal?: number,
         public impuesto?: number,
         public montoTotal?: number,
+        public diasCredito?: number,
         public fecha?: Moment,
         public estatus?: SellStatus,
         public glosa?: string,

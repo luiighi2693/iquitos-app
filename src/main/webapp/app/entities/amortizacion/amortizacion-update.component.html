@@ -90,6 +90,34 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_comprobante">Comprobante</label>
+                    <input type="text" class="form-control" name="comprobante" id="field_comprobante"
+                        [(ngModel)]="amortizacion.comprobante" maxlength="1000"/>
+                    <div [hidden]="!(editForm.controls.comprobante?.dirty && editForm.controls.comprobante?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.comprobante?.errors?.maxlength">
+                        This field cannot be longer than 1000 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_fotoComprobante">Foto Comprobante</label>
+                    <div>
+                        <img [src]="'data:' + amortizacion.fotoComprobanteContentType + ';base64,' + amortizacion.fotoComprobante" style="max-height: 100px;" *ngIf="amortizacion.fotoComprobante" alt="amortizacion image"/>
+                        <div *ngIf="amortizacion.fotoComprobante" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{amortizacion.fotoComprobanteContentType}}, {{byteSize(amortizacion.fotoComprobante)}}</span>
+                            <button type="button" (click)="clearInputImage('fotoComprobante', 'fotoComprobanteContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_fotoComprobante" (change)="setFileData($event, amortizacion, 'fotoComprobante', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="fotoComprobante" id="field_fotoComprobante"
+                        [(ngModel)]="amortizacion.fotoComprobante" />
+                    <input type="hidden" class="form-control" name="fotoComprobanteContentType" id="field_fotoComprobanteContentType"
+                        [(ngModel)]="amortizacion.fotoComprobanteContentType" />
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_tipoDeDocumentoDeVenta">Tipo De Documento De Venta</label>

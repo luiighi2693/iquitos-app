@@ -52,6 +52,17 @@ public class Amortizacion implements Serializable {
     @Column(name = "glosa", length = 1000)
     private String glosa;
 
+    @Size(max = 1000)
+    @Column(name = "comprobante", length = 1000)
+    private String comprobante;
+
+    @Lob
+    @Column(name = "foto_comprobante")
+    private byte[] fotoComprobante;
+
+    @Column(name = "foto_comprobante_content_type")
+    private String fotoComprobanteContentType;
+
     @ManyToOne
     @JsonIgnoreProperties("")
     private TipoDeDocumentoDeVenta tipoDeDocumentoDeVenta;
@@ -147,6 +158,45 @@ public class Amortizacion implements Serializable {
         this.glosa = glosa;
     }
 
+    public String getComprobante() {
+        return comprobante;
+    }
+
+    public Amortizacion comprobante(String comprobante) {
+        this.comprobante = comprobante;
+        return this;
+    }
+
+    public void setComprobante(String comprobante) {
+        this.comprobante = comprobante;
+    }
+
+    public byte[] getFotoComprobante() {
+        return fotoComprobante;
+    }
+
+    public Amortizacion fotoComprobante(byte[] fotoComprobante) {
+        this.fotoComprobante = fotoComprobante;
+        return this;
+    }
+
+    public void setFotoComprobante(byte[] fotoComprobante) {
+        this.fotoComprobante = fotoComprobante;
+    }
+
+    public String getFotoComprobanteContentType() {
+        return fotoComprobanteContentType;
+    }
+
+    public Amortizacion fotoComprobanteContentType(String fotoComprobanteContentType) {
+        this.fotoComprobanteContentType = fotoComprobanteContentType;
+        return this;
+    }
+
+    public void setFotoComprobanteContentType(String fotoComprobanteContentType) {
+        this.fotoComprobanteContentType = fotoComprobanteContentType;
+    }
+
     public TipoDeDocumentoDeVenta getTipoDeDocumentoDeVenta() {
         return tipoDeDocumentoDeVenta;
     }
@@ -204,6 +254,9 @@ public class Amortizacion implements Serializable {
             ", fecha='" + getFecha() + "'" +
             ", codigoDocumento='" + getCodigoDocumento() + "'" +
             ", glosa='" + getGlosa() + "'" +
+            ", comprobante='" + getComprobante() + "'" +
+            ", fotoComprobante='" + getFotoComprobante() + "'" +
+            ", fotoComprobanteContentType='" + getFotoComprobanteContentType() + "'" +
             "}";
     }
 }

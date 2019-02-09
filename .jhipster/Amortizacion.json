@@ -44,6 +44,19 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": 1000
+        },
+        {
+            "fieldName": "comprobante",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 1000
+        },
+        {
+            "fieldName": "fotoComprobante",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
         }
     ],
     "relationships": [

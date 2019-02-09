@@ -36,6 +36,8 @@
             <th jhiSortBy="fecha"><span>Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="codigoDocumento"><span>Codigo Documento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="glosa"><span>Glosa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="comprobante"><span>Comprobante</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fotoComprobante"><span>Foto Comprobante</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDeDocumentoDeVentaNombre"><span>Tipo De Documento De Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDePagoNombre"><span>Tipo De Pago</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -50,6 +52,13 @@
                 <td>{{amortizacion.fecha | date:'mediumDate'}}</td>
                 <td>{{amortizacion.codigoDocumento}}</td>
                 <td>{{amortizacion.glosa}}</td>
+                <td>{{amortizacion.comprobante}}</td>
+                <td>
+                    <a *ngIf="amortizacion.fotoComprobante" (click)="openFile(amortizacion.fotoComprobanteContentType, amortizacion.fotoComprobante)">
+                        <img [src]="'data:' + amortizacion.fotoComprobanteContentType + ';base64,' + amortizacion.fotoComprobante" style="max-height: 30px;" alt="amortizacion image"/>
+                    </a>
+                    <span *ngIf="amortizacion.fotoComprobante">{{amortizacion.fotoComprobanteContentType}}, {{byteSize(amortizacion.fotoComprobante)}}</span>
+                </td>
                 <td>
                     <div *ngIf="amortizacion.tipoDeDocumentoDeVentaId">
                         <a [routerLink]="['../tipo-de-documento-de-venta', amortizacion.tipoDeDocumentoDeVentaId , 'view' ]" >{{amortizacion.tipoDeDocumentoDeVentaNombre}}</a>

@@ -30,6 +30,7 @@ export class VentaUpdatePage {
     subTotalInput = element(by.id('field_subTotal'));
     impuestoInput = element(by.id('field_impuesto'));
     montoTotalInput = element(by.id('field_montoTotal'));
+    diasCreditoInput = element(by.id('field_diasCredito'));
     fechaInput = element(by.id('field_fecha'));
     estatusSelect = element(by.id('field_estatus'));
     glosaInput = element(by.id('field_glosa'));
@@ -77,6 +78,14 @@ export class VentaUpdatePage {
 
     async getMontoTotalInput() {
         return this.montoTotalInput.getAttribute('value');
+    }
+
+    async setDiasCreditoInput(diasCredito) {
+        await this.diasCreditoInput.sendKeys(diasCredito);
+    }
+
+    async getDiasCreditoInput() {
+        return this.diasCreditoInput.getAttribute('value');
     }
 
     async setFechaInput(fecha) {

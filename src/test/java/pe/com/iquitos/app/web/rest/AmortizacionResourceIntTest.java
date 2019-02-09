@@ -25,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
@@ -67,6 +68,14 @@ public class AmortizacionResourceIntTest {
 
     private static final String DEFAULT_GLOSA = "AAAAAAAAAA";
     private static final String UPDATED_GLOSA = "BBBBBBBBBB";
+
+    private static final String DEFAULT_COMPROBANTE = "AAAAAAAAAA";
+    private static final String UPDATED_COMPROBANTE = "BBBBBBBBBB";
+
+    private static final byte[] DEFAULT_FOTO_COMPROBANTE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_FOTO_COMPROBANTE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_FOTO_COMPROBANTE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_FOTO_COMPROBANTE_CONTENT_TYPE = "image/png";
 
     @Autowired
     private AmortizacionRepository amortizacionRepository;
@@ -125,7 +134,10 @@ public class AmortizacionResourceIntTest {
             .montoPagado(DEFAULT_MONTO_PAGADO)
             .fecha(DEFAULT_FECHA)
             .codigoDocumento(DEFAULT_CODIGO_DOCUMENTO)
-            .glosa(DEFAULT_GLOSA);
+            .glosa(DEFAULT_GLOSA)
+            .comprobante(DEFAULT_COMPROBANTE)
+            .fotoComprobante(DEFAULT_FOTO_COMPROBANTE)
+            .fotoComprobanteContentType(DEFAULT_FOTO_COMPROBANTE_CONTENT_TYPE);
         return amortizacion;
     }
 
@@ -156,6 +168,9 @@ public class AmortizacionResourceIntTest {
         assertThat(testAmortizacion.getFecha()).isEqualTo(DEFAULT_FECHA);
         assertThat(testAmortizacion.getCodigoDocumento()).isEqualTo(DEFAULT_CODIGO_DOCUMENTO);
         assertThat(testAmortizacion.getGlosa()).isEqualTo(DEFAULT_GLOSA);
+        assertThat(testAmortizacion.getComprobante()).isEqualTo(DEFAULT_COMPROBANTE);
+        assertThat(testAmortizacion.getFotoComprobante()).isEqualTo(DEFAULT_FOTO_COMPROBANTE);
+        assertThat(testAmortizacion.getFotoComprobanteContentType()).isEqualTo(DEFAULT_FOTO_COMPROBANTE_CONTENT_TYPE);
 
         // Validate the Amortizacion in Elasticsearch
         verify(mockAmortizacionSearchRepository, times(1)).save(testAmortizacion);
@@ -276,7 +291,10 @@ public class AmortizacionResourceIntTest {
             .andExpect(jsonPath("$.[*].montoPagado").value(hasItem(DEFAULT_MONTO_PAGADO.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].codigoDocumento").value(hasItem(DEFAULT_CODIGO_DOCUMENTO.toString())))
-            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA.toString())));
+            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA.toString())))
+            .andExpect(jsonPath("$.[*].comprobante").value(hasItem(DEFAULT_COMPROBANTE.toString())))
+            .andExpect(jsonPath("$.[*].fotoComprobanteContentType").value(hasItem(DEFAULT_FOTO_COMPROBANTE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].fotoComprobante").value(hasItem(Base64Utils.encodeToString(DEFAULT_FOTO_COMPROBANTE))));
     }
     
     @Test
@@ -295,7 +313,10 @@ public class AmortizacionResourceIntTest {
             .andExpect(jsonPath("$.montoPagado").value(DEFAULT_MONTO_PAGADO.doubleValue()))
             .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()))
             .andExpect(jsonPath("$.codigoDocumento").value(DEFAULT_CODIGO_DOCUMENTO.toString()))
-            .andExpect(jsonPath("$.glosa").value(DEFAULT_GLOSA.toString()));
+            .andExpect(jsonPath("$.glosa").value(DEFAULT_GLOSA.toString()))
+            .andExpect(jsonPath("$.comprobante").value(DEFAULT_COMPROBANTE.toString()))
+            .andExpect(jsonPath("$.fotoComprobanteContentType").value(DEFAULT_FOTO_COMPROBANTE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.fotoComprobante").value(Base64Utils.encodeToString(DEFAULT_FOTO_COMPROBANTE)));
     }
 
     @Test
@@ -324,7 +345,10 @@ public class AmortizacionResourceIntTest {
             .montoPagado(UPDATED_MONTO_PAGADO)
             .fecha(UPDATED_FECHA)
             .codigoDocumento(UPDATED_CODIGO_DOCUMENTO)
-            .glosa(UPDATED_GLOSA);
+            .glosa(UPDATED_GLOSA)
+            .comprobante(UPDATED_COMPROBANTE)
+            .fotoComprobante(UPDATED_FOTO_COMPROBANTE)
+            .fotoComprobanteContentType(UPDATED_FOTO_COMPROBANTE_CONTENT_TYPE);
         AmortizacionDTO amortizacionDTO = amortizacionMapper.toDto(updatedAmortizacion);
 
         restAmortizacionMockMvc.perform(put("/api/amortizacions")
@@ -342,6 +366,9 @@ public class AmortizacionResourceIntTest {
         assertThat(testAmortizacion.getFecha()).isEqualTo(UPDATED_FECHA);
         assertThat(testAmortizacion.getCodigoDocumento()).isEqualTo(UPDATED_CODIGO_DOCUMENTO);
         assertThat(testAmortizacion.getGlosa()).isEqualTo(UPDATED_GLOSA);
+        assertThat(testAmortizacion.getComprobante()).isEqualTo(UPDATED_COMPROBANTE);
+        assertThat(testAmortizacion.getFotoComprobante()).isEqualTo(UPDATED_FOTO_COMPROBANTE);
+        assertThat(testAmortizacion.getFotoComprobanteContentType()).isEqualTo(UPDATED_FOTO_COMPROBANTE_CONTENT_TYPE);
 
         // Validate the Amortizacion in Elasticsearch
         verify(mockAmortizacionSearchRepository, times(1)).save(testAmortizacion);
@@ -407,7 +434,10 @@ public class AmortizacionResourceIntTest {
             .andExpect(jsonPath("$.[*].montoPagado").value(hasItem(DEFAULT_MONTO_PAGADO.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].codigoDocumento").value(hasItem(DEFAULT_CODIGO_DOCUMENTO)))
-            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA)));
+            .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA)))
+            .andExpect(jsonPath("$.[*].comprobante").value(hasItem(DEFAULT_COMPROBANTE)))
+            .andExpect(jsonPath("$.[*].fotoComprobanteContentType").value(hasItem(DEFAULT_FOTO_COMPROBANTE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].fotoComprobante").value(hasItem(Base64Utils.encodeToString(DEFAULT_FOTO_COMPROBANTE))));
     }
 
     @Test

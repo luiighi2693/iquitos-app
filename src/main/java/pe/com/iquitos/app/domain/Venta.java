@@ -48,6 +48,9 @@ public class Venta implements Serializable {
     @Column(name = "monto_total", nullable = false)
     private Double montoTotal;
 
+    @Column(name = "dias_credito")
+    private Double diasCredito;
+
     @Column(name = "fecha")
     private LocalDate fecha;
 
@@ -163,6 +166,19 @@ public class Venta implements Serializable {
 
     public void setMontoTotal(Double montoTotal) {
         this.montoTotal = montoTotal;
+    }
+
+    public Double getDiasCredito() {
+        return diasCredito;
+    }
+
+    public Venta diasCredito(Double diasCredito) {
+        this.diasCredito = diasCredito;
+        return this;
+    }
+
+    public void setDiasCredito(Double diasCredito) {
+        this.diasCredito = diasCredito;
     }
 
     public LocalDate getFecha() {
@@ -380,6 +396,7 @@ public class Venta implements Serializable {
             ", subTotal=" + getSubTotal() +
             ", impuesto=" + getImpuesto() +
             ", montoTotal=" + getMontoTotal() +
+            ", diasCredito=" + getDiasCredito() +
             ", fecha='" + getFecha() + "'" +
             ", estatus='" + getEstatus() + "'" +
             ", glosa='" + getGlosa() + "'" +

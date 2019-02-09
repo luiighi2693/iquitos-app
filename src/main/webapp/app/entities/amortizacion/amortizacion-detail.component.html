@@ -29,6 +29,19 @@
                 <dd>
                     <span>{{amortizacion.glosa}}</span>
                 </dd>
+                <dt><span>Comprobante</span></dt>
+                <dd>
+                    <span>{{amortizacion.comprobante}}</span>
+                </dd>
+                <dt><span>Foto Comprobante</span></dt>
+                <dd>
+                    <div *ngIf="amortizacion.fotoComprobante">
+                        <a (click)="openFile(amortizacion.fotoComprobanteContentType, amortizacion.fotoComprobante)">
+                            <img [src]="'data:' + amortizacion.fotoComprobanteContentType + ';base64,' + amortizacion.fotoComprobante" style="max-width: 100%;" alt="amortizacion image"/>
+                        </a>
+                        {{amortizacion.fotoComprobanteContentType}}, {{byteSize(amortizacion.fotoComprobante)}}
+                    </div>
+                </dd>
                 <dt><span>Tipo De Documento De Venta</span></dt>
                 <dd>
                     <div *ngIf="amortizacion.tipoDeDocumentoDeVentaId">

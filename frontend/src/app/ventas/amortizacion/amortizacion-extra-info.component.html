@@ -19,38 +19,26 @@
 <div mat-dialog-content>
   <div fxLayout="row wrap">
 
-    <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
-      <mat-form-field>
-        <mat-select placeholder="Tipo de Documento" [(ngModel)]="data.entity.tipoDeDocumentoDeVentaId" name="documentTypeSell">
-          <mat-option *ngFor="let documentTypeSellOption of documentTypeSells;" [value]="documentTypeSellOption.id">
-            {{documentTypeSellOption.nombre}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+      <span class="header-label">El Cliente <b>{{data.client.nombre}}</b></span><br>
+      <span class="header-label">Con Número de Ruc <b>{{data.client.codigo}}</b></span><br>
+      <span class="header-label">Direccionado en <b>{{data.client.direccion}}</b></span><br>
+      <span class="header-label">Con Nº de Venta <b>{{data.entity.codigo}}</b></span><br>
     </div>
 
-    <!-- column -->
-    <div fxFlex.gt-sm="60" fxFlex="100" class="p-10">
-      <mat-form-field>
-        <input matInput placeholder="Cliente / Razón Social" name="Cliente / Razón Social" type="text" maxlength="150" [(ngModel)]="data.client.nombre" disabled>
-      </mat-form-field>
-    </div>
-
-    <div fxFlex.gt-sm="40" fxFlex="100" class="p-10">
-      <mat-form-field>
-        <input matInput placeholder="Dni o Ruc" name="Dni o Ruc" type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" [(ngModel)]="amortization.codigoDocumento">
-      </mat-form-field>
-    </div>
-
-    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
-      <mat-form-field>
-        <input matInput placeholder="Dirección" name="Dirección" type="text" maxlength="150" [(ngModel)]="data.client.direccion" disabled>
-      </mat-form-field>
-    </div>
+    <!--<div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">-->
+      <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Tipo de Documento" [(ngModel)]="data.entity.tipoDeDocumentoDeVentaId" name="documentTypeSell">-->
+          <!--<mat-option *ngFor="let documentTypeSellOption of documentTypeSells;" [value]="documentTypeSellOption.id">-->
+            <!--{{documentTypeSellOption.nombre}}-->
+          <!--</mat-option>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
 
     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
       <mat-form-field>
-        <mat-select placeholder="Medio de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType">
+        <mat-select placeholder="Tipo de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType">
           <mat-option *ngFor="let paymentTypeOption of paymentTypes;" [value]="paymentTypeOption.id">
             {{paymentTypeOption.nombre}}
           </mat-option>
@@ -60,12 +48,41 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado">
+        <input matInput placeholder="Monto de pago" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado">
         <span matPrefix>S/&nbsp;</span>
       </mat-form-field>
     </div>
 
-    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="amortization.fecha" placeholder="Fecha">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+      <mat-form-field>
+        <input matInput placeholder="Nº de comprobante de pago" name="comprobantNumber" type="text" maxlength="20" [(ngModel)]="amortization.comprobante">
+        <span matPrefix>S/&nbsp;</span>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+      <div>
+        <img [src]="'data:' + amortization.fotoComprobanteContentType + ';base64,' + amortization.fotoComprobante" style="max-height: 100px;" *ngIf="amortization.fotoComprobante" alt="amortization image"/>
+        <button *ngIf="amortization.fotoComprobante" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearInputImage('fotoComprobante', 'fotoComprobanteContentType', 'fileImage')">
+          <mat-icon>close</mat-icon>
+        </button>
+        <input type="file" id="file_imagen" (change)="setFileData($event, amortization, 'fotoComprobante', true)" accept="image/*"/>
+      </div>
+      <input type="hidden" class="form-control" name="fotoComprobante" id="field_imagen"
+             [(ngModel)]="amortization.fotoComprobante" />
+      <input type="hidden" class="form-control" name="fotoComprobanteContentType" id="field_imagenContentType"
+             [(ngModel)]="amortization.fotoComprobanteContentType" />
+    </div>
+
+    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
         <input matInput placeholder="Glosa" name="Glosa" type="text" maxlength="150" [(ngModel)]="data.entity.glosa">
       </mat-form-field>

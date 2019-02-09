@@ -12,6 +12,8 @@ entity Amortizacion {
     fecha LocalDate,
     codigoDocumento String required maxlength(DEFAULT_MAX_LENGTH_STRING),
     glosa String maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),
+    comprobante String maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),
+    fotoComprobante ImageBlob,
 }
 
 entity Venta {
@@ -19,6 +21,7 @@ entity Venta {
 	subTotal Double required,
     impuesto Double required,
     montoTotal Double required,
+    diasCredito Double,
     fecha LocalDate,
     estatus SellStatus,
     glosa String maxlength(DEFAULT_MAX_LENGTH_DESCRIPTION),

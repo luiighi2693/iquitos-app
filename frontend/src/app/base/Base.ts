@@ -33,7 +33,7 @@ export class Base<I,C> {
                public dataUtils: JhiDataUtils,
                public elementRef: ElementRef) {
     this.data = [];
-    this.itemsPerPage = 500;
+    this.itemsPerPage = 50;
     this.page = 0;
     this.predicate = 'id';
     this.reverse = true;

@@ -65,6 +65,9 @@ public class VentaResourceIntTest {
     private static final Double DEFAULT_MONTO_TOTAL = 1D;
     private static final Double UPDATED_MONTO_TOTAL = 2D;
 
+    private static final Double DEFAULT_DIAS_CREDITO = 1D;
+    private static final Double UPDATED_DIAS_CREDITO = 2D;
+
     private static final LocalDate DEFAULT_FECHA = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA = LocalDate.now(ZoneId.systemDefault());
 
@@ -139,6 +142,7 @@ public class VentaResourceIntTest {
             .subTotal(DEFAULT_SUB_TOTAL)
             .impuesto(DEFAULT_IMPUESTO)
             .montoTotal(DEFAULT_MONTO_TOTAL)
+            .diasCredito(DEFAULT_DIAS_CREDITO)
             .fecha(DEFAULT_FECHA)
             .estatus(DEFAULT_ESTATUS)
             .glosa(DEFAULT_GLOSA)
@@ -171,6 +175,7 @@ public class VentaResourceIntTest {
         assertThat(testVenta.getSubTotal()).isEqualTo(DEFAULT_SUB_TOTAL);
         assertThat(testVenta.getImpuesto()).isEqualTo(DEFAULT_IMPUESTO);
         assertThat(testVenta.getMontoTotal()).isEqualTo(DEFAULT_MONTO_TOTAL);
+        assertThat(testVenta.getDiasCredito()).isEqualTo(DEFAULT_DIAS_CREDITO);
         assertThat(testVenta.getFecha()).isEqualTo(DEFAULT_FECHA);
         assertThat(testVenta.getEstatus()).isEqualTo(DEFAULT_ESTATUS);
         assertThat(testVenta.getGlosa()).isEqualTo(DEFAULT_GLOSA);
@@ -313,6 +318,7 @@ public class VentaResourceIntTest {
             .andExpect(jsonPath("$.[*].subTotal").value(hasItem(DEFAULT_SUB_TOTAL.doubleValue())))
             .andExpect(jsonPath("$.[*].impuesto").value(hasItem(DEFAULT_IMPUESTO.doubleValue())))
             .andExpect(jsonPath("$.[*].montoTotal").value(hasItem(DEFAULT_MONTO_TOTAL.doubleValue())))
+            .andExpect(jsonPath("$.[*].diasCredito").value(hasItem(DEFAULT_DIAS_CREDITO.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
             .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA.toString())))
@@ -367,6 +373,7 @@ public class VentaResourceIntTest {
             .andExpect(jsonPath("$.subTotal").value(DEFAULT_SUB_TOTAL.doubleValue()))
             .andExpect(jsonPath("$.impuesto").value(DEFAULT_IMPUESTO.doubleValue()))
             .andExpect(jsonPath("$.montoTotal").value(DEFAULT_MONTO_TOTAL.doubleValue()))
+            .andExpect(jsonPath("$.diasCredito").value(DEFAULT_DIAS_CREDITO.doubleValue()))
             .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()))
             .andExpect(jsonPath("$.estatus").value(DEFAULT_ESTATUS.toString()))
             .andExpect(jsonPath("$.glosa").value(DEFAULT_GLOSA.toString()))
@@ -398,6 +405,7 @@ public class VentaResourceIntTest {
             .subTotal(UPDATED_SUB_TOTAL)
             .impuesto(UPDATED_IMPUESTO)
             .montoTotal(UPDATED_MONTO_TOTAL)
+            .diasCredito(UPDATED_DIAS_CREDITO)
             .fecha(UPDATED_FECHA)
             .estatus(UPDATED_ESTATUS)
             .glosa(UPDATED_GLOSA)
@@ -417,6 +425,7 @@ public class VentaResourceIntTest {
         assertThat(testVenta.getSubTotal()).isEqualTo(UPDATED_SUB_TOTAL);
         assertThat(testVenta.getImpuesto()).isEqualTo(UPDATED_IMPUESTO);
         assertThat(testVenta.getMontoTotal()).isEqualTo(UPDATED_MONTO_TOTAL);
+        assertThat(testVenta.getDiasCredito()).isEqualTo(UPDATED_DIAS_CREDITO);
         assertThat(testVenta.getFecha()).isEqualTo(UPDATED_FECHA);
         assertThat(testVenta.getEstatus()).isEqualTo(UPDATED_ESTATUS);
         assertThat(testVenta.getGlosa()).isEqualTo(UPDATED_GLOSA);
@@ -485,6 +494,7 @@ public class VentaResourceIntTest {
             .andExpect(jsonPath("$.[*].subTotal").value(hasItem(DEFAULT_SUB_TOTAL.doubleValue())))
             .andExpect(jsonPath("$.[*].impuesto").value(hasItem(DEFAULT_IMPUESTO.doubleValue())))
             .andExpect(jsonPath("$.[*].montoTotal").value(hasItem(DEFAULT_MONTO_TOTAL.doubleValue())))
+            .andExpect(jsonPath("$.[*].diasCredito").value(hasItem(DEFAULT_DIAS_CREDITO.doubleValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
             .andExpect(jsonPath("$.[*].glosa").value(hasItem(DEFAULT_GLOSA)))

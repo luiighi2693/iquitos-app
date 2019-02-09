@@ -70,6 +70,11 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_diasCredito">Dias Credito</label>
+                    <input type="number" class="form-control" name="diasCredito" id="field_diasCredito"
+                        [(ngModel)]="venta.diasCredito" />
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="field_fecha">Fecha</label>
                     <div class="input-group">
                         <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="venta.fecha"

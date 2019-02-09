@@ -28,6 +28,8 @@ public class VentaDTO implements Serializable {
     @NotNull
     private Double montoTotal;
 
+    private Double diasCredito;
+
     private LocalDate fecha;
 
     private SellStatus estatus;
@@ -101,6 +103,14 @@ public class VentaDTO implements Serializable {
 
     public void setMontoTotal(Double montoTotal) {
         this.montoTotal = montoTotal;
+    }
+
+    public Double getDiasCredito() {
+        return diasCredito;
+    }
+
+    public void setDiasCredito(Double diasCredito) {
+        this.diasCredito = diasCredito;
     }
 
     public LocalDate getFecha() {
@@ -260,6 +270,7 @@ public class VentaDTO implements Serializable {
             ", subTotal=" + getSubTotal() +
             ", impuesto=" + getImpuesto() +
             ", montoTotal=" + getMontoTotal() +
+            ", diasCredito=" + getDiasCredito() +
             ", fecha='" + getFecha() + "'" +
             ", estatus='" + getEstatus() + "'" +
             ", glosa='" + getGlosa() + "'" +

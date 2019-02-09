@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Amortizacion(0, 'AAAAAAA', 0, 0, currentDate, 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Amortizacion(0, 'AAAAAAA', 0, 0, currentDate, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'image/png', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -75,7 +75,9 @@ describe('Service Tests', () => {
                         montoPagado: 1,
                         fecha: currentDate.format(DATE_FORMAT),
                         codigoDocumento: 'BBBBBB',
-                        glosa: 'BBBBBB'
+                        glosa: 'BBBBBB',
+                        comprobante: 'BBBBBB',
+                        fotoComprobante: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -102,7 +104,9 @@ describe('Service Tests', () => {
                         montoPagado: 1,
                         fecha: currentDate.format(DATE_FORMAT),
                         codigoDocumento: 'BBBBBB',
-                        glosa: 'BBBBBB'
+                        glosa: 'BBBBBB',
+                        comprobante: 'BBBBBB',
+                        fotoComprobante: 'BBBBBB'
                     },
                     elemDefault
                 );

@@ -34,6 +34,8 @@ export class SellExtraInfoComponent {
     this.amortization.monto = this.data.entity.montoTotal;
     this.amortization.codigoDocumento = this.data.client.codigo;
 
+    this.data.entity.diasCredito = 0;
+
     this.tipoDePagoService.query().subscribe(
       (res: HttpResponse<ITipoDePago[]>) => {
         this.paymentTypes = res.body;
@@ -114,11 +116,13 @@ export class SellExtraInfoComponent {
     return parseFloat(Math.round(cantidad * 100) / 100).toFixed(2)
   }
 
-  validateDocumentCodeInvalid(){
-    if (this.amortization.codigoDocumento === undefined) {
-      return true;
+  validatePaymentInvalid(){
+    console.log(this.data.entity.diasCredito);
+    console.log(this.amortization.montoPagado);
+    if (this.isCredit) {
+      return (this.data.entity.diasCredito.toString() === '' || this.data.entity.diasCredito.toString() === '0');
     } else {
-      return this.amortization.codigoDocumento.length === 0;
+      return (this.amortization.montoPagado.toString() === '' || this.amortization.montoPagado.toString() === '0');
     }
   }
 

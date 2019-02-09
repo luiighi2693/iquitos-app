@@ -32,6 +32,8 @@ export class AmortizacionUpdatePage {
     fechaInput = element(by.id('field_fecha'));
     codigoDocumentoInput = element(by.id('field_codigoDocumento'));
     glosaInput = element(by.id('field_glosa'));
+    comprobanteInput = element(by.id('field_comprobante'));
+    fotoComprobanteInput = element(by.id('file_fotoComprobante'));
     tipoDeDocumentoDeVentaSelect = element(by.id('field_tipoDeDocumentoDeVenta'));
     tipoDePagoSelect = element(by.id('field_tipoDePago'));
 
@@ -85,6 +87,22 @@ export class AmortizacionUpdatePage {
 
     async getGlosaInput() {
         return this.glosaInput.getAttribute('value');
+    }
+
+    async setComprobanteInput(comprobante) {
+        await this.comprobanteInput.sendKeys(comprobante);
+    }
+
+    async getComprobanteInput() {
+        return this.comprobanteInput.getAttribute('value');
+    }
+
+    async setFotoComprobanteInput(fotoComprobante) {
+        await this.fotoComprobanteInput.sendKeys(fotoComprobante);
+    }
+
+    async getFotoComprobanteInput() {
+        return this.fotoComprobanteInput.getAttribute('value');
     }
 
     async tipoDeDocumentoDeVentaSelectLastOption() {

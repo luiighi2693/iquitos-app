@@ -3,6 +3,7 @@ import { browser, ExpectedConditions as ec, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { AmortizacionComponentsPage, AmortizacionDeleteDialog, AmortizacionUpdatePage } from './amortizacion.page-object';
+import * as path from 'path';
 
 const expect = chai.expect;
 
@@ -12,6 +13,9 @@ describe('Amortizacion e2e test', () => {
     let amortizacionUpdatePage: AmortizacionUpdatePage;
     let amortizacionComponentsPage: AmortizacionComponentsPage;
     let amortizacionDeleteDialog: AmortizacionDeleteDialog;
+    const fileNameToUpload = 'logo-jhipster.png';
+    const fileToUpload = '../../../../../main/webapp/content/images/' + fileNameToUpload;
+    const absolutePath = path.resolve(__dirname, fileToUpload);
 
     before(async () => {
         await browser.get('/');
@@ -45,6 +49,8 @@ describe('Amortizacion e2e test', () => {
             amortizacionUpdatePage.setFechaInput('2000-12-31'),
             amortizacionUpdatePage.setCodigoDocumentoInput('codigoDocumento'),
             amortizacionUpdatePage.setGlosaInput('glosa'),
+            amortizacionUpdatePage.setComprobanteInput('comprobante'),
+            amortizacionUpdatePage.setFotoComprobanteInput(absolutePath),
             amortizacionUpdatePage.tipoDeDocumentoDeVentaSelectLastOption(),
             amortizacionUpdatePage.tipoDePagoSelectLastOption()
         ]);
@@ -54,6 +60,8 @@ describe('Amortizacion e2e test', () => {
         expect(await amortizacionUpdatePage.getFechaInput()).to.eq('2000-12-31');
         expect(await amortizacionUpdatePage.getCodigoDocumentoInput()).to.eq('codigoDocumento');
         expect(await amortizacionUpdatePage.getGlosaInput()).to.eq('glosa');
+        expect(await amortizacionUpdatePage.getComprobanteInput()).to.eq('comprobante');
+        expect(await amortizacionUpdatePage.getFotoComprobanteInput()).to.endsWith(fileNameToUpload);
         await amortizacionUpdatePage.save();
         expect(await amortizacionUpdatePage.getSaveButton().isPresent()).to.be.false;
 

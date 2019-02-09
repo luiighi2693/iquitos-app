@@ -458,7 +458,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       data: {
         entity: this.entity,
         client: this.client
-      }
+      },
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -468,12 +469,14 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
           if (this.entity.id) {
             this.service.delete(this.entity.id).subscribe(
               (res: HttpResponse<Producto>) => {
-                this.router.navigate(['/ventas/sell/list']);
+                this.router.navigate(['/ventas/sell']);
               },
               (res: HttpErrorResponse) => this.onError(res.message)
             );
           } else {
             this.entity.productoDetalles = [];
+            this.entity.subTotal = 0;
+            this.entity.montoTotal = 0;
             this.refreshProductDetails();
             this.removeCliente();
           }

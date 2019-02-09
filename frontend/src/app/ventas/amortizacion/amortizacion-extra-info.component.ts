@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {Component, ElementRef, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {TipoDePagoService} from "../../configuration/paymenttype/tipo-de-pago.service";
@@ -8,6 +8,9 @@ import {TipoDeDocumentoDeVentaService} from "../../configuration/documenttypesel
 import Util from "../../shared/util/util";
 import {Amortizacion} from "../../models/amortizacion.model";
 import {Venta} from "../../models/venta.model";
+
+import * as moment from 'moment';
+import {JhiDataUtils} from "ng-jhipster";
 
 @Component({
   selector: 'app-amortizacion-extra-info',
@@ -19,18 +22,24 @@ export class AmortizacionExtraInfoComponent {
   public paymentTypes: TipoDePago[] = [];
   public documentTypeSells: TipoDeDocumentoDeVenta[] = [];
   amortization: Amortizacion = new Amortizacion();
+
   public montoTotal: number;
 
   constructor(
+    private dataUtils: JhiDataUtils,
     public dialogRef: MatDialogRef<AmortizacionExtraInfoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public tipoDePagoService: TipoDePagoService,
-    public tipoDeDocumentoDeVenta: TipoDeDocumentoDeVentaService
+    public tipoDeDocumentoDeVenta: TipoDeDocumentoDeVentaService,
+    private elementRef: ElementRef
   ) {
     console.log(this.data);
     this.amortization.montoPagado = this.data.entity.montoTotal - this.getMontoAmortizadoPopUp(this.data.entity);
     this.montoTotal = this.amortization.montoPagado;
     this.amortization.monto = this.data.entity.montoTotal;
+    this.amortization.codigoDocumento = this.data.client.codigo;
+    this.amortization.fecha = moment();
+    console.log(this.amortization.fecha);
 
     this.tipoDePagoService.query().subscribe(
       (res: HttpResponse<ITipoDePago[]>) => {
@@ -45,9 +54,9 @@ export class AmortizacionExtraInfoComponent {
     this.tipoDeDocumentoDeVenta.query().subscribe(
       (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => {
         this.documentTypeSells = res.body;
-        if (this.documentTypeSells.length > 0){
-          this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells[0].id;
-        }
+        // if (this.documentTypeSells.length > 0){
+        //   this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells[0].id;
+        // }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -132,4 +141,21 @@ export class AmortizacionExtraInfoComponent {
       this.amortization.codigo = 'M001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
     }
   }
+
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+
+  setFileData(event, entity, field, isImage) {
+    this.dataUtils.setFileData(event, entity, field, isImage);
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string) {
+    this.dataUtils.clearInputImage(this.amortization, this.elementRef, field, fieldContentType, idInput);
+  }
+
 }

@@ -8,6 +8,9 @@ export interface IAmortizacion {
   fecha?: Moment;
   codigoDocumento?: string;
   glosa?: string;
+  comprobante?: string;
+  fotoComprobanteContentType?: string;
+  fotoComprobante?: any;
   tipoDeDocumentoDeVentaNombre?: string;
   tipoDeDocumentoDeVentaId?: number;
   tipoDePagoNombre?: string;
@@ -23,6 +26,9 @@ export class Amortizacion implements IAmortizacion {
     public fecha?: Moment,
     public codigoDocumento?: string,
     public glosa?: string,
+    public comprobante?: string,
+    public fotoComprobanteContentType?: string,
+    public fotoComprobante?: any,
     public tipoDeDocumentoDeVentaNombre?: string,
     public tipoDeDocumentoDeVentaId?: number,
     public tipoDePagoNombre?: string,

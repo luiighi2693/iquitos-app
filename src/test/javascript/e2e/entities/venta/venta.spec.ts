@@ -43,6 +43,7 @@ describe('Venta e2e test', () => {
             ventaUpdatePage.setSubTotalInput('5'),
             ventaUpdatePage.setImpuestoInput('5'),
             ventaUpdatePage.setMontoTotalInput('5'),
+            ventaUpdatePage.setDiasCreditoInput('5'),
             ventaUpdatePage.setFechaInput('2000-12-31'),
             ventaUpdatePage.estatusSelectLastOption(),
             ventaUpdatePage.setGlosaInput('glosa'),
@@ -60,6 +61,7 @@ describe('Venta e2e test', () => {
         expect(await ventaUpdatePage.getSubTotalInput()).to.eq('5');
         expect(await ventaUpdatePage.getImpuestoInput()).to.eq('5');
         expect(await ventaUpdatePage.getMontoTotalInput()).to.eq('5');
+        expect(await ventaUpdatePage.getDiasCreditoInput()).to.eq('5');
         expect(await ventaUpdatePage.getFechaInput()).to.eq('2000-12-31');
         expect(await ventaUpdatePage.getGlosaInput()).to.eq('glosa');
         expect(await ventaUpdatePage.getMetaDataInput()).to.eq('metaData');

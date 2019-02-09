@@ -32,6 +32,10 @@
             ]
         },
         {
+            "fieldName": "diasCredito",
+            "fieldType": "Double"
+        },
+        {
             "fieldName": "fecha",
             "fieldType": "LocalDate"
         },
