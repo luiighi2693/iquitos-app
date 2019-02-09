@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {TipoDePagoService} from "../../configuration/paymenttype/tipo-de-pago.service";
@@ -50,9 +50,24 @@ export class SellExtraInfoComponent {
       (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => {
         this.documentTypeSells = res.body;
         if (this.documentTypeSells.length > 0){
-          this.data.entity.tipoDeDocumentoDeVentaId = this.data.client.tipoDeCliente === ClientType.JURIDICO ?
-            this.documentTypeSells.find(x => x.nombre === 'Factura Electronica').id :
-            this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id
+          switch (this.data.client.tipoDeCliente) {
+            case ClientType.JURIDICO: {
+              this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells.find(x => x.nombre === 'Factura Electronica').id;
+              this.documentTypeSells = this.documentTypeSells.slice(this.documentTypeSells.map(x => x.id).indexOf(this.data.entity.tipoDeDocumentoDeVentaId), 1);
+              break;
+            }
+
+            case ClientType.NATURAL: {
+              this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id;
+              this.documentTypeSells = this.documentTypeSells.slice(this.documentTypeSells.map(x => x.id).indexOf(this.data.entity.tipoDeDocumentoDeVentaId), 1);
+              // if (this.data.client.tipoDeDocumentoNombre !== undefined) {
+              //   if (this.data.client.tipoDeDocumentoNombre === 'Dni') {
+              //     this.documentTypeSells = this.documentTypeSells.slice(this.documentTypeSells.map(x => x.id).indexOf(this.data.entity.tipoDeDocumentoDeVentaId), 1);
+              //   }
+              // }
+              break;
+            }
+          }
         }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -117,8 +132,6 @@ export class SellExtraInfoComponent {
   }
 
   validatePaymentInvalid(){
-    console.log(this.data.entity.diasCredito);
-    console.log(this.amortization.montoPagado);
     if (this.isCredit) {
       return (this.data.entity.diasCredito.toString() === '' || this.data.entity.diasCredito.toString() === '0');
     } else {

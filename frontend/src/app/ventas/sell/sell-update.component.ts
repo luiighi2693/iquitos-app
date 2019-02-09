@@ -352,59 +352,72 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   openDialogVariantSelection(entity): void {
-    const dialogRef = this.dialog.open(SellVariantselectionComponent, {
-      width: '50%',
-      data: { entity: entity }
-    });
+    if (entity.variantes.length === 0) {
+      const result = {
+        isVariant:
+          false, variant: null
+      };
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        console.log(result);
+      this.processVariantSelection(entity, result);
+    } else {
+      const dialogRef = this.dialog.open(SellVariantselectionComponent, {
+        width: '50%',
+        data: { entity: entity }
+      });
 
-        let productoLabelExtra = null;
+      dialogRef.afterClosed().subscribe(result => {
+        this.processVariantSelection(entity, result)
+      });
+    }
+  }
 
-        if (result.isVariant) {
-          productoLabelExtra = result.variant.nombre;
-        } else {
-          productoLabelExtra = entity.unidadDeMedida;
-        }
+  processVariantSelection(entity, result){
+    if (result !== undefined) {
+      console.log(result);
 
-        const productoDetalle = <ProductoDetalle>{
-          cantidad: 1,
-          precioVenta: result.isVariant ? result.variant.precioCompra : entity.precioVenta,
-          productos: [entity],
-          productoLabel: entity.nombre + '('+productoLabelExtra+')',
-          variantes: result.isVariant ? [result.variant] : []
-        };
+      let productoLabelExtra = null;
 
-        const index = this.entity.productoDetalles.map(x => x.productoLabel).indexOf(productoDetalle.productoLabel);
+      if (result.isVariant) {
+        productoLabelExtra = result.variant.nombre;
+      } else {
+        productoLabelExtra = entity.unidadDeMedida;
+      }
+
+      const productoDetalle = <ProductoDetalle>{
+        cantidad: 1,
+        precioVenta: result.isVariant ? result.variant.precioCompra : entity.precioVenta,
+        productos: [entity],
+        productoLabel: entity.nombre + '('+productoLabelExtra+')',
+        variantes: result.isVariant ? [result.variant] : []
+      };
+
+      const index = this.entity.productoDetalles.map(x => x.productoLabel).indexOf(productoDetalle.productoLabel);
+
+      if (index !== -1) {
+        this.entity.productoDetalles[index].cantidad += 1;
+        this.entity.productoDetalles[index].precioVenta += productoDetalle.precioVenta;
+      } else {
+        this.entity.productoDetalles.push(productoDetalle);
+      }
+
+      if (this.getStockConsumFromProduct(productoDetalle.productos[0]) >
+        this.entity.productoDetalles.find(x => x.productos[0] === productoDetalle.productos[0]).productos[0].stock) {
 
         if (index !== -1) {
-          this.entity.productoDetalles[index].cantidad += 1;
-          this.entity.productoDetalles[index].precioVenta += productoDetalle.precioVenta;
+          this.entity.productoDetalles[index].cantidad -= 1;
+          this.entity.productoDetalles[index].precioVenta -= productoDetalle.precioVenta;
         } else {
-          this.entity.productoDetalles.push(productoDetalle);
+          this.entity.productoDetalles.splice(this.entity.productoDetalles.length-1, 1);
         }
 
-        if (this.getStockConsumFromProduct(productoDetalle.productos[0]) >
-          this.entity.productoDetalles.find(x => x.productos[0] === productoDetalle.productos[0]).productos[0].stock) {
+        this.openDialogErrorStock(productoDetalle.productoLabel);
+      } else {
+        console.log(this.entity.productoDetalles);
 
-          if (index !== -1) {
-            this.entity.productoDetalles[index].cantidad -= 1;
-            this.entity.productoDetalles[index].precioVenta -= productoDetalle.precioVenta;
-          } else {
-            this.entity.productoDetalles.splice(this.entity.productoDetalles.length-1, 1);
-          }
-
-          this.openDialogErrorStock(productoDetalle.productoLabel);
-        } else {
-          console.log(this.entity.productoDetalles);
-
-          this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
-          this.setAmmount();
-        }
+        this.dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(this.entity.productoDetalles);
+        this.setAmmount();
       }
-    });
+    }
   }
 
   openDialogErrorStock(productLabel): void {
