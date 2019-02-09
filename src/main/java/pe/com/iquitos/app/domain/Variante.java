@@ -46,7 +46,7 @@ public class Variante implements Serializable {
 
     @NotNull
     @Column(name = "cantidad", nullable = false)
-    private Integer cantidad;
+    private Double cantidad;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -116,16 +116,16 @@ public class Variante implements Serializable {
         this.precioCompra = precioCompra;
     }
 
-    public Integer getCantidad() {
+    public Double getCantidad() {
         return cantidad;
     }
 
-    public Variante cantidad(Integer cantidad) {
+    public Variante cantidad(Double cantidad) {
         this.cantidad = cantidad;
         return this;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
     }
 

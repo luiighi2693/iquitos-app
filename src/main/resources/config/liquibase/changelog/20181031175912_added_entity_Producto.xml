@@ -41,7 +41,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="stock" type="integer">
+            <column name="stock" type="double">
                 <constraints nullable="false" />
             </column>
 

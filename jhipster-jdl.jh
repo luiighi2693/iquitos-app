@@ -78,7 +78,7 @@ entity Producto {
     //esFavorito Boolean,
     //visibleParaLaVenta Boolean,
     imagen ImageBlob,
-    stock Integer required,
+    stock Double required,
     notificacionDeLimiteDeStock Integer,
     //tipoDeProducto ProductType,
     unidadDeMedida UnidadDeMedida,
@@ -91,7 +91,7 @@ entity Variante {
 	descripcion String maxlength(DEFAULT_MAX_LENGTH_STRING),
     precioVenta Double required,
     precioCompra Double required,
-    cantidad Integer required,
+    cantidad Double required,
 }
 
 entity Categoria {

@@ -53,7 +53,7 @@ public class Producto implements Serializable {
 
     @NotNull
     @Column(name = "stock", nullable = false)
-    private Integer stock;
+    private Double stock;
 
     @Column(name = "notificacion_de_limite_de_stock")
     private Integer notificacionDeLimiteDeStock;
@@ -155,16 +155,16 @@ public class Producto implements Serializable {
         this.imagenContentType = imagenContentType;
     }
 
-    public Integer getStock() {
+    public Double getStock() {
         return stock;
     }
 
-    public Producto stock(Integer stock) {
+    public Producto stock(Double stock) {
         this.stock = stock;
         return this;
     }
 
-    public void setStock(Integer stock) {
+    public void setStock(Double stock) {
         this.stock = stock;
     }
 
