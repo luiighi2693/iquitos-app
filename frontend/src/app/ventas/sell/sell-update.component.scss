@@ -38,7 +38,7 @@ input.mat-input-element{
 .mat-card-image{
   border-radius: initial;
   margin-bottom: -12px;
-  margin-top: -6px;
+  margin-top: -20px;
   cursor: pointer;
 }
 
@@ -63,6 +63,20 @@ cursor: pointer;
 
 .mat-card{
   width: 90%;
+}
+
+.oh:hover,
+.oh:focus{
+
+  .mat-card-image{
+    height: 95px;
+  }
+}
+
+.mat-row.mat-row.ng-star-inserted:hover,
+.mat-row.mat-row.ng-star-inserted:focus{
+  background-color: #eaeaea;
+  
 }
 
 .mat-card-content > :first-child, .mat-card > :first-child{

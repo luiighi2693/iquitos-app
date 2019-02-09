@@ -2,7 +2,7 @@
 
 <div fxLayout="row wrap">
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
-    <div style="display: flex;">
+    <div style="display: flex; background-color: #ebecec">
       <div fxFlex.gt-xs="50" fxFlex="25" class="p-10">
         <span>Información de la venta</span>
       </div>
@@ -90,14 +90,14 @@
   </div>
 
   <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="text-align: center;">Total : S/ {{montoTotal}}</h1>
+    <h1 mat-dialog-title style="width: 100%; text-align: center;">Total : S/ {{montoTotal}}</h1>
   </div>
 
   <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="text-align: center;">Vuelto : {{parseFloatCustom(amortization.montoPagado - montoTotal)}} soles</h1>
+    <h1 mat-dialog-title style="width: 100%; text-align: center; color:#30ad80">Vuelto : {{parseFloatCustom(amortization.montoPagado - montoTotal)}} soles</h1>
   </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button tabindex="2" (click)="closeAndCheckSell('pay')" [disabled]="validateDocumentCodeInvalid()">Pagar</button>
-  <button mat-button tabindex="-1" (click)="closeAndCheckSell('exit')">Salir</button>
+<div style="width: 100%;" mat-dialog-actions>
+  <button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" mat-button tabindex="2" (click)="closeAndCheckSell('pay')" [disabled]="validateDocumentCodeInvalid()">Pagar</button>
+  <button style="width: 25%;" mat-button tabindex="-1" (click)="closeAndCheckSell('exit')">Salir</button>
 </div>
