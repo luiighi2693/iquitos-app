@@ -142,14 +142,18 @@ export class SellExtraInfoComponent {
   public updateEntityCustom() {
     let flag = true;
 
-    if (this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
-      this.amortization.codigo = 'B001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
-      flag = false;
+    if (this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica')){
+      if (this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
+        this.amortization.codigo = 'B001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
+        flag = false;
+      }
     }
 
-    if (this.documentTypeSells.find(x => x.nombre === 'Factura Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
-      this.amortization.codigo = 'F001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
-      flag = false;
+    if (this.documentTypeSells.find(x => x.nombre === 'Factura Electronica')){
+      if (this.documentTypeSells.find(x => x.nombre === 'Factura Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
+        this.amortization.codigo = 'F001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
+        flag = false;
+      }
     }
 
     if (flag) {
