@@ -39,7 +39,7 @@
 
             <ng-container matColumnDef="codigo">
               <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
-              <mat-cell *matCellDef="let element">
+              <mat-cell style="color:#23527c" *matCellDef="let element">
                 <span class="header-label">Código:</span>
                 {{element.codigo}}
               </mat-cell>
@@ -73,7 +73,7 @@
               <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Estado:</span>
-                <span [ngStyle]="{'color': element.estatus === 'PENDIENTE' ? 'yellow' : 'green'}">{{element.estatus}}</span>
+                <mat-chip [ngStyle]="{'background-color': element.estatus === 'PENDIENTE' ? '#f8ac59' : '#1ab394'}">{{element.estatus}}</mat-chip>
               </mat-cell>
             </ng-container>
 
