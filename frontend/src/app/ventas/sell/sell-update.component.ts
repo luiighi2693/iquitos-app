@@ -454,7 +454,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   addExtraInfoSell() {
     //save the sell first ?
     const dialogRef = this.dialog.open(SellExtraInfoComponent, {
-      width: '50%',
+      width: '80%',
       data: {
         entity: this.entity,
         client: this.client
