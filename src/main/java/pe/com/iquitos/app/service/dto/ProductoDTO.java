@@ -31,7 +31,7 @@ public class ProductoDTO implements Serializable {
     private String imagenContentType;
 
     @NotNull
-    private Integer stock;
+    private Double stock;
 
     private Integer notificacionDeLimiteDeStock;
 
@@ -97,11 +97,11 @@ public class ProductoDTO implements Serializable {
         this.imagenContentType = imagenContentType;
     }
 
-    public Integer getStock() {
+    public Double getStock() {
         return stock;
     }
 
-    public void setStock(Integer stock) {
+    public void setStock(Double stock) {
         this.stock = stock;
     }
 

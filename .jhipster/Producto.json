@@ -34,7 +34,7 @@
         },
         {
             "fieldName": "stock",
-            "fieldType": "Integer",
+            "fieldType": "Double",
             "fieldValidateRules": [
                 "required"
             ]

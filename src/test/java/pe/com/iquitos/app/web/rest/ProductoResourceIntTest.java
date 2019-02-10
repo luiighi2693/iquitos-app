@@ -66,8 +66,8 @@ public class ProductoResourceIntTest {
     private static final String DEFAULT_IMAGEN_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGEN_CONTENT_TYPE = "image/png";
 
-    private static final Integer DEFAULT_STOCK = 1;
-    private static final Integer UPDATED_STOCK = 2;
+    private static final Double DEFAULT_STOCK = 1D;
+    private static final Double UPDATED_STOCK = 2D;
 
     private static final Integer DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK = 1;
     private static final Integer UPDATED_NOTIFICACION_DE_LIMITE_DE_STOCK = 2;
@@ -322,7 +322,7 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
-            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
+            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK.doubleValue())))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
             .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())))
             .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))
@@ -378,7 +378,7 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()))
             .andExpect(jsonPath("$.imagenContentType").value(DEFAULT_IMAGEN_CONTENT_TYPE))
             .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
-            .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK))
+            .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK.doubleValue()))
             .andExpect(jsonPath("$.notificacionDeLimiteDeStock").value(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK))
             .andExpect(jsonPath("$.unidadDeMedida").value(DEFAULT_UNIDAD_DE_MEDIDA.toString()))
             .andExpect(jsonPath("$.precioVenta").value(DEFAULT_PRECIO_VENTA.doubleValue()))
@@ -502,7 +502,7 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
-            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK)))
+            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK.doubleValue())))
             .andExpect(jsonPath("$.[*].notificacionDeLimiteDeStock").value(hasItem(DEFAULT_NOTIFICACION_DE_LIMITE_DE_STOCK)))
             .andExpect(jsonPath("$.[*].unidadDeMedida").value(hasItem(DEFAULT_UNIDAD_DE_MEDIDA.toString())))
             .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))

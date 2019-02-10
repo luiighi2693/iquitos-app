@@ -31,7 +31,8 @@ export class AmortizacionComponent extends BaseAmortizacion implements OnInit, O
     super(
       service,
       fullService,
-      ['select', 'codigo', 'fecha', 'clienteNombre', 'total', 'amortizado', 'restante', 'documento', 'glosa'],
+      ['select', 'codigo', 'fecha', 'clienteNombre', 'total', 'amortizado', 'restante'],
+      // ['select', 'codigo', 'fecha', 'clienteNombre', 'total', 'amortizado', 'restante', 'documento', 'glosa'],
       dialog, null, null, require('../menu.json'), 'COBROS');
 
     this.selection = new SelectionModel<Venta>(false, []);

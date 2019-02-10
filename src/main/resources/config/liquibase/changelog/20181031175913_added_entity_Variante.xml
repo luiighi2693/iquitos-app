@@ -38,7 +38,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="cantidad" type="integer">
+            <column name="cantidad" type="double">
                 <constraints nullable="false" />
             </column>
 

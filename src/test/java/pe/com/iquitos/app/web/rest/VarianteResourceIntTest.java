@@ -62,8 +62,8 @@ public class VarianteResourceIntTest {
     private static final Double DEFAULT_PRECIO_COMPRA = 1D;
     private static final Double UPDATED_PRECIO_COMPRA = 2D;
 
-    private static final Integer DEFAULT_CANTIDAD = 1;
-    private static final Integer UPDATED_CANTIDAD = 2;
+    private static final Double DEFAULT_CANTIDAD = 1D;
+    private static final Double UPDATED_CANTIDAD = 2D;
 
     @Autowired
     private VarianteRepository varianteRepository;
@@ -276,7 +276,7 @@ public class VarianteResourceIntTest {
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
             .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))
             .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())))
-            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)));
+            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD.doubleValue())));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -327,7 +327,7 @@ public class VarianteResourceIntTest {
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()))
             .andExpect(jsonPath("$.precioVenta").value(DEFAULT_PRECIO_VENTA.doubleValue()))
             .andExpect(jsonPath("$.precioCompra").value(DEFAULT_PRECIO_COMPRA.doubleValue()))
-            .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD));
+            .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD.doubleValue()));
     }
 
     @Test
@@ -436,7 +436,7 @@ public class VarianteResourceIntTest {
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].precioVenta").value(hasItem(DEFAULT_PRECIO_VENTA.doubleValue())))
             .andExpect(jsonPath("$.[*].precioCompra").value(hasItem(DEFAULT_PRECIO_COMPRA.doubleValue())))
-            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD)));
+            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD.doubleValue())));
     }
 
     @Test

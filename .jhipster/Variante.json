@@ -34,7 +34,7 @@
         },
         {
             "fieldName": "cantidad",
-            "fieldType": "Integer",
+            "fieldType": "Double",
             "fieldValidateRules": [
                 "required"
             ]

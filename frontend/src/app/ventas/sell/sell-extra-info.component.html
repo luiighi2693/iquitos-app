@@ -31,13 +31,13 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10"></div>
     <!-- column -->
-    <div fxFlex.gt-sm="30" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="35" fxFlex="100" class="p-10">
       <mat-form-field>
         <input matInput placeholder="Cliente / Razón Social" name="Cliente / Razón Social" type="text" maxlength="150" [(ngModel)]="data.client.nombre" disabled>
       </mat-form-field>
     </div>
 
-    <div fxFlex.gt-sm="30" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
       <mat-form-field>
         <input matInput placeholder="Dni o Ruc" name="Dni o Ruc" type="text" maxlength="11" [(ngModel)]="amortization.codigoDocumento" disabled>
       </mat-form-field>
@@ -59,7 +59,7 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
       <mat-form-field>
         <!--<input matInput #inputAmount placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" [disabled]="isCredit">-->
         <input matInput placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" [disabled]="isCredit">
@@ -67,13 +67,13 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex="50" class="p-10" *ngIf="isCredit">
+    <div fxFlex="25" class="p-10" *ngIf="isCredit">
       <mat-form-field>
         <input matInput placeholder="Dias de credito" name="creditPaymentDay" type="text" maxlength="10" (keypress)="checkNumbersOnly($event)" [(ngModel)]="data.entity.diasCredito">
       </mat-form-field>
     </div>
 
-    <div fxFlex.gt-sm="100" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
       <mat-form-field>
         <input matInput placeholder="Glosa" name="Glosa" type="text" maxlength="150" [(ngModel)]="data.entity.glosa">
       </mat-form-field>
@@ -81,11 +81,11 @@
   </div>
 
   <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="width: 100%; text-align: center;">Total : S/ {{amortization.montoPagado}}</h1>
+    <h1 mat-dialog-title style="width: 100%; text-align: center;">Total : S/ {{data.entity.montoTotal}}</h1>
   </div>
 
   <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="width: 100%; text-align: center; color:#30ad80">Vuelto : {{parseFloatCustom(amortization.montoPagado - data.entity.montoTotal)}} soles</h1>
+    <h1 mat-dialog-title style="width: 100%; text-align: center; color:#30ad80">Vuelto : {{parseFloatCustom(amortization.montoPagado - data.entity.montoTotal) < 0 ? 0 : parseFloatCustom(amortization.montoPagado - data.entity.montoTotal)}} soles</h1>
   </div>
 </div>
 <div style="width: 100%;" mat-dialog-actions>

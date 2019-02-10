@@ -151,11 +151,88 @@ export class AmortizacionExtraInfoComponent {
   }
 
   setFileData(event, entity, field, isImage) {
-    this.dataUtils.setFileData(event, entity, field, isImage);
+    this.compress(event, entity);
+    // this.dataUtils.setFileData(event, entity, field, isImage);
   }
 
   clearInputImage(field: string, fieldContentType: string, idInput: string) {
     this.dataUtils.clearInputImage(this.amortization, this.elementRef, field, fieldContentType, idInput);
+  }
+
+  compress(e, entity: Amortizacion) {
+    let width = 0;
+    let height = 0;
+    const fileName = e.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = event => {
+      const img = new Image();
+      // @ts-ignore
+      img.src = event.target.result;
+      img.onload = (image) => {
+        const elem = document.createElement('canvas');
+
+        // @ts-ignore
+        if (image.path[0].width > image.path[0].height) {
+          // @ts-ignore
+          if (image.path[0].width > 1000) {
+            // @ts-ignore
+            const aux = image.path[0].width - 1000;
+            // @ts-ignore
+            width = image.path[0].width - aux;
+            // @ts-ignore
+            height = (width / image.path[0].width) * image.path[0].height;
+          } else {
+            // @ts-ignore
+            width = image.path[0].width;
+            // @ts-ignore
+            height = image.path[0].height;
+          }
+        } else {
+          // @ts-ignore
+          if (image.path[0].height > 1000) {
+            // @ts-ignore
+            const aux = image.path[0].height - 1000;
+            // @ts-ignore
+            height = image.path[0].height - aux;
+            // @ts-ignore
+            width = (height / image.path[0].height) * image.path[0].width;
+          } else {
+            // @ts-ignore
+            width = image.path[0].width;
+            // @ts-ignore
+            height = image.path[0].height;
+          }
+        }
+
+        elem.width = width;
+        elem.height = height;
+
+        const ctx = elem.getContext('2d');
+        // img.width and img.height will give the original dimensions
+        ctx.drawImage(img, 0, 0, width, height);
+        ctx.canvas.toBlob((blob) => {
+          const file = new File([blob], fileName, {
+            type: 'image/jpeg',
+            lastModified: Date.now()
+          });
+
+          var fileReader= new FileReader();
+
+          fileReader.onload = (e) => {
+            // @ts-ignore
+            // console.log(e.target.result.toString().split(';base64,')[1]);
+            entity.fotoComprobanteContentType = 'image/jpeg';
+            // @ts-ignore
+            entity.fotoComprobante = e.target.result.toString().split(';base64,')[1];
+          };
+
+          fileReader.readAsDataURL(file);
+
+        }, 'image/jpeg', 1);
+      };
+        reader.onerror = error => console.log(error);
+    };
   }
 
 }
