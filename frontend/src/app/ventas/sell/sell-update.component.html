@@ -17,9 +17,9 @@
   </div>
 </div>
 
-<div fxLayout="row wrap" style="position: absolute; height: 100%;">
+<div fxLayout="row wrap">
   <mat-card fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-sm="50" fxFlex="100">
-    <mat-card-content>
+    <mat-card-content style="height: 100%">
 
       <div fxLayout="row wrap">
         <div style="display: flex; width: 100%">
@@ -35,7 +35,7 @@
         <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-xs="25" fxFlex="100" *ngFor="let product of productos ">
           <mat-card class="oh" (click)="openDialogVariantSelection(product)">
               <h6 class="m-0">S/. {{product.precioVenta}}</h6>
-            <img mat-card-image [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/no_product1.png'" alt="Photo of a Shiba Inu">
+            <img mat-card-image [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/no_product.png'" alt="Photo of a Shiba Inu">
               <!--<h6 class="m-0">stock: {{product.stock}}</h6>-->
               <h6 class="m-0">{{product.stock}}</h6>
               <small>{{product.nombre}}</small>
@@ -236,19 +236,19 @@
       </div>-->
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100" appearance="outline">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
           <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100" appearance="outline">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
           <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
           <mat-select placeholder="Tipo de Cliente" [(ngModel)]="client.tipoDeCliente" name="tipoDeCliente">
             <mat-option *ngFor="let tipoCliente of tiposDeCliente" [value]="tipoCliente">
               {{tipoCliente}}
@@ -256,7 +256,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
           <mat-select placeholder="Tipo de Documento" [(ngModel)]="client.tipoDeDocumentoId" name="tipoDeDocumento">
             <mat-option [value]="null"></mat-option>
             <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
@@ -267,25 +267,25 @@
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100" appearance="outline" >
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
           <input matInput [(ngModel)]="client.codigo"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Documento">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
           <input matInput [matDatepicker]="picker" [(ngModel)]="client.fechaDeNacimiento" placeholder="Fecha de Nacimiento" [disabled]="client.tipoDeCliente === 'JURIDICO'">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
+        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
             <input matInput [(ngModel)]="client.telefono"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Teléfono">
         </mat-form-field>
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
+        <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
           <mat-select placeholder="Sexo" [(ngModel)]="client.sexo" name="sex" [disabled]="client.tipoDeCliente === 'JURIDICO'">
             <mat-option *ngFor="let sex of sexos" [value]="sex">
               {{sex}}
@@ -293,7 +293,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" appearance="outline">
+        <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
           <mat-select placeholder="Estado Civil" [(ngModel)]="client.estatusCivil" name="estatusCivil">
             <mat-option *ngFor="let estadoCivil of estatusCiviles" [value]="estadoCivil" [disabled]="client.tipoDeCliente === 'JURIDICO'">
               {{estadoCivil}}
@@ -303,7 +303,7 @@
       </div>
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100" appearance="outline">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
           <input matInput [(ngModel)]="client.correo" placeholder="Email">
         </mat-form-field>
       </div>
