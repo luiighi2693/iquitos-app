@@ -8,9 +8,25 @@
       </div>
 
       <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
-        <div class="button-row">
-          <button mat-raised-button color="warn" (click)="closeAndCheckSell('exit')">Eliminar Venta (x)</button>
+
+        <div fxFlex.gt-xs="92" fxFlex="92" class="p-10 text-right">
+          <div class="button-row">
+            <button mat-raised-button color="warn" (click)="closeAndCheckSell('exit')">Eliminar Venta (x)</button>
+          </div>
+          <!--<mat-icon color= "primary" style="cursor: pointer;">delete</mat-icon>-->
         </div>
+
+        <div fxFlex.gt-xs="8" fxFlex="8" class="p-10">
+          <!--<div class="button-row">-->
+            <!--<button mat-raised-button color="warn" (click)="closeAndCheckSell('exit')">Eliminar Venta (x)</button>-->
+          <!--</div>-->
+          <mat-icon (click)="onNoClick()" style="cursor: pointer; color: black;">clear</mat-icon>
+        </div>
+
+        <!--<div class="button-row">-->
+          <!--<button mat-raised-button color="warn" (click)="closeAndCheckSell('exit')">Eliminar Venta (x)</button>-->
+        <!--</div>-->
+        <!--<mat-icon color= "primary" style="cursor: pointer;">delete</mat-icon>-->
       </div>
     </div>
   </div>

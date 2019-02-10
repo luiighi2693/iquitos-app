@@ -522,8 +522,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
           this.save();
         }
       } else {
-        this.entity.estatus = SellStatus.PENDIENTE;
-        this.save();
+        // this.entity.estatus = SellStatus.PENDIENTE;
+        // this.save();
       }
     });
   }
