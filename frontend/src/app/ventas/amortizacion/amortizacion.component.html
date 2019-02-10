@@ -38,9 +38,9 @@
             </ng-container>
 
             <ng-container matColumnDef="codigo">
-              <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef> Venta </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <span class="header-label">Código:</span>
+                <span class="header-label">Venta:</span>
                 {{element.codigo}}
               </mat-cell>
             </ng-container>
@@ -88,21 +88,21 @@
               </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="documento">
-              <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span class="header-label">Documento:</span>
-                {{getDocumentListFromSell(element)}}
-              </mat-cell>
-            </ng-container>
+            <!--<ng-container matColumnDef="documento">-->
+              <!--<mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>-->
+              <!--<mat-cell *matCellDef="let element">-->
+                <!--<span class="header-label">Documento:</span>-->
+                <!--{{getDocumentListFromSell(element)}}-->
+              <!--</mat-cell>-->
+            <!--</ng-container>-->
 
-            <ng-container matColumnDef="glosa">
-              <mat-header-cell *matHeaderCellDef> Glosa </mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <span class="header-label">Glosa:</span>
-                {{element.amortizacions[element.amortizacions.length - 1].glosa}}
-              </mat-cell>
-            </ng-container>
+            <!--<ng-container matColumnDef="glosa">-->
+              <!--<mat-header-cell *matHeaderCellDef> Glosa </mat-header-cell>-->
+              <!--<mat-cell *matCellDef="let element">-->
+                <!--<span class="header-label">Glosa:</span>-->
+                <!--{{element.amortizacions[element.amortizacions.length - 1].glosa}}-->
+              <!--</mat-cell>-->
+            <!--</ng-container>-->
 
             <!--<ng-container matColumnDef="estado">-->
               <!--<mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>-->
