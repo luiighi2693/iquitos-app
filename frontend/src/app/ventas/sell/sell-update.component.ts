@@ -2,8 +2,8 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {FormBuilder} from '@angular/forms';
-import {IVenta, SellStatus, Venta} from "../../models/venta.model";
+import {FormBuilder, Validators} from '@angular/forms';
+import {IVenta, SellStatus} from "../../models/venta.model";
 import {VentaService} from "./venta.service";
 import {JhiDataUtils} from 'ng-jhipster';
 import {MatDialog, MatTableDataSource} from "@angular/material";
@@ -18,7 +18,6 @@ import {SellVariantselectionComponent} from "./sell-variantselection.component";
 import {ProductoDetalle} from "../../models/producto-detalle.model";
 import {SellLimitStockErrorComponent} from "./sell-limit-stock-error.component";
 import {SellExtraInfoComponent} from "./sell-extra-info.component";
-import {Amortizacion} from "../../models/amortizacion.model";
 import {FullService} from "../../layouts/full/full.service";
 import {EmpleadoService} from "../../contact/employee/empleado.service";
 import {Empleado, IEmpleado} from "../../models/empleado.model";
@@ -27,6 +26,7 @@ import {IParametroSistema} from "../../models/parametro-sistema.model";
 
 import * as moment from 'moment';
 import {AmortizacionService} from "../amortizacion/amortizacion.service";
+import {CustomValidators} from "ng2-validation";
 
 declare var require: any;
 
@@ -70,6 +70,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
   empleados: Empleado[] = [];
 
+  clientRepeated = false;
+
   constructor(public dataUtils: JhiDataUtils,
               public service: VentaService,
               public fullService: FullService,
@@ -97,8 +99,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     this.activatedRoute.data.subscribe(({ entity }) => {
       this.entity = entity;
 
-      this.form = this.fb.group({
-      });
+      //this.form = this.fb.group({
+      //});
 
       if (this.entity.id) {
         console.log(this.entity);
@@ -162,6 +164,39 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+
+    this.form = this.fb.group({
+      fnombre: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      fdireccion: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      fcodigo: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      ftelefono: [
+        null,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      femail: [
+        null,
+        Validators.compose([
+          Validators.required,
+          CustomValidators.email])
+      ],
+    });
   }
 
   save() {
@@ -289,6 +324,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
       case 'clientList': {
         this.stateStep = step;
+        this.client = new Cliente();
         this.searchClient('');
         break;
       }
@@ -297,6 +333,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         this.stateStep = step;
         if (view === 'new') {
           this.client = new Cliente();
+          this.client.tipoDeCliente = ClientType.NATURAL;
         } else {
           this.client = row;
         }
@@ -312,30 +349,33 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   saveClient() {
-    console.log(this.client.toString());
-    this.isSaving = true;
-    if (this.client.id !== undefined) {
-      this.clienteService.update(this.client).subscribe(
-        (res: HttpResponse<Cliente>) => {
-          console.log(res.body);
-          this.client = res.body;
-          this.entity.clienteId = this.client.id;
-          this.entity.clienteNombre = this.client.nombre;
-          this.goStep('sell', null, null);
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
-    } else {
-      this.clienteService.create(this.client).subscribe(
-        (res: HttpResponse<Cliente>) => {
-          console.log(res.body);
-          this.client = res.body;
-          this.entity.clienteId = this.client.id;
-          this.entity.clienteNombre = this.client.nombre;
-          this.goStep('sell', null, null);
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    console.log(this.form.valid);
+    if (!this.clientRepeated){
+      console.log(this.client.toString());
+      this.isSaving = true;
+      if (this.client.id !== undefined) {
+        this.clienteService.update(this.client).subscribe(
+          (res: HttpResponse<Cliente>) => {
+            console.log(res.body);
+            this.client = res.body;
+            this.entity.clienteId = this.client.id;
+            this.entity.clienteNombre = this.client.nombre;
+            this.goStep('sell', null, null);
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+      } else {
+        this.clienteService.create(this.client).subscribe(
+          (res: HttpResponse<Cliente>) => {
+            console.log(res.body);
+            this.client = res.body;
+            this.entity.clienteId = this.client.id;
+            this.entity.clienteNombre = this.client.nombre;
+            this.goStep('sell', null, null);
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+      }
     }
   }
 
@@ -395,7 +435,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
       if (index !== -1) {
         this.entity.productoDetalles[index].cantidad += 1;
-        this.entity.productoDetalles[index].precioVenta += productoDetalle.precioVenta;
+        //this.entity.productoDetalles[index].precioVenta += productoDetalle.precioVenta;
       } else {
         this.entity.productoDetalles.push(productoDetalle);
       }
@@ -530,6 +570,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
   removeCliente(){
     this.client = new Cliente();
+    this.client.tipoDeCliente = ClientType.NATURAL;
   }
 
   refreshSell() {
@@ -538,5 +579,24 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     this.entity.montoTotal = 0;
     this.refreshProductDetails();
     this.removeCliente();
+  }
+
+  validateClient() {
+    console.log(this.client.codigo);
+    this.clientRepeated = false;
+
+    if(this.client.codigo.length > 2 && this.client.id === undefined) {
+      this.clienteService.search({query:this.client.codigo}).subscribe(
+        (res: HttpResponse<ICliente[]>) => {
+          console.log(res.body);
+          res.body.forEach(client => {
+            if (client.codigo === this.client.codigo) {
+              this.clientRepeated = true;
+            }
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    }
   }
 }

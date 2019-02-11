@@ -38,8 +38,9 @@
 
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Dirección" name="direccion" [(ngModel)]="entity.direccion">
+                <input matInput placeholder="Dirección" name="direccion" [(ngModel)]="entity.direccion" [formControl]="form.controls['fdireccion']">
               </mat-form-field>
+              <mat-hint *ngIf="form.controls['fdireccion'].hasError('required') && form.controls['fdireccion'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
             </div>
 
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">

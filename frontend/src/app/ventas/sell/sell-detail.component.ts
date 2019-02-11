@@ -15,7 +15,7 @@ declare var require: any;
 export class SellDetailComponent extends BaseVenta implements OnInit {
 
   displayedColumnsProductosDetalles = ['cantidad', 'producto', 'precioVenta', 'precioTotal'];
-  displayedColumnsAmortizaciones = ['codigo', 'fecha', 'glosa', 'metodo', 'importe', 'imprimir'];
+  displayedColumnsAmortizaciones = ['codigo', 'fecha', 'glosa', 'metodo', 'importe', 'comprobante', 'imprimir'];
   dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(null);
   dataSourceAmortizaciones = new MatTableDataSource<Amortizacion>(null);
 

@@ -155,6 +155,17 @@
                 </mat-cell>
               </ng-container>
 
+              <ng-container matColumnDef="comprobante">
+                <mat-header-cell *matHeaderCellDef> Comprobante </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index" style="    flex-direction: column;">
+                  <span class="header-label">Comprobante:</span>
+                  {{row.comprobante}}
+                  <div style="    width: 90%;">
+                    <img [src]="'data:' + row.fotoComprobanteContentType + ';base64,' + row.fotoComprobante" style="width: 100%;" *ngIf="row.fotoComprobante" alt="amortization image"/>
+                  </div>
+                </mat-cell>
+              </ng-container>
+
               <ng-container matColumnDef="imprimir">
                 <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                 <mat-cell *matCellDef="let row;let i = index">
