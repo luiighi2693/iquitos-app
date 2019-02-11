@@ -94,6 +94,34 @@ cursor: pointer;
   display: inline-flex;
   padding: 0px;
   width: 100%;
+  position: absolute;
+  top: 90%;
+}
+
+.p-11{
+  width: 90%;
+  margin-bottom: 2%;
+  position: absolute;
+}
+
+.p-12{
+  cursor: pointer;
+  flex: 1 1 50%;
+  box-sizing: border-box;
+  max-width: 43%;
+}
+
+.button-row{
+  position: absolute;
+  top: 93%;
+}
+
+.mat-card-content.row.wrap.mat-card-content{
+  padding-bottom: 0;
+  margin-bottom: 0;
+  position: absolute;
+  top: 55%;
+  width: 100%;
 }
 
 .mat-card-content > :last-child:not(.mat-card-footer), .mat-card > :last-child:not(.mat-card-footer){

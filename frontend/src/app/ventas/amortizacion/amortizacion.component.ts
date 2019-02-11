@@ -91,7 +91,7 @@ export class AmortizacionComponent extends BaseAmortizacion implements OnInit, O
 
   addExtraInfoSell() {
     const dialogRef = this.dialog.open(AmortizacionExtraInfoComponent, {
-      width: '50%',
+      width: '80%',
       data: {
         entity: this.entity,
         client: this.clientes.find(x => x.id === this.entity.clienteId)
