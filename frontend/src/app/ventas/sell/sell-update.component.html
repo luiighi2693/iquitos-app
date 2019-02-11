@@ -237,14 +237,16 @@
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)">
+          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [formControl]="form.controls['fnombre']">
         </mat-form-field>
+        <mat-hint *ngIf="form.controls['fnombre'].hasError('required') && form.controls['fnombre'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
       </div>
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)">
+          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [formControl]="form.controls['fdireccion']">
         </mat-form-field>
+        <mat-hint *ngIf="form.controls['fdireccion'].hasError('required') && form.controls['fdireccion'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
       </div>
 
       <div fxLayout="row wrap">
@@ -268,8 +270,11 @@
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.codigo"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Documento">
+          <input matInput [(ngModel)]="client.codigo"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Documento"
+                 [formControl]="form.controls['fcodigo']" (keyup)="validateClient()">
         </mat-form-field>
+        <mat-hint *ngIf="form.controls['fcodigo'].hasError('maxlength') && form.controls['fcodigo'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+        <mat-hint *ngIf="clientRepeated" class="text-danger font-14">DNI ya existente</mat-hint>
       </div>
 
       <div fxLayout="row wrap">
@@ -280,8 +285,9 @@
         </mat-form-field>
 
         <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
-            <input matInput [(ngModel)]="client.telefono"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Teléfono">
+            <input matInput [(ngModel)]="client.telefono"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Teléfono" [formControl]="form.controls['ftelefono']">
         </mat-form-field>
+        <mat-hint *ngIf="form.controls['ftelefono'].hasError('required') && form.controls['ftelefono'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
       </div>
 
       <div fxLayout="row wrap">
@@ -304,8 +310,9 @@
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.correo" placeholder="Email">
+          <input matInput [(ngModel)]="client.correo" placeholder="Email" [formControl]="form.controls['femail']">
         </mat-form-field>
+        <small *ngIf="form.controls['femail'].errors?.email && form.controls['femail'].touched" class="text-danger font-14">Correo inválido</small>
       </div>
 
     </mat-card-content>
@@ -316,7 +323,7 @@
           <button mat-raised-button  (click)="goStep('clientList', null, null)">Cancelar</button>
         </div>-->
         <div class="button-row">
-          <button mat-raised-button color="primary" style="color: white; border-radius: initial; width:72%" (click)="saveClient()">Guardar</button>
+          <button mat-raised-button color="primary" style="color: white; border-radius: initial; width:72%" (click)="saveClient()" [disabled]="!form.valid">Guardar</button>
           <button mat-raised-button style="width:28%; border-radius: initial;" (click)="goStep('clientList', null, null)">Cancelar</button>
         </div>
       </div>

@@ -94,7 +94,7 @@
   </div>
 
   <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="width: 100%; text-align: center; color:#30ad80">Vuelto : {{parseFloatCustom(amortization.montoPagado - montoTotal)}} soles</h1>
+    <h1 mat-dialog-title style="width: 100%; text-align: center; color:#30ad80">Vuelto : {{parseFloatCustom(amortization.montoPagado - montoTotal)  < 0 ? 0 : parseFloatCustom(amortization.montoPagado - montoTotal)}} soles</h1>
   </div>
 </div>
 <div style="width: 100%;" mat-dialog-actions>

@@ -74,6 +74,12 @@ export class ClientUpdateComponent implements OnInit {
             Validators.maxLength(150)
           ])
         ],
+        fdireccion: [
+          null,
+          Validators.compose([
+            Validators.required
+          ])
+        ],
         fcodigo: [
           null,
           Validators.compose([
