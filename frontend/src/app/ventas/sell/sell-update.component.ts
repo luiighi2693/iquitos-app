@@ -445,7 +445,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
 
         if (index !== -1) {
           this.entity.productoDetalles[index].cantidad -= 1;
-          this.entity.productoDetalles[index].precioVenta -= productoDetalle.precioVenta;
+          // this.entity.productoDetalles[index].precioVenta -= productoDetalle.precioVenta;
         } else {
           this.entity.productoDetalles.splice(this.entity.productoDetalles.length-1, 1);
         }

@@ -241,3 +241,9 @@ mat-footer-row, mat-header-row, mat-row {
   }
 
 }
+
+@media (max-width: 959px){
+  .custom-box-items-selected{
+    height: inherit;
+  }
+}

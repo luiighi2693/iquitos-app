@@ -88,4 +88,8 @@ export class FullComponent implements OnDestroy, AfterViewInit {
   findMenu($event: any) {
     return this.contentList[this.contentList.map(x => x.value).indexOf($event)];
   }
+
+  onResizeCustom(event: any) {
+    console.log('here')
+  }
 }

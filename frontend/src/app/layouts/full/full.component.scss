@@ -3,3 +3,13 @@
   padding-right: 0;
   padding-left: 5px;
 }
+
+.page-wrapper-custom{
+  overflow: hidden;
+}
+
+@media (max-width: 959px){
+  .page-wrapper-custom{
+    overflow: auto;
+  }
+}
