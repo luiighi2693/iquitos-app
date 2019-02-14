@@ -90,7 +90,8 @@
               <mat-header-cell *matHeaderCellDef> Cant.</mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
                 <span class="header-label">Cant:</span>
-                <input matInput placeholder="Cant" type="text" (keypress)="checkNumbersOnly($event)"
+                <input style="text-align: center; width: 80%; margin-left: 10px; border: 1px solid #bec3c8; color: black;"
+                placeholder="Cant" type="text" (keypress)="checkNumbersOnly($event)"
                        (blur)="saveChangesInProductosDetallesRow($event, i, 'cantidad')" value="{{row.cantidad}}">
               </mat-cell>
             </ng-container>
@@ -108,7 +109,8 @@
               <mat-header-cell *matHeaderCellDef> PU.</mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
                 <span class="header-label">PU.:</span>
-                <input matInput placeholder="PU." type="text" maxlength="10"
+                <input style="text-align: center; width: 80%; margin-left: 10px; border: 1px solid #bec3c8; color: black;"
+                  placeholder="PU." type="text" maxlength="10"
                        (keypress)="checkNumbersDecimalOnly($event)"
                        (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')"
                        value="S/ {{parseFloatCustom(row.precioVenta)}}">
