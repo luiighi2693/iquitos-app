@@ -218,6 +218,26 @@ mat-footer-row, mat-header-row, mat-row {
     text-align: center;
 }
 
+mat-header-cell.mat-header-cell.cdk-column-cantidad.mat-column-cantidad.ng-star-inserted{
+  font-size:15px;
+  width: 15%;
+}
+
+mat-header-cell.mat-header-cell.cdk-column-producto.mat-column-producto.ng-star-inserted{
+  font-size:15px;
+  width: 20%;
+}
+
+mat-header-cell.mat-header-cell.cdk-column-precioVenta.mat-column-precioVenta.ng-star-inserted{
+  font-size:15px;
+  width: 20%;
+}
+
+mat-header-cell.mat-header-cell.cdk-column-precioTotal.mat-column-precioTotal.ng-star-inserted{
+  font-size:15px;
+  width: 15%;
+}
+
 @media (min-width: 1350px) and (max-width: 1600px){
   .foot-div{
     left: 53%;
