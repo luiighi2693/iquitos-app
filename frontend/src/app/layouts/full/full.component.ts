@@ -41,6 +41,7 @@ export class FullComponent implements OnDestroy, AfterViewInit {
   danger: boolean;
   showHide: boolean;
   sidebarOpened;
+  actualPath = null;
 
   public config: PerfectScrollbarConfigInterface = {};
   private _mobileQueryListener: () => void;
@@ -65,7 +66,9 @@ export class FullComponent implements OnDestroy, AfterViewInit {
 
     this.fullService.change.subscribe(menuSelected => {
       this.contentSelected = menuSelected;
+      this.actualPath = this.router.url;
     });
+
   }
 
   ngOnDestroy(): void {

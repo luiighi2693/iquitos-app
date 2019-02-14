@@ -135,7 +135,7 @@
         <!-- ============================================================== -->
         <!-- Page container - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <mat-sidenav-content class="page-wrapper page-wrapper-custom">
+        <mat-sidenav-content class="page-wrapper page-wrapper-custom" [ngClass]="{'page-wrapper-custom': actualPath === '/ventas/sell'}">
             
                 <div class="page-content">
 
