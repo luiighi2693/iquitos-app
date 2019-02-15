@@ -99,15 +99,12 @@ export class SellExtraInfoComponent {
       this.amortization.tipoDePagoId = this.data.entity.tipoDePagoId;
       this.amortization.glosa = this.data.entity.glosa;
 
-      let tipoDocumentoVenta = this.documentTypeSells.find(x => x.id === this.amortization.tipoDeDocumentoDeVentaId);
-      const countTipoDocumentoVenta = sessionStorage.getItem('correlativo.contador.' + tipoDocumentoVenta.nombre);
-      sessionStorage.setItem('correlativo.contador.' + tipoDocumentoVenta.nombre, (parseInt(countTipoDocumentoVenta) + 1).toString());
-
       this.updateEntityCustom();
 
       this.dialogRef.close({
         entity: this.data.entity,
         amortization: this.amortization,
+        serie: this.documentTypeSellSelected,
         flag: param
       });
     }

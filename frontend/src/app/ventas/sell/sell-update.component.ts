@@ -27,6 +27,7 @@ import {IParametroSistema} from "../../models/parametro-sistema.model";
 import * as moment from 'moment';
 import {AmortizacionService} from "../amortizacion/amortizacion.service";
 import {CustomValidators} from "ng2-validation";
+import {Amortizacion} from "../../models/amortizacion.model";
 
 declare var require: any;
 
@@ -72,6 +73,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   empleados: Empleado[] = [];
 
   clientRepeated = false;
+  private serie: any;
+  private correlativo: any;
 
   constructor(public dataUtils: JhiDataUtils,
               public service: VentaService,
@@ -215,7 +218,20 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     if (sell.amortizacions.length === 0) {
       this.router.navigate(['/ventas/sell/list']);
     } else {
-      this.router.navigate(['/print/invoice2/' + sell.id + '/' + 0]);
+      this.amortizacionService.countByDocumentTypeSellId(sell.amortizacions[0].tipoDeDocumentoDeVentaId).subscribe(
+        (res: HttpResponse<number>) => {
+          sell.amortizacions[0].codigo = this.serie+'-00000'+res.body.toString();
+          this.amortizacionService.update(sell.amortizacions[0]).subscribe(
+            (res: HttpResponse<Amortizacion>) => {
+              console.log(res.body);
+              this.router.navigate(['/print/invoice2/' + sell.id + '/' + 0]);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+          );
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+
     }
   }
 
@@ -513,7 +529,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       width: '80%',
       data: {
         entity: this.entity,
-        client: this.client
+        client: this.client,
+        serie: this.serie
       },
       disableClose: true
     });
