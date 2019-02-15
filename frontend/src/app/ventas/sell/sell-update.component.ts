@@ -67,6 +67,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   ];
 
   tiposDeDocumento: ITipoDeDocumento[];
+  tiposDeDocumentoFiltered: ITipoDeDocumento[];
 
   empleados: Empleado[] = [];
 
@@ -119,7 +120,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       (res: HttpResponse<ITipoDeDocumento[]>) => {
         this.tiposDeDocumento = res.body;
         if (this.tiposDeDocumento.length > 0){
-          this.client.tipoDeDocumentoId = this.tiposDeDocumento[0].id;
+          this.client.tipoDeCliente = ClientType.NATURAL;
+          this.filterDocumentTypeContent(ClientType.NATURAL);
         }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -334,6 +336,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         if (view === 'new') {
           this.client = new Cliente();
           this.client.tipoDeCliente = ClientType.NATURAL;
+          this.client.tipoDeDocumentoId = this.tiposDeDocumento.find(x => x.nombre === 'DNI').id;
         } else {
           this.client = row;
         }
@@ -571,6 +574,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   removeCliente(){
     this.client = new Cliente();
     this.client.tipoDeCliente = ClientType.NATURAL;
+    this.client.tipoDeDocumentoId = this.tiposDeDocumento.find(x => x.nombre === 'DNI').id;
   }
 
   refreshSell() {
@@ -597,6 +601,16 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+    }
+  }
+
+  private filterDocumentTypeContent(clientType: ClientType) {
+    if (clientType === ClientType.NATURAL) {
+      this.client.tipoDeDocumentoId = this.tiposDeDocumento.find(x => x.nombre === 'DNI').id;
+      this.tiposDeDocumentoFiltered = this.tiposDeDocumento.filter(x => x.nombre !== 'RUC');
+    } else {
+      this.client.tipoDeDocumentoId = this.tiposDeDocumento.find(x => x.nombre === 'RUC').id;
+      this.tiposDeDocumentoFiltered = this.tiposDeDocumento.filter(x => x.nombre === 'RUC');
     }
   }
 }

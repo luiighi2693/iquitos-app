@@ -37,7 +37,7 @@
 
     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
       <mat-form-field>
-        <mat-select placeholder="Tipo de Documento" [(ngModel)]="data.entity.tipoDeDocumentoDeVentaId" name="documentTypeSell">
+        <mat-select placeholder="Tipo de Documento" [(ngModel)]="data.entity.tipoDeDocumentoDeVentaId" (ngModelChange)="filterDocumentTypeSellContentForSerie()" name="documentTypeSell">
           <mat-option *ngFor="let documentTypeSellOption of documentTypeSells;" [value]="documentTypeSellOption.id">
             {{documentTypeSellOption.nombre}}
           </mat-option>
@@ -45,7 +45,26 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10"></div>
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50" class="p-10">
+      <mat-form-field>
+        <mat-select placeholder="Serie" [(ngModel)]="documentTypeSellSelected" name="documentTypeSell">
+          <mat-option *ngFor="let documentTypeSellOption of documentTypeSellsForSeries;" [value]="documentTypeSellOption">
+            {{documentTypeSellOption.serie}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="50" class="p-10">
+      <mat-form-field>
+        <mat-select placeholder="Correlativo" [(ngModel)]="correlative" name="correlative">
+          <mat-option *ngFor="let correlative of correlatives;" [value]="correlative">
+            {{correlative}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <!-- column -->
     <div fxFlex.gt-sm="35" fxFlex="100" class="p-10">
       <mat-form-field>

@@ -30,6 +30,9 @@ public class TipoDeDocumento implements Serializable {
     @Column(name = "nombre", length = 150, nullable = false)
     private String nombre;
 
+    @Column(name = "cantidad_digitos")
+    private Double cantidadDigitos;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -50,6 +53,19 @@ public class TipoDeDocumento implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Double getCantidadDigitos() {
+        return cantidadDigitos;
+    }
+
+    public TipoDeDocumento cantidadDigitos(Double cantidadDigitos) {
+        this.cantidadDigitos = cantidadDigitos;
+        return this;
+    }
+
+    public void setCantidadDigitos(Double cantidadDigitos) {
+        this.cantidadDigitos = cantidadDigitos;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -78,6 +94,7 @@ public class TipoDeDocumento implements Serializable {
         return "TipoDeDocumento{" +
             "id=" + getId() +
             ", nombre='" + getNombre() + "'" +
+            ", cantidadDigitos=" + getCantidadDigitos() +
             "}";
     }
 }

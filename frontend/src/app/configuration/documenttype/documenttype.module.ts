@@ -11,7 +11,6 @@ import { DocumenttypeComponent } from './documenttype.component';
 import {MatSortModule} from '@angular/material/sort';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DocumenttypeDeleteComponent} from './documenttype-delete.component';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -27,7 +26,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgxDatatableModule,
     RouterModule.forChild(DocumenttypeRoutes)
   ],
-  entryComponents: [DocumenttypeDeleteComponent, DocumenttypeDeleteComponent],
-  declarations: [DocumenttypeComponent, DocumenttypeDeleteComponent]
+  entryComponents: [],
+  declarations: [DocumenttypeComponent]
 })
 export class DocumenttypeModule {}

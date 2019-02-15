@@ -116,6 +116,14 @@ public class AmortizacionResource {
         return ResponseUtil.wrapOrNotFound(amortizacionDTO);
     }
 
+    @GetMapping("/amortizacions/count-by-selltype/{id}")
+    @Timed
+    public ResponseEntity<Long> countAmortizacionsByTipoDeDocumentoDeVenta(@PathVariable Long id) {
+        log.debug("REST request to countAmortizacionsByTipoDeDocumentoDeVenta : {}", id);
+        Optional<Long> count = amortizacionService.countAmortizacionsByTipoDeDocumentoDeVentaId(id);
+        return ResponseUtil.wrapOrNotFound(count);
+    }
+
     /**
      * DELETE  /amortizacions/:id : delete the "id" amortizacion.
      *

@@ -9,6 +9,10 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": 150
+        },
+        {
+            "fieldName": "cantidadDigitos",
+            "fieldType": "Double"
         }
     ],
     "relationships": [],

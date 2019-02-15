@@ -31,6 +31,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nombre"><span>Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="serie"><span>Serie</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="formato"><span>Formato</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -38,6 +40,8 @@
             <tr *ngFor="let tipoDeDocumentoDeVenta of tipoDeDocumentoDeVentas ;trackBy: trackId">
                 <td><a [routerLink]="['/tipo-de-documento-de-venta', tipoDeDocumentoDeVenta.id, 'view' ]">{{tipoDeDocumentoDeVenta.id}}</a></td>
                 <td>{{tipoDeDocumentoDeVenta.nombre}}</td>
+                <td>{{tipoDeDocumentoDeVenta.serie}}</td>
+                <td>{{tipoDeDocumentoDeVenta.formato}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

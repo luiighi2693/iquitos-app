@@ -27,6 +27,7 @@ export class TipoDeDocumentoUpdatePage {
     saveButton = element(by.id('save-entity'));
     cancelButton = element(by.id('cancel-save'));
     nombreInput = element(by.id('field_nombre'));
+    cantidadDigitosInput = element(by.id('field_cantidadDigitos'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -38,6 +39,14 @@ export class TipoDeDocumentoUpdatePage {
 
     async getNombreInput() {
         return this.nombreInput.getAttribute('value');
+    }
+
+    async setCantidadDigitosInput(cantidadDigitos) {
+        await this.cantidadDigitosInput.sendKeys(cantidadDigitos);
+    }
+
+    async getCantidadDigitosInput() {
+        return this.cantidadDigitosInput.getAttribute('value');
     }
 
     async save() {

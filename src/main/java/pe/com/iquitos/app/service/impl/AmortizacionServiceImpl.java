@@ -1,5 +1,6 @@
 package pe.com.iquitos.app.service.impl;
 
+import pe.com.iquitos.app.domain.TipoDeDocumentoDeVenta;
 import pe.com.iquitos.app.service.AmortizacionService;
 import pe.com.iquitos.app.domain.Amortizacion;
 import pe.com.iquitos.app.repository.AmortizacionRepository;
@@ -113,5 +114,11 @@ public class AmortizacionServiceImpl implements AmortizacionService {
         log.debug("Request to search for a page of Amortizacions for query {}", query);
         return amortizacionSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(amortizacionMapper::toDto);
+    }
+
+    @Override
+    public Optional<Long> countAmortizacionsByTipoDeDocumentoDeVentaId(Long tipoDeDocumentoDeVentaId) {
+        log.debug("Request to countAmortizacionsByTipoDeDocumentoDeVenta : {}", tipoDeDocumentoDeVentaId);
+        return amortizacionRepository.countAmortizacionsByTipoDeDocumentoDeVentaId(tipoDeDocumentoDeVentaId);
     }
 }

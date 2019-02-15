@@ -280,7 +280,7 @@
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
-          <mat-select placeholder="Tipo de Cliente" [(ngModel)]="client.tipoDeCliente" name="tipoDeCliente">
+          <mat-select placeholder="Tipo de Cliente" [(ngModel)]="client.tipoDeCliente" (ngModelChange)="filterDocumentTypeContent(client.tipoDeCliente)" name="tipoDeCliente">
             <mat-option *ngFor="let tipoCliente of tiposDeCliente" [value]="tipoCliente">
               {{tipoCliente}}
             </mat-option>
@@ -289,8 +289,7 @@
 
         <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
           <mat-select placeholder="Tipo de Documento" [(ngModel)]="client.tipoDeDocumentoId" name="tipoDeDocumento">
-            <mat-option [value]="null"></mat-option>
-            <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
+            <mat-option *ngFor="let tipoDocumento of tiposDeDocumentoFiltered;" [value]="tipoDocumento.id">
               {{tipoDocumento.nombre}}
             </mat-option>
           </mat-select>

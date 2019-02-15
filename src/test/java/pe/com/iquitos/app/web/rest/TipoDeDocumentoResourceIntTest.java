@@ -51,6 +51,9 @@ public class TipoDeDocumentoResourceIntTest {
     private static final String DEFAULT_NOMBRE = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRE = "BBBBBBBBBB";
 
+    private static final Double DEFAULT_CANTIDAD_DIGITOS = 1D;
+    private static final Double UPDATED_CANTIDAD_DIGITOS = 2D;
+
     @Autowired
     private TipoDeDocumentoRepository tipoDeDocumentoRepository;
 
@@ -103,7 +106,8 @@ public class TipoDeDocumentoResourceIntTest {
      */
     public static TipoDeDocumento createEntity(EntityManager em) {
         TipoDeDocumento tipoDeDocumento = new TipoDeDocumento()
-            .nombre(DEFAULT_NOMBRE);
+            .nombre(DEFAULT_NOMBRE)
+            .cantidadDigitos(DEFAULT_CANTIDAD_DIGITOS);
         return tipoDeDocumento;
     }
 
@@ -129,6 +133,7 @@ public class TipoDeDocumentoResourceIntTest {
         assertThat(tipoDeDocumentoList).hasSize(databaseSizeBeforeCreate + 1);
         TipoDeDocumento testTipoDeDocumento = tipoDeDocumentoList.get(tipoDeDocumentoList.size() - 1);
         assertThat(testTipoDeDocumento.getNombre()).isEqualTo(DEFAULT_NOMBRE);
+        assertThat(testTipoDeDocumento.getCantidadDigitos()).isEqualTo(DEFAULT_CANTIDAD_DIGITOS);
 
         // Validate the TipoDeDocumento in Elasticsearch
         verify(mockTipoDeDocumentoSearchRepository, times(1)).save(testTipoDeDocumento);
@@ -187,7 +192,8 @@ public class TipoDeDocumentoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tipoDeDocumento.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
+            .andExpect(jsonPath("$.[*].cantidadDigitos").value(hasItem(DEFAULT_CANTIDAD_DIGITOS.doubleValue())));
     }
     
     @Test
@@ -201,7 +207,8 @@ public class TipoDeDocumentoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(tipoDeDocumento.getId().intValue()))
-            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()));
+            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
+            .andExpect(jsonPath("$.cantidadDigitos").value(DEFAULT_CANTIDAD_DIGITOS.doubleValue()));
     }
 
     @Test
@@ -225,7 +232,8 @@ public class TipoDeDocumentoResourceIntTest {
         // Disconnect from session so that the updates on updatedTipoDeDocumento are not directly saved in db
         em.detach(updatedTipoDeDocumento);
         updatedTipoDeDocumento
-            .nombre(UPDATED_NOMBRE);
+            .nombre(UPDATED_NOMBRE)
+            .cantidadDigitos(UPDATED_CANTIDAD_DIGITOS);
         TipoDeDocumentoDTO tipoDeDocumentoDTO = tipoDeDocumentoMapper.toDto(updatedTipoDeDocumento);
 
         restTipoDeDocumentoMockMvc.perform(put("/api/tipo-de-documentos")
@@ -238,6 +246,7 @@ public class TipoDeDocumentoResourceIntTest {
         assertThat(tipoDeDocumentoList).hasSize(databaseSizeBeforeUpdate);
         TipoDeDocumento testTipoDeDocumento = tipoDeDocumentoList.get(tipoDeDocumentoList.size() - 1);
         assertThat(testTipoDeDocumento.getNombre()).isEqualTo(UPDATED_NOMBRE);
+        assertThat(testTipoDeDocumento.getCantidadDigitos()).isEqualTo(UPDATED_CANTIDAD_DIGITOS);
 
         // Validate the TipoDeDocumento in Elasticsearch
         verify(mockTipoDeDocumentoSearchRepository, times(1)).save(testTipoDeDocumento);
@@ -298,7 +307,8 @@ public class TipoDeDocumentoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tipoDeDocumento.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
+            .andExpect(jsonPath("$.[*].cantidadDigitos").value(hasItem(DEFAULT_CANTIDAD_DIGITOS.doubleValue())));
     }
 
     @Test

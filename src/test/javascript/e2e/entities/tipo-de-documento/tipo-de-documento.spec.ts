@@ -38,8 +38,9 @@ describe('TipoDeDocumento e2e test', () => {
         const nbButtonsBeforeCreate = await tipoDeDocumentoComponentsPage.countDeleteButtons();
 
         await tipoDeDocumentoComponentsPage.clickOnCreateButton();
-        await promise.all([tipoDeDocumentoUpdatePage.setNombreInput('nombre')]);
+        await promise.all([tipoDeDocumentoUpdatePage.setNombreInput('nombre'), tipoDeDocumentoUpdatePage.setCantidadDigitosInput('5')]);
         expect(await tipoDeDocumentoUpdatePage.getNombreInput()).to.eq('nombre');
+        expect(await tipoDeDocumentoUpdatePage.getCantidadDigitosInput()).to.eq('5');
         await tipoDeDocumentoUpdatePage.save();
         expect(await tipoDeDocumentoUpdatePage.getSaveButton().isPresent()).to.be.false;
 

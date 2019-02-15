@@ -15,6 +15,14 @@ public class TipoDeDocumentoDeVentaDTO implements Serializable {
     @Size(max = 150)
     private String nombre;
 
+    @NotNull
+    @Size(max = 150)
+    private String serie;
+
+    @NotNull
+    @Size(max = 150)
+    private String formato;
+
     public Long getId() {
         return id;
     }
@@ -29,6 +37,22 @@ public class TipoDeDocumentoDeVentaDTO implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getSerie() {
+        return serie;
+    }
+
+    public void setSerie(String serie) {
+        this.serie = serie;
+    }
+
+    public String getFormato() {
+        return formato;
+    }
+
+    public void setFormato(String formato) {
+        this.formato = formato;
     }
 
     @Override
@@ -57,6 +81,8 @@ public class TipoDeDocumentoDeVentaDTO implements Serializable {
         return "TipoDeDocumentoDeVentaDTO{" +
             "id=" + getId() +
             ", nombre='" + getNombre() + "'" +
+            ", serie='" + getNombre() + "'" +
+            ", formato='" + getNombre() + "'" +
             "}";
     }
 }

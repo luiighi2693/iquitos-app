@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(TipoDeDocumentoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new TipoDeDocumento(0, 'AAAAAAA');
+            elemDefault = new TipoDeDocumento(0, 'AAAAAAA', 0);
         });
 
         describe('Service methods', async () => {
@@ -55,7 +55,8 @@ describe('Service Tests', () => {
             it('should update a TipoDeDocumento', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        nombre: 'BBBBBB'
+                        nombre: 'BBBBBB',
+                        cantidadDigitos: 1
                     },
                     elemDefault
                 );
@@ -72,7 +73,8 @@ describe('Service Tests', () => {
             it('should return a list of TipoDeDocumento', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        nombre: 'BBBBBB'
+                        nombre: 'BBBBBB',
+                        cantidadDigitos: 1
                     },
                     elemDefault
                 );

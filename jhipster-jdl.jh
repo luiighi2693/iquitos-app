@@ -173,8 +173,9 @@ entity Pedido {
     metaData String required maxlength(DEFAULT_MAX_LENGTH_METADATA), //aqui va la cantidad de productos
 }
 
-entity TipoDeDocumento { //DNI, RUC
+entity TipoDeDocumento { //DNI, RUC, Pasaporte
 	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	cantidadDigitos Double,
 }
 
 entity TipoDePago { //Efectivo, Visa, Cheque, Deposito_en_Cuenta
@@ -183,6 +184,8 @@ entity TipoDePago { //Efectivo, Visa, Cheque, Deposito_en_Cuenta
 
 entity TipoDeDocumentoDeVenta { //ticket de ingreso - factura
 	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	serie String maxlength(DEFAULT_MAX_LENGTH_STRING),
+	formato String maxlength(DEFAULT_MAX_LENGTH_STRING),
 }
 
 entity EstatusDeProductoEntregado { //Por Entregar, En Proceso, Entregado

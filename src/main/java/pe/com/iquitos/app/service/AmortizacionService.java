@@ -1,5 +1,6 @@
 package pe.com.iquitos.app.service;
 
+import pe.com.iquitos.app.domain.TipoDeDocumentoDeVenta;
 import pe.com.iquitos.app.service.dto.AmortizacionDTO;
 
 import org.springframework.data.domain.Page;
@@ -55,4 +56,6 @@ public interface AmortizacionService {
      * @return the list of entities
      */
     Page<AmortizacionDTO> search(String query, Pageable pageable);
+
+    Optional<Long> countAmortizacionsByTipoDeDocumentoDeVentaId(Long tipoDeDocumentoDeVentaId);
 }

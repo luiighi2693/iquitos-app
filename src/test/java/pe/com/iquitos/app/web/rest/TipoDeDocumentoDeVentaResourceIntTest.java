@@ -51,6 +51,12 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
     private static final String DEFAULT_NOMBRE = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_SERIE = "AAAAAAAAAA";
+    private static final String UPDATED_SERIE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_FORMATO = "AAAAAAAAAA";
+    private static final String UPDATED_FORMATO = "BBBBBBBBBB";
+
     @Autowired
     private TipoDeDocumentoDeVentaRepository tipoDeDocumentoDeVentaRepository;
 
@@ -103,7 +109,9 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
      */
     public static TipoDeDocumentoDeVenta createEntity(EntityManager em) {
         TipoDeDocumentoDeVenta tipoDeDocumentoDeVenta = new TipoDeDocumentoDeVenta()
-            .nombre(DEFAULT_NOMBRE);
+            .nombre(DEFAULT_NOMBRE)
+            .serie(DEFAULT_SERIE)
+            .formato(DEFAULT_FORMATO);
         return tipoDeDocumentoDeVenta;
     }
 
@@ -129,6 +137,8 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
         assertThat(tipoDeDocumentoDeVentaList).hasSize(databaseSizeBeforeCreate + 1);
         TipoDeDocumentoDeVenta testTipoDeDocumentoDeVenta = tipoDeDocumentoDeVentaList.get(tipoDeDocumentoDeVentaList.size() - 1);
         assertThat(testTipoDeDocumentoDeVenta.getNombre()).isEqualTo(DEFAULT_NOMBRE);
+        assertThat(testTipoDeDocumentoDeVenta.getSerie()).isEqualTo(DEFAULT_SERIE);
+        assertThat(testTipoDeDocumentoDeVenta.getFormato()).isEqualTo(DEFAULT_FORMATO);
 
         // Validate the TipoDeDocumentoDeVenta in Elasticsearch
         verify(mockTipoDeDocumentoDeVentaSearchRepository, times(1)).save(testTipoDeDocumentoDeVenta);
@@ -187,7 +197,9 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tipoDeDocumentoDeVenta.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
+            .andExpect(jsonPath("$.[*].serie").value(hasItem(DEFAULT_SERIE.toString())))
+            .andExpect(jsonPath("$.[*].formato").value(hasItem(DEFAULT_FORMATO.toString())));
     }
     
     @Test
@@ -201,7 +213,9 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(tipoDeDocumentoDeVenta.getId().intValue()))
-            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()));
+            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
+            .andExpect(jsonPath("$.serie").value(DEFAULT_SERIE.toString()))
+            .andExpect(jsonPath("$.formato").value(DEFAULT_FORMATO.toString()));
     }
 
     @Test
@@ -225,7 +239,9 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
         // Disconnect from session so that the updates on updatedTipoDeDocumentoDeVenta are not directly saved in db
         em.detach(updatedTipoDeDocumentoDeVenta);
         updatedTipoDeDocumentoDeVenta
-            .nombre(UPDATED_NOMBRE);
+            .nombre(UPDATED_NOMBRE)
+            .serie(UPDATED_SERIE)
+            .formato(UPDATED_FORMATO);
         TipoDeDocumentoDeVentaDTO tipoDeDocumentoDeVentaDTO = tipoDeDocumentoDeVentaMapper.toDto(updatedTipoDeDocumentoDeVenta);
 
         restTipoDeDocumentoDeVentaMockMvc.perform(put("/api/tipo-de-documento-de-ventas")
@@ -238,6 +254,8 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
         assertThat(tipoDeDocumentoDeVentaList).hasSize(databaseSizeBeforeUpdate);
         TipoDeDocumentoDeVenta testTipoDeDocumentoDeVenta = tipoDeDocumentoDeVentaList.get(tipoDeDocumentoDeVentaList.size() - 1);
         assertThat(testTipoDeDocumentoDeVenta.getNombre()).isEqualTo(UPDATED_NOMBRE);
+        assertThat(testTipoDeDocumentoDeVenta.getSerie()).isEqualTo(UPDATED_SERIE);
+        assertThat(testTipoDeDocumentoDeVenta.getFormato()).isEqualTo(UPDATED_FORMATO);
 
         // Validate the TipoDeDocumentoDeVenta in Elasticsearch
         verify(mockTipoDeDocumentoDeVentaSearchRepository, times(1)).save(testTipoDeDocumentoDeVenta);
@@ -298,7 +316,9 @@ public class TipoDeDocumentoDeVentaResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tipoDeDocumentoDeVenta.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
+            .andExpect(jsonPath("$.[*].serie").value(hasItem(DEFAULT_SERIE)))
+            .andExpect(jsonPath("$.[*].formato").value(hasItem(DEFAULT_FORMATO)));
     }
 
     @Test

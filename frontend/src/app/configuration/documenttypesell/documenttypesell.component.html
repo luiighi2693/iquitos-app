@@ -4,43 +4,37 @@
     <mat-card>
       <mat-card-content>
         <mat-card-title>Tipo de Documento de Venta</mat-card-title>
+
         <div class="responsive-table">
-          <div fxLayout="row wrap">
-            <mat-form-field fxFlex.gt-sm="75" fxFlex="75">
-              <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">-->
-              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)" >
-            </mat-form-field>
+          <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="data">
 
-            <div fxFlex.gt-sm="25" fxFlex="25" id="newSection">
-              <button mat-raised-button color="primary" (click)="addEntity()">Nuevo</button>
-            </div>
-          </div>
+            <ng-container matColumnDef="nombre">
+              <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Nombre:</span>
+                {{element.nombre}}
+              </mat-cell>
+            </ng-container>
 
-          <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'flex'" [rowHeight]="'auto'"
-                         [rows]="rows" [messages]="{emptyMessage:'Agregue un nuevo item'}">
-            <ngx-datatable-column name="Nombre">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-          <span *ngIf="!editing[rowIndex + '-nombre']">
-            {{value}}
-          </span>
-                <input #valueInput autofocus *ngIf="editing[rowIndex+ '-nombre']" type="text" (keypress)="checkCharactersOnly($event)" [value]="value"/>
-                <!--<small *ngIf="value === ''" class="text-danger font-14">Campo Requerido</small>-->
-                <a class="ng-star-inserted" (click)="editing[rowIndex + '-nombre'] = true" *ngIf="!editing[rowIndex+ '-nombre']">
-                  <i class="ti-pencil text-info m-r-10"></i>
-                </a>
-                <a class="ng-star-inserted" *ngIf="editing[rowIndex+ '-nombre']" (click)="updateValue($event, 'nombre', rowIndex)">
-                  <i class="ti-check text-info m-r-10"></i>
-                </a>
-                <a class="ng-star-inserted" *ngIf="editing[rowIndex+ '-nombre']" (click)="cancel($event, 'nombre', rowIndex)">
-                  <i class="ti-close text-info m-r-10"></i>
-                </a>
+            <ng-container matColumnDef="serie">
+              <mat-header-cell *matHeaderCellDef> Serie </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Serie:</span>
+                {{element.serie}}
+              </mat-cell>
+            </ng-container>
 
-                <a class="ng-star-inserted" (click)="openDialog(rowIndex)" *ngIf="!editing[rowIndex+ '-nombre']">
-                  <i class="ti-trash text-info m-r-10"></i>
-                </a>
-              </ng-template>
-            </ngx-datatable-column>
-          </ngx-datatable>
+            <ng-container matColumnDef="formato">
+              <mat-header-cell *matHeaderCellDef> Formato </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <span class="header-label">Formato:</span>
+                {{element.formato}}
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
         </div>
       </mat-card-content>
     </mat-card>

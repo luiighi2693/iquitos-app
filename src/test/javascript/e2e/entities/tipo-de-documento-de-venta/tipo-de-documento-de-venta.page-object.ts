@@ -27,6 +27,8 @@ export class TipoDeDocumentoDeVentaUpdatePage {
     saveButton = element(by.id('save-entity'));
     cancelButton = element(by.id('cancel-save'));
     nombreInput = element(by.id('field_nombre'));
+    serieInput = element(by.id('field_serie'));
+    formatoInput = element(by.id('field_formato'));
 
     async getPageTitle() {
         return this.pageTitle.getText();
@@ -38,6 +40,22 @@ export class TipoDeDocumentoDeVentaUpdatePage {
 
     async getNombreInput() {
         return this.nombreInput.getAttribute('value');
+    }
+
+    async setSerieInput(serie) {
+        await this.serieInput.sendKeys(serie);
+    }
+
+    async getSerieInput() {
+        return this.serieInput.getAttribute('value');
+    }
+
+    async setFormatoInput(formato) {
+        await this.formatoInput.sendKeys(formato);
+    }
+
+    async getFormatoInput() {
+        return this.formatoInput.getAttribute('value');
     }
 
     async save() {

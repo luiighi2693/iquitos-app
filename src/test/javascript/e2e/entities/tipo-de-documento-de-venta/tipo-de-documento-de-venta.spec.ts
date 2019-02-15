@@ -42,8 +42,14 @@ describe('TipoDeDocumentoDeVenta e2e test', () => {
         const nbButtonsBeforeCreate = await tipoDeDocumentoDeVentaComponentsPage.countDeleteButtons();
 
         await tipoDeDocumentoDeVentaComponentsPage.clickOnCreateButton();
-        await promise.all([tipoDeDocumentoDeVentaUpdatePage.setNombreInput('nombre')]);
+        await promise.all([
+            tipoDeDocumentoDeVentaUpdatePage.setNombreInput('nombre'),
+            tipoDeDocumentoDeVentaUpdatePage.setSerieInput('serie'),
+            tipoDeDocumentoDeVentaUpdatePage.setFormatoInput('formato')
+        ]);
         expect(await tipoDeDocumentoDeVentaUpdatePage.getNombreInput()).to.eq('nombre');
+        expect(await tipoDeDocumentoDeVentaUpdatePage.getSerieInput()).to.eq('serie');
+        expect(await tipoDeDocumentoDeVentaUpdatePage.getFormatoInput()).to.eq('formato');
         await tipoDeDocumentoDeVentaUpdatePage.save();
         expect(await tipoDeDocumentoDeVentaUpdatePage.getSaveButton().isPresent()).to.be.false;
 

@@ -8,6 +8,7 @@ import { createRequestOption } from '../../shared/util';
 import { IAmortizacion } from '../../models/amortizacion.model';
 
 type EntityResponseType = HttpResponse<IAmortizacion>;
+type EntityResponseTypeCustom = HttpResponse<number>;
 type EntityArrayResponseType = HttpResponse<IAmortizacion[]>;
 
 @Injectable({ providedIn: 'root' })
@@ -30,6 +31,11 @@ export class AmortizacionService {
     find(id: number): Observable<EntityResponseType> {
         return this.http
             .get<IAmortizacion>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    countByDocumentTypeSellId(id: number): Observable<EntityResponseTypeCustom> {
+        return this.http
+            .get<number>(`${this.resourceUrl}/count-by-selltype/${id}`, { observe: 'response' });
     }
 
     query(req?: any): Observable<EntityArrayResponseType> {
