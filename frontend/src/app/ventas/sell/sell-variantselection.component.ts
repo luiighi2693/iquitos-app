@@ -28,7 +28,7 @@ export class SellVariantselectionComponent {
     });
   }
 
-  private getStockConsumFromProduct(product: IProducto) {
+  public getStockConsumFromProduct(product: IProducto) {
     let sum = 0;
     this.data.entityByStock.productoDetalles.filter(x => x.productos[0].id === product.id ).forEach(productDetalle => {
       if (productDetalle.variantes.length === 0) {
