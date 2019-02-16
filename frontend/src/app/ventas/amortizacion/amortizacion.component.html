@@ -65,7 +65,7 @@
               <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Total:</span>
-                S/.{{element.montoTotal}}
+                S/.{{parseFloatCustom(element.montoTotal)}}
               </mat-cell>
             </ng-container>
 
@@ -73,7 +73,7 @@
               <mat-header-cell *matHeaderCellDef> Amortizado </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Amortizado:</span>
-                S/.{{getMontoAmortizado(element)}}
+                S/.{{parseFloatCustom(getMontoAmortizado(element))}}
                 <!--
                 this.entity.subTotal= this.entity.montoTotal = this.entity.productoDetalles.map(x => x.precioVenta * x.cantidad).reduce((a, b) => a + b, 0);
                 -->
@@ -84,7 +84,7 @@
               <mat-header-cell *matHeaderCellDef> Restante </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Restante:</span>
-                S/.{{element.montoTotal - getMontoAmortizado(element)}}
+                S/.{{parseFloatCustom(element.montoTotal - getMontoAmortizado(element))}}
               </mat-cell>
             </ng-container>
 

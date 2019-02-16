@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {TipoDePagoService} from "../../configuration/paymenttype/tipo-de-pago.service";
@@ -26,7 +26,7 @@ export class SellExtraInfoComponent {
   amortization: Amortizacion = new Amortizacion();
   isCredit = false;
 
-  // @ViewChild('inputAmount') inputAmount: ElementRef;
+  @ViewChild('amountToPay') amountToPayField: ElementRef;
 
   constructor(
     public dialogRef: MatDialogRef<SellExtraInfoComponent>,
@@ -140,7 +140,7 @@ export class SellExtraInfoComponent {
   }
 
   validateCredit(){
-    // this.selectInputAmount();
+    this.selectInputAmount();
 
     this.isCredit = false;
     if (this.paymentTypes.find(x => x.id === this.data.entity.tipoDePagoId).nombre === 'Credito' ) {
@@ -181,5 +181,16 @@ export class SellExtraInfoComponent {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+  }
+
+  ngAfterViewInit() {
+    this.selectInputAmount();
+  }
+
+  private selectInputAmount() {
+    setTimeout(() => {
+      this.amountToPayField.nativeElement.focus();
+      this.amountToPayField.nativeElement.select();
+    }, 300);
   }
 }

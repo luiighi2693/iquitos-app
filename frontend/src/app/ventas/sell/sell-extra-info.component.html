@@ -96,8 +96,7 @@
 
     <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
       <mat-form-field>
-        <!--<input matInput #inputAmount placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" [disabled]="isCredit">-->
-        <input matInput placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" [disabled]="isCredit">
+        <input matInput #amountToPay placeholder="Pago en Efectivo" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado" [disabled]="isCredit">
         <span matPrefix>S/&nbsp;</span>
       </mat-form-field>
     </div>
