@@ -420,7 +420,10 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     } else {
       const dialogRef = this.dialog.open(SellVariantselectionComponent, {
         width: '50%',
-        data: { entity: entity }
+        data: {
+          entity: entity,
+          entityByStock: this.entity
+        }
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -509,7 +512,6 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       }
     });
 
-    console.log(sum);
     return sum;
   }
 
