@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject} from '@angular/core';
+import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {TipoDePagoService} from "../../configuration/paymenttype/tipo-de-pago.service";
@@ -31,6 +31,8 @@ export class AmortizacionExtraInfoComponent {
 
   public montoTotal: number;
 
+  @ViewChild('amountToPay') amountToPayField: ElementRef;
+
   constructor(
     private dataUtils: JhiDataUtils,
     public dialogRef: MatDialogRef<AmortizacionExtraInfoComponent>,
@@ -41,7 +43,7 @@ export class AmortizacionExtraInfoComponent {
     public service: AmortizacionService
   ) {
     console.log(this.data);
-    this.amortization.montoPagado = this.data.entity.montoTotal - this.getMontoAmortizadoPopUp(this.data.entity);
+    this.amortization.montoPagado = this.parseFloatCustom(this.data.entity.montoTotal - this.getMontoAmortizadoPopUp(this.data.entity));
     this.montoTotal = this.amortization.montoPagado;
     this.amortization.monto = this.data.entity.montoTotal;
     this.amortization.codigoDocumento = this.data.client.codigo;
@@ -267,6 +269,17 @@ export class AmortizacionExtraInfoComponent {
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
+  }
+
+  ngAfterViewInit() {
+    this.selectInputAmount();
+  }
+
+  private selectInputAmount() {
+    setTimeout(() => {
+      this.amountToPayField.nativeElement.focus();
+      this.amountToPayField.nativeElement.select();
+    }, 300);
   }
 
 }

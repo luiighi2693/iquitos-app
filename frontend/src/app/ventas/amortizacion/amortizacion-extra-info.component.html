@@ -38,7 +38,7 @@
 
     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
       <mat-form-field>
-        <mat-select placeholder="Tipo de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType">
+        <mat-select placeholder="Tipo de pago" [(ngModel)]="data.entity.tipoDePagoId" (ngModelChange)="selectInputAmount()" name="paymentType">
           <mat-option *ngFor="let paymentTypeOption of paymentTypes;" [value]="paymentTypeOption.id">
             {{paymentTypeOption.nombre}}
           </mat-option>
@@ -48,7 +48,7 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput placeholder="Monto de pago" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado">
+        <input matInput #amountToPay placeholder="Monto de pago" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado">
         <span matPrefix>S/&nbsp;</span>
       </mat-form-field>
     </div>
@@ -90,7 +90,7 @@
   </div>
 
   <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="width: 100%; text-align: center;">Total : S/ {{montoTotal}}</h1>
+    <h1 mat-dialog-title style="width: 100%; text-align: center;">Total : S/ {{parseFloatCustom(montoTotal)}}</h1>
   </div>
 
   <div fxLayout="row wrap">
