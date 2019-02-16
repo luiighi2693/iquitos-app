@@ -187,7 +187,7 @@ export class SellExtraInfoComponent {
     this.selectInputAmount();
   }
 
-  private selectInputAmount() {
+  public selectInputAmount() {
     setTimeout(() => {
       this.amountToPayField.nativeElement.focus();
       this.amountToPayField.nativeElement.select();

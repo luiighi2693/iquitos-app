@@ -275,7 +275,7 @@ export class AmortizacionExtraInfoComponent {
     this.selectInputAmount();
   }
 
-  private selectInputAmount() {
+  public selectInputAmount() {
     setTimeout(() => {
       this.amountToPayField.nativeElement.focus();
       this.amountToPayField.nativeElement.select();
