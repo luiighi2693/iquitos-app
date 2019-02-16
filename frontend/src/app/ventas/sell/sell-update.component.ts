@@ -73,8 +73,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   empleados: Empleado[] = [];
 
   clientRepeated = false;
-  private serie: any;
-  private correlativo: any;
+  public serie: any;
 
   constructor(public dataUtils: JhiDataUtils,
               public service: VentaService,
@@ -220,7 +219,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     } else {
       this.amortizacionService.countByDocumentTypeSellId(sell.amortizacions[0].tipoDeDocumentoDeVentaId).subscribe(
         (res: HttpResponse<number>) => {
-          sell.amortizacions[0].codigo = this.serie+'-00000'+res.body.toString();
+          sell.amortizacions[0].codigo = this.serie.serie+'-00000'+res.body.toString();
           this.amortizacionService.update(sell.amortizacions[0]).subscribe(
             (res: HttpResponse<Amortizacion>) => {
               console.log(res.body);
@@ -562,6 +561,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         }
 
         if (result.flag === 'pay'){
+          this.serie = result.serie;
+
           console.log('estatus');
           this.entity.estatus = parseFloat(result.amortization.montoPagado) >= parseFloat(result.amortization.monto) ? SellStatus.COMPLETADO : SellStatus.PENDIENTE;
           this.entity.amortizacions = [result.amortization];

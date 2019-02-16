@@ -176,8 +176,8 @@ export class SellExtraInfoComponent {
 
     this.service.countByDocumentTypeSellId(this.documentTypeSellSelected.id).subscribe(
       (res: HttpResponse<number>) => {
-        this.correlatives = [res.body];
-        this.correlative = res.body
+        this.correlatives = [res.body + 1];
+        this.correlative = res.body + 1
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );

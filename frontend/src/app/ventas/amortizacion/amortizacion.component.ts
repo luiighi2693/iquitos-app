@@ -15,6 +15,8 @@ declare var require: any;
 import * as moment from 'moment';
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
+import {Amortizacion} from "../../models/amortizacion.model";
+import {AmortizacionService} from "./amortizacion.service";
 
 @Component({
   selector: 'app-amortizacion',
@@ -24,10 +26,11 @@ import {Router} from "@angular/router";
 export class AmortizacionComponent extends BaseAmortizacion implements OnInit, OnDestroy {
 
   clientes: ICliente[];
+  public serie: any;
 
   constructor(public service: VentaService, public fullService: FullService,
               public dialog: MatDialog, public clienteService: ClienteService,
-              private router: Router) {
+              private router: Router,private amortizacionService: AmortizacionService) {
     super(
       service,
       fullService,
@@ -64,7 +67,19 @@ export class AmortizacionComponent extends BaseAmortizacion implements OnInit, O
 
   public onSaveSuccessCustom(sell) {
     this.isSaving = false;
-    this.router.navigate(['/print/invoice2/' + sell.id + '/' + (sell.amortizacions.length - 1)]);
+    this.amortizacionService.countByDocumentTypeSellId(sell.amortizacions[sell.amortizacions.length-1].tipoDeDocumentoDeVentaId).subscribe(
+      (res: HttpResponse<number>) => {
+        sell.amortizacions[sell.amortizacions.length-1].codigo = this.serie.serie+'-00000'+res.body.toString();
+        this.amortizacionService.update(sell.amortizacions[sell.amortizacions.length-1]).subscribe(
+          (res: HttpResponse<Amortizacion>) => {
+            console.log(res.body);
+            this.router.navigate(['/print/invoice2/' + sell.id + '/' + (sell.amortizacions.length - 1)]);
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
   getMontoAmortizado(sell: Venta): number {
@@ -102,6 +117,7 @@ export class AmortizacionComponent extends BaseAmortizacion implements OnInit, O
       console.log(result);
       if (result !== undefined) {
         if (result.flag === 'pay'){
+          this.serie = result.serie;
           this.entity.amortizacions.push(result.amortization);
           this.entity.estatus = this.getMontoAmortizado(this.entity) >= parseFloat(result.amortization.monto) ? SellStatus.COMPLETADO : SellStatus.PENDIENTE;
 

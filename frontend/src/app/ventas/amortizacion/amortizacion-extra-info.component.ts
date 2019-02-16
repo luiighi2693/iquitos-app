@@ -11,6 +11,8 @@ import {Venta} from "../../models/venta.model";
 
 import * as moment from 'moment';
 import {JhiDataUtils} from "ng-jhipster";
+import {ClientType} from "../../models/cliente.model";
+import {AmortizacionService} from "./amortizacion.service";
 
 @Component({
   selector: 'app-amortizacion-extra-info',
@@ -21,6 +23,10 @@ export class AmortizacionExtraInfoComponent {
 
   public paymentTypes: TipoDePago[] = [];
   public documentTypeSells: TipoDeDocumentoDeVenta[] = [];
+  public documentTypeSellsForSeries: TipoDeDocumentoDeVenta[] = [];
+  public documentTypeSellSelected: TipoDeDocumentoDeVenta = null;
+  public correlatives: number[]= [];
+  public correlative: number= null;
   amortization: Amortizacion = new Amortizacion();
 
   public montoTotal: number;
@@ -31,7 +37,8 @@ export class AmortizacionExtraInfoComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public tipoDePagoService: TipoDePagoService,
     public tipoDeDocumentoDeVenta: TipoDeDocumentoDeVentaService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    public service: AmortizacionService
   ) {
     console.log(this.data);
     this.amortization.montoPagado = this.data.entity.montoTotal - this.getMontoAmortizadoPopUp(this.data.entity);
@@ -54,9 +61,19 @@ export class AmortizacionExtraInfoComponent {
     this.tipoDeDocumentoDeVenta.query().subscribe(
       (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => {
         this.documentTypeSells = res.body;
-        // if (this.documentTypeSells.length > 0){
-        //   this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells[0].id;
-        // }
+        if (this.documentTypeSells.length > 0){
+          switch (this.data.client.tipoDeCliente) {
+            case ClientType.JURIDICO: {
+              this.filterDocumentTypeSellContent(ClientType.JURIDICO);
+              break;
+            }
+
+            case ClientType.NATURAL: {
+              this.filterDocumentTypeSellContent(ClientType.NATURAL);
+              break;
+            }
+          }
+        }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
     );
@@ -85,15 +102,12 @@ export class AmortizacionExtraInfoComponent {
       this.amortization.glosa = this.data.entity.glosa;
       this.amortization.montoPagado = parseFloat(this.amortization.montoPagado.toString());
 
-      let tipoDocumentoVenta = this.documentTypeSells.find(x => x.id === this.amortization.tipoDeDocumentoDeVentaId);
-      const countTipoDocumentoVenta = sessionStorage.getItem('correlativo.contador.' + tipoDocumentoVenta.nombre);
-      sessionStorage.setItem('correlativo.contador.' + tipoDocumentoVenta.nombre, (parseInt(countTipoDocumentoVenta) + 1).toString());
-
       this.updateEntityCustom();
 
       this.dialogRef.close({
         entity: this.data.entity,
         amortization: this.amortization,
+        serie: this.documentTypeSellSelected,
         flag: param
       });
     }
@@ -125,21 +139,7 @@ export class AmortizacionExtraInfoComponent {
   }
 
   public updateEntityCustom() {
-    let flag = true;
-
-    if (this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
-      this.amortization.codigo = 'B001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
-      flag = false;
-    }
-
-    if (this.documentTypeSells.find(x => x.nombre === 'Factura Electronica').id === this.amortization.tipoDeDocumentoDeVentaId) {
-      this.amortization.codigo = 'F001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
-      flag = false;
-    }
-
-    if (flag) {
-      this.amortization.codigo = 'M001-00000' + Math.round(Math.random() * (10000 - 1) + 1);
-    }
+    this.amortization.codigo = this.documentTypeSellSelected.serie + '-00000' + Math.round(Math.random() * (10000 - 1) + 1);
   }
 
   byteSize(field) {
@@ -233,6 +233,40 @@ export class AmortizacionExtraInfoComponent {
       };
         reader.onerror = error => console.log(error);
     };
+  }
+
+  public filterDocumentTypeSellContent(clientType: ClientType) {
+    if (clientType === ClientType.NATURAL) {
+      this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells.find(x => x.nombre === 'Boleta Electronica').id;
+      this.documentTypeSells = this.documentTypeSells.filter(x => x.nombre !== 'Factura Electronica');
+    } else {
+      this.data.entity.tipoDeDocumentoDeVentaId = this.documentTypeSells.find(x => x.nombre === 'Factura Electronica').id;
+      this.documentTypeSells = this.documentTypeSells.filter(x => x.nombre === 'Factura Electronica');
+    }
+
+    this.documentTypeSellSelected = this.documentTypeSells.find(x => x.id === this.data.entity.tipoDeDocumentoDeVentaId);
+    this.documentTypeSellsForSeries = [this.documentTypeSellSelected];
+
+    this.service.countByDocumentTypeSellId(this.documentTypeSellSelected.id).subscribe(
+      (res: HttpResponse<number>) => {
+        this.correlatives = [res.body];
+        this.correlative = res.body
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
+
+  public filterDocumentTypeSellContentForSerie() {
+    this.documentTypeSellSelected = this.documentTypeSells.find(x => x.id === this.data.entity.tipoDeDocumentoDeVentaId);
+    this.documentTypeSellsForSeries = [this.documentTypeSellSelected];
+
+    this.service.countByDocumentTypeSellId(this.documentTypeSellSelected.id).subscribe(
+      (res: HttpResponse<number>) => {
+        this.correlatives = [res.body + 1];
+        this.correlative = res.body + 1
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
   }
 
 }
