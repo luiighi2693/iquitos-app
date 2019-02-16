@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div fxLayout="row wrap" style="position: absolute; height: 100%;">
+<div fxLayout="row wrap" style="position: absolute; height: 100%; width:100%;">
   <mat-card fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-sm="50" fxFlex="100">
     <mat-card-content style="height: 100%">
 
@@ -71,7 +71,7 @@
       </div>
 
       <div fxLayout="row wrap" *ngIf="client.nombre !== undefined">
-        <mat-form-field>
+        <mat-form-field appearance="fill">
           <input matInput [(ngModel)]="client.nombre" disabled>
           <mat-icon (click)="removeCliente()" matSuffix color="primary" style="cursor: pointer;">delete</mat-icon>
         </mat-form-field>
