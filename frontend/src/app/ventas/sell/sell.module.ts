@@ -16,6 +16,7 @@ import { SellUpdateComponent } from './sell-update.component';
 import { SellDeleteComponent } from './sell-delete.component';
 import { SellVariantselectionComponent } from './sell-variantselection.component';
 import { SellLimitStockErrorComponent } from "./sell-limit-stock-error.component";
+import { SellNotificationErrorComponent } from "./sell-notification-error.component";
 import { SellExtraInfoComponent } from "./sell-extra-info.component";
 
 @NgModule({
@@ -28,8 +29,8 @@ import { SellExtraInfoComponent } from "./sell-extra-info.component";
     ReactiveFormsModule,
     RouterModule.forChild(SellRoutes)
   ],
-  entryComponents: [SellDeleteComponent, SellVariantselectionComponent, SellLimitStockErrorComponent, SellExtraInfoComponent],
+  entryComponents: [SellDeleteComponent, SellVariantselectionComponent, SellLimitStockErrorComponent, SellExtraInfoComponent, SellNotificationErrorComponent],
   declarations: [SellComponent, SellDetailComponent, SellUpdateComponent,
-    SellDeleteComponent, SellVariantselectionComponent, SellLimitStockErrorComponent, SellExtraInfoComponent]
+    SellDeleteComponent, SellVariantselectionComponent, SellLimitStockErrorComponent, SellExtraInfoComponent, SellNotificationErrorComponent]
 })
 export class SellModule {}
