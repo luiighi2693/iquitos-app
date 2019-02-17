@@ -28,6 +28,7 @@ import * as moment from 'moment';
 import {AmortizacionService} from "../amortizacion/amortizacion.service";
 import {CustomValidators} from "ng2-validation";
 import {Amortizacion} from "../../models/amortizacion.model";
+import {SellNotificationErrorComponent} from "./sell-notification-error.component";
 
 declare var require: any;
 
@@ -525,70 +526,79 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   addExtraInfoSell() {
-    //save the sell first ?
-    const dialogRef = this.dialog.open(SellExtraInfoComponent, {
-      width: '80%',
-      data: {
-        entity: this.entity,
-        client: this.client,
-        serie: this.serie
-      },
-      disableClose: true
-    });
+    if (this.entity.productoDetalles.length === 0 || this.entity.montoTotal < 1) {
+      const dialogRef = this.dialog.open(SellNotificationErrorComponent, {
+        width: '80%',
+        data: {
+          message: this.entity.productoDetalles.length === 0 ? 'Debe ingresar al menos un producto.' : 'El monto de venta debe ser mayor a 0.'
+        },
+        disableClose: true
+      });
+    } else {
+      const dialogRef = this.dialog.open(SellExtraInfoComponent, {
+        width: '80%',
+        data: {
+          entity: this.entity,
+          client: this.client,
+          serie: this.serie
+        },
+        disableClose: true
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result !== undefined) {
-        if (result.flag === 'exit'){
-          if (this.entity.id) {
-            this.service.delete(this.entity.id).subscribe(
-              (res: HttpResponse<Producto>) => {
-                this.router.navigate(['/ventas/sell']);
-              },
-              (res: HttpErrorResponse) => this.onError(res.message)
-            );
-          } else {
-            this.entity.productoDetalles = [];
-            this.entity.subTotal = 0;
-            this.entity.montoTotal = 0;
-            this.refreshProductDetails();
-            this.removeCliente();
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+        if (result !== undefined) {
+          if (result.flag === 'exit'){
+            if (this.entity.id) {
+              this.service.delete(this.entity.id).subscribe(
+                (res: HttpResponse<Producto>) => {
+                  this.router.navigate(['/ventas/sell']);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+              );
+            } else {
+              this.entity.productoDetalles = [];
+              this.entity.subTotal = 0;
+              this.entity.montoTotal = 0;
+              this.refreshProductDetails();
+              this.removeCliente();
+            }
           }
+
+          if (result.flag === 'save'){
+            this.entity.fecha = moment();
+            this.entity.estatus = SellStatus.PENDIENTE;
+            this.save();
+          }
+
+          if (result.flag === 'pay'){
+            this.serie = result.serie;
+
+            console.log('estatus');
+            this.entity.estatus = parseFloat(result.amortization.montoPagado) >= parseFloat(result.amortization.monto) ? SellStatus.COMPLETADO : SellStatus.PENDIENTE;
+            this.entity.amortizacions = [result.amortization];
+
+            this.entity.productoDetalles.forEach(productoDetalle => {
+              productoDetalle.productos[0].stock = productoDetalle.productos[0].stock - this.getStockConsumFromProduct(productoDetalle.productos[0]);
+              console.log('producto ' + productoDetalle.productos[0]);
+              this.productoService.update(productoDetalle.productos[0]).subscribe(
+                (res: HttpResponse<Producto>) => {
+
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+              );
+            });
+
+            this.entity.fecha = moment();
+            this.entity.amortizacions[0].fecha = moment();
+            this.save();
+          }
+        } else {
+          // this.entity.estatus = SellStatus.PENDIENTE;
+          // this.save();
         }
-
-        if (result.flag === 'save'){
-          this.entity.fecha = moment();
-          this.entity.estatus = SellStatus.PENDIENTE;
-          this.save();
-        }
-
-        if (result.flag === 'pay'){
-          this.serie = result.serie;
-
-          console.log('estatus');
-          this.entity.estatus = parseFloat(result.amortization.montoPagado) >= parseFloat(result.amortization.monto) ? SellStatus.COMPLETADO : SellStatus.PENDIENTE;
-          this.entity.amortizacions = [result.amortization];
-
-          this.entity.productoDetalles.forEach(productoDetalle => {
-            productoDetalle.productos[0].stock = productoDetalle.productos[0].stock - this.getStockConsumFromProduct(productoDetalle.productos[0]);
-            console.log('producto ' + productoDetalle.productos[0]);
-            this.productoService.update(productoDetalle.productos[0]).subscribe(
-              (res: HttpResponse<Producto>) => {
-
-              },
-              (res: HttpErrorResponse) => this.onError(res.message)
-            );
-          });
-
-          this.entity.fecha = moment();
-          this.entity.amortizacions[0].fecha = moment();
-          this.save();
-        }
-      } else {
-        // this.entity.estatus = SellStatus.PENDIENTE;
-        // this.save();
-      }
-    });
+      });
+    }
   }
 
   removeCliente(){

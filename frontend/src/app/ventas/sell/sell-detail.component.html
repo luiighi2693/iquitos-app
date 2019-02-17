@@ -42,7 +42,7 @@
             </div>
             <div fxFlex.gt-xs="75" fxFlex="100">
               <div style="margin-left: 5px" fxLayout="column">
-                <span>{{entity.clienteNombre}}</span>
+                <span>{{entity.clienteNombre ? entity.clienteNombre : 'Cliente'}}</span>
               </div>
             </div>
 
