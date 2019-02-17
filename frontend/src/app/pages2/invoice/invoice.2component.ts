@@ -83,17 +83,17 @@ export class Invoice2Component implements OnInit{
         this.amortizationSelected = this.venta.amortizacions[route.snapshot.params['index']];
         console.log(this.venta);
 
-        clienteService.find(this.venta.clienteId).subscribe(
-          (res: HttpResponse<ICliente>) => {
-            this.cliente = res.body;
-
-            setTimeout(() => {
-              window.print();
-              this.router.navigate(['/ventas/sell']);
-            });
-          },
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        if (this.venta.clienteId !== null) {
+          clienteService.find(this.venta.clienteId).subscribe(
+            (res: HttpResponse<ICliente>) => {
+              this.cliente = res.body;
+              this.printInvoiceAndReturn();
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+          );
+        } else {
+          this.printInvoiceAndReturn();
+        }
         
       },
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -119,5 +119,12 @@ export class Invoice2Component implements OnInit{
   parseFloatCustom(cantidad: number) {
     // @ts-ignore
     return parseFloat(Math.round(cantidad * 100) / 100).toFixed(2)
+  }
+
+  private printInvoiceAndReturn() {
+    setTimeout(() => {
+      window.print();
+      this.router.navigate(['/ventas/sell']);
+    });
   }
 }

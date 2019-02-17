@@ -1,4 +1,4 @@
-<mat-card style="max-width: 695px;" *ngIf="venta && cliente">
+<mat-card style="max-width: 695px;" *ngIf="venta">
   <mat-card-content>
 
     <div style="margin-bottom: 20px;" fxLayout="row wrap">
@@ -61,13 +61,13 @@
         <table class="table">
           <thead>
           <tr>
-            <th scope="col">Razón Social:   {{venta.clienteNombre}}</th>
+            <th scope="col">Razón Social:   {{venta.clienteId ? venta.clienteNombre : 'Cliente'}}</th>
             <!--<td>{{venta.clienteNombre}}</td>-->
           </tr>
           </thead>
           <tbody>
           <tr>
-            <th scope="row">Dirección:   {{cliente.direccion}}</th>
+            <th scope="row">Dirección:   {{venta.clienteId ? cliente.direccion : ''}}</th>
             <!--<td>{{cliente.direccion}}</td>-->
           </tr>
           <tr>
@@ -75,7 +75,7 @@
             <!--<td>{{amortizationSelected.codigoDocumento}}</td>-->
           </tr>
           <tr>
-            <th scope="row">Email:   {{cliente.correo}}</th>
+            <th scope="row">Email:   {{venta.clienteId ? cliente.correo : ''}}</th>
             <!--<td>{{cliente.correo}}</td>-->
           </tr>
           </tbody>

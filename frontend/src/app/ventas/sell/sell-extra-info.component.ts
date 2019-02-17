@@ -87,6 +87,10 @@ export class SellExtraInfoComponent {
       }
 
     if (param ==='save') {
+      if (this.data.client.id === undefined){
+        this.data.entity.client = undefined;
+        this.amortization.codigoDocumento = '';
+      }
       this.dialogRef.close({
         entity: this.data.entity,
         amortization: null,
@@ -95,6 +99,10 @@ export class SellExtraInfoComponent {
     }
 
     if (param ==='pay') {
+      if (this.data.client.id === undefined){
+        this.data.entity.client = undefined;
+        this.amortization.codigoDocumento = '';
+      }
       this.amortization.tipoDeDocumentoDeVentaId = this.data.entity.tipoDeDocumentoDeVentaId;
       this.amortization.tipoDePagoId = this.data.entity.tipoDePagoId;
       this.amortization.glosa = this.data.entity.glosa;
