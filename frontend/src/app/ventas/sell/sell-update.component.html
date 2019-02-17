@@ -109,11 +109,12 @@
               <mat-header-cell *matHeaderCellDef> PU.</mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
                 <span class="header-label">PU.:</span>
-                <input style="text-align: center; width: 80%; margin-left: 10px; border: 1px solid #bec3c8; color: black;"
+                <span matPrefix>S/&nbsp;</span>
+                <input style="text-align: center; width: 80%; border: 1px solid #bec3c8; color: black;"
                   placeholder="PU." type="text" maxlength="10"
                        (keypress)="checkNumbersDecimalOnly($event)"
                        (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')"
-                       value="S/ {{parseFloatCustom(row.precioVenta)}}">
+                       value="{{parseFloatCustom(row.precioVenta)}}">
               </mat-cell>
             </ng-container>
 
@@ -121,10 +122,12 @@
               <mat-header-cell *matHeaderCellDef> PT.</mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
                 <span class="header-label">PT.:</span>
-                <input matInput placeholder="PT." type="text" maxlength="10"
+                <span matPrefix>S/&nbsp;</span>
+                <input style="text-align: center; width: 80%; border: 1px solid #bec3c8; color: black;"
+                       placeholder="PT." type="text" maxlength="10"
                        (keypress)="checkNumbersDecimalOnly($event)"
                        (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')"
-                       value="S/ {{parseFloatCustom(row.precioVenta*row.cantidad)}}" disabled>
+                       value="{{parseFloatCustom(row.precioVenta*row.cantidad)}}" disabled>
               </mat-cell>
             </ng-container>
 
@@ -183,7 +186,7 @@
 
     <div class="button-row" [ngClass]="{ 'button-row-sell-custom': entity.productoDetalles.length < 2}">
       <button mat-raised-button style="background-color: #1ab394; color: white; border-radius: initial; width:72%"
-              [disabled]="client.id === undefined || entity.productoDetalles.length === 0 || entity.montoTotal < 1"
+              [disabled]="entity.productoDetalles.length === 0 || entity.montoTotal < 1"
               (click)="addExtraInfoSell()">Vender
       </button>
       <button mat-raised-button style="width:28%; border-radius: initial;" (click)="refreshSell()">Cancelar</button>

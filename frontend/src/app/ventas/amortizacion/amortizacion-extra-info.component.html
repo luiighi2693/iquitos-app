@@ -20,10 +20,10 @@
   <div fxLayout="row wrap">
 
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
-      <span class="header-label">El Cliente <b>{{data.client.nombre}}</b></span><br>
-      <span class="header-label">Con Número de Ruc <b>{{data.client.codigo}}</b></span><br>
-      <span class="header-label">Direccionado en <b>{{data.client.direccion}}</b></span><br>
-      <span class="header-label">Con Nº de Venta <b>{{data.entity.codigo}}</b></span><br>
+      <span class="header-label">El Cliente <b>{{ data.client ? data.client.nombre : 'Cliente'}}</b></span><br>
+      <span class="header-label">Con Número de Ruc <b>{{ data.client ? data.client.codigo : ''}}</b></span><br>
+      <span class="header-label">Direccionado en <b>{{ data.client ? data.client.direccion : ''}}</b></span><br>
+      <span class="header-label">Con Nº de Venta <b>{{ data.entity.codigo}}</b></span><br>
     </div>
 
     <!--<div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">-->
@@ -98,6 +98,6 @@
   </div>
 </div>
 <div style="width: 100%;" mat-dialog-actions>
-  <button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" mat-button tabindex="2" (click)="closeAndCheckSell('pay')" [disabled]="validateDocumentCodeInvalid()">Pagar</button>
+  <button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" mat-button tabindex="2" (click)="closeAndCheckSell('pay')" [disabled]="validateDocumentCodeInvalid() && amortization.montoPagado < 1">Pagar</button>
   <button style="width: 25%;" mat-button tabindex="-1" (click)="closeAndCheckSell('exit')">Salir</button>
 </div>

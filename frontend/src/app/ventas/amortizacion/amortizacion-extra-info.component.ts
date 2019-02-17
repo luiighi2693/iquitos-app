@@ -46,7 +46,7 @@ export class AmortizacionExtraInfoComponent {
     this.amortization.montoPagado = this.parseFloatCustom(this.data.entity.montoTotal - this.getMontoAmortizadoPopUp(this.data.entity));
     this.montoTotal = this.amortization.montoPagado;
     this.amortization.monto = this.data.entity.montoTotal;
-    this.amortization.codigoDocumento = this.data.client.codigo;
+    this.amortization.codigoDocumento = this.data.client ? this.data.client.codigo : '';
     this.amortization.fecha = moment();
     console.log(this.amortization.fecha);
 
@@ -64,16 +64,20 @@ export class AmortizacionExtraInfoComponent {
       (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => {
         this.documentTypeSells = res.body;
         if (this.documentTypeSells.length > 0){
-          switch (this.data.client.tipoDeCliente) {
-            case ClientType.JURIDICO: {
-              this.filterDocumentTypeSellContent(ClientType.JURIDICO);
-              break;
-            }
+          if(this.data.client) {
+            switch (this.data.client.tipoDeCliente) {
+              case ClientType.JURIDICO: {
+                this.filterDocumentTypeSellContent(ClientType.JURIDICO);
+                break;
+              }
 
-            case ClientType.NATURAL: {
-              this.filterDocumentTypeSellContent(ClientType.NATURAL);
-              break;
+              case ClientType.NATURAL: {
+                this.filterDocumentTypeSellContent(ClientType.NATURAL);
+                break;
+              }
             }
+          } else {
+            this.filterDocumentTypeSellContent(ClientType.NATURAL);
           }
         }
       },
@@ -133,11 +137,7 @@ export class AmortizacionExtraInfoComponent {
   }
 
   validateDocumentCodeInvalid(){
-    if (this.amortization.codigoDocumento === undefined) {
-      return true;
-    } else {
-      return this.amortization.codigoDocumento.length === 0;
-    }
+    return this.amortization.codigoDocumento === undefined;
   }
 
   public updateEntityCustom() {

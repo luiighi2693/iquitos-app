@@ -1,4 +1,4 @@
-<mat-card style="max-width: 695px;" *ngIf="venta && cliente">
+<mat-card style="max-width: 695px;" *ngIf="venta">
   <mat-card-content>
     <div class="mb-1">
       <h1 class="mt-0" (click)="print()">
@@ -19,9 +19,9 @@
         <div fxLayout="column">
           <span>Fecha: {{getFormatedDate()}}</span>
           <span>Nombre o Razón Social</span>
-          <span>{{venta.clienteNombre}}</span>
+          <span>{{venta.clienteId ? venta.clienteNombre : 'Cliente'}}</span>
           <span>Dirección</span>
-          <span>{{cliente.direccion}}</span>
+          <span>{{venta.clienteId ? cliente.direccion : ''}}</span>
         </div>
       </div>
       <div fxFlex.gt-xs="50" fxFlex="100" class="text-right">
