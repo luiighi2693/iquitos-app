@@ -11,12 +11,6 @@ import {UsuarioExterno} from '../../models/usuario-externo.model';
 import {finalize} from 'rxjs/operators';
 import {UsuarioExternoService} from './usuario-externo.service';
 import Util from "../../shared/util/util";
-import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {IEmpleado} from "../../models/empleado.model";
-import {IAmortizacion} from "../../models/amortizacion.model";
-import {ITipoDeDocumentoDeVenta} from "../../models/tipo-de-documento-de-venta.model";
-import {TipoDeDocumentoDeVentaService} from "../../configuration/documenttypesell/tipo-de-documento-de-venta.service";
-import {AmortizacionService} from 'app/ventas/amortizacion/amortizacion.service';
 
 @Component({
   selector: 'app-login',
@@ -31,9 +25,7 @@ export class LoginComponent implements OnInit {
   hasError = false;
   constructor(private fb: FormBuilder, private router: Router,
               private authenticationService: AuthenticationService,
-              private usuarioExternoService: UsuarioExternoService,
-              private amortizacionService: AmortizacionService,
-              private tipoDeDocumentoDeVentaService: TipoDeDocumentoDeVentaService) {}
+              private usuarioExternoService: UsuarioExternoService) {}
 
   ngOnInit() {
     this.authenticationService.logout();
@@ -60,32 +52,7 @@ export class LoginComponent implements OnInit {
               )
               .subscribe(
                 credentials => {
-                  this.tipoDeDocumentoDeVentaService.query().subscribe(
-                    (res: HttpResponse<ITipoDeDocumentoDeVenta[]>) => {
-                      let tiposDocumento = res.body;
-                      tiposDocumento.forEach(tipo => {
-                        sessionStorage.setItem('correlativo.' + tipo.nombre, tipo.nombre[0]+'00');
-                      });
-
-                      this.amortizacionService.query().subscribe(
-                        (res: HttpResponse<IAmortizacion[]>) => {
-                          if (res.body.length === 0) {
-                            tiposDocumento.forEach(tipo => {
-                              sessionStorage.setItem('correlativo.contador.'+tipo.nombre, '0');
-                            });
-                          } else {
-                            tiposDocumento.forEach(tipo => {
-                              sessionStorage.setItem('correlativo.contador.'+tipo.nombre, res.body.filter(x => x.tipoDeDocumentoDeVentaNombre === tipo.nombre).length.toString());
-                            });
-                          }
-
-                          this.router.navigate(['/dashboards'], { replaceUrl: true });
-                        },
-                        (res: HttpErrorResponse) => this.onError(res.message)
-                      );
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                  );
+                  this.router.navigate(['/dashboards'], { replaceUrl: true });
                 },
                 error => {
                   this.error = error;
