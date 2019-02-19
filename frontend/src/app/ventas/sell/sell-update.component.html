@@ -99,9 +99,10 @@
               <mat-header-cell *matHeaderCellDef> Producto</mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
                 <span class="header-label">Producto:</span>
-                <input matInput placeholder="Producto" type="text" maxlength="10"
-                       (blur)="saveChangesInProductosDetallesRow($event, i, 'producto')" value="{{row.productoLabel}}"
-                       disabled>
+                <!--<input matInput placeholder="Producto" type="text" maxlength="10"-->
+                       <!--(blur)="saveChangesInProductosDetallesRow($event, i, 'producto')" value="{{row.productoLabel}}"-->
+                       <!--disabled>-->
+                <h6 style="width: 350px;">{{row.productoLabel}}</h6>
               </mat-cell>
             </ng-container>
 
