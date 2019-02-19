@@ -201,4 +201,10 @@ export class SellExtraInfoComponent {
       this.amountToPayField.nativeElement.select();
     }, 300);
   }
+
+  onEnter($event) {
+    if (!this.validatePaymentInvalid()) {
+      this.closeAndCheckSell('pay');
+    }
+  }
 }

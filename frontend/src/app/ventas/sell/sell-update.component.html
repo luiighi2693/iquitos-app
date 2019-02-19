@@ -271,14 +271,16 @@
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [formControl]="form.controls['fnombre']">
+          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [formControl]="form.controls['fnombre']"
+                 (input)="client.nombre=$event.target.value.toUpperCase()">
         </mat-form-field>
         <mat-hint *ngIf="form.controls['fnombre'].hasError('required') && form.controls['fnombre'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
       </div>
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [formControl]="form.controls['fdireccion']">
+          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" [formControl]="form.controls['fdireccion']"
+                 (input)="client.direccion=$event.target.value.toUpperCase()">
         </mat-form-field>
         <mat-hint *ngIf="form.controls['fdireccion'].hasError('required') && form.controls['fdireccion'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
       </div>
