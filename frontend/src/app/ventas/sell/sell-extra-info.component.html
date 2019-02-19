@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div mat-dialog-content>
+<div mat-dialog-content (keyup.enter)="onEnter($event)">
   <div fxLayout="row wrap">
 
     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
@@ -120,6 +120,10 @@
 
   <div fxLayout="row wrap">
     <h1 mat-dialog-title style="width: 100%; text-align: center; color:#30ad80">Vuelto : {{parseFloatCustom(amortization.montoPagado - data.entity.montoTotal) < 0 ? 0 : parseFloatCustom(amortization.montoPagado - data.entity.montoTotal)}} soles</h1>
+  </div>
+
+  <div fxLayout="row wrap" *ngIf="isCredit">
+    <h6 mat-dialog-title style="width: 100%; text-align: center; color:red; font-size: 1rem;margin-bottom: 0;">Crédito : S/ {{data.entity.montoTotal}}</h6>
   </div>
 </div>
 <div style="width: 100%;" mat-dialog-actions>
