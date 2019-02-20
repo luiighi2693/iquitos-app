@@ -62,7 +62,8 @@ input.mat-input-element {
   background-color: white;
   position: relative;
   top: 8%;
-  cursor:pointer
+  cursor:pointer;
+  margin-top: 1rem;
 }
 
 .mat-card.oh.mat-card {
@@ -74,23 +75,39 @@ input.mat-input-element {
   width: 90%;
 }
 
+.dm-1{
+  //position: relative;
+  //top: -13px;
+  background-color: white;
+  cursor: pointer;
+  position: unset;
+  top: 50%;
+  left: 50%;
+  transition-duration: 1s;
+}
+
 .dm-1:hover,
 .dm-1:focus{
-  position: relative;
-  top: -45px;
-  background-color: white;
+  //position: absolute !important;
+  //bottom: 0;
+  //left: 0;
+  //right: 0;
+  //padding: 0px 8px 5px 8px;
+  //top: 3rem !important;
+  //margin-top: -5rem !important;
+  transform: translate(0%, -70%);
 }
 
-.mat-card.oh.mat-card:hover,
-.mat-card.oh.mat-card:focus{
-
-  .div.dm-1{
-    position: relative;
-    top: -45px;
-    background-color: white;
-  }
-
-}
+//.mat-card.oh.mat-card:hover,
+//.mat-card.oh.mat-card:focus{
+//
+//  .div.dm-1{
+//    position: relative;
+//    top: -45px;
+//    background-color: white;
+//  }
+//
+//}
 
   //.lbl-1:hover,
 //.lbl-1:focus{
