@@ -1,4 +1,4 @@
-.no-padding{
+.no-padding {
   padding: 0 !important;
 }
 
@@ -9,33 +9,34 @@
 }
 
 // search bar style
-.mat-icon-button{
+.mat-icon-button {
   display: inline-block;
   margin-top: 10px;
   background-color: #1e88e5;
   border-radius: 2px;
   margin-right: 10px;
   margin-left: 10px;
-  
+
 }
 
-.mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary{
+.mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary {
   color: white;
 }
 
-.foot-div{
+.foot-div {
   position: absolute;
   top: 97%;
   left: 65%;
 }
 
-input.mat-input-element{
+input.mat-input-element {
   margin-top: 5px;
 }
+
 //
 
 // product card component style
-.mat-card-image{
+.mat-card-image {
   border-radius: initial;
   margin-bottom: -12px;
   margin-top: -20px;
@@ -43,54 +44,85 @@ input.mat-input-element{
 }
 
 .m-0 {
-opacity: 0.7;
-color: #fff !important;
-font-size: 11px;
-font-weight: bold;
-width: 100%;
-background-color: black;
-padding: 2px 2px 2px 0px;
-white-space: nowrap;
-display: inline-block;
-margin-top: 6px;
-cursor: pointer;
-}
-
-.oh mat-card{
+  opacity: 0.7;
+  color: #fff !important;
+  font-size: 11px;
+  font-weight: bold;
+  width: 100%;
+  background-color: black;
+  padding: 2px 2px 2px 0px;
+  white-space: nowrap;
+  display: inline-block;
+  margin-top: 6px;
+  cursor: pointer;
   text-align: right;
-  width: 50%;
 }
 
-.mat-card{
+.lbl {
+  background-color: white;
+  position: relative;
+  top: 8%;
+  cursor:pointer
+}
+
+.mat-card.oh.mat-card {
+  text-align: center;
+  max-height: 170px;
+}
+
+.mat-card {
   width: 90%;
 }
 
-//.oh:hover,
-//.oh:focus{
+.dm-1:hover,
+.dm-1:focus{
+  position: relative;
+  top: -45px;
+  background-color: white;
+}
 
-  //.mat-card-image{
-    //height: 95px;
-  //}
+.mat-card.oh.mat-card:hover,
+.mat-card.oh.mat-card:focus{
+
+  .div.dm-1{
+    position: relative;
+    top: -45px;
+    background-color: white;
+  }
+
+}
+
+  //.lbl-1:hover,
+//.lbl-1:focus{
+//  position: relative;
+//  top: -15px;
+//  background-color: white;
+//  cursor: pointer;
+//}
+
+//.mat-card-image{
+//height: 95px;
+//}
 //}
 
 .mat-row.mat-row.ng-star-inserted:hover,
-.mat-row.mat-row.ng-star-inserted:focus{
+.mat-row.mat-row.ng-star-inserted:focus {
   background-color: #eaeaea;
-  
+
 }
 
-.mat-card-content > :first-child, .mat-card > :first-child{
+.mat-card-content > :first-child, .mat-card > :first-child {
   margin-top: 0;
   text-align: right;
   overflow: auto;
 }
 
-.mat-elevation-z8{
+.mat-elevation-z8 {
   text-align: initial;
   width: 100%;
 }
 
-.p-10{
+.p-10 {
   display: inline-flex;
   padding: 0px;
   width: 100%;
@@ -98,25 +130,25 @@ cursor: pointer;
   top: 90%;
 }
 
-.p-11{
+.p-11 {
   width: 90%;
   margin-bottom: 2%;
   position: absolute;
 }
 
-.p-12{
+.p-12 {
   cursor: pointer;
   flex: 1 1 50%;
   box-sizing: border-box;
   max-width: 43%;
 }
 
-.button-row{
+.button-row {
   position: absolute;
   top: 93%;
 }
 
-.mat-card-content.row.wrap.mat-card-content{
+.mat-card-content.row.wrap.mat-card-content {
   padding-bottom: 0;
   margin-bottom: 0;
   position: absolute;
@@ -124,7 +156,7 @@ cursor: pointer;
   width: 100%;
 }
 
-.mat-card-content > :last-child:not(.mat-card-footer), .mat-card > :last-child:not(.mat-card-footer){
+.mat-card-content > :last-child:not(.mat-card-footer), .mat-card > :last-child:not(.mat-card-footer) {
   margin-bottom: 0;
   margin-top: -15px;
 }
@@ -156,13 +188,13 @@ cursor: pointer;
   width: 109%;
 }
 
-.empleado-lbl{
-    padding-right: 190px;
-    display: flex;
-    align-items: center;
+.empleado-lbl {
+  padding-right: 190px;
+  display: flex;
+  align-items: center;
 }
 
-.button-row button{
+.button-row button {
   margin-right: 0%;
   margin-left: 0%;
   margin-top: 3%;
@@ -173,8 +205,8 @@ cursor: pointer;
 }
 
 //.mat-table {
-  //font-family: Poppins;
-  //flex: 0 0 100px;
+//font-family: Poppins;
+//flex: 0 0 100px;
 //}
 
 .mat-header-cell {
@@ -208,50 +240,50 @@ mat-cell, mat-footer-cell, mat-header-cell {
 }
 
 mat-footer-row, mat-header-row, mat-row {
-    display: flex;
-    border-width: 0;
-        border-bottom-width: 0px;
-    border-bottom-width: 1px;
-    border-style: solid;
-    align-items: center;
-    box-sizing: border-box;
-    text-align: center;
+  display: flex;
+  border-width: 0;
+  border-bottom-width: 0px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  align-items: center;
+  box-sizing: border-box;
+  text-align: center;
 }
 
-mat-header-cell.mat-header-cell.cdk-column-cantidad.mat-column-cantidad.ng-star-inserted{
-  font-size:15px;
+mat-header-cell.mat-header-cell.cdk-column-cantidad.mat-column-cantidad.ng-star-inserted {
+  font-size: 15px;
   width: 15%;
 }
 
-mat-header-cell.mat-header-cell.cdk-column-producto.mat-column-producto.ng-star-inserted{
-  font-size:15px;
+mat-header-cell.mat-header-cell.cdk-column-producto.mat-column-producto.ng-star-inserted {
+  font-size: 15px;
   width: 20%;
 }
 
-mat-header-cell.mat-header-cell.cdk-column-precioVenta.mat-column-precioVenta.ng-star-inserted{
-  font-size:15px;
+mat-header-cell.mat-header-cell.cdk-column-precioVenta.mat-column-precioVenta.ng-star-inserted {
+  font-size: 15px;
   width: 20%;
 }
 
-mat-header-cell.mat-header-cell.cdk-column-precioTotal.mat-column-precioTotal.ng-star-inserted{
-  font-size:15px;
+mat-header-cell.mat-header-cell.cdk-column-precioTotal.mat-column-precioTotal.ng-star-inserted {
+  font-size: 15px;
   width: 15%;
 }
 
-@media (min-width: 1350px) and (max-width: 1600px){
-  .foot-div{
+@media (min-width: 1350px) and (max-width: 1600px) {
+  .foot-div {
     left: 53%;
   }
 }
 
-@media (min-width: 1200px) and (max-width: 1349px){
-  .foot-div{
+@media (min-width: 1200px) and (max-width: 1349px) {
+  .foot-div {
     left: 45%;
   }
 }
 
-@media (max-width: 1200px){
-  .foot-div{
+@media (max-width: 1200px) {
+  .foot-div {
     left: 30%;
   }
 
@@ -262,8 +294,8 @@ mat-header-cell.mat-header-cell.cdk-column-precioTotal.mat-column-precioTotal.ng
 
 }
 
-@media (max-width: 959px){
-  .custom-box-items-selected{
+@media (max-width: 959px) {
+  .custom-box-items-selected {
     height: inherit;
   }
 }
