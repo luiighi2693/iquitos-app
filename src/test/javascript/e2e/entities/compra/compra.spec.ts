@@ -46,6 +46,8 @@ describe('Compra e2e test', () => {
             compraUpdatePage.setMontoTotalInput('5'),
             compraUpdatePage.setCorrelativoInput('correlativo'),
             compraUpdatePage.tipoDePagoDeCompraSelectLastOption(),
+            compraUpdatePage.tipoDeTransaccionSelectLastOption(),
+            compraUpdatePage.estatusSelectLastOption(),
             compraUpdatePage.setMetaDataInput('metaData'),
             compraUpdatePage.proveedorSelectLastOption(),
             compraUpdatePage.tipoDeDocumentoDeCompraSelectLastOption(),

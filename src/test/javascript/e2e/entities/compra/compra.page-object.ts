@@ -33,6 +33,8 @@ export class CompraUpdatePage {
     montoTotalInput = element(by.id('field_montoTotal'));
     correlativoInput = element(by.id('field_correlativo'));
     tipoDePagoDeCompraSelect = element(by.id('field_tipoDePagoDeCompra'));
+    tipoDeTransaccionSelect = element(by.id('field_tipoDeTransaccion'));
+    estatusSelect = element(by.id('field_estatus'));
     metaDataInput = element(by.id('field_metaData'));
     proveedorSelect = element(by.id('field_proveedor'));
     tipoDeDocumentoDeCompraSelect = element(by.id('field_tipoDeDocumentoDeCompra'));
@@ -109,6 +111,36 @@ export class CompraUpdatePage {
 
     async tipoDePagoDeCompraSelectLastOption() {
         await this.tipoDePagoDeCompraSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async setTipoDeTransaccionSelect(tipoDeTransaccion) {
+        await this.tipoDeTransaccionSelect.sendKeys(tipoDeTransaccion);
+    }
+
+    async getTipoDeTransaccionSelect() {
+        return this.tipoDeTransaccionSelect.element(by.css('option:checked')).getText();
+    }
+
+    async tipoDeTransaccionSelectLastOption() {
+        await this.tipoDeTransaccionSelect
+            .all(by.tagName('option'))
+            .last()
+            .click();
+    }
+
+    async setEstatusSelect(estatus) {
+        await this.estatusSelect.sendKeys(estatus);
+    }
+
+    async getEstatusSelect() {
+        return this.estatusSelect.element(by.css('option:checked')).getText();
+    }
+
+    async estatusSelectLastOption() {
+        await this.estatusSelect
             .all(by.tagName('option'))
             .last()
             .click();

@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.Objects;
 import pe.com.iquitos.app.domain.enumeration.PurchaseLocation;
 import pe.com.iquitos.app.domain.enumeration.PaymentPurchaseType;
+import pe.com.iquitos.app.domain.enumeration.TipoDeTransaccion;
+import pe.com.iquitos.app.domain.enumeration.PurchaseStatus;
 
 /**
  * A DTO for the Compra entity.
@@ -36,6 +38,10 @@ public class CompraDTO implements Serializable {
     private String correlativo;
 
     private PaymentPurchaseType tipoDePagoDeCompra;
+
+    private TipoDeTransaccion tipoDeTransaccion;
+
+    private PurchaseStatus estatus;
 
     @NotNull
     @Size(max = 5000)
@@ -117,6 +123,22 @@ public class CompraDTO implements Serializable {
 
     public void setTipoDePagoDeCompra(PaymentPurchaseType tipoDePagoDeCompra) {
         this.tipoDePagoDeCompra = tipoDePagoDeCompra;
+    }
+
+    public TipoDeTransaccion getTipoDeTransaccion() {
+        return tipoDeTransaccion;
+    }
+
+    public void setTipoDeTransaccion(TipoDeTransaccion tipoDeTransaccion) {
+        this.tipoDeTransaccion = tipoDeTransaccion;
+    }
+
+    public PurchaseStatus getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(PurchaseStatus estatus) {
+        this.estatus = estatus;
     }
 
     public String getMetaData() {
@@ -215,6 +237,8 @@ public class CompraDTO implements Serializable {
             ", montoTotal=" + getMontoTotal() +
             ", correlativo='" + getCorrelativo() + "'" +
             ", tipoDePagoDeCompra='" + getTipoDePagoDeCompra() + "'" +
+            ", tipoDeTransaccion='" + getTipoDeTransaccion() + "'" +
+            ", estatus='" + getEstatus() + "'" +
             ", metaData='" + getMetaData() + "'" +
             ", proveedor=" + getProveedorId() +
             ", tipoDeDocumentoDeCompra=" + getTipoDeDocumentoDeCompraId() +

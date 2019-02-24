@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { IProducto } from 'app/shared/model//producto.model';
+import {IProducto} from "./producto.model";
 
 export const enum PurchaseLocation {
     TIENDA = 'TIENDA'
@@ -30,14 +30,14 @@ export interface ICompra {
     montoTotal?: number;
     correlativo?: string;
     tipoDePagoDeCompra?: PaymentPurchaseType;
-    tipoDeTransaccion?: TipoDeTransaccion;
+    tipoDeTransaccion?: TipoDeTransaccion; //innecesario
     estatus?: PurchaseStatus;
     metaData?: string;
     proveedorId?: number;
     tipoDeDocumentoDeCompraNombre?: string;
     tipoDeDocumentoDeCompraId?: number;
-    estatusDeCompraNombre?: string;
-    estatusDeCompraId?: number;
+    estatusDeCompraNombre?: string; //innecesario
+    estatusDeCompraId?: number; //innecesario
     cajaId?: number;
     productos?: IProducto[];
 }

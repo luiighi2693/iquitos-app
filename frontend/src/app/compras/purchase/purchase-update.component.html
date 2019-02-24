@@ -1,0 +1,157 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div style="display: flex;">
+      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" (click)="previousState()" style="cursor: pointer">
+        <span class="goBackTag">< Todos los Proveedores</span>
+      </div>
+
+      <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+        <div class="button-row">
+          <button mat-raised-button (click)="previousState()">Cancelar</button>
+          <!--<button mat-raised-button color="primary" [disabled]="!form.valid" (click)="save()">Guardar</button>-->
+          <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <mat-card>
+      <mat-card-content>
+        <mat-card-title>Compra {{!entity.id ? 'Nueva' : 'Edición'}} </mat-card-title>
+        <form class="basic-form">
+          <div fxLayout="row wrap">
+            <!-- column -->
+            <div fxFlex.gt-sm="64" fxFlex="100" style="    margin-right: 2%;">
+              <mat-form-field>
+                <input matInput placeholder="Proveedor" name="proveedor" type="text" maxlength="150"
+                       (keypress)="checkCharactersOnly($event)" [(ngModel)]="entityFilteredSelectedInputProveedor" [matAutocomplete]="autoTest"
+                       (keyup)="filterEntityProveedor()" (blur)="onBlurProveedor($event)">
+                <button mat-button *ngIf="entityFilteredSelectedProveedor" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelectedProveedor()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autoTest="matAutocomplete">
+                  <mat-option *ngFor="let option of entitiesFilteredProveedor" [value]="option" (click)="setEntityFilterProveedor(option)">
+                    <span *ngIf="option.razonSocial">{{option.razonSocial}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <!--<mat-hint *ngIf="form.controls['proveedor'].hasError('required') && form.controls['proveedor'].touched" class="text-danger font-14">Campo Requerido</mat-hint>-->
+            </div>
+
+            <mat-form-field fxFlex.gt-sm="34" fxFlex="100">
+              <mat-select placeholder="Tipo de Compra" [(ngModel)]="entity.tipoDePagoDeCompra" name="tipoDePagoDeCompra">
+                <mat-option *ngFor="let tipoDePagoDeCompra of tipoDePagoDeCompraList;" [value]="tipoDePagoDeCompra">
+                  {{tipoDePagoDeCompra}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex.gt-sm="32" fxFlex="100" style="    margin-right: 2%;">
+              <mat-select placeholder="Documento" [(ngModel)]="entity.tipoDeDocumentoDeCompraId" name="tipoDeDocumentoDeCompraId">
+                <mat-option *ngFor="let tipoDeDocumentosDeCompras of tiposDeDocumentosDeCompras;" [value]="tipoDeDocumentosDeCompras.id">
+                  {{tipoDeDocumentosDeCompras.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div fxFlex.gt-sm="32" fxFlex="100" style="    margin-right: 2%;">
+              <mat-form-field>
+                <!--<input matInput placeholder="Nro. Documento" name="numeroDeDocumento" type="text" maxlength="150" (keypress)="checkNumbersOnly($event)" [(ngModel)]="entity.numeroDeDocumento" [formControl]="form.controls['numeroDeDocumento']">-->
+                <input matInput placeholder="Nro. Documento" name="numeroDeDocumento" type="text" maxlength="150" (keypress)="checkNumbersOnly($event)" [(ngModel)]="entity.numeroDeDocumento">
+              </mat-form-field>
+              <!--<mat-hint *ngIf="form.contols['numeroDeDocumento'].hasError('required') && form.controls['numeroDeDocumento'].touched" class="text-danger font-14">Campo Requerido</mat-hint>-->
+            </div>
+
+            <div fxFlex.gt-sm="32" fxFlex="100">
+              <mat-form-field>
+                <!--<input matInput [matDatepicker]="picker" [(ngModel)]="entity.fecha" placeholder="Fecha Compra" [formControl]="form.controls['fecha']">-->
+                <input matInput [matDatepicker]="picker" [(ngModel)]="entity.fecha" placeholder="Fecha Compra" name="fecha">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <!--<mat-hint *ngIf="form.contols['fecha'].hasError('required') && form.controls['fecha'].touched" class="text-danger font-14">Campo Requerido</mat-hint>-->
+            </div>
+
+            <div fxFlex.gt-sm="32" fxFlex="100" style="    margin-right: 2%;">
+              <mat-form-field>
+                <input matInput placeholder="Guia Remision" name="guiaRemision" type="text" maxlength="150" [(ngModel)]="entity.guiaRemision">
+              </mat-form-field>
+            </div>
+
+            <mat-form-field fxFlex.gt-sm="32" fxFlex="100">
+              <mat-select placeholder="Ubicación" [(ngModel)]="entity.ubicacion" name="ubicacion">
+                <mat-option *ngFor="let ubicacion of ubicacionList;" [value]="ubicacion">
+                  {{ubicacion}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout="row wrap">
+          <div fxFlex.gt-xs="50" fxFlex="100" class="p-10">
+          </div>
+
+          <div fxFlex.gt-xs="50" fxFlex="100" class="p-10 text-right">
+            <button mat-raised-button color="primary" (click)="agregarProducto()">Agregar</button>
+          </div>
+        </div>
+
+        <div class="responsive-table">
+          <mat-table #table matSort [dataSource]="dataSourceProductos" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="producto">
+              <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i = index">
+                <input type="text" maxlength="50" (keypress)="checkCharactersAndNumbersOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'nombre')" value="{{row.nombre}}">
+
+                <!--<input matInput placeholder="Producto" name="producto" type="text" maxlength="150"-->
+                       <!--(keypress)="checkCharactersAndNumbersOnly($event)" [matAutocomplete]="autoTestProducto"-->
+                       <!--(keyup)="filterEntityProducto(i)" (blur)="onBlurProducto(i)" value="{{row.nombre}}">-->
+                <!--<button mat-button *ngIf="productos[i].id" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelectedProducto(i)">-->
+                  <!--<mat-icon>close</mat-icon>-->
+                <!--</button>-->
+                <!--<mat-autocomplete #autoTestProducto="matAutocomplete">-->
+                  <!--<mat-option *ngFor="let option of entitiesFilteredProducto" [value]="option" (click)="setEntityFilterProducto(option)">-->
+                    <!--<span *ngIf="option.nombre">{{option.nombre}}</span>-->
+                  <!--</mat-option>-->
+                <!--</mat-autocomplete>-->
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="cantidad">
+              <mat-header-cell *matHeaderCellDef> Cantidad </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i = index">
+                <input type="text" maxlength="50" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'cantidad')" value="{{row.stock}}">
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="precio">
+              <mat-header-cell *matHeaderCellDef> P.U </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i = index">
+                <input type="text" maxlength="50" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'precioCompra')" value="{{row.precioCompra}}">
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="quitar">
+              <mat-header-cell *matHeaderCellDef> Quitar </mat-header-cell>
+              <mat-cell *matCellDef="let row;let i = index">
+                <span class="header-label">Quitar:</span>
+                <a (click)="deleteProduct(i, row)" class="ng-star-inserted">
+                  <i class="ti-trash text-danger m-r-10"></i>
+                </a>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsProductos"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsProductos;let i = index"></mat-row>
+          </mat-table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

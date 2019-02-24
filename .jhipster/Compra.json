@@ -50,6 +50,16 @@
             "fieldValues": "CONTADO,CREDITO"
         },
         {
+            "fieldName": "tipoDeTransaccion",
+            "fieldType": "TipoDeTransaccion",
+            "fieldValues": "CONTADO,CREDITO"
+        },
+        {
+            "fieldName": "estatus",
+            "fieldType": "PurchaseStatus",
+            "fieldValues": "PENDIENTE,SIN_CRONOGRAMA,COMPLETADO"
+        },
+        {
             "fieldName": "metaData",
             "fieldType": "String",
             "fieldValidateRules": [

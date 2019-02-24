@@ -50,6 +50,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="tipo_de_transaccion" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="estatus" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="meta_data" type="varchar(5000)">
                 <constraints nullable="false" />
             </column>

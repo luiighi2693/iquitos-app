@@ -45,6 +45,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import pe.com.iquitos.app.domain.enumeration.PurchaseLocation;
 import pe.com.iquitos.app.domain.enumeration.PaymentPurchaseType;
+import pe.com.iquitos.app.domain.enumeration.TipoDeTransaccion;
+import pe.com.iquitos.app.domain.enumeration.PurchaseStatus;
 /**
  * Test class for the CompraResource REST controller.
  *
@@ -74,6 +76,12 @@ public class CompraResourceIntTest {
 
     private static final PaymentPurchaseType DEFAULT_TIPO_DE_PAGO_DE_COMPRA = PaymentPurchaseType.CONTADO;
     private static final PaymentPurchaseType UPDATED_TIPO_DE_PAGO_DE_COMPRA = PaymentPurchaseType.CREDITO;
+
+    private static final TipoDeTransaccion DEFAULT_TIPO_DE_TRANSACCION = TipoDeTransaccion.CONTADO;
+    private static final TipoDeTransaccion UPDATED_TIPO_DE_TRANSACCION = TipoDeTransaccion.CREDITO;
+
+    private static final PurchaseStatus DEFAULT_ESTATUS = PurchaseStatus.PENDIENTE;
+    private static final PurchaseStatus UPDATED_ESTATUS = PurchaseStatus.SIN_CRONOGRAMA;
 
     private static final String DEFAULT_META_DATA = "AAAAAAAAAA";
     private static final String UPDATED_META_DATA = "BBBBBBBBBB";
@@ -143,6 +151,8 @@ public class CompraResourceIntTest {
             .montoTotal(DEFAULT_MONTO_TOTAL)
             .correlativo(DEFAULT_CORRELATIVO)
             .tipoDePagoDeCompra(DEFAULT_TIPO_DE_PAGO_DE_COMPRA)
+            .tipoDeTransaccion(DEFAULT_TIPO_DE_TRANSACCION)
+            .estatus(DEFAULT_ESTATUS)
             .metaData(DEFAULT_META_DATA);
         return compra;
     }
@@ -175,6 +185,8 @@ public class CompraResourceIntTest {
         assertThat(testCompra.getMontoTotal()).isEqualTo(DEFAULT_MONTO_TOTAL);
         assertThat(testCompra.getCorrelativo()).isEqualTo(DEFAULT_CORRELATIVO);
         assertThat(testCompra.getTipoDePagoDeCompra()).isEqualTo(DEFAULT_TIPO_DE_PAGO_DE_COMPRA);
+        assertThat(testCompra.getTipoDeTransaccion()).isEqualTo(DEFAULT_TIPO_DE_TRANSACCION);
+        assertThat(testCompra.getEstatus()).isEqualTo(DEFAULT_ESTATUS);
         assertThat(testCompra.getMetaData()).isEqualTo(DEFAULT_META_DATA);
 
         // Validate the Compra in Elasticsearch
@@ -317,6 +329,8 @@ public class CompraResourceIntTest {
             .andExpect(jsonPath("$.[*].montoTotal").value(hasItem(DEFAULT_MONTO_TOTAL.doubleValue())))
             .andExpect(jsonPath("$.[*].correlativo").value(hasItem(DEFAULT_CORRELATIVO.toString())))
             .andExpect(jsonPath("$.[*].tipoDePagoDeCompra").value(hasItem(DEFAULT_TIPO_DE_PAGO_DE_COMPRA.toString())))
+            .andExpect(jsonPath("$.[*].tipoDeTransaccion").value(hasItem(DEFAULT_TIPO_DE_TRANSACCION.toString())))
+            .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
             .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA.toString())));
     }
     
@@ -371,6 +385,8 @@ public class CompraResourceIntTest {
             .andExpect(jsonPath("$.montoTotal").value(DEFAULT_MONTO_TOTAL.doubleValue()))
             .andExpect(jsonPath("$.correlativo").value(DEFAULT_CORRELATIVO.toString()))
             .andExpect(jsonPath("$.tipoDePagoDeCompra").value(DEFAULT_TIPO_DE_PAGO_DE_COMPRA.toString()))
+            .andExpect(jsonPath("$.tipoDeTransaccion").value(DEFAULT_TIPO_DE_TRANSACCION.toString()))
+            .andExpect(jsonPath("$.estatus").value(DEFAULT_ESTATUS.toString()))
             .andExpect(jsonPath("$.metaData").value(DEFAULT_META_DATA.toString()));
     }
 
@@ -402,6 +418,8 @@ public class CompraResourceIntTest {
             .montoTotal(UPDATED_MONTO_TOTAL)
             .correlativo(UPDATED_CORRELATIVO)
             .tipoDePagoDeCompra(UPDATED_TIPO_DE_PAGO_DE_COMPRA)
+            .tipoDeTransaccion(UPDATED_TIPO_DE_TRANSACCION)
+            .estatus(UPDATED_ESTATUS)
             .metaData(UPDATED_META_DATA);
         CompraDTO compraDTO = compraMapper.toDto(updatedCompra);
 
@@ -421,6 +439,8 @@ public class CompraResourceIntTest {
         assertThat(testCompra.getMontoTotal()).isEqualTo(UPDATED_MONTO_TOTAL);
         assertThat(testCompra.getCorrelativo()).isEqualTo(UPDATED_CORRELATIVO);
         assertThat(testCompra.getTipoDePagoDeCompra()).isEqualTo(UPDATED_TIPO_DE_PAGO_DE_COMPRA);
+        assertThat(testCompra.getTipoDeTransaccion()).isEqualTo(UPDATED_TIPO_DE_TRANSACCION);
+        assertThat(testCompra.getEstatus()).isEqualTo(UPDATED_ESTATUS);
         assertThat(testCompra.getMetaData()).isEqualTo(UPDATED_META_DATA);
 
         // Validate the Compra in Elasticsearch
@@ -489,6 +509,8 @@ public class CompraResourceIntTest {
             .andExpect(jsonPath("$.[*].montoTotal").value(hasItem(DEFAULT_MONTO_TOTAL.doubleValue())))
             .andExpect(jsonPath("$.[*].correlativo").value(hasItem(DEFAULT_CORRELATIVO)))
             .andExpect(jsonPath("$.[*].tipoDePagoDeCompra").value(hasItem(DEFAULT_TIPO_DE_PAGO_DE_COMPRA.toString())))
+            .andExpect(jsonPath("$.[*].tipoDeTransaccion").value(hasItem(DEFAULT_TIPO_DE_TRANSACCION.toString())))
+            .andExpect(jsonPath("$.[*].estatus").value(hasItem(DEFAULT_ESTATUS.toString())))
             .andExpect(jsonPath("$.[*].metaData").value(hasItem(DEFAULT_META_DATA)));
     }
 

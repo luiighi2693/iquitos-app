@@ -141,6 +141,8 @@ entity Compra {
     montoTotal Double required,
     correlativo String required maxlength(DEFAULT_MAX_LENGTH_STRING), //OCT2018-00001
     tipoDePagoDeCompra PaymentPurchaseType,
+    tipoDeTransaccion TipoDeTransaccion,
+    estatus PurchaseStatus,
     metaData String required maxlength(DEFAULT_MAX_LENGTH_METADATA), //quantity, tax
 }
 
@@ -228,6 +230,10 @@ enum SellStatus {
     PENDIENTE, COMPLETADO
 }
 
+enum PurchaseStatus {
+    PENDIENTE, SIN_CRONOGRAMA, COMPLETADO
+}
+
 enum CivilStatus {
     SOLTERO, CASADO
 }
@@ -274,6 +280,10 @@ enum UnidadDeMedida {
 
 enum UserType {
     ADMINISTRADOR, EMPLEADO, CLIENTE, PROVEEDOR
+}
+
+enum TipoDeTransaccion {
+    CONTADO, CREDITO
 }
 
 relationship ManyToOne {

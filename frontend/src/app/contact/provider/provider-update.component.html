@@ -29,7 +29,7 @@
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Número de Ruc" name="code" type="text" maxlength="11" (keypress)="checkCharactersOnly($event)" [(ngModel)]="proveedor.codigo">
+                <input matInput placeholder="Número de Ruc" name="code" type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" [(ngModel)]="proveedor.codigo">
               </mat-form-field>
             </div>
             <!-- column -->

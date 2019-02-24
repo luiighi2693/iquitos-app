@@ -7,7 +7,7 @@ import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { CompraService } from 'app/entities/compra/compra.service';
-import { ICompra, Compra, PurchaseLocation, PaymentPurchaseType } from 'app/shared/model/compra.model';
+import { ICompra, Compra, PurchaseLocation, PaymentPurchaseType, TipoDeTransaccion, PurchaseStatus } from 'app/shared/model/compra.model';
 
 describe('Service Tests', () => {
     describe('Compra Service', () => {
@@ -34,6 +34,8 @@ describe('Service Tests', () => {
                 0,
                 'AAAAAAA',
                 PaymentPurchaseType.CONTADO,
+                TipoDeTransaccion.CONTADO,
+                PurchaseStatus.PENDIENTE,
                 'AAAAAAA'
             );
         });
@@ -87,6 +89,8 @@ describe('Service Tests', () => {
                         montoTotal: 1,
                         correlativo: 'BBBBBB',
                         tipoDePagoDeCompra: 'BBBBBB',
+                        tipoDeTransaccion: 'BBBBBB',
+                        estatus: 'BBBBBB',
                         metaData: 'BBBBBB'
                     },
                     elemDefault
@@ -116,6 +120,8 @@ describe('Service Tests', () => {
                         montoTotal: 1,
                         correlativo: 'BBBBBB',
                         tipoDePagoDeCompra: 'BBBBBB',
+                        tipoDeTransaccion: 'BBBBBB',
+                        estatus: 'BBBBBB',
                         metaData: 'BBBBBB'
                     },
                     elemDefault

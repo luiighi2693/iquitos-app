@@ -93,6 +93,21 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_tipoDeTransaccion">Tipo De Transaccion</label>
+                    <select class="form-control" name="tipoDeTransaccion" [(ngModel)]="compra.tipoDeTransaccion" id="field_tipoDeTransaccion" >
+                        <option value="CONTADO">CONTADO</option>
+                        <option value="CREDITO">CREDITO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_estatus">Estatus</label>
+                    <select class="form-control" name="estatus" [(ngModel)]="compra.estatus" id="field_estatus" >
+                        <option value="PENDIENTE">PENDIENTE</option>
+                        <option value="SIN_CRONOGRAMA">SIN_CRONOGRAMA</option>
+                        <option value="COMPLETADO">COMPLETADO</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="field_metaData">Meta Data</label>
                     <input type="text" class="form-control" name="metaData" id="field_metaData"
                         [(ngModel)]="compra.metaData" required maxlength="5000"/>

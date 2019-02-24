@@ -37,6 +37,8 @@
             <th jhiSortBy="montoTotal"><span>Monto Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="correlativo"><span>Correlativo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDePagoDeCompra"><span>Tipo De Pago De Compra</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipoDeTransaccion"><span>Tipo De Transaccion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estatus"><span>Estatus</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="metaData"><span>Meta Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="proveedorId"><span>Proveedor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoDeDocumentoDeCompraNombre"><span>Tipo De Documento De Compra</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -55,6 +57,8 @@
                 <td>{{compra.montoTotal}}</td>
                 <td>{{compra.correlativo}}</td>
                 <td>{{compra.tipoDePagoDeCompra}}</td>
+                <td>{{compra.tipoDeTransaccion}}</td>
+                <td>{{compra.estatus}}</td>
                 <td>{{compra.metaData}}</td>
                 <td>
                     <div *ngIf="compra.proveedorId">

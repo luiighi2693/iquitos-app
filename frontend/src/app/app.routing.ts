@@ -79,6 +79,11 @@ export const AppRoutes: Routes = [
         path: 'ventas',
         canActivate: [AuthGuard],
         loadChildren: './ventas/ventas.module#VentasModule'
+      },
+      {
+        path: 'compras',
+        canActivate: [AuthGuard],
+        loadChildren: './compras/compras.module#ComprasModule'
       }
     ]
   },

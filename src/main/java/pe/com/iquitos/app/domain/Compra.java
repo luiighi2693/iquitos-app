@@ -17,6 +17,10 @@ import pe.com.iquitos.app.domain.enumeration.PurchaseLocation;
 
 import pe.com.iquitos.app.domain.enumeration.PaymentPurchaseType;
 
+import pe.com.iquitos.app.domain.enumeration.TipoDeTransaccion;
+
+import pe.com.iquitos.app.domain.enumeration.PurchaseStatus;
+
 /**
  * A Compra.
  */
@@ -61,6 +65,14 @@ public class Compra implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_de_pago_de_compra")
     private PaymentPurchaseType tipoDePagoDeCompra;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_de_transaccion")
+    private TipoDeTransaccion tipoDeTransaccion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estatus")
+    private PurchaseStatus estatus;
 
     @NotNull
     @Size(max = 5000)
@@ -186,6 +198,32 @@ public class Compra implements Serializable {
         this.tipoDePagoDeCompra = tipoDePagoDeCompra;
     }
 
+    public TipoDeTransaccion getTipoDeTransaccion() {
+        return tipoDeTransaccion;
+    }
+
+    public Compra tipoDeTransaccion(TipoDeTransaccion tipoDeTransaccion) {
+        this.tipoDeTransaccion = tipoDeTransaccion;
+        return this;
+    }
+
+    public void setTipoDeTransaccion(TipoDeTransaccion tipoDeTransaccion) {
+        this.tipoDeTransaccion = tipoDeTransaccion;
+    }
+
+    public PurchaseStatus getEstatus() {
+        return estatus;
+    }
+
+    public Compra estatus(PurchaseStatus estatus) {
+        this.estatus = estatus;
+        return this;
+    }
+
+    public void setEstatus(PurchaseStatus estatus) {
+        this.estatus = estatus;
+    }
+
     public String getMetaData() {
         return metaData;
     }
@@ -306,6 +344,8 @@ public class Compra implements Serializable {
             ", montoTotal=" + getMontoTotal() +
             ", correlativo='" + getCorrelativo() + "'" +
             ", tipoDePagoDeCompra='" + getTipoDePagoDeCompra() + "'" +
+            ", tipoDeTransaccion='" + getTipoDeTransaccion() + "'" +
+            ", estatus='" + getEstatus() + "'" +
             ", metaData='" + getMetaData() + "'" +
             "}";
     }

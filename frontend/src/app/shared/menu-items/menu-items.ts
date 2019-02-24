@@ -257,6 +257,11 @@ const MENUITEMS = [
     name: 'Ventas',
     type: 'link',
     icon: 'av_timer',
+  },{
+    state: 'compras',
+    name: 'Compras',
+    type: 'link',
+    icon: 'av_timer',
   },
   {
     state: 'configuration',
