@@ -122,9 +122,9 @@ export class Invoice2Component implements OnInit{
   }
 
   private printInvoiceAndReturn() {
-    setTimeout(() => {
-      window.print();
-      this.router.navigate(['/ventas/sell']);
-    });
+    // setTimeout(() => {
+    //   window.print();
+    //   this.router.navigate(['/ventas/sell']);
+    // });
   }
 }
