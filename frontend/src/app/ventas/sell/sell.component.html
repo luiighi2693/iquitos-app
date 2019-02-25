@@ -81,7 +81,7 @@
               <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Acciones </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <a style="margin-left: 20px;" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">
-                  <i class="ti-eye text-info m-r-10"></i>
+                  <i class="ti-search text-info m-r-10"></i>
                 </a>
 
                 <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">
