@@ -66,7 +66,7 @@ export class FullComponent implements OnDestroy, AfterViewInit {
 
     this.fullService.change.subscribe(menuSelected => {
       this.contentSelected = menuSelected;
-      // this.actualPath = this.router.url;
+      this.actualPath = this.router.url;
       // if(this.actualPath === '/ventas/sell') {
       //   (<any>$('#toggleMenu')).click();
       // }
