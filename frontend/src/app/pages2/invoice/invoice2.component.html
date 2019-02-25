@@ -108,7 +108,7 @@
   <mat-card-content class="table-rasponsive">
     <ngx-datatable class="material" [rows]="venta.productoDetalles" [columnMode]="'flex'" [headerHeight]="50"
                    [footerHeight]="0" [rowHeight]="'auto'">
-      <ngx-datatable-column style="font-weight: bold;" name="Descripción" [flexGrow]="4">
+      <ngx-datatable-column style="font-weight: bold;" name="Descripción" [flexGrow]="4" [headerClass]="'headerCellColum'">
         <ng-template ngx-datatable-cell-template let-row="row">
           <span>{{row.productoLabel}}</span>
         </ng-template>
@@ -134,12 +134,36 @@
   <!--Aca hacia abajo la actual-->
   <mat-card-content>
     <div fxLayout="row wrap">
-      <div fxFlex.gt-xs="50" fxFlex="100">
+      <div style="border-bottom: 1px solid;  position: relative; bottom: -20%;" fxFlex.gt-xs="100" fxFlex="100">
+        <span  style="font-size:8px;">Estimado cliente reserve su comprobante, por regulación de la SUNAT es indispensable presentarlo para solicitar cambios o devoluciones</span>
       </div>
-      <div fxFlex.gt-xs="50" fxFlex="100" class="text-right">
+      <div style="position: relative; bottom: -20%;" fxFlex.gt-xs="100" fxFlex="100">
+        <span style="font-size:10px; font-weight: bold;">*** SON </span>
+      </div>
+      <div fxFlex.gt-xs="20" fxFlex="100">
+        <img style="width:120px; position: relative; top: 50%;" mat-card-image src= "assets/images/big/QRCode.png" alt="QR">
+      </div>
+      <div fxFlex.gt-xs="40" fxFlex="100">
+        <table style="position: relative; top: 45%;" class="table">
+          <thead>
+          <tr>
+            <th style="text-align: center" scope="col">Representación impresa de la FACTURA ELECTRONICA</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th style="text-align: center" scope="row">Esta puede ser consultada en</th>
+          </tr>
+          <tr>
+            <th style="text-align: center" scope="row">https://proeconomica.facturate.pe</th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div fxFlex.gt-xs="35" fxFlex="100" class="text-right">
         <div class="d-flex align-items-center">
 
-          <div style="border-style: solid; position: relative; right: -20px; margin-top: 170px;" fxFlex.gt-xs="95" fxFlex="100">
+          <div style="border-style: solid; position: relative; bottom: -17%; right: -20px; top: 18%; margin-top: 100px;" fxFlex.gt-xs="95" fxFlex="100">
             <table class="table">
               <thead>
               <tr>
@@ -161,6 +185,10 @@
           </div>
         </div>
       </div>
+      <div style= "margin-top: 21px; text-align: center;"fxFlex.gt-xs="100" fxFlex="100">
+        <span style="font-size:11px; font-weight: bold; text-align: center">BIENES TRANSFERIDOS EN LA AMAZONIA REGION SELVA PARA SER CONSUMIDOS EN LA MISMA</span>
+      </div>
+
     </div>
   </mat-card-content>
 

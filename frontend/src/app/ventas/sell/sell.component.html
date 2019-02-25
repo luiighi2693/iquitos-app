@@ -13,9 +13,9 @@
               <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)">
             </mat-form-field>
             
-            <div fxFlex.gt-sm="35" fxFlex="35" id="newSection">
-              <button mat-raised-button color="primary" [routerLink]="['/ventas/sell']">Nueva Venta</button>
-            </div>
+            <!--<div fxFlex.gt-sm="35" fxFlex="35" id="newSection">-->
+              <!--<button mat-raised-button color="primary" [routerLink]="['/ventas/sell']">Nueva Venta</button>-->
+            <!--</div>-->
           </div>
 
           <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="data">
@@ -38,7 +38,7 @@
             </ng-container>
 
             <ng-container matColumnDef="codigo">
-              <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+              <mat-header-cell style="font-weight: bold"*matHeaderCellDef> Código </mat-header-cell>
               <mat-cell style="color:#23527c" *matCellDef="let element">
                 <span class="header-label">Código:</span>
                 {{element.codigo}}
@@ -46,7 +46,7 @@
             </ng-container>
 
             <ng-container matColumnDef="fecha">
-              <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Fecha </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Fecha:</span>
                 {{element.fecha}}
@@ -54,7 +54,7 @@
             </ng-container>
 
             <ng-container matColumnDef="clienteNombre">
-              <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Cliente </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Cliente:</span>
                 {{element.clienteNombre}}
@@ -62,7 +62,7 @@
             </ng-container>
 
             <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Total </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Total:</span>
                 S/.{{element.montoTotal}}
@@ -70,7 +70,7 @@
             </ng-container>
 
             <ng-container matColumnDef="estado">
-              <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Estado </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Estado:</span>
                 <mat-chip [ngStyle]="{'background-color': element.estatus === 'PENDIENTE' ? '#f8ac59' : '#1ab394'}">{{element.estatus}}</mat-chip>
@@ -78,9 +78,9 @@
             </ng-container>
 
             <ng-container matColumnDef="star">
-              <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Acciones </mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <a class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">
+                <a style="margin-left: 20px;" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">
                   <i class="ti-eye text-info m-r-10"></i>
                 </a>
 
