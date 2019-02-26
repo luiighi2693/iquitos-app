@@ -643,4 +643,16 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       this.tiposDeDocumentoFiltered = this.tiposDeDocumento.filter(x => x.nombre === 'RUC');
     }
   }
+
+  getHeightProducts() {
+    return window.innerHeight - 100+'px';
+  }
+
+  getHeightProductImage() {
+    if (window.innerWidth<600) {
+      return window.innerHeight - 842+'px';
+    } else {
+      return window.innerHeight - 817+'px';
+    }
+  }
 }

@@ -19,7 +19,7 @@
 
 <div fxLayout="row wrap" style="position: absolute; height: 100%; width:100%;">
   <mat-card fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-sm="50" fxFlex="100">
-    <mat-card-content style="height: 100%">
+    <mat-card-content [ngStyle]="{'height': getHeightProducts()}">
 
       <div fxLayout="row wrap">
         <div style="display: flex; width: 100%">
@@ -35,12 +35,12 @@
 
       <div id="product-layout" fxLayout="row wrap">
 
-        <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-xs="25" fxFlex="100" *ngFor="let product of productos ">
+        <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-xs="25" fxFlex="50" *ngFor="let product of productos ">
           <mat-card class="oh" (click)="openDialogVariantSelection(product)">
             <h6 class="m-0">S/. {{product.precioVenta}}</h6>
             <img mat-card-image
                  [src]="product.imagen ? 'data:' + product.imagenContentType + ';base64,' + product.imagen : 'assets/images/big/no_product1.png'"
-                 alt="Photo of a Shiba Inu">
+                 alt="Photo of a Shiba Inu" [ngStyle]="{'height': getHeightProductImage()}">
             <!--<h6 class="m-0">stock: {{product.stock}}</h6>-->
             <h6 class="m-0">{{product.stock - getStockConsumFromProduct(product)}}</h6>
             <div class="dm-1">
