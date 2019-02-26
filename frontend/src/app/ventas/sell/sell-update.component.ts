@@ -649,10 +649,10 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   getHeightProductImage() {
-    if (window.innerWidth<600) {
-      return window.innerHeight - 842+'px';
+    if (window.innerWidth>599) {
+      return 120+'px';
     } else {
-      return window.innerHeight - 817+'px';
+      return 95+'px';
     }
   }
 }
