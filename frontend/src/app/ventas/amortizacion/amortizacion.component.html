@@ -38,7 +38,7 @@
             </ng-container>
 
             <ng-container matColumnDef="codigo">
-              <mat-header-cell *matHeaderCellDef> Venta </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Venta </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Venta:</span>
                 {{element.codigo}}
@@ -46,7 +46,7 @@
             </ng-container>
 
             <ng-container matColumnDef="fecha">
-              <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Fecha </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Fecha:</span>
                 {{element.fecha}}
@@ -54,7 +54,7 @@
             </ng-container>
 
             <ng-container matColumnDef="clienteNombre">
-              <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Cliente </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Cliente:</span>
                 {{element.clienteNombre}}
@@ -62,7 +62,7 @@
             </ng-container>
 
             <ng-container matColumnDef="total">
-              <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Total </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Total:</span>
                 S/.{{parseFloatCustom(element.montoTotal)}}
@@ -70,7 +70,7 @@
             </ng-container>
 
             <ng-container matColumnDef="amortizado">
-              <mat-header-cell *matHeaderCellDef> Amortizado </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Amortizado </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Amortizado:</span>
                 S/.{{parseFloatCustom(getMontoAmortizado(element))}}
@@ -81,7 +81,7 @@
             </ng-container>
 
             <ng-container matColumnDef="restante">
-              <mat-header-cell *matHeaderCellDef> Restante </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef style="font-weight: bold;"> Restante </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Restante:</span>
                 S/.{{parseFloatCustom(element.montoTotal - getMontoAmortizado(element))}}

@@ -39,3 +39,13 @@ input.mat-input-element{
 #newSection {
   text-align: right;
 }
+
+.mat-row.mat-row.ng-star-inserted:hover,
+.mat-row.mat-row.ng-star-inserted:focus {
+  background-color: #eaeaea;
+
+}
+
+.mat-header-row.mat-header-row.ng-star-inserted{
+  background-color: #eee;
+}
