@@ -195,7 +195,7 @@ export class PurchaseUpdateComponent extends BaseCompra implements OnInit {
   filterEntityProveedor() {
     if (!this.entitySelectFlagProveedor && this.entityFilteredSelectedInputProveedor !== undefined) {
       if (this.entityFilteredSelectedInputProveedor.length > 2) {
-        this.proveedorService.query(this.entityFilteredSelectedInputProveedor).subscribe(
+        this.proveedorService.search({query:this.entityFilteredSelectedInputProveedor}).subscribe(
           (res: HttpResponse<IProveedor[]>) => {
             this.entitiesFilteredProveedor = res.body;
           },
@@ -272,6 +272,8 @@ export class PurchaseUpdateComponent extends BaseCompra implements OnInit {
             // @ts-ignore
             this.productsToPurchase.get(index).productsFiltered = res.body;
             row.productsFiltered = res.body;
+
+            this.removeProductSelected(res.body);
           },
           (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -291,25 +293,7 @@ export class PurchaseUpdateComponent extends BaseCompra implements OnInit {
 
     // @ts-ignore
     this.dataSourceProductos = new MatTableDataSource<ProductFilterData>(Array.from(this.productsToPurchase.values()));
-    // this.entitySelectFlagProducto = false;
-    // this.entityFilteredSelectedProducto = null;
-    // this.entityFilteredSelectedInputProducto = undefined;
-    //
-    // this.productos[i] = new Producto();
   }
-
-  onBlurProducto(index) {
-    // @ts-ignore
-    // if(!this.productsToPurchase.get(index).productSelectedFlag){
-    //   this.clearEntitySelectedProducto(index);
-    // } else {
-      // if (this.entity.proveedorId !== undefined) {
-      //   let proveedor = this.entitiesFilteredProducto.find(x => x.id === this.entity.proveedorId);
-      //   this.setEntityFilterProducto(proveedor);
-      // }
-    // }
-  }
-
 
   setEntityFilterProducto(index, option) {
     // @ts-ignore
@@ -326,10 +310,17 @@ export class PurchaseUpdateComponent extends BaseCompra implements OnInit {
 
 // @ts-ignore
     this.dataSourceProductos = new MatTableDataSource<ProductFilterData>(Array.from(this.productsToPurchase.values()));
-    // this.entityFilteredSelectedInputProveedor = option.razonSocial;
-    // this.entitySelectFlagProveedor = true;
-    //
-    // this.entity.proveedorId = option.id;
-    // this.entityFilteredSelectedProveedor = option;
+  }
+
+  removeProductSelected(products: Producto[]){
+    this.productsToPurchase.forEach(value =>{
+      // @ts-ignore
+      let product: Producto = value.productSelected;
+      if (product) {
+        if (products.map(x=>x.id).indexOf(product.id) !== -1){
+          products.splice(products.map(x=>x.id).indexOf(product.id), 1);
+        }
+      }
+    });
   }
 }

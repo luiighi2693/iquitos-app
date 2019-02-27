@@ -11,7 +11,7 @@
         <h6 class="m-0">S/. {{variant.precioCompra}}</h6>
       </mat-card>
       <span class="header-label">Stock = {{(data.entity.stock - getStockConsumFromProduct(data.entity)) / variant.cantidad < 1 ? 0 :
-        (data.entity.stock - getStockConsumFromProduct(data.entity)) / variant.cantidad}}</span>
+        parseFloatCustom((data.entity.stock - getStockConsumFromProduct(data.entity)) / variant.cantidad)}}</span>
     </div>
     <div fxFlex.gt-lg="25" fxFlex.gt-md="33" fxFlex.gt-xs="33" fxFlex="100" (click)="getResult(false, null)">
       <mat-card class="oh" style="cursor: pointer; border: 1px solid #bec3c8; color: black; text-align: center;">
