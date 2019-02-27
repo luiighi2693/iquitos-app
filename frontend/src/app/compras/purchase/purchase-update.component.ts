@@ -25,6 +25,15 @@ export interface ProductStockAdded {
   stockAdded: number;
 }
 
+export interface ProductFilterData {
+  productSelected: Producto;
+  valueInput: string;
+  stockAdded: number;
+  productsFiltered: Producto[];
+  productSelectedFlag: boolean;
+  index: number;
+}
+
 @Component({
   selector: 'app-purchase-update',
   templateUrl: './purchase-update.component.html',
@@ -34,8 +43,7 @@ export class PurchaseUpdateComponent extends BaseCompra implements OnInit {
 
   private editFlag: boolean;
   currentSearchProduct: string;
-  productos: IProducto[] = [];
-  productosStockAdded: ProductStockAdded[] = [];
+  // productos: IProducto[] = [];
   ubicacionList: PurchaseLocation[] = [
     PurchaseLocation.TIENDA
   ];
@@ -50,13 +58,11 @@ export class PurchaseUpdateComponent extends BaseCompra implements OnInit {
   entitiesFilteredProveedor = [];
   entitySelectFlagProveedor = false;
 
-  entityFilteredSelectedProducto = null;
-  entityFilteredSelectedInputProducto: string;
-  entitiesFilteredProducto = [];
-  entitySelectFlagProducto = false;
-
   displayedColumnsProductos = ['producto', 'cantidad', 'precio', 'quitar'];
-  dataSourceProductos = new MatTableDataSource<IProducto>(null);
+  dataSourceProductos = new MatTableDataSource<ProductFilterData>(null);
+
+  productsToPurchase = new Map([]);
+  productsToPurchaseIndex = 0;
 
   constructor(public dataUtils: JhiDataUtils,
               public service: CompraService,
@@ -89,8 +95,8 @@ export class PurchaseUpdateComponent extends BaseCompra implements OnInit {
           (res: HttpErrorResponse) => this.onError(res.message)
         );
 
-        this.productos = this.entity.productos;
-        this.dataSourceProductos = new MatTableDataSource<ICuentaProveedor>(this.productos);
+        // this.productos = this.entity.productos;
+        // this.dataSourceProductos = new MatTableDataSource<ICuentaProveedor>(this.productos);
 
       } else {
         this.entity.tipoDePagoDeCompra = PaymentPurchaseType.CONTADO;
@@ -216,69 +222,114 @@ export class PurchaseUpdateComponent extends BaseCompra implements OnInit {
 
 
   saveChangesInProductsRow(event, indexProducto, label) {
-    if (label === 'nombre') {
-      this.productos[indexProducto].nombre = event.target.value;
+    if (label === 'valueInput') {
+      // @ts-ignore
+      this.productsToPurchase.get(indexProducto).valueInput = event.target.value;
     }
 
-    if (label === 'cantidad') {
-      this.productos[indexProducto].stock = event.target.value;
+    if (label === 'stockAdded') {
+      // @ts-ignore
+      this.productsToPurchase.get(indexProducto).stockAdded = event.target.value;
     }
 
-    if (label === 'precioCompra') {
-      this.productos[indexProducto].precioCompra = event.target.value;
-    }
-
-    this.dataSourceProductos = new MatTableDataSource<ICuentaProveedor>(this.productos);
+    // @ts-ignore
+    this.dataSourceProductos = new MatTableDataSource<ProductFilterData>(Array.from(this.productsToPurchase.values()));
   }
 
 
 
   deleteProduct(i, row) {
-    this.dataSourceProductos.data.splice(i, 1);
-    this.dataSourceProductos = new MatTableDataSource<IProducto>(this.dataSourceProductos.data);
-    this.productos = this.dataSourceProductos.data;
+    this.productsToPurchase.delete(i);
+    // @ts-ignore
+    this.dataSourceProductos = new MatTableDataSource<ProductFilterData>(Array.from(this.productsToPurchase.values()));
   }
 
   agregarProducto() {
-    const producto = new Producto();
+    let productFilterData: ProductFilterData = {
+      productSelected: null,
+      productSelectedFlag: false,
+      productsFiltered: [],
+      stockAdded: 0,
+      valueInput: '',
+      index: this.productsToPurchaseIndex
+    };
 
-    if (this.productos === undefined) {
-      this.productos = [];
-    }
+    this.productsToPurchase.set(this.productsToPurchaseIndex, productFilterData);
+    this.productsToPurchaseIndex++;
 
-    this.productos.push(producto);
-    this.dataSourceProductos = new MatTableDataSource<ICuentaProveedor>(this.productos);
+    // @ts-ignore
+    this.dataSourceProductos = new MatTableDataSource<ProductFilterData>(Array.from(this.productsToPurchase.values()));
   }
-  //
-  // filterEntityProducto(index) {
-  //   if (!this.entitySelectFlagProducto && this.entityFilteredSelectedInputProducto !== undefined) {
-  //     if (this.entityFilteredSelectedInputProducto.length > 2) {
-  //       this.productoService.query(this.entityFilteredSelectedInputProducto).subscribe(
-  //         (res: HttpResponse<IProducto[]>) => {
-  //           this.entitiesFilteredProducto = res.body;
-  //         },
-  //         (res: HttpErrorResponse) => this.onError(res.message)
-  //       );
-  //     }
-  //   }
-  // }
-  //
-  // clearEntitySelectedProducto(i) {
-  //   this.entitySelectFlagProducto = false;
-  //   this.entityFilteredSelectedProducto = null;
-  //   this.entityFilteredSelectedInputProducto = undefined;
-  //
-  //   this.productos[i] = new Producto();
-  // }
-  //
-  // onBlurProducto(index) {
-  //   if(!this.entitySelectFlagProducto){
-  //     this.clearEntitySelectedProducto(index);
-  //   } else {
-  //     if (this.entity.proveedorId !== undefined) {
-  //       let proveedor = this.entitiesFilteredProducto.find(x => x.id === this.entity.proveedorId);
-  //       this.setEntityFilterProducto(proveedor);
-  //     }
-  //   }
-  // }
+
+  filterEntityProducto(event, index, row) {
+    // @ts-ignore
+    if (event.target.value !== undefined) {
+      // @ts-ignore
+      if (event.target.value.length > 2) {
+        // @ts-ignore
+        this.productoService.search({query:event.target.value}).subscribe(
+          (res: HttpResponse<IProducto[]>) => {
+            // @ts-ignore
+            this.productsToPurchase.get(index).productsFiltered = res.body;
+            row.productsFiltered = res.body;
+          },
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+      }
+    }
+  }
+
+  clearEntitySelectedProducto(index) {
+    this.productsToPurchase.set(index, {
+      productSelected: null,
+      productSelectedFlag: false,
+      productsFiltered: [],
+      stockAdded: 0,
+      valueInput: '',
+      index: index
+    });
+
+    // @ts-ignore
+    this.dataSourceProductos = new MatTableDataSource<ProductFilterData>(Array.from(this.productsToPurchase.values()));
+    // this.entitySelectFlagProducto = false;
+    // this.entityFilteredSelectedProducto = null;
+    // this.entityFilteredSelectedInputProducto = undefined;
+    //
+    // this.productos[i] = new Producto();
+  }
+
+  onBlurProducto(index) {
+    // @ts-ignore
+    // if(!this.productsToPurchase.get(index).productSelectedFlag){
+    //   this.clearEntitySelectedProducto(index);
+    // } else {
+      // if (this.entity.proveedorId !== undefined) {
+      //   let proveedor = this.entitiesFilteredProducto.find(x => x.id === this.entity.proveedorId);
+      //   this.setEntityFilterProducto(proveedor);
+      // }
+    // }
+  }
+
+
+  setEntityFilterProducto(index, option) {
+    // @ts-ignore
+    let productFilterData: ProductFilterData = this.productsToPurchase.get(index);
+
+    this.productsToPurchase.set(index, {
+      productSelected: option,
+      productSelectedFlag: true,
+      productsFiltered: productFilterData.productsFiltered,
+      stockAdded: productFilterData.stockAdded,
+      valueInput: option.nombre,
+      index: index
+    });
+
+// @ts-ignore
+    this.dataSourceProductos = new MatTableDataSource<ProductFilterData>(Array.from(this.productsToPurchase.values()));
+    // this.entityFilteredSelectedInputProveedor = option.razonSocial;
+    // this.entitySelectFlagProveedor = true;
+    //
+    // this.entity.proveedorId = option.id;
+    // this.entityFilteredSelectedProveedor = option;
+  }
 }

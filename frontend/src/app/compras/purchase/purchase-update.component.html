@@ -109,33 +109,33 @@
             <ng-container matColumnDef="producto">
               <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Producto </mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
-                <input type="text" appearance="fill" maxlength="50" (keypress)="checkCharactersAndNumbersOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'nombre')" value="{{row.nombre}}">
+                <!--<input type="text" appearance="fill" maxlength="50" (keypress)="checkCharactersAndNumbersOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'valueInput')" value="{{row.valueInput}}">-->
 
-                <!--<input matInput placeholder="Producto" name="producto" type="text" maxlength="150"-->
-                       <!--(keypress)="checkCharactersAndNumbersOnly($event)" [matAutocomplete]="autoTestProducto"-->
-                       <!--(keyup)="filterEntityProducto(i)" (blur)="onBlurProducto(i)" value="{{row.nombre}}">-->
-                <!--<button mat-button *ngIf="productos[i].id" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelectedProducto(i)">-->
-                  <!--<mat-icon>close</mat-icon>-->
-                <!--</button>-->
-                <!--<mat-autocomplete #autoTestProducto="matAutocomplete">-->
-                  <!--<mat-option *ngFor="let option of entitiesFilteredProducto" [value]="option" (click)="setEntityFilterProducto(option)">-->
-                    <!--<span *ngIf="option.nombre">{{option.nombre}}</span>-->
-                  <!--</mat-option>-->
-                <!--</mat-autocomplete>-->
+                <input matInput placeholder="Producto" name="producto" type="text" maxlength="150"
+                       (keypress)="checkCharactersAndNumbersOnly($event)" [matAutocomplete]="autoTestProducto"
+                       (keyup)="filterEntityProducto($event, row.index, row)" (blur)="onBlurProducto(row.index)" value="{{row.valueInput}}">
+                <button mat-button *ngIf="row.productSelected" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelectedProducto(row.index)">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-autocomplete #autoTestProducto="matAutocomplete">
+                  <mat-option *ngFor="let option of row.productsFiltered" [value]="option" (click)="setEntityFilterProducto(row.index, option)">
+                    <span>{{option.nombre}}</span>
+                  </mat-option>
+                </mat-autocomplete>
               </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="cantidad">
               <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Cantidad </mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
-                <input type="text" maxlength="50" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'cantidad')" value="{{row.stock}}">
+                <input type="text" maxlength="50" (keypress)="checkNumbersOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'stockAdded')" value="{{row.stockAdded}}">
               </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="precio">
               <mat-header-cell style="font-weight: bold" *matHeaderCellDef> P.U </mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
-                <input type="text" maxlength="50" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'precioCompra')" value="{{row.precioCompra}}">
+                <input type="text" maxlength="50" (keypress)="checkNumbersDecimalOnly($event)" (blur)="saveChangesInProductsRow($event, i, 'precioCompra')" value="{{!row.productSelected ? '' : row.productSelected.precioCompra}}" disabled>
               </mat-cell>
             </ng-container>
 
@@ -143,7 +143,7 @@
               <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Quitar </mat-header-cell>
               <mat-cell *matCellDef="let row;let i = index">
                 <span class="header-label">Quitar:</span>
-                <a (click)="deleteProduct(i, row)" class="ng-star-inserted">
+                <a (click)="deleteProduct(row.index, row)" class="ng-star-inserted">
                   <i class="ti-trash text-danger m-r-10"></i>
                 </a>
               </mat-cell>
