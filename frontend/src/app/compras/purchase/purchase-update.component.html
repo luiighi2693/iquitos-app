@@ -24,9 +24,8 @@
               <mat-form-field>
                 <input matInput placeholder="Proveedor" name="proveedor" type="text" maxlength="150"
                        (keypress)="checkCharactersOnly($event)" [(ngModel)]="entityFilteredSelectedInputProveedor" [matAutocomplete]="autoTest"
-                       (keyup)="filterEntityProveedor()" (blur)="onBlurProveedor($event)">
-                <mat-icon matSuffix color="primary" style="cursor: pointer;">add
-                </mat-icon>
+                       (keyup)="filterEntityProveedor()" (blur)="onBlurProveedor($event)" [disabled]="entitySelectFlagProveedor">
+                <mat-icon *ngIf="!entitySelectFlagProveedor" matSuffix color="primary" style="cursor: pointer;">add</mat-icon>
                 <button mat-button *ngIf="entityFilteredSelectedProveedor" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelectedProveedor()">
                   <mat-icon>close</mat-icon>
                 </button>
@@ -94,15 +93,6 @@
 
     <mat-card>
       <mat-card-content>
-        <div fxLayout="row wrap">
-          <div fxFlex.gt-xs="50" fxFlex="100" class="p-10">
-          </div>
-
-          <div fxFlex.gt-xs="50" fxFlex="100" class="p-10 text-right">
-            <button mat-raised-button color="primary" (click)="agregarProducto()">Agregar</button>
-          </div>
-        </div>
-
         <div class="responsive-table">
           <mat-table #table matSort [dataSource]="dataSourceProductos" class="mat-elevation-z8">
 
@@ -113,8 +103,9 @@
 
                 <input matInput placeholder="Producto" name="producto" type="text" maxlength="150"
                        (keypress)="checkCharactersAndNumbersOnly($event)" [matAutocomplete]="autoTestProducto"
-                       (keyup)="filterEntityProducto($event, row.index, row)" (blur)="onBlurProducto(row.index)" value="{{row.valueInput}}">
-                <button mat-button *ngIf="row.productSelected" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelectedProducto(row.index)">
+                       (keyup)="filterEntityProducto($event, row.index, row)" value="{{row.valueInput}}" [disabled]="row.productSelectedFlag">
+                <mat-icon *ngIf="!row.productSelected" matSuffix color="primary" style="cursor: pointer;">add</mat-icon>
+                <button mat-button *ngIf="row.productSelectedFlag" matSuffix mat-icon-button aria-label="Clear" (click)="clearEntitySelectedProducto(row.index)">
                   <mat-icon>close</mat-icon>
                 </button>
                 <mat-autocomplete #autoTestProducto="matAutocomplete">
@@ -152,6 +143,25 @@
             <mat-header-row *matHeaderRowDef="displayedColumnsProductos"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumnsProductos;let i = index"></mat-row>
           </mat-table>
+        </div>
+      </mat-card-content>
+
+      <mat-card-content class="bg-light">
+        <div class="d-flex align-items-center">
+          <div class="text-left">
+            <button mat-raised-button color="primary" (click)="agregarProducto()">Agregar</button>
+          </div>
+
+          <div class="text-right ml-auto">
+            <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
+            <h6 class="text-uppercase text-md ma-0 text-bold">Tax (2%) :</h6>
+            <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
+          </div>
+          <div class="m-l-10">
+            <h4 class="font-medium">{{100}}</h4>
+            <h4 class="font-medium">{{0}}</h4>
+            <h4 class="font-medium">{{100}}</h4>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
