@@ -40,15 +40,14 @@
             </ng-container>
 
             <ng-container matColumnDef="codigo">
-              <mat-header-cell style="font-weight: bold"*matHeaderCellDef> Código </mat-header-cell>
-              <mat-cell style="color:#23527c" *matCellDef="let element">
-                <span class="header-label">Código:</span>
+              <mat-header-cell style="font-weight: bold; font-size:12px"*matHeaderCellDef> Código </mat-header-cell>
+              <mat-cell style="cursor:pointer; color: blue" [routerLink]="['/ventas/sell', element.id, 'view' ]" *matCellDef="let element">
                 {{element.codigo}}
               </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="fecha">
-              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Fecha </mat-header-cell>
+            <ng-container  matColumnDef="fecha">
+              <mat-header-cell style="font-weight: bold; font-size:12px" *matHeaderCellDef> Fecha </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Fecha:</span>
                 {{element.fecha}}
@@ -56,7 +55,7 @@
             </ng-container>
 
             <ng-container matColumnDef="clienteNombre">
-              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Cliente </mat-header-cell>
+              <mat-header-cell style="font-weight: bold; font-size:12px" *matHeaderCellDef> Cliente </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Cliente:</span>
                 {{element.clienteNombre}}
@@ -64,7 +63,7 @@
             </ng-container>
 
             <ng-container matColumnDef="total">
-              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Total </mat-header-cell>
+              <mat-header-cell style="font-weight: bold; font-size:12px" *matHeaderCellDef> Total </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Total:</span>
                 S/.{{element.montoTotal}}
@@ -72,7 +71,7 @@
             </ng-container>
 
             <ng-container matColumnDef="estado">
-              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Estado </mat-header-cell>
+              <mat-header-cell style="font-weight: bold; font-size:12px" *matHeaderCellDef> Estado </mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Estado:</span>
                 <mat-chip [ngStyle]="{'background-color': element.estatus === 'PENDIENTE' ? '#f8ac59' : '#1ab394'}">{{element.estatus}}</mat-chip>
@@ -80,7 +79,7 @@
             </ng-container>
 
             <ng-container matColumnDef="star">
-              <mat-header-cell style="font-weight: bold" *matHeaderCellDef> Acciones </mat-header-cell>
+              <mat-header-cell style="font-weight: bold" *matHeaderCellDef></mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <a style="margin-left: 20px;" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">
                   <i class="ti-search text-info m-r-10"></i>

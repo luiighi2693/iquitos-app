@@ -201,13 +201,31 @@
     <mat-card-content>
       <!--<form class="basic-form">-->
 
-      <div fxLayout="row wrap">
+      <div style="display: flex; width: 100%" fxLayout="row wrap">
         <div fxFlex.gt-xs="50" fxFlex="25" class="p-12" (click)="goStep('sell', null, null)"
              style="cursor: pointer; text-align: left">
-          <mat-icon>arrow_back</mat-icon>
-          <span class="goBackTag">Regresar a la venta</span>
+          <mat-icon>keyboard_arrow_left</mat-icon>
+          <span style="position: absolute;" class="goBackTag">Regresar a la venta</span>
         </div>
       </div>
+
+      <!--<div style="display: flex; width: 100%">
+        <div button fxFlex.gt-xs="50" fxFlex="25" class="p-12" mat-icon-button (click)="goStep('sell', null, null)">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+          <mat-form-field fxFlex="90">
+          <span>Regresar a la venta</span>
+          </mat-form-field>
+        </div>
+      </div>-->
+
+      <!--<div style="display: flex; width: 100%">-->
+        <!--<button fxFlex="10" mat-icon-button (click)="searchProduct(currentSearchProduct)">-->
+          <!--<mat-icon>keyboard_arrow_left</mat-icon>-->
+        <!--</button>-->
+        <!--<mat-form-field fxFlex="90">-->
+          <!--<span class="goBackTag">Regresar a la venta</span>-->
+        <!--</mat-form-field>-->
+      <!--</div>-->
 
       <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
@@ -226,12 +244,12 @@
         </div>
       </div>
 
-      <!--<div fxLayout="row wrap">-->
+      <div style="height: 400px; overflow-y: auto">
       <div style="margin-top:45px" class="responsive-table">
         <mat-table #table matSort [dataSource]="dataSourceClientes" class="mat-elevation-z8">
 
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Nombre</mat-header-cell>
+            <mat-header-cell style="cursor:pointer; font-size:14px; font-weight: bold "*matHeaderCellDef> Nombre</mat-header-cell>
             <mat-cell style="cursor:pointer; width: 50%" *matCellDef="let row;let i = index" (click)="setClient(row)">
               <span class="header-label">Nombre</span>
               {{row.nombre}}
@@ -241,7 +259,7 @@
           </ng-container>
 
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef> Editar</mat-header-cell>
+            <mat-header-cell style="font-size:14px; font-weight: bold "*matHeaderCellDef> Editar</mat-header-cell>
             <mat-cell *matCellDef="let row;let i = index">
               <span class="header-label">Editar:</span>
               <a style="cursor:pointer; width: 50%" (click)="goStep('clientUpdate', 'edit', row)"
@@ -255,7 +273,7 @@
           <mat-row *matRowDef="let row; columns: displayedColumnsClientes;let i = index"></mat-row>
         </mat-table>
       </div>
-      <!--</div>-->
+      </div>
       <!--</form>-->
     </mat-card-content>
   </mat-card>
