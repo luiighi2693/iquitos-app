@@ -3,11 +3,11 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
     <div style="display: flex; background-color: #ebecec">
-      <div fxFlex.gt-xs="50" fxFlex="25" class="p-10">
+      <div fxFlex.gt-xs="50" fxFlex="25">
         <span>Información de la venta</span>
       </div>
 
-      <div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
+      <div fxFlex.gt-xs="50" fxFlex="75" class="text-right">
         <div class="button-row">
           <button mat-raised-button color="warn" (click)="closeAndCheckSell('exit')">x</button>
         </div>
@@ -26,19 +26,10 @@
       <span class="header-label">Con Nº de Venta <b>{{ data.entity.codigo}}</b></span><br>
     </div>
 
-    <!--<div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">-->
-      <!--<mat-form-field>-->
-        <!--<mat-select placeholder="Tipo de Documento" [(ngModel)]="data.entity.tipoDeDocumentoDeVentaId" name="documentTypeSell">-->
-          <!--<mat-option *ngFor="let documentTypeSellOption of documentTypeSells;" [value]="documentTypeSellOption.id">-->
-            <!--{{documentTypeSellOption.nombre}}-->
-          <!--</mat-option>-->
-        <!--</mat-select>-->
-      <!--</mat-form-field>-->
-    <!--</div>-->
-
     <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
       <mat-form-field>
-        <mat-select placeholder="Tipo de pago" [(ngModel)]="data.entity.tipoDePagoId" (ngModelChange)="selectInputAmount()" name="paymentType">
+        <mat-select placeholder="Tipo de pago" [(ngModel)]="data.entity.tipoDePagoId"
+                    (ngModelChange)="selectInputAmount()" name="paymentType">
           <mat-option *ngFor="let paymentTypeOption of paymentTypes;" [value]="paymentTypeOption.id">
             {{paymentTypeOption.nombre}}
           </mat-option>
@@ -48,7 +39,8 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput #amountToPay placeholder="Monto de pago" name="payment" type="text" maxlength="10" (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado">
+        <input matInput #amountToPay placeholder="Monto de pago" name="payment" type="text" maxlength="10"
+               (keypress)="checkNumbersDecimalOnly($event)" [(ngModel)]="amortization.montoPagado">
         <span matPrefix>S/&nbsp;</span>
       </mat-form-field>
     </div>
@@ -63,23 +55,27 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput placeholder="Nº de comprobante de pago" name="comprobantNumber" type="text" maxlength="20" [(ngModel)]="amortization.comprobante">
+        <input matInput placeholder="Nº de comprobante de pago" name="comprobantNumber" type="text" maxlength="20"
+               [(ngModel)]="amortization.comprobante">
         <span matPrefix>S/&nbsp;</span>
       </mat-form-field>
     </div>
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <div>
-        <img [src]="'data:' + amortization.fotoComprobanteContentType + ';base64,' + amortization.fotoComprobante" style="max-height: 100px;" *ngIf="amortization.fotoComprobante" alt="amortization image"/>
-        <button *ngIf="amortization.fotoComprobante" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearInputImage('fotoComprobante', 'fotoComprobanteContentType', 'fileImage')">
+        <img [src]="'data:' + amortization.fotoComprobanteContentType + ';base64,' + amortization.fotoComprobante"
+             style="max-height: 100px;" *ngIf="amortization.fotoComprobante" alt="amortization image"/>
+        <button *ngIf="amortization.fotoComprobante" mat-button matSuffix mat-icon-button aria-label="Clear"
+                (click)="clearInputImage('fotoComprobante', 'fotoComprobanteContentType', 'fileImage')">
           <mat-icon>close</mat-icon>
         </button>
-        <input type="file" id="file_imagen" (change)="setFileData($event, amortization, 'fotoComprobante', true)" accept="image/*"/>
+        <input type="file" id="file_imagen" (change)="setFileData($event, amortization, 'fotoComprobante', true)"
+               accept="image/*"/>
       </div>
       <input type="hidden" class="form-control" name="fotoComprobante" id="field_imagen"
-             [(ngModel)]="amortization.fotoComprobante" />
+             [(ngModel)]="amortization.fotoComprobante"/>
       <input type="hidden" class="form-control" name="fotoComprobanteContentType" id="field_imagenContentType"
-             [(ngModel)]="amortization.fotoComprobanteContentType" />
+             [(ngModel)]="amortization.fotoComprobanteContentType"/>
     </div>
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
@@ -89,15 +85,49 @@
     </div>
   </div>
 
-  <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="width: 100%; text-align: center;">Total : S/ {{parseFloatCustom(montoTotal)}}</h1>
-  </div>
+  <!--<div fxLayout="row wrap">-->
+    <!--<h1 mat-dialog-title style="width: 100%; text-align: center;">Total : S/ {{parseFloatCustom(montoTotal)}}</h1>-->
+  <!--</div>-->
+
+  <!--<div fxLayout="row wrap">-->
+    <!--<h1 mat-dialog-title style="width: 100%; text-align: center; color:#30ad80">Vuelto-->
+      <!--: {{parseFloatCustom(amortization.montoPagado - montoTotal) < 0 ? 0 : parseFloatCustom(amortization.montoPagado - montoTotal)}}-->
+      <!--soles</h1>-->
+  <!--</div>-->
 
   <div fxLayout="row wrap">
-    <h1 mat-dialog-title style="width: 100%; text-align: center; color:#30ad80">Vuelto : {{parseFloatCustom(amortization.montoPagado - montoTotal)  < 0 ? 0 : parseFloatCustom(amortization.montoPagado - montoTotal)}} soles</h1>
+    <div fxFlex.gt-xs="35" fxFlex="35" class="text-right">
+      <div class="d-flex align-items-center">
+        <table style= "left: 190%; position: relative;" class="table">
+          <thead>
+          <tr>
+            <th scope="col">Total</th>
+            <th style="width: 100%; text-align: center;">S/ {{parseFloatCustom(montoTotal)}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">Vuelto</th>
+            <th
+              style="width: 100%; text-align: center; color:#30ad80">{{parseFloatCustom(amortization.montoPagado - montoTotal) < 0 ? 0 : parseFloatCustom(amortization.montoPagado - montoTotal)}}
+              soles
+            </th>
+          </tr>
+          <tr *ngIf="isCredit">
+            <th scope="row">Crédito</th>
+            <th style="text-align: center; color:red; font-size: 1rem;">S/ {{data.entity.montoTotal}}</th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
+<!--</div>-->
 </div>
 <div style="width: 100%;" mat-dialog-actions>
-  <button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" mat-button tabindex="2" (click)="closeAndCheckSell('pay')" [disabled]="validateDocumentCodeInvalid() && amortization.montoPagado < 1">Pagar</button>
+  <button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" mat-button tabindex="2"
+          (click)="closeAndCheckSell('pay')" [disabled]="validateDocumentCodeInvalid() && amortization.montoPagado < 1">
+    Pagar
+  </button>
   <button style="width: 25%;" mat-button tabindex="-1" (click)="closeAndCheckSell('exit')">Salir</button>
 </div>

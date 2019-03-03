@@ -537,6 +537,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     } else {
       const dialogRef = this.dialog.open(SellExtraInfoComponent, {
         width: '80%',
+        height: '90%',
         data: {
           entity: this.entity,
           client: this.client,
