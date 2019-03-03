@@ -73,7 +73,7 @@ export class AmortizacionComponent extends BaseAmortizacion implements OnInit, O
         this.amortizacionService.update(sell.amortizacions[sell.amortizacions.length-1]).subscribe(
           (res: HttpResponse<Amortizacion>) => {
             console.log(res.body);
-            this.router.navigate(['/print/invoice2/' + sell.id + '/' + (sell.amortizacions.length - 1)]);
+            this.router.navigate(['/print/invoicea5/' + sell.id + '/' + (sell.amortizacions.length - 1)]);
           },
           (res: HttpErrorResponse) => this.onError(res.message)
         );

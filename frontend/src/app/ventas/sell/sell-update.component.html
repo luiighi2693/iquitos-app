@@ -207,6 +207,21 @@
           <mat-icon>keyboard_arrow_left</mat-icon>
           <span style="position: absolute;" class="goBackTag">Regresar a la venta</span>
         </div>
+        <div fxFlex.gt-xs="50" fxFlex="25" class="p-12" (click)="goStep('clientUpdate', 'new', null)"
+             style="cursor: pointer; text-align: right">
+          <button mat-raised-button style="width: 100%;" >Agregar nuevo
+          cliente
+          </button>
+        </div>
+        <!--<div fxLayout="row wrap">-->
+          <!--<div class="p-11">-->
+            <!--<div class="button-row">-->
+              <!--<button mat-raised-button style="width: 100%;" (click)="goStep('clientUpdate', 'new', null)">Agregar nuevo-->
+                <!--cliente-->
+              <!--</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
 
       <!--<div style="display: flex; width: 100%">
@@ -234,17 +249,7 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row wrap">
-        <div class="p-11">
-          <div class="button-row">
-            <button mat-raised-button style="width: 100%;" (click)="goStep('clientUpdate', 'new', null)">Agregar nuevo
-              cliente
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div style="height: 400px; overflow-y: auto">
+      <div style="overflow-y: auto" [ngStyle]="{'max-height': getMaxHeightClientes(), 'height': getMaxHeightClientes()}">
       <div style="margin-top:45px" class="responsive-table">
         <mat-table #table matSort [dataSource]="dataSourceClientes" class="mat-elevation-z8">
 

@@ -1,0 +1,196 @@
+<mat-card style="max-width: 595px;" *ngIf="venta">
+  <mat-card-content>
+
+    <div style="margin-bottom: 20px;" fxLayout="row wrap">
+      <div style="border-right: solid; text-align: center;" fxFlex.gt-xs="20" fxFlex="20">
+        <span>LOGO</span>
+      </div>
+
+      <div style="border:none; line-height: initial;" fxFlex.gt-xs="25" fxFlex="25">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">PRO ECONOMICA S.A.C</th>
+            <!--<td>{{getFormatedDate()}}</td>-->
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">CAL. ALFONZO UGARTE NRO. 127 LORETO BELEN</th>
+            <!--<td>{{venta.tipoDePagoNombre}}</td>-->
+          </tr>
+          <tr>
+            <th scope="row">949451724</th>
+            <!--<td>-</td>-->
+          </tr>
+          <tr>
+            <th scope="row">ever@facturate.pe</th>
+            <!--<td>-</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        style="height:100%; position: relative; right: -67px; border-radius: 10px; border: none; text-transform: uppercase; line-height: 30px"
+        fxFlex.gt-xs="45" fxFlex="45">
+        <table class="table-header-fact">
+          <thead>
+          <tr>
+            <th scope="col" style="text-align: center; font-size: large">R.U.C. N° 20603441223</th>
+            <!--<td>{{venta.clienteNombre}}</td>-->
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row"
+                style="text-align: center; font-size: large">{{amortizationSelected.tipoDeDocumentoDeVentaNombre}}</th>
+            <!--<td>{{cliente.direccion}}</td>-->
+          </tr>
+          <tr>
+            <th scope="row" style="text-align: center; font-size: large">N° {{amortizationSelected.codigo}}</th>
+            <!--<td>{{amortizationSelected.codigoDocumento}}</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div fxLayout="row wrap">
+      <div style="border-style: solid; " fxFlex.gt-xs="62" fxFlex="62">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Razón Social:   {{venta.clienteId ? venta.clienteNombre : 'Cliente'}}</th>
+            <!--<td>{{venta.clienteNombre}}</td>-->
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">Dirección:   {{venta.clienteId ? cliente.direccion : ''}}</th>
+            <!--<td>{{cliente.direccion}}</td>-->
+          </tr>
+          <tr>
+            <th scope="row">RUC/DNI:   {{amortizationSelected.codigoDocumento}}</th>
+            <!--<td>{{amortizationSelected.codigoDocumento}}</td>-->
+          </tr>
+          <tr>
+            <th scope="row">Email:   {{venta.clienteId ? cliente.correo : ''}}</th>
+            <!--<td>{{cliente.correo}}</td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <div style="border-style: solid; position: relative; right: -20px;" fxFlex.gt-xs="35" fxFlex="35">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Fecha de emision:</th>
+            <th>{{getFormatedDate()}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">Condición de pago:</th>
+            <th>{{venta.tipoDePagoNombre}}</th>
+          </tr>
+          <tr>
+            <th scope="row">Guia Remisión:</th>
+            <th>-</th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-content class="table-rasponsive">
+    <ngx-datatable class="material" [rows]="venta.productoDetalles" [columnMode]="'flex'" [headerHeight]="50"
+                   [footerHeight]="0" [rowHeight]="'auto'">
+      <ngx-datatable-column style="font-weight: bold;" name="Descripción" [flexGrow]="4" [headerClass]="'headerCellColum'">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <span>{{row.productoLabel}}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column style="font-weight: bold;" name="P.U." [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <span>{{row.precioVenta}}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column style="font-weight: bold;" name="Cant." [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <span>{{row.cantidad}}</span>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column style="font-weight: bold;" name="Total" [flexGrow]="1">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <span>{{parseFloatCustom(row.precioVenta * row.cantidad)}}</span>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+
+  <!--Aca hacia abajo la actual-->
+  <mat-card-content>
+    <div fxLayout="row wrap">
+      <div style="border-bottom: 1px solid;  position: relative; bottom: -20%;     margin-bottom: -10%;margin-top: 10%;" fxFlex.gt-xs="100" fxFlex="100">
+        <span  style="font-size:7.5px;">Estimado cliente reserve su comprobante, por regulación de la SUNAT es indispensable presentarlo para solicitar cambios o devoluciones</span>
+      </div>
+      <!--<div style="position: relative; bottom: -20%;" fxFlex.gt-xs="100" fxFlex="100">-->
+        <!--<span style="font-size:10px; font-weight: bold;">*** SON </span>-->
+      <!--</div>-->
+      <div fxFlex.gt-xs="20" fxFlex="20">
+        <img style="width:120px; position: relative; top: 50%;" mat-card-image src= "assets/images/big/QRCode.png" alt="QR">
+      </div>
+      <div fxFlex.gt-xs="40" fxFlex="40" style="    margin-left: 4%;">
+        <table style="position: relative; top: 45%;" class="table">
+          <thead>
+          <tr>
+            <th style="text-align: center" scope="col">Representación impresa de la FACTURA ELECTRONICA</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th style="text-align: center" scope="row">Esta puede ser consultada en</th>
+          </tr>
+          <tr>
+            <th style="text-align: center" scope="row">https://proeconomica.facturate.pe</th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div fxFlex.gt-xs="35" fxFlex="35" class="text-right">
+        <div class="d-flex align-items-center">
+
+          <div style="border-style: solid; position: relative; bottom: -17%; right: -20px; top: 18%; margin-top: 100px;" fxFlex.gt-xs="95" fxFlex="95">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Subtotal</th>
+                <th>S/ {{parseFloatCustom(venta.subTotal)}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th scope="row">IGV({{venta.impuesto}}%)</th>
+                <th>S/ {{parseFloatCustom((venta.subTotal * venta.impuesto) / 100)}}</th>
+              </tr>
+              <tr>
+                <th scope="row">Total</th>
+                <th>S/ {{parseFloatCustom(venta.montoTotal)}}</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div style= "margin-top: 21px; text-align: center;"fxFlex.gt-xs="100" fxFlex="100">
+        <span style="font-size:11px; font-weight: bold; text-align: center">BIENES TRANSFERIDOS EN LA AMAZONIA REGION SELVA PARA SER CONSUMIDOS EN LA MISMA</span>
+      </div>
+
+    </div>
+  </mat-card-content>
+
+</mat-card>
+

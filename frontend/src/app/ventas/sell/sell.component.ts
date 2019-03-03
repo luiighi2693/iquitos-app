@@ -17,7 +17,7 @@ export class SellComponent extends BaseVenta implements OnInit, OnDestroy {
     super(
       service,
       fullService,
-      ['select', 'codigo', 'fecha', 'clienteNombre', 'total', 'estado', 'star'],
+      ['codigo', 'fecha', 'clienteNombre', 'total', 'estado'],
       dialog, null, null, require('../menu.json'), 'VENTAS');
   }
 

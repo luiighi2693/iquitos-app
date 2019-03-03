@@ -9,6 +9,7 @@ import { Pages2Routes } from './pages2.routing';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import {Invoice2Component} from "./invoice/invoice.2component";
+import {InvoiceA5Component} from "./invoiceA5/invoiceA5.component";
 
 // import { PrintLayoutComponent } from './print-layout/print-layout.component';
 @NgModule({
@@ -23,6 +24,7 @@ import {Invoice2Component} from "./invoice/invoice.2component";
   ],
   declarations: [
     Invoice2Component,
+    InvoiceA5Component,
   ]
 })
 export class Pages2Module {}

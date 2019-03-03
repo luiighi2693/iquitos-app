@@ -24,20 +24,20 @@
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 
-            <ng-container matColumnDef="select">
-              <mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="$event ? masterToggle() : null"
-                              [checked]="selection.hasValue() && isAllSelected()"
-                              [indeterminate]="selection.hasValue() && !isAllSelected()">
-                </mat-checkbox>
-              </mat-header-cell>
-              <mat-header-cell *matCellDef="let row">
-                <mat-checkbox (click)="$event.stopPropagation()"
-                              (change)="$event ? selection.toggle(row) : null"
-                              [checked]="selection.isSelected(row)">
-                </mat-checkbox>
-              </mat-header-cell>
-            </ng-container>
+            <!--<ng-container matColumnDef="select">-->
+              <!--<mat-header-cell *matHeaderCellDef>-->
+                <!--<mat-checkbox (change)="$event ? masterToggle() : null"-->
+                              <!--[checked]="selection.hasValue() && isAllSelected()"-->
+                              <!--[indeterminate]="selection.hasValue() && !isAllSelected()">-->
+                <!--</mat-checkbox>-->
+              <!--</mat-header-cell>-->
+              <!--<mat-header-cell *matCellDef="let row">-->
+                <!--<mat-checkbox (click)="$event.stopPropagation()"-->
+                              <!--(change)="$event ? selection.toggle(row) : null"-->
+                              <!--[checked]="selection.isSelected(row)">-->
+                <!--</mat-checkbox>-->
+              <!--</mat-header-cell>-->
+            <!--</ng-container>-->
 
             <ng-container matColumnDef="codigo">
               <mat-header-cell style="font-weight: bold; font-size:12px"*matHeaderCellDef> Código </mat-header-cell>
@@ -78,22 +78,22 @@
               </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="star">
-              <mat-header-cell style="font-weight: bold" *matHeaderCellDef></mat-header-cell>
-              <mat-cell *matCellDef="let element">
-                <a style="margin-left: 20px;" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">
-                  <i class="ti-search text-info m-r-10"></i>
-                </a>
+            <!--<ng-container matColumnDef="star">-->
+              <!--<mat-header-cell style="font-weight: bold" *matHeaderCellDef></mat-header-cell>-->
+              <!--<mat-cell *matCellDef="let element">-->
+                <!--<a style="margin-left: 20px;" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">-->
+                  <!--<i class="ti-search text-info m-r-10"></i>-->
+                <!--</a>-->
 
-                <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">
-                  <i class="ti-pencil text-info m-r-10"></i>
-                </a>
-                <!--<a class="ng-star-inserted" (click)="deleteRow(element)">-->
-                <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" (click)="openDialog(element)">
-                  <i class="ti-trash text-danger m-r-10"></i>
-                </a>
-              </mat-cell>
-            </ng-container>
+                <!--<a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">-->
+                  <!--<i class="ti-pencil text-info m-r-10"></i>-->
+                <!--</a>-->
+                <!--&lt;!&ndash;<a class="ng-star-inserted" (click)="deleteRow(element)">&ndash;&gt;-->
+                <!--<a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" (click)="openDialog(element)">-->
+                  <!--<i class="ti-trash text-danger m-r-10"></i>-->
+                <!--</a>-->
+              <!--</mat-cell>-->
+            <!--</ng-container>-->
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
