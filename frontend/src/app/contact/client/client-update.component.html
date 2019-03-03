@@ -19,6 +19,17 @@
         <mat-card-title>Cliente {{!entity.id ? 'Nuevo' : 'Edición'}} </mat-card-title>
         <form class="basic-form">
           <div fxLayout="row wrap">
+
+            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+              <mat-form-field>
+                <mat-select placeholder="Tipo de Cliente" [(ngModel)]="entity.tipoDeCliente" (ngModelChange)="filterDocumentTypeContent(entity.tipoDeCliente)" name="tipoDeCliente">
+                  <mat-option *ngFor="let tipoCliente of tiposDeCliente" [value]="tipoCliente">
+                    {{tipoCliente}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
             <!-- column -->
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
@@ -90,19 +101,9 @@
 
             <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
               <mat-form-field>
-                <mat-select placeholder="Tipo de Cliente" [(ngModel)]="entity.tipoDeCliente" name="tipoDeCliente">
-                  <mat-option *ngFor="let tipoCliente of tiposDeCliente" [value]="tipoCliente">
-                    {{tipoCliente}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-
-            <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
-              <mat-form-field>
                 <mat-select placeholder="Tipo de Documento" [(ngModel)]="entity.tipoDeDocumentoId" name="tipoDeDocumento">
                   <mat-option [value]="null"></mat-option>
-                  <mat-option *ngFor="let tipoDocumento of tiposDeDocumento;" [value]="tipoDocumento.id">
+                  <mat-option *ngFor="let tipoDocumento of tiposDeDocumentoFiltered;" [value]="tipoDocumento.id">
                     {{tipoDocumento.nombre}}
                   </mat-option>
                 </mat-select>

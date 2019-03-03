@@ -10,7 +10,6 @@ import {ClienteService} from "./cliente.service";
 import {ITipoDeDocumento} from "../../models/tipo-de-documento.model";
 import {TipoDeDocumentoService} from "../../configuration/documenttype/tipo-de-documento.service";
 import Util from "../../shared/util/util";
-import {IParametroSistema} from "../../models/parametro-sistema.model";
 
 @Component({
   selector: 'app-client-update',
@@ -47,6 +46,7 @@ export class ClientUpdateComponent implements OnInit {
   ];
 
   tiposDeDocumento: ITipoDeDocumento[];
+  tiposDeDocumentoFiltered: ITipoDeDocumento[];
 
   public form: FormGroup;
 
@@ -65,6 +65,12 @@ export class ClientUpdateComponent implements OnInit {
 
     this.activatedRoute.data.subscribe(({ entity }) => {
       this.entity = entity;
+
+      if (this.entity.id === undefined) {
+        this.entity.tipoDeCliente = ClientType.NATURAL;
+        this.entity.sexo = Sex.MASCULINO;
+        this.entity.estatusCivil = CivilStatus.SOLTERO;
+      }
 
       this.form = this.fb.group({
         fnombre: [
@@ -206,6 +212,16 @@ export class ClientUpdateComponent implements OnInit {
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+    }
+  }
+
+  private filterDocumentTypeContent(clientType: ClientType) {
+    if (clientType === ClientType.NATURAL) {
+      this.entity.tipoDeDocumentoId = this.tiposDeDocumento.find(x => x.nombre === 'DNI').id;
+      this.tiposDeDocumentoFiltered = this.tiposDeDocumento.filter(x => x.nombre !== 'RUC');
+    } else {
+      this.entity.tipoDeDocumentoId = this.tiposDeDocumento.find(x => x.nombre === 'RUC').id;
+      this.tiposDeDocumentoFiltered = this.tiposDeDocumento.filter(x => x.nombre === 'RUC');
     }
   }
 }

@@ -46,10 +46,10 @@ entity Credito {
 
 entity Cliente {
 	nombre String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-	codigo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+	codigo String maxlength(DEFAULT_MAX_LENGTH_STRING),
     direccion String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-    correo String required maxlength(DEFAULT_MAX_LENGTH_STRING),
-    telefono String required maxlength(DEFAULT_MAX_LENGTH_STRING),
+    correo String maxlength(DEFAULT_MAX_LENGTH_STRING),
+    telefono String maxlength(DEFAULT_MAX_LENGTH_STRING),
     fechaDeNacimiento LocalDate,
     sexo Sex,
     estatusCivil CivilStatus,
