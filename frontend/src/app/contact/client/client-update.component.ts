@@ -215,7 +215,7 @@ export class ClientUpdateComponent implements OnInit {
     }
   }
 
-  private filterDocumentTypeContent(clientType: ClientType) {
+  public filterDocumentTypeContent(clientType: ClientType) {
     if (clientType === ClientType.NATURAL) {
       this.entity.tipoDeDocumentoId = this.tiposDeDocumento.find(x => x.nombre === 'DNI').id;
       this.tiposDeDocumentoFiltered = this.tiposDeDocumento.filter(x => x.nombre !== 'RUC');
