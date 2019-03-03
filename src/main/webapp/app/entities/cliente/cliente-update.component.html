@@ -27,12 +27,8 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_codigo">Codigo</label>
                     <input type="text" class="form-control" name="codigo" id="field_codigo"
-                        [(ngModel)]="cliente.codigo" required maxlength="150"/>
+                        [(ngModel)]="cliente.codigo" maxlength="150"/>
                     <div [hidden]="!(editForm.controls.codigo?.dirty && editForm.controls.codigo?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.codigo?.errors?.required">
-                        This field is required.
-                        </small>
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.codigo?.errors?.maxlength">
                         This field cannot be longer than 150 characters.
@@ -57,12 +53,8 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_correo">Correo</label>
                     <input type="text" class="form-control" name="correo" id="field_correo"
-                        [(ngModel)]="cliente.correo" required maxlength="150"/>
+                        [(ngModel)]="cliente.correo" maxlength="150"/>
                     <div [hidden]="!(editForm.controls.correo?.dirty && editForm.controls.correo?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.correo?.errors?.required">
-                        This field is required.
-                        </small>
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.correo?.errors?.maxlength">
                         This field cannot be longer than 150 characters.
@@ -72,12 +64,8 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_telefono">Telefono</label>
                     <input type="text" class="form-control" name="telefono" id="field_telefono"
-                        [(ngModel)]="cliente.telefono" required maxlength="150"/>
+                        [(ngModel)]="cliente.telefono" maxlength="150"/>
                     <div [hidden]="!(editForm.controls.telefono?.dirty && editForm.controls.telefono?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.telefono?.errors?.required">
-                        This field is required.
-                        </small>
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.telefono?.errors?.maxlength">
                         This field cannot be longer than 150 characters.

@@ -27,7 +27,7 @@
             </column>
 
             <column name="codigo" type="varchar(150)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="direccion" type="varchar(150)">
@@ -35,11 +35,11 @@
             </column>
 
             <column name="correo" type="varchar(150)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="telefono" type="varchar(150)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="fecha_de_nacimiento" type="date">

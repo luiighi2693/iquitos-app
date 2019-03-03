@@ -14,7 +14,6 @@
             "fieldName": "codigo",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": 150
@@ -32,7 +31,6 @@
             "fieldName": "correo",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": 150
@@ -41,7 +39,6 @@
             "fieldName": "telefono",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": 150

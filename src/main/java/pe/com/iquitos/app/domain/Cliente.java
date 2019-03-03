@@ -38,9 +38,8 @@ public class Cliente implements Serializable {
     @Column(name = "nombre", length = 150, nullable = false)
     private String nombre;
 
-    @NotNull
     @Size(max = 150)
-    @Column(name = "codigo", length = 150, nullable = false)
+    @Column(name = "codigo", length = 150)
     private String codigo;
 
     @NotNull
@@ -48,14 +47,12 @@ public class Cliente implements Serializable {
     @Column(name = "direccion", length = 150, nullable = false)
     private String direccion;
 
-    @NotNull
     @Size(max = 150)
-    @Column(name = "correo", length = 150, nullable = false)
+    @Column(name = "correo", length = 150)
     private String correo;
 
-    @NotNull
     @Size(max = 150)
-    @Column(name = "telefono", length = 150, nullable = false)
+    @Column(name = "telefono", length = 150)
     private String telefono;
 
     @Column(name = "fecha_de_nacimiento")

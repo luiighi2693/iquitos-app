@@ -20,7 +20,6 @@ public class ClienteDTO implements Serializable {
     @Size(max = 150)
     private String nombre;
 
-    @NotNull
     @Size(max = 150)
     private String codigo;
 
@@ -28,11 +27,9 @@ public class ClienteDTO implements Serializable {
     @Size(max = 150)
     private String direccion;
 
-    @NotNull
     @Size(max = 150)
     private String correo;
 
-    @NotNull
     @Size(max = 150)
     private String telefono;
 

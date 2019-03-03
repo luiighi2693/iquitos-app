@@ -233,67 +233,10 @@ public class ClienteResourceIntTest {
 
     @Test
     @Transactional
-    public void checkCodigoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = clienteRepository.findAll().size();
-        // set the field null
-        cliente.setCodigo(null);
-
-        // Create the Cliente, which fails.
-        ClienteDTO clienteDTO = clienteMapper.toDto(cliente);
-
-        restClienteMockMvc.perform(post("/api/clientes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(clienteDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Cliente> clienteList = clienteRepository.findAll();
-        assertThat(clienteList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkDireccionIsRequired() throws Exception {
         int databaseSizeBeforeTest = clienteRepository.findAll().size();
         // set the field null
         cliente.setDireccion(null);
-
-        // Create the Cliente, which fails.
-        ClienteDTO clienteDTO = clienteMapper.toDto(cliente);
-
-        restClienteMockMvc.perform(post("/api/clientes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(clienteDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Cliente> clienteList = clienteRepository.findAll();
-        assertThat(clienteList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCorreoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = clienteRepository.findAll().size();
-        // set the field null
-        cliente.setCorreo(null);
-
-        // Create the Cliente, which fails.
-        ClienteDTO clienteDTO = clienteMapper.toDto(cliente);
-
-        restClienteMockMvc.perform(post("/api/clientes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(clienteDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Cliente> clienteList = clienteRepository.findAll();
-        assertThat(clienteList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkTelefonoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = clienteRepository.findAll().size();
-        // set the field null
-        cliente.setTelefono(null);
 
         // Create the Cliente, which fails.
         ClienteDTO clienteDTO = clienteMapper.toDto(cliente);
