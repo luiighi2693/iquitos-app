@@ -87,7 +87,7 @@
         <!--<div fxLayout="row wrap">-->
         <div class="responsive-table">
           <mat-table #table matSort [dataSource]="dataSourceProductosDetalles" class="mat-elevation-z8"
-                     style="max-height: 264px; overflow:auto;">
+                     style="overflow:auto;" [ngStyle]="{'max-height': getMaxHeightProductosDetalles(), 'height': getMaxHeightProductosDetalles()}">
 
             <ng-container matColumnDef="cantidad">
               <mat-header-cell *matHeaderCellDef> Cant.</mat-header-cell>

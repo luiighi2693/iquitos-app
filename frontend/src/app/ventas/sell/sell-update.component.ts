@@ -666,4 +666,8 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     // @ts-ignore
     $event.target.select()
   }
+
+  getMaxHeightProductosDetalles() {
+    return Math.abs(window.innerHeight * 0.45) +'px';
+  }
 }
