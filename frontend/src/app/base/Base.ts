@@ -36,7 +36,7 @@ export class Base<I,C> {
     this.itemsPerPage = 50;
     this.page = 0;
     this.predicate = 'id';
-    this.reverse = true;
+    this.reverse = false;
 
     if (this.fullService) {
       this.fullService.changeMenu(menu);
@@ -63,6 +63,7 @@ export class Base<I,C> {
   }
 
   loadAll() {
+    this.isSaving = true;
   }
 
   save() {
@@ -98,7 +99,7 @@ export class Base<I,C> {
     this.data = [];
     this.page = 0;
     this.predicate = 'id';
-    this.reverse = true;
+    this.reverse = false;
     this.currentSearch = '';
     this.loadAll();
   }
@@ -124,6 +125,7 @@ export class Base<I,C> {
   }
 
   paginate(data: I[], headers: HttpHeaders) {
+    this.isSaving = false;
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.data = data;
     this.dataSource = new MatTableDataSource<I>(this.data);

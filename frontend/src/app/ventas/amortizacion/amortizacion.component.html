@@ -18,6 +18,8 @@
             </div>
           </div>
 
+          <mat-spinner *ngIf="isSaving" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></mat-spinner>
+
           <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="data">
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->

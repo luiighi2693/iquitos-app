@@ -51,6 +51,7 @@ export class BaseAmortizacion extends Base<IVenta, Venta> {
   }
 
   paginate(data: Venta[], headers: HttpHeaders) {
+    this.isSaving = false;
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     if (data.length > 0) {
       data = this.filterByPendingSell(data);

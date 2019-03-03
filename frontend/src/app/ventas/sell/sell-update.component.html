@@ -35,6 +35,7 @@
 
       <div id="product-layout" fxLayout="row wrap">
 
+        <mat-spinner *ngIf="isSaving" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></mat-spinner>
         <div fxFlex.gt-lg="25" fxFlex.gt-md="25" fxFlex.gt-xs="25" fxFlex="50" *ngFor="let product of productos ">
           <mat-card class="oh" (click)="openDialogVariantSelection(product)">
             <h6 class="m-0">S/. {{product.precioVenta}}</h6>
@@ -94,7 +95,8 @@
                 <span class="header-label">Cant:</span>
                 <input style="text-align: center; width: 80%; margin-left: 10px; border: 1px solid #bec3c8; color: black;"
                 placeholder="Cant" type="text" (keypress)="checkNumbersOnly($event)"
-                       (blur)="saveChangesInProductosDetallesRow($event, i, 'cantidad')" value="{{row.cantidad}}">
+                       (blur)="saveChangesInProductosDetallesRow($event, i, 'cantidad')" value="{{row.cantidad}}"
+                (click)="onClickForm($event)">
               </mat-cell>
             </ng-container>
             <ng-container matColumnDef="producto">
@@ -117,7 +119,7 @@
                   placeholder="PU." type="text" maxlength="10"
                        (keypress)="checkNumbersDecimalOnly($event)"
                        (blur)="saveChangesInProductosDetallesRow($event, i, 'precioVenta')"
-                       value="{{parseFloatCustom(row.precioVenta)}}">
+                       value="{{parseFloatCustom(row.precioVenta)}}" (click)="onClickForm($event)">
               </mat-cell>
             </ng-container>
 

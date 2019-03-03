@@ -84,7 +84,7 @@
       </mat-form-field>
     </div>
 
-    <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="25" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
       <mat-form-field>
         <mat-select placeholder="Medio de pago" [(ngModel)]="data.entity.tipoDePagoId" name="paymentType" (ngModelChange)="validateCredit()">
           <mat-option *ngFor="let paymentTypeOption of paymentTypes;" [value]="paymentTypeOption.id">
@@ -103,11 +103,19 @@
 
     <div fxFlex="25" class="p-10" *ngIf="isCredit">
       <mat-form-field>
-        <input matInput placeholder="Dias de credito" name="creditPaymentDay" type="text" maxlength="10" (keypress)="checkNumbersOnly($event)" [(ngModel)]="data.entity.diasCredito">
+        <input matInput placeholder="Dias de credito" name="creditPaymentDay" type="text" maxlength="10" (keypress)="checkNumbersOnly($event)" [(ngModel)]="data.entity.diasCredito"
+               (ngModelChange)="onChangeCreditDays()" (focus)="onFocusDiasCredito()">
+      </mat-form-field>
+      <mat-hint *ngIf="diasCreditoError" class="text-danger font-14">los días de crédito deben ser menor a 50</mat-hint>
+    </div>
+
+    <div fxFlex="25" class="p-10" *ngIf="isCredit">
+      <mat-form-field>
+        <input matInput placeholder="Fecha de pago" name="creditPaymentDate" type="text" maxlength="10" [value]="date" disabled>
       </mat-form-field>
     </div>
 
-    <div fxFlex.gt-sm="25" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
         <input matInput placeholder="Glosa" name="Glosa" type="text" maxlength="150" [(ngModel)]="data.entity.glosa">
       </mat-form-field>

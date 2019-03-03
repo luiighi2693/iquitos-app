@@ -32,6 +32,8 @@ export class AmortizacionExtraInfoComponent {
   public montoTotal: number;
 
   @ViewChild('amountToPay') amountToPayField: ElementRef;
+  comprobantNumberError: boolean = false;
+  private firstDateFlag: boolean = true;
 
   constructor(
     private dataUtils: JhiDataUtils,
@@ -282,4 +284,43 @@ export class AmortizacionExtraInfoComponent {
     }, 300);
   }
 
+  onBlurComprobantNumber() {
+    this.comprobantNumberError = false;
+    if (this.amortization.comprobante === undefined) {
+      this.comprobantNumberError = true;
+    } else if (this.amortization.comprobante.length < 2 || this.amortization.comprobante.length > 6) {
+      this.comprobantNumberError = true;
+    }
+  }
+
+  onFocusComprobantNumber() {
+    this.comprobantNumberError = false;
+  }
+
+  onDisabledPayButton() {
+    let comprobanteNumberFlag = this.amortization.comprobante === undefined;
+    if (comprobanteNumberFlag) {
+      this.comprobantNumberError = true;
+      return true;
+    } else {
+      if (this.amortization.comprobante.length < 2 || this.amortization.comprobante.length > 6) {
+        this.comprobantNumberError = true;
+        return true;
+      } else {
+        return this.validateDocumentCodeInvalid() && this.amortization.montoPagado < 1;
+      }
+    }
+  }
+
+  getCustomPlaceHolderDate() {
+    if (this.firstDateFlag) {
+      return this.amortization.fecha.format('DD/MM/YYYY')
+    } else {
+      return '';
+    }
+  }
+
+  setFirstDate() {
+    this.firstDateFlag = false;
+  }
 }

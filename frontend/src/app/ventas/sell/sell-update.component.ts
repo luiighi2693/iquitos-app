@@ -130,8 +130,10 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
       (res: HttpErrorResponse) => this.onError(res.message)
     );
 
+    this.isSaving = true;
     this.productoService.query().subscribe(
       (res: HttpResponse<ITipoDeDocumento[]>) => {
+        this.isSaving = false;
         this.productos = res.body;
         if (this.productos.length > 15){
           this.productos = this.productos.slice(0,14);
@@ -244,10 +246,12 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   searchProduct(query) {
+    this.isSaving = true;
     if (!query) {
       // return this.clear();
       this.productoService.query().subscribe(
         (res: HttpResponse<ITipoDeDocumento[]>) => {
+          this.isSaving = false;
           this.productos = res.body;
         },
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -260,6 +264,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         sort: this.sort()
       }).subscribe(
         (res: HttpResponse<IProducto[]>) => {
+          this.isSaving = false;
           this.productos = res.body;
         },
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -654,5 +659,11 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
     } else {
       return 95+'px';
     }
+  }
+
+  onClickForm($event: MouseEvent) {
+    console.log($event);
+    // @ts-ignore
+    $event.target.select()
   }
 }

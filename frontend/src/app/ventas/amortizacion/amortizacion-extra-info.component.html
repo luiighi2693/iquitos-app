@@ -55,7 +55,7 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="amortization.fecha" placeholder="Fecha">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="amortization.fecha" (ngModelChange)="setFirstDate()" [placeholder]="getCustomPlaceHolderDate()" (keypress)="false">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -63,9 +63,10 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput placeholder="Nº de comprobante de pago" name="comprobantNumber" type="text" maxlength="20" [(ngModel)]="amortization.comprobante">
-        <span matPrefix>S/&nbsp;</span>
+        <input matInput placeholder="Nº de comprobante de pago" name="comprobantNumber" type="text" maxlength="6" (keypress)="checkNumbersOnly($event)"
+               [(ngModel)]="amortization.comprobante" (blur)="onBlurComprobantNumber()" (focus)="onFocusComprobantNumber()">
       </mat-form-field>
+      <mat-hint *ngIf="comprobantNumberError" class="text-danger font-14">el comprobante debe contener entre dos a seis numeros</mat-hint>
     </div>
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
@@ -98,6 +99,6 @@
   </div>
 </div>
 <div style="width: 100%;" mat-dialog-actions>
-  <button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" mat-button tabindex="2" (click)="closeAndCheckSell('pay')" [disabled]="validateDocumentCodeInvalid() && amortization.montoPagado < 1">Pagar</button>
+  <button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" mat-button tabindex="2" (click)="closeAndCheckSell('pay')" [disabled]="onDisabledPayButton()">Pagar</button>
   <button style="width: 25%;" mat-button tabindex="-1" (click)="closeAndCheckSell('exit')">Salir</button>
 </div>

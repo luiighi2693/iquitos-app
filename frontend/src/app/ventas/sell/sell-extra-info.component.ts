@@ -10,6 +10,8 @@ import {Amortizacion} from "../../models/amortizacion.model";
 import {ClientType} from "../../models/cliente.model";
 import {AmortizacionService} from "../amortizacion/amortizacion.service";
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-sell-extra-info',
   templateUrl: './sell-extra-info.component.html',
@@ -23,10 +25,13 @@ export class SellExtraInfoComponent {
   public documentTypeSellSelected: TipoDeDocumentoDeVenta = null;
   public correlatives: number[]= [];
   public correlative: number= null;
+
+  public date =moment().format("DD/MM/YYYY");
   amortization: Amortizacion = new Amortizacion();
   isCredit = false;
 
   @ViewChild('amountToPay') amountToPayField: ElementRef;
+  private diasCreditoError: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<SellExtraInfoComponent>,
@@ -206,5 +211,19 @@ export class SellExtraInfoComponent {
     if (!this.validatePaymentInvalid()) {
       this.closeAndCheckSell('pay');
     }
+  }
+
+  onChangeCreditDays() {
+    this.diasCreditoError = false;
+    // @ts-ignore
+    this.date = moment().add(this.data.entity.diasCredito, 'days').format("DD/MM/YYYY");
+    if (this.data.entity.diasCredito > 50) {
+      this.data.entity.diasCredito = 0;
+      this.diasCreditoError = true;
+    }
+  }
+
+  onFocusDiasCredito() {
+    this.diasCreditoError = false;
   }
 }
