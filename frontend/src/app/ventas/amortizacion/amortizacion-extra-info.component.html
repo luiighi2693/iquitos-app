@@ -26,7 +26,7 @@
       <span class="header-label">Con Nº de Venta <b>{{ data.entity.codigo}}</b></span><br>
     </div>
 
-    <div fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100" class="p-10">
+    <div fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100" class="p-10">
       <mat-form-field>
         <mat-select placeholder="Tipo de pago" [(ngModel)]="data.entity.tipoDePagoId"
                     (ngModelChange)="selectInputAmount()" name="paymentType">
@@ -80,7 +80,7 @@
 
     <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
       <mat-form-field>
-        <input matInput placeholder="Glosa" name="Glosa" type="text" maxlength="150" [(ngModel)]="data.entity.glosa">
+        <input matInput placeholder="Detalle como se realizo el pago" name="Glosa" type="text" maxlength="150" [(ngModel)]="data.entity.glosa">
       </mat-form-field>
     </div>
   </div>
@@ -107,11 +107,14 @@
           </thead>
           <tbody>
           <tr>
-            <th scope="row">Vuelto</th>
-            <th
-              style="width: 100%; text-align: center; color:#30ad80">{{parseFloatCustom(amortization.montoPagado - montoTotal) < 0 ? 0 : parseFloatCustom(amortization.montoPagado - montoTotal)}}
-              soles
+            <!--<th scope="row">Vuelto</th>-->
+            <th scope="row">{{amortization.montoPagado >= montoTotal ? 'Felicitaciones' : 'Saldo'}}</th>
+            <th style="width: 100%; text-align: center; color:#30ad80">
+              {{parseFloatCustom(amortization.montoPagado) >= parseFloatCustom(montoTotal) ? 0 : parseFloatCustom(montoTotal - amortization.montoPagado)}}soles
             </th>
+            <!--<th style="width: 100%; text-align: center; color:#30ad80">-->
+              <!--S/ {{parseFloatCustom(montoTotal - amortization.montoPagado)}}-->
+            <!--</th>-->
           </tr>
           <tr *ngIf="isCredit">
             <th scope="row">Crédito</th>
