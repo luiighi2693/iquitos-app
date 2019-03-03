@@ -191,16 +191,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
           Validators.required
         ])
       ],
-      ftelefono: [
-        null,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
       femail: [
         null,
         Validators.compose([
-          Validators.required,
           CustomValidators.email])
       ],
     });

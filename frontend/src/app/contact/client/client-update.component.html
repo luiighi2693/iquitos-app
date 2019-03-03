@@ -41,9 +41,11 @@
 
             <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
               <mat-form-field>
-                <input matInput placeholder="Documento" name="codigo" [(ngModel)]="entity.codigo" [formControl]="form.controls['fcodigo']" (keyup)="validateClient()">
+                <input matInput placeholder="Documento" name="codigo" (keypress)="checkNumbersOnly($event)" [(ngModel)]="entity.codigo" [formControl]="form.controls['fcodigo']" (keyup)="validateClient()">
               </mat-form-field>
-              <mat-hint *ngIf="form.controls['fcodigo'].hasError('maxlength') && form.controls['fcodigo'].touched" class="text-danger font-14">Límite Excedido</mat-hint>
+              <mat-hint *ngIf="form.controls['fcodigo'].hasError('minlength') && form.controls['fcodigo'].touched" class="text-danger font-14">Documento Inválido</mat-hint>
+              <mat-hint *ngIf="form.controls['fcodigo'].hasError('maxlength') && form.controls['fcodigo'].touched" class="text-danger font-14">Documento Inválido</mat-hint>
+              <mat-hint *ngIf="form.controls['fcodigo'].hasError('required') && form.controls['fcodigo'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
               <mat-hint *ngIf="clientRepeated" class="text-danger font-14">DNI ya existente</mat-hint>
             </div>
 

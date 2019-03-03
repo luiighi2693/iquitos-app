@@ -90,13 +90,13 @@ export class ClientUpdateComponent implements OnInit {
           null,
           Validators.compose([
             Validators.required,
-            Validators.maxLength(150)
+            Validators.minLength(8),
+            Validators.maxLength(11)
           ])
         ],
         ftelefono: [
           null,
           Validators.compose([
-            Validators.required,
             Validators.maxLength(150)
           ])
         ],

@@ -323,9 +323,8 @@
         </mat-form-field>
 
         <mat-form-field  fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
-            <input matInput [(ngModel)]="client.telefono"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Teléfono" [formControl]="form.controls['ftelefono']">
+            <input matInput [(ngModel)]="client.telefono"  type="text" maxlength="11" (keypress)="checkNumbersOnly($event)" placeholder="Teléfono">
         </mat-form-field>
-        <mat-hint *ngIf="form.controls['ftelefono'].hasError('required') && form.controls['ftelefono'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
       </div>
 
       <div fxLayout="row wrap">
