@@ -3,51 +3,61 @@
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
     <mat-card>
       <mat-card-content>
-        <mat-card-title>Ventas</mat-card-title>
-
+        <!--<mat-card-title>Ventas</mat-card-title>-->
         <div class="responsive-table">
-          <div fxLayout="row wrap">    
-              <button mat-icon-button color= "primary" (click)="search(currentSearch)"><mat-icon>search</mat-icon></button>
-            <mat-form-field fxFlex.gt-sm="60" fxFlex="60">
-              <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">-->
-              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)">
+          <div fxLayout="row wrap">
+            <button mat-icon-button color="primary" (click)="search(currentSearch)">
+              <mat-icon>search</mat-icon>
+            </button>
+            <mat-form-field fxFlex.gt-sm="35" fxFlex="35">
+              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar venta"
+                     (keyup.enter)="search(currentSearch)">
             </mat-form-field>
-            
-            <!--<div fxFlex.gt-sm="35" fxFlex="35" id="newSection">-->
-              <!--<button mat-raised-button color="primary" [routerLink]="['/ventas/sell']">Nueva Venta</button>-->
-            <!--</div>-->
+
+            <!--Este es el bloque de codigo a descomentar-->
+
+            <!--<mat-form-field fxFlex.gt-sm="20" fxFlex="20" class="example-full-width">-->
+            <!--<input matInput [matDatepicker]="picker" placeholder="Fecha desde">-->
+            <!--<mat-datepicker-toggle matSuffix [for]="picker">-->
+            <!--<mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>-->
+            <!--</mat-datepicker-toggle>-->
+            <!--<mat-datepicker #picker></mat-datepicker>-->
+            <!--</mat-form-field>-->
+
+            <!--<mat-form-field fxFlex.gt-sm="20" fxFlex="20" class="example-full-width">-->
+            <!--<input matInput [matDatepicker]="picker" placeholder="Fecha hasta">-->
+            <!--<mat-datepicker-toggle matSuffix [for]="picker">-->
+            <!--<mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>-->
+            <!--</mat-datepicker-toggle>-->
+            <!--<mat-datepicker #picker></mat-datepicker>-->
+            <!--</mat-form-field>-->
+
+            <!--<mat-form-field fxFlex.gt-sm="20" fxFlex="20">-->
+            <!--<mat-select placeholder="Tipo de transacción">-->
+            <!--<mat-option>-->
+            <!--<option value="Completado">Completado</option>-->
+            <!--<option value="Pendiente">Pendiente</option>-->
+            <!--</mat-option>-->
+            <!--</mat-select>-->
+            <!--</mat-form-field>-->
+
           </div>
 
-          <mat-spinner *ngIf="isSaving" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></mat-spinner>
+          <mat-spinner *ngIf="isSaving"
+                       style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);"></mat-spinner>
 
           <mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="data">
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-            <!--<ng-container matColumnDef="select">-->
-              <!--<mat-header-cell *matHeaderCellDef>-->
-                <!--<mat-checkbox (change)="$event ? masterToggle() : null"-->
-                              <!--[checked]="selection.hasValue() && isAllSelected()"-->
-                              <!--[indeterminate]="selection.hasValue() && !isAllSelected()">-->
-                <!--</mat-checkbox>-->
-              <!--</mat-header-cell>-->
-              <!--<mat-header-cell *matCellDef="let row">-->
-                <!--<mat-checkbox (click)="$event.stopPropagation()"-->
-                              <!--(change)="$event ? selection.toggle(row) : null"-->
-                              <!--[checked]="selection.isSelected(row)">-->
-                <!--</mat-checkbox>-->
-              <!--</mat-header-cell>-->
-            <!--</ng-container>-->
 
             <ng-container matColumnDef="codigo">
-              <mat-header-cell style="font-weight: bold; font-size:12px"*matHeaderCellDef> Código </mat-header-cell>
-              <mat-cell style="cursor:pointer; color: blue" [routerLink]="['/ventas/sell', element.id, 'view' ]" *matCellDef="let element">
+              <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Código</mat-header-cell>
+              <mat-cell style="cursor:pointer; color: blue" [routerLink]="['/ventas/sell', element.id, 'view' ]"
+                        *matCellDef="let element">
                 {{element.codigo}}
               </mat-cell>
             </ng-container>
 
-            <ng-container  matColumnDef="fecha">
-              <mat-header-cell style="font-weight: bold; font-size:12px" *matHeaderCellDef> Fecha </mat-header-cell>
+            <ng-container matColumnDef="fecha">
+              <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Fecha</mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Fecha:</span>
                 {{element.fecha}}
@@ -55,7 +65,7 @@
             </ng-container>
 
             <ng-container matColumnDef="clienteNombre">
-              <mat-header-cell style="font-weight: bold; font-size:12px" *matHeaderCellDef> Cliente </mat-header-cell>
+              <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Cliente</mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Cliente:</span>
                 {{element.clienteNombre}}
@@ -63,7 +73,7 @@
             </ng-container>
 
             <ng-container matColumnDef="total">
-              <mat-header-cell style="font-weight: bold; font-size:12px" *matHeaderCellDef> Total </mat-header-cell>
+              <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Total</mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Total:</span>
                 S/.{{element.montoTotal}}
@@ -71,28 +81,29 @@
             </ng-container>
 
             <ng-container matColumnDef="estado">
-              <mat-header-cell style="font-weight: bold; font-size:12px" *matHeaderCellDef> Estado </mat-header-cell>
+              <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Estado</mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Estado:</span>
-                <mat-chip [ngStyle]="{'background-color': element.estatus === 'PENDIENTE' ? '#f8ac59' : '#1ab394'}">{{element.estatus}}</mat-chip>
+                <mat-chip
+                  [ngStyle]="{'background-color': element.estatus === 'PENDIENTE' ? '#f8ac59' : '#1ab394'}">{{element.estatus}}</mat-chip>
               </mat-cell>
             </ng-container>
 
             <!--<ng-container matColumnDef="star">-->
-              <!--<mat-header-cell style="font-weight: bold" *matHeaderCellDef></mat-header-cell>-->
-              <!--<mat-cell *matCellDef="let element">-->
-                <!--<a style="margin-left: 20px;" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">-->
-                  <!--<i class="ti-search text-info m-r-10"></i>-->
-                <!--</a>-->
+            <!--<mat-header-cell style="font-weight: bold" *matHeaderCellDef></mat-header-cell>-->
+            <!--<mat-cell *matCellDef="let element">-->
+            <!--<a style="margin-left: 20px;" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'view' ]">-->
+            <!--<i class="ti-search text-info m-r-10"></i>-->
+            <!--</a>-->
 
-                <!--<a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">-->
-                  <!--<i class="ti-pencil text-info m-r-10"></i>-->
-                <!--</a>-->
-                <!--&lt;!&ndash;<a class="ng-star-inserted" (click)="deleteRow(element)">&ndash;&gt;-->
-                <!--<a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" (click)="openDialog(element)">-->
-                  <!--<i class="ti-trash text-danger m-r-10"></i>-->
-                <!--</a>-->
-              <!--</mat-cell>-->
+            <!--<a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">-->
+            <!--<i class="ti-pencil text-info m-r-10"></i>-->
+            <!--</a>-->
+            <!--&lt;!&ndash;<a class="ng-star-inserted" (click)="deleteRow(element)">&ndash;&gt;-->
+            <!--<a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" (click)="openDialog(element)">-->
+            <!--<i class="ti-trash text-danger m-r-10"></i>-->
+            <!--</a>-->
+            <!--</mat-cell>-->
             <!--</ng-container>-->
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

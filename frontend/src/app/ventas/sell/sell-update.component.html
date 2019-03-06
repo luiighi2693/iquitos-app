@@ -27,7 +27,7 @@
             <mat-icon>search</mat-icon>
           </button>
           <mat-form-field fxFlex="90">
-            <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar" (keyup)="validateSearchProduct()"
+            <input matInput [(ngModel)]="currentSearchProduct" placeholder="Buscar producto" (keyup)="validateSearchProduct()"
                    (keyup.enter)="searchProduct(currentSearchProduct)">
           </mat-form-field>
         </div>
@@ -201,65 +201,54 @@
     <mat-card-content>
       <!--<form class="basic-form">-->
 
-      <div style="display: flex; width: 100%" fxLayout="row wrap">
-        <div fxFlex.gt-xs="50" fxFlex="25" class="p-12" (click)="goStep('sell', null, null)"
-             style="cursor: pointer; text-align: left">
-          <mat-icon>keyboard_arrow_left</mat-icon>
-          <span style="position: absolute;" class="goBackTag">Regresar a la venta</span>
-        </div>
-        <div fxFlex.gt-xs="50" fxFlex="25" class="p-12" (click)="goStep('clientUpdate', 'new', null)"
-             style="cursor: pointer; text-align: right">
-          <button mat-raised-button style="width: 100%;" >Agregar nuevo
-          cliente
-          </button>
-        </div>
-        <!--<div fxLayout="row wrap">-->
-          <!--<div class="p-11">-->
-            <!--<div class="button-row">-->
-              <!--<button mat-raised-button style="width: 100%;" (click)="goStep('clientUpdate', 'new', null)">Agregar nuevo-->
-                <!--cliente-->
-              <!--</button>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      </div>
-
-      <!--<div style="display: flex; width: 100%">
-        <div button fxFlex.gt-xs="50" fxFlex="25" class="p-12" mat-icon-button (click)="goStep('sell', null, null)">
-          <mat-icon>keyboard_arrow_left</mat-icon>
-          <mat-form-field fxFlex="90">
-          <span>Regresar a la venta</span>
-          </mat-form-field>
-        </div>
-      </div>-->
-
-      <!--<div style="display: flex; width: 100%">-->
-        <!--<button fxFlex="10" mat-icon-button (click)="searchProduct(currentSearchProduct)">-->
+      <!--<div style="display: flex; width: 100%" fxLayout="row wrap">-->
+        <!--<div fxFlex.gt-xs="50" fxFlex="25" class="p-12" (click)="goStep('sell', null, null)"-->
+             <!--style="cursor: pointer; text-align: left">-->
           <!--<mat-icon>keyboard_arrow_left</mat-icon>-->
-        <!--</button>-->
-        <!--<mat-form-field fxFlex="90">-->
-          <!--<span class="goBackTag">Regresar a la venta</span>-->
+          <!--<span style="position: absolute;" class="goBackTag">Regresar a la venta</span>-->
+        <!--</div>-->
+        <!--<div fxFlex.gt-xs="50" fxFlex="25" class="p-12" (click)="goStep('clientUpdate', 'new', null)"-->
+             <!--style="cursor: pointer; text-align: right">-->
+          <!--<button mat-raised-button style="width: 100%;" >Agregar nuevo-->
+          <!--cliente-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <!--<div fxLayout="row wrap">-->
+        <!--<mat-form-field fxFlex.gt-sm="100" fxFlex="100">-->
+          <!--<input matInput [(ngModel)]="currentSearchClient" placeholder="Escriba para buscar clientes"-->
+                 <!--(keyup)="validateSearchClient()" (keyup.enter)="searchClient(currentSearchClient)">-->
         <!--</mat-form-field>-->
       <!--</div>-->
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="currentSearchClient" placeholder="Escriba para buscar clientes"
-                 (keyup)="validateSearchClient()" (keyup.enter)="searchClient(currentSearchClient)">
-        </mat-form-field>
+        <div style="display: flex; width:100%">
+          <button fxFlex="10" mat-icon-button color="primary" (click)="searchProduct(currentSearchClient)">
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-form-field fxFlex="80">
+            <input matInput [(ngModel)]="currentSearchClient" placeholder="Buscar cliente" (keyup)="validateSearchClient()"
+                   (keyup.enter)="searchProduct(currentSearchClient)">
+          </mat-form-field>
+          <button style="background-color: gainsboro;" fxFlex="10" mat-icon-button (click)="goStep('sell', null, null)">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+        </div>
       </div>
 
       <div style="overflow-y: auto" [ngStyle]="{'max-height': getMaxHeightClientes(), 'height': getMaxHeightClientes()}">
-      <div style="margin-top:45px" class="responsive-table">
+      <div class="responsive-table">
         <mat-table #table matSort [dataSource]="dataSourceClientes" class="mat-elevation-z8">
 
           <ng-container matColumnDef="name">
             <mat-header-cell style="cursor:pointer; font-size:14px; font-weight: bold "*matHeaderCellDef> Nombre</mat-header-cell>
-            <mat-cell style="cursor:pointer; width: 50%" *matCellDef="let row;let i = index" (click)="setClient(row)">
+            <mat-cell style="cursor:pointer; width: 50%; text-align: justify; text-transform: uppercase;" *matCellDef="let row;let i = index" (click)="setClient(row)">
+              <mat-icon style="margin-right: 5px">account_box</mat-icon>
               <span class="header-label">Nombre</span>
               {{row.nombre}}
               <br>
-              {{row.tipoDeCliente === 'NATURAL' ? 'DNI' : 'RUC'}}:{{row.codigo}}
+              {{row.tipoDeCliente === 'NATURAL' ? 'DNI' : 'RUC'}}: {{row.codigo}}
             </mat-cell>
           </ng-container>
 
