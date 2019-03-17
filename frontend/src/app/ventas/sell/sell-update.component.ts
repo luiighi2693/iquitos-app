@@ -374,6 +374,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         this.clienteService.update(this.client).subscribe(
           (res: HttpResponse<Cliente>) => {
             console.log(res.body);
+            this.isSaving = false;
             this.client = res.body;
             this.entity.clienteId = this.client.id;
             this.entity.clienteNombre = this.client.nombre;

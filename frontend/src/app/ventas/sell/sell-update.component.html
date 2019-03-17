@@ -244,7 +244,7 @@
           <ng-container matColumnDef="name">
             <mat-header-cell style="cursor:pointer; font-size:14px; font-weight: bold "*matHeaderCellDef> Nombre</mat-header-cell>
             <mat-cell style="cursor:pointer; width: 50%; text-align: justify; text-transform: uppercase;" *matCellDef="let row;let i = index" (click)="setClient(row)">
-              <mat-icon style="margin-right: 5px">account_box</mat-icon>
+              <mat-icon style="margin-right: 5px">{{row.tipoDeCliente === 'NATURAL' ? 'account_box' : 'domain'}}</mat-icon>
               <span class="header-label">Nombre</span>
               {{row.nombre}}
               <br>
@@ -284,22 +284,6 @@
       </div>-->
 
       <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [formControl]="form.controls['fnombre']"
-                 (input)="client.nombre=$event.target.value.toUpperCase()">
-        </mat-form-field>
-        <mat-hint *ngIf="form.controls['fnombre'].hasError('required') && form.controls['fnombre'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
-      </div>
-
-      <div fxLayout="row wrap">
-        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
-          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" [formControl]="form.controls['fdireccion']"
-                 (input)="client.direccion=$event.target.value.toUpperCase()">
-        </mat-form-field>
-        <mat-hint *ngIf="form.controls['fdireccion'].hasError('required') && form.controls['fdireccion'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
-      </div>
-
-      <div fxLayout="row wrap">
         <mat-form-field fxFlex.gt-sm="50" fxFlex.gt-xs="100" fxFlex="100">
           <mat-select placeholder="Tipo de Cliente" [(ngModel)]="client.tipoDeCliente" (ngModelChange)="filterDocumentTypeContent(client.tipoDeCliente)" name="tipoDeCliente">
             <mat-option *ngFor="let tipoCliente of tiposDeCliente" [value]="tipoCliente">
@@ -315,6 +299,22 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+      </div>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+          <input matInput [(ngModel)]="client.nombre" placeholder="Nombre completo *"  type="text" maxlength="150" (keypress)="checkCharactersOnly($event)" [formControl]="form.controls['fnombre']"
+                 (input)="client.nombre=$event.target.value.toUpperCase()">
+        </mat-form-field>
+        <mat-hint *ngIf="form.controls['fnombre'].hasError('required') && form.controls['fnombre'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
+      </div>
+
+      <div fxLayout="row wrap">
+        <mat-form-field fxFlex.gt-sm="100" fxFlex="100">
+          <input matInput [(ngModel)]="client.direccion" placeholder="Dirección"  type="text" maxlength="150" [formControl]="form.controls['fdireccion']"
+                 (input)="client.direccion=$event.target.value.toUpperCase()">
+        </mat-form-field>
+        <mat-hint *ngIf="form.controls['fdireccion'].hasError('required') && form.controls['fdireccion'].touched" class="text-danger font-14">Campo Requerido</mat-hint>
       </div>
 
       <div fxLayout="row wrap">

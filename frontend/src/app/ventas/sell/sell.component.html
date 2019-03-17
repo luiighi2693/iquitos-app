@@ -86,6 +86,14 @@
                 <span class="header-label">Estado:</span>
                 <mat-chip
                   [ngStyle]="{'background-color': element.estatus === 'PENDIENTE' ? '#f8ac59' : '#1ab394'}">{{element.estatus}}</mat-chip>
+
+                <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">
+                <i class="ti-pencil text-info m-r-10"></i>
+                </a>
+
+                <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" (click)="openDialog(element)">
+                <i class="ti-trash text-danger m-r-10"></i>
+                </a>
               </mat-cell>
             </ng-container>
 

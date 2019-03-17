@@ -21,6 +21,7 @@ export class BaseVenta extends Base<IVenta, Venta> {
               public menuDisplay: string) {
     super(fullService, menu,
       menuDisplay, displayedColumns, dialog, dataUtils, elementRef);
+    this.itemsPerPage = 20;
   }
 
   loadAll() {
