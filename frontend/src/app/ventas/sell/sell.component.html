@@ -13,6 +13,16 @@
               <input matInput [(ngModel)]="currentSearch" placeholder="Buscar venta"
                      (keyup.enter)="search(currentSearch)">
             </mat-form-field>
+            <div *ngIf="entitySelected && entitySelected.amortizacions.length === 0" fxFlex.gt-sm="30" fxFlex="30" fxFlexAlign="end" style="padding-left: 5%">
+              <mat-form-field>
+                <mat-select placeholder="Acciones" name="actions" [(ngModel)]="action"
+                            (ngModelChange)="doAction($event)">
+                  <mat-option *ngFor="let action of actions;" [value]="action">
+                    {{action}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
             <!--Este es el bloque de codigo a descomentar-->
 
@@ -87,13 +97,13 @@
                 <mat-chip
                   [ngStyle]="{'background-color': element.estatus === 'PENDIENTE' ? '#f8ac59' : '#1ab394'}">{{element.estatus}}</mat-chip>
 
-                <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">
-                <i class="ti-pencil text-info m-r-10"></i>
-                </a>
+                <!--<a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" [routerLink]="['/ventas/sell', element.id, 'edit']">-->
+                <!--<i class="ti-pencil text-info m-r-10"></i>-->
+                <!--</a>-->
 
-                <a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" (click)="openDialog(element)">
-                <i class="ti-trash text-danger m-r-10"></i>
-                </a>
+                <!--<a *ngIf="element.amortizacions.length === 0" class="ng-star-inserted" (click)="openDialog(element)">-->
+                <!--<i class="ti-trash text-danger m-r-10"></i>-->
+                <!--</a>-->
               </mat-cell>
             </ng-container>
 
@@ -115,7 +125,7 @@
             <!--</ng-container>-->
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectEntity(row)"></mat-row>
           </mat-table>
         </div>
         <!--<mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">-->

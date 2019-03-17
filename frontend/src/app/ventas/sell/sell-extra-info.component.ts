@@ -25,6 +25,7 @@ export class SellExtraInfoComponent {
   public documentTypeSellSelected: TipoDeDocumentoDeVenta = null;
   public correlatives: number[]= [];
   public correlative: number= null;
+  public onActionSave = false;
 
   public date =moment().format("DD/MM/YYYY");
   amortization: Amortizacion = new Amortizacion();
@@ -144,7 +145,11 @@ export class SellExtraInfoComponent {
     if (this.isCredit) {
       return (this.data.entity.diasCredito.toString() === '' || this.data.entity.diasCredito.toString() === '0');
     } else {
-      return (this.amortization.montoPagado.toString() === '' || this.amortization.montoPagado.toString() === '0');
+      if (!this.data.client.id && (this.amortization.montoPagado < this.data.entity.montoTotal)) {
+        return true;
+      } else {
+        return (this.amortization.montoPagado.toString() === '' || this.amortization.montoPagado.toString() === '0');
+      }
     }
   }
 

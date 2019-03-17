@@ -124,7 +124,7 @@ export class InvoiceA5Component implements OnInit{
   private printInvoiceAndReturn() {
     setTimeout(() => {
       window.print();
-      this.router.navigate(['/ventas/sell']);
+      this.router.navigate(['/ventas/sell/list']);
     });
   }
 }

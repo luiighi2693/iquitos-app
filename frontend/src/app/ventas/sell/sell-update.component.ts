@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {FormBuilder, Validators} from '@angular/forms';
-import {IVenta, SellStatus} from "../../models/venta.model";
+import {IVenta, SellStatus, Venta} from "../../models/venta.model";
 import {VentaService} from "./venta.service";
 import {JhiDataUtils} from 'ng-jhipster';
 import {MatDialog, MatTableDataSource} from "@angular/material";
@@ -159,7 +159,9 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
         this.clientes = res.body;
         this.dataSourceClientes = new MatTableDataSource<Cliente>(this.clientes);
         if (this.entity.id){
-          this.client = this.clientes.find(x => x.id === this.entity.clienteId);
+          if (this.entity.clienteId) {
+            this.client = this.clientes.find(x => x.id === this.entity.clienteId);
+          }
         }
       },
       (res: HttpErrorResponse) => this.onError(res.message)
@@ -560,7 +562,7 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
             if (result.flag === 'exit'){
               if (this.entity.id) {
                 this.service.delete(this.entity.id).subscribe(
-                  (res: HttpResponse<Producto>) => {
+                  (res: HttpResponse<Venta>) => {
                     this.router.navigate(['/ventas/sell']);
                   },
                   (res: HttpErrorResponse) => this.onError(res.message)
@@ -577,7 +579,33 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
             if (result.flag === 'save'){
               this.entity.fecha = moment();
               this.entity.estatus = SellStatus.PENDIENTE;
-              this.save();
+
+              this.updateEntity();
+
+              if (!this.entity.id) {
+                this.service.create(this.entity).subscribe(
+                  (res: HttpResponse<Venta>) => {
+                    this.entity.productoDetalles = [];
+                    this.entity.subTotal = 0;
+                    this.entity.montoTotal = 0;
+                    this.refreshProductDetails();
+                    this.removeCliente();
+                  },
+                  (res: HttpErrorResponse) => this.onError(res.message)
+                );
+              } else {
+                this.service.update(this.entity).subscribe(
+                  (res: HttpResponse<Venta>) => {
+                    this.entity.productoDetalles = [];
+                    this.entity.subTotal = 0;
+                    this.entity.montoTotal = 0;
+                    this.refreshProductDetails();
+                    this.removeCliente();
+                  },
+                  (res: HttpErrorResponse) => this.onError(res.message)
+                );
+              }
+              // this.save();
             }
 
             if (result.flag === 'pay'){

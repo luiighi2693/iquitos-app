@@ -155,6 +155,15 @@
   <button style="background-color: #1ab394; color: white; border-radius: initial; width:72%" mat-button tabindex="2"
           (click)="closeAndCheckSell('pay')" [disabled]="validatePaymentInvalid()">Pagar
   </button>
-  <button style="width: 25%;" mat-button tabindex="-1" (click)="closeAndCheckSell('save')">Guardar</button>
+  <button *ngIf="!onActionSave" style="width: 25%;" mat-button tabindex="-1" (click)="onActionSave=!onActionSave">Guardar</button>
+
+  <div *ngIf="onActionSave" style="width: 25%;" tabindex="-1">
+    Esta por guardar. ¿Desea continuar?
+    <div>
+      <button mat-button (click)="onActionSave=!onActionSave">No</button>
+      <button mat-button (click)="closeAndCheckSell('save')">Si</button>
+    </div>
+  </div>
+
 </div>
 

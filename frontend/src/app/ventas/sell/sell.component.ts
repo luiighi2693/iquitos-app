@@ -3,6 +3,8 @@ import { MatDialog, MatTableDataSource } from '@angular/material';
 import {FullService} from '../../layouts/full/full.service';
 import {VentaService} from "./venta.service";
 import {BaseVenta} from "./BaseVenta";
+import {Venta} from "../../models/venta.model";
+import {Router} from "@angular/router";
 
 declare var require: any;
 
@@ -12,8 +14,11 @@ declare var require: any;
   styleUrls: ['./sell.component.scss']
 })
 export class SellComponent extends BaseVenta implements OnInit, OnDestroy {
+  public entitySelected: Venta = undefined;
+  public actions: string[] = ['Editar', 'Eliminar'];
+  public action: string = undefined;
 
-  constructor(public service: VentaService, public fullService: FullService, public dialog: MatDialog) {
+  constructor(public service: VentaService, public fullService: FullService, public dialog: MatDialog, public router: Router) {
     super(
       service,
       fullService,
@@ -26,5 +31,19 @@ export class SellComponent extends BaseVenta implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  selectEntity(row: Venta) {
+    this.entitySelected = row;
+    this.action = undefined;
+  }
+
+  doAction($event) {
+    if ($event === 'Editar') {
+      this.router.navigate(['/ventas/sell', this.entitySelected.id, 'edit']);
+      // this.router.navigate(['/universal-service/address-date'], { replaceUrl: true });
+    } else {
+      this.openDialog(this.entitySelected);
+    }
   }
 }
