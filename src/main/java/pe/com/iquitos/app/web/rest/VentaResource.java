@@ -1,6 +1,7 @@
 package pe.com.iquitos.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import pe.com.iquitos.app.repository.ClienteRepository;
 import pe.com.iquitos.app.service.VentaService;
 import pe.com.iquitos.app.web.rest.errors.BadRequestAlertException;
 import pe.com.iquitos.app.web.rest.util.HeaderUtil;
@@ -39,8 +40,11 @@ public class VentaResource {
 
     private final VentaService ventaService;
 
-    public VentaResource(VentaService ventaService) {
+    private final ClienteRepository clienteRepository;
+
+    public VentaResource(VentaService ventaService, ClienteRepository clienteRepository) {
         this.ventaService = ventaService;
+        this.clienteRepository = clienteRepository;
     }
 
     /**
@@ -147,8 +151,14 @@ public class VentaResource {
     public ResponseEntity<List<VentaDTO>> searchVentas(@RequestParam String query, Pageable pageable) {
         log.debug("REST request to search for a page of Ventas for query {}", query);
         Page<VentaDTO> page = ventaService.search(query, pageable);
+        List<VentaDTO> result = page.getContent();
+        result.forEach(sell -> {
+            if (sell.getClienteId() != null && sell.getClienteNombre() == null)  {
+                sell.setClienteNombre(this.clienteRepository.findById(sell.getClienteId()).get().getNombre());
+            }
+        });
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/ventas");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(result, headers, HttpStatus.OK);
     }
 
 }

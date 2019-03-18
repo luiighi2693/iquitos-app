@@ -122,7 +122,7 @@ public class VentaResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final VentaResource ventaResource = new VentaResource(ventaService);
+        final VentaResource ventaResource = new VentaResource(ventaService, null);
         this.restVentaMockMvc = MockMvcBuilders.standaloneSetup(ventaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -327,7 +327,7 @@ public class VentaResourceIntTest {
     
     @SuppressWarnings({"unchecked"})
     public void getAllVentasWithEagerRelationshipsIsEnabled() throws Exception {
-        VentaResource ventaResource = new VentaResource(ventaServiceMock);
+        VentaResource ventaResource = new VentaResource(ventaServiceMock, null);
         when(ventaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restVentaMockMvc = MockMvcBuilders.standaloneSetup(ventaResource)
@@ -344,7 +344,7 @@ public class VentaResourceIntTest {
 
     @SuppressWarnings({"unchecked"})
     public void getAllVentasWithEagerRelationshipsIsNotEnabled() throws Exception {
-        VentaResource ventaResource = new VentaResource(ventaServiceMock);
+        VentaResource ventaResource = new VentaResource(ventaServiceMock, null);
             when(ventaServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restVentaMockMvc = MockMvcBuilders.standaloneSetup(ventaResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
