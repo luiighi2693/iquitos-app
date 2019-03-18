@@ -1,106 +1,98 @@
+
 <div fxLayout="row wrap">
   <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
-    <div style="display: flex;">
-    <div fxFlex.gt-xs="50" fxFlex="25" class="p-10" style="cursor: pointer">
-    <a [routerLink]="['/ventas/sell/list']"> <mat-icon>arrow_back</mat-icon>
-    <span class="goBackTag">Todas las ventas</span> </a>
-    </div>
+    <mat-card class="m-0">
+      <mat-card-content class="content-body-detail">
 
+        <div class="content_header">
+          <div class="content_header_name">
+            <h4 class="header_name_detail m-0">Detalles de la Venta</h4>
+          </div>
+          <div class="content_header_button">
+            <a mat-raised-button color="basic"  [routerLink]="['/ventas/sell/list']" class="p-r-5">Regresar <mat-icon> reply </mat-icon></a>
+            <a mat-raised-button color="primary" [routerLink]="['/ventas/sell', entity.id, 'edit']" class="m-l-10 p-r-5">Editar <i _ngcontent-c29="" class="ti-pencil-alt"></i></a>
+          </div>
+        </div>
 
-    <!--<div fxFlex.gt-xs="50" fxFlex="75" class="p-10 text-right">
-    <div class="button-row">
-    <button mat-raised-button style="background-color: #60c71f; color: white;" [disabled]="!form.valid" (click)="save()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vender&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-    <button mat-raised-button (click)="previousState()">Cancelar</button>
-    </div>
-    </div>-->
-    </div>
-  </div>
-</div>
-
-<div fxLayout="row wrap" style="position: relative;overflow: scroll;height: -webkit-fill-available;">
-  <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
-    <mat-card>
-      <mat-card-content>
-        <!--<h4>Detalles de la Venta</h4>-->
         <form class="basic-form">
-          <div fxLayout="row wrap">
-            <div fxFlex.gt-xs="25" fxFlex="100">
-              <div style="background-color:#eee" fxLayout="column">
-                <span class="font-bold">Código de la Venta:</span>
+          <!--Header-->
+          <div fxLayout="row wrap ">
+            <div fxFlex.gt-xs="20" fxFlex="100">
+              <div class="content-name-header" fxLayout="column">
+                <span class="title-name-header">N° comprovante</span>
               </div>
             </div>
-            <div fxFlex.gt-xs="75" fxFlex="100">
+            <div fxFlex.gt-xs="80" fxFlex="100">
               <div style="margin-left: 5px" fxLayout="column">
                 <span>{{entity.codigo}}</span>
               </div>
             </div>
 
-            <div fxFlex.gt-xs="25" fxFlex="100">
-              <div style="background-color:#eee" fxLayout="column">
-                <span class="font-bold">Cliente:</span>
+            <div fxFlex.gt-xs="20" fxFlex="100">
+              <div class="content-name-header" fxLayout="column">
+                <span class="title-name-header">Cliente</span>
               </div>
             </div>
-            <div fxFlex.gt-xs="75" fxFlex="100">
+            <div fxFlex.gt-xs="80" fxFlex="100">
               <div style="margin-left: 5px" fxLayout="column">
                 <span>{{entity.clienteNombre ? entity.clienteNombre : 'Cliente'}}</span>
               </div>
             </div>
 
-            <div fxFlex.gt-xs="25" fxFlex="100">
-              <div style="background-color:#eee" fxLayout="column">
-                <span class="font-bold">Fecha:</span>
+            <div fxFlex.gt-xs="20" fxFlex="100">
+              <div class="content-name-header" fxLayout="column">
+                <span class="title-name-header">Fecha</span>
               </div>
             </div>
-            <div fxFlex.gt-xs="75" fxFlex="100">
-              <div style="margin-left: 5px" fxLayout="column">
+            <div fxFlex.gt-xs="80" fxFlex="100">
+              <div class="m-l-5" fxLayout="column">
                 <span>{{entity.fecha}}</span>
               </div>
             </div>
 
-            <div fxFlex.gt-xs="25" fxFlex="100">
-              <div style="background-color:#eee" fxLayout="column">
-                <span class="font-bold">Estado:</span>
+            <div fxFlex.gt-xs="20" fxFlex="100">
+              <div class="content-name-header" fxLayout="column">
+                <span class="title-name-header">Estado</span>
               </div>
             </div>
-            <div fxFlex.gt-xs="75" fxFlex="100">
+            <div fxFlex.gt-xs="80" fxFlex="100">
               <div style="margin-left: 5px" fxLayout="column">
                 <span>{{entity.estatus}}</span>
               </div>
             </div>
 
           </div>
-
-
-          <div style="margin-top: 10px;" class="responsive-table">
+          <!--Products-->
+          <div class="responsive-table">
             <mat-table #table matSort [dataSource]="dataSourceProductosDetalles" class="mat-elevation-z8">
 
               <ng-container matColumnDef="producto">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Producto </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
-                  <span class="header-label">Producto:</span>
+                <mat-header-cell *matHeaderCellDef class="table_header_name"> Productos</mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index" class="table_datos">
+                  <span class="header-label">Productos:</span>
                   {{row.productoLabel}}
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="cantidad">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Cantidad </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
+                <mat-header-cell *matHeaderCellDef class="table_header_name"> Cantidad </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index" class="table_datos">
                   <span class="header-label">Cant:</span>
                   {{row.cantidad}}
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="precioVenta">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Precio </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
+                <mat-header-cell *matHeaderCellDef class="table_header_name"> Precio </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index" class="table_datos">
                   <span class="header-label">PU.:</span>
                   {{parseFloatCustom(row.precioVenta)}}
                 </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="precioTotal">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Importe </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
+                <mat-header-cell *matHeaderCellDef class="table_header_name"> Importe </mat-header-cell>
+                <mat-cell *matCellDef="let row;let i = index" class="table_datos">
                   <span class="header-label">PT.:</span>
                   {{parseFloatCustom(row.precioVenta*row.cantidad)}}
                 </mat-cell>
@@ -110,104 +102,163 @@
               <mat-row *matRowDef="let row; columns: displayedColumnsProductosDetalles;let i = index"></mat-row>
             </mat-table>
           </div>
+          <!--Cabezera_Amortizaciones-->
+          <div fxLayout="row wrap ">
+            <div fxFlex.gt-xs="70" fxFlex="100">
+              <div fxLayout="column">
+                <span class="title_amortizaciones">Detalles de pagos</span>
+              </div>
+            </div>
+            <div fxFlex.gt-xs="30" fxFlex="100">
+              <div style="margin-left: 5px" fxLayout="column">
+                <span class="title_amortizaciones"></span>
+              </div>
+            </div>
+          </div>
+          <!--Amortizaciones and detail-->
+          <div fxLayout="row wrap ">
+            <!--Amortizaciones -->
+            <div fxFlex.gt-xs="70" fxFlex="100">
+              <div fxLayout="column">
+                <div class="responsive-table">
+                  <mat-table #table matSort [dataSource]="dataSourceAmortizaciones" class="mat-elevation-z8">
 
-          <div class="responsive-table">
-            <mat-table #table matSort [dataSource]="dataSourceAmortizaciones" class="mat-elevation-z8">
+                    <ng-container matColumnDef="comprobante">
+                      <mat-header-cell *matHeaderCellDef class="table_header_name">Nº Recibo </mat-header-cell>
+                      <mat-cell *matCellDef="let row;let i = index" class="table_datos">
+                        <span class="header-label">Recibo:</span>
+                        {{row.comprobante}}
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="codigo">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Codigo </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
-                  <span class="header-label">Codigo:</span>
-                  {{row.codigo}}
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="fecha">
+                      <mat-header-cell *matHeaderCellDef class="table_header_name"> Fecha </mat-header-cell>
+                      <mat-cell *matCellDef="let row;let i = index" class="table_datos">
+                        <span class="header-label">Fecha:</span>
+                        {{row.fecha}}
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="fecha">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Fecha </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
-                  <span class="header-label">Fecha:</span>
-                  {{row.fecha}}
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="metodo">
+                      <mat-header-cell *matHeaderCellDef class="table_header_name"> Metodo </mat-header-cell>
+                      <mat-cell *matCellDef="let row;let i = index" class="table_datos">
+                        <span class="header-label">Metodo:</span>
+                        {{row.tipoDePagoNombre}}
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="glosa">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Glosa </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
-                  <span class="header-label">Glosa:</span>
-                  {{row.glosa}}
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="importe">
+                      <mat-header-cell *matHeaderCellDef class="table_header_name"> Importe </mat-header-cell>
+                      <mat-cell *matCellDef="let row;let i = index" class="table_datos">
+                        <span class="header-label">Importe:</span>
+                        {{row.montoPagado}}
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="metodo">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Metodo </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
-                  <span class="header-label">Metodo:</span>
-                  {{row.tipoDePagoNombre}}
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="img">
+                      <mat-header-cell *matHeaderCellDef class="table_header_name">Img Recibo </mat-header-cell>
+                      <mat-cell *matCellDef="let row;let i = index">
+                        <span class="header-label">Imagen:</span>
+                        <div *ngIf="row.fotoComprobante">
+                          <a [href]="'data:' + row.fotoComprobanteContentType + ';base64,' + row.fotoComprobante" *ngIf="row.fotoComprobante" target="_blank" class="table_datos text-primary">Ver Img</a>
+                          <!--<img [src]="'data:' + row.fotoComprobanteContentType + ';base64,' + row.fotoComprobante" style="width: 100%;" *ngIf="row.fotoComprobante" alt="amortization image"/>-->
+                        </div>
+                        <div *ngIf="!row.fotoComprobante" class="table_datos text-warning">
+                          <a href="">Sin imagen</a>
+                        </div>
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="importe">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Importe </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
-                  <span class="header-label">Importe:</span>
-                  {{row.montoPagado}}
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="imprimir">
+                      <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                      <mat-cell *matCellDef="let row;let i = index">
+                        <a class="ng-star-inserted" [routerLink]="['/print/invoice2/' + entity.id + '/' + i ]">
+                          <i class="ti-printer text-info m-r-10"></i>
+                        </a>
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="comprobante">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Comprobante </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index" style="    flex-direction: column;">
-                  <span class="header-label">Comprobante:</span>
-                  {{row.comprobante}}
-                  <div style="    width: 90%;">
-                    <img [src]="'data:' + row.fotoComprobanteContentType + ';base64,' + row.fotoComprobante" style="width: 100%;" *ngIf="row.fotoComprobante" alt="amortization image"/>
+                    <mat-header-row *matHeaderRowDef="displayedColumnsAmortizaciones"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumnsAmortizaciones;let i = index"></mat-row>
+                  </mat-table>
+                </div>
+              </div>
+            </div>
+            <!--Detail-->
+            <div fxFlex.gt-xs="30" fxFlex="100">
+              <div fxLayout="row wrap ">
+                <div fxFlex.gt-xs="40" fxFlex="100">
+                  <div fxLayout="column">
+                    <span class="title_amortizaciones_detail">Sub Total S/.</span>
                   </div>
-                </mat-cell>
-              </ng-container>
+                </div>
+                <div fxFlex.gt-xs="60" fxFlex="100">
+                  <div style="margin-left: 5px" fxLayout="column">
+                    <span>S/.{{parseFloatCustom(entity.subTotal)}}</span>
+                  </div>
+                </div>
+                <div fxFlex.gt-xs="40" fxFlex="100">
+                  <div fxLayout="column">
+                    <span class="title_amortizaciones_detail">Igv:</span>
+                  </div>
+                </div>
+                <div fxFlex.gt-xs="60" fxFlex="100">
+                  <div style="margin-left: 5px" fxLayout="column">
+                    <span>S/.{{parseFloatCustom((entity.subTotal * entity.impuesto) / 100)}}</span>
+                  </div>
+                </div>
 
-              <ng-container matColumnDef="imprimir">
-                <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef>  </mat-header-cell>
-                <mat-cell *matCellDef="let row;let i = index">
-                  <a class="ng-star-inserted" [routerLink]="['/print/invoice2/' + entity.id + '/' + i ]">
-                    <i class="ti-printer text-info m-r-10"></i>
-                  </a>
-                </mat-cell>
-              </ng-container>
+                <div fxFlex.gt-xs="40" fxFlex="100">
+                  <div fxLayout="column">
+                    <span class="title_amortizaciones_detail">Total:</span>
+                  </div>
+                </div>
+                <div fxFlex.gt-xs="60" fxFlex="100">
+                  <div style="margin-left: 5px" fxLayout="column">
+                    <span>S/.{{parseFloatCustom(entity.montoTotal)}}</span>
+                  </div>
+                </div>
 
-              <mat-header-row *matHeaderRowDef="displayedColumnsAmortizaciones"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumnsAmortizaciones;let i = index"></mat-row>
-            </mat-table>
+                <div fxFlex.gt-xs="40" fxFlex="100">
+                  <div fxLayout="column">
+                    <span class="title_amortizaciones_detail">Amortizado:</span>
+                  </div>
+                </div>
+                <div fxFlex.gt-xs="60" fxFlex="100">
+                  <div style="margin-left: 5px" fxLayout="column">
+                    <!--<span>S/. 100</span>-->
+                    <span>S/.{{parseFloatCustom(getMontoAmortizado())}}</span>
+                  </div>
+                </div>
+
+                <div fxFlex.gt-xs="40" fxFlex="100">
+                  <div fxLayout="column">
+                    <span class="title_amortizaciones_detail">Saldo:</span>
+                  </div>
+                </div>
+                <div fxFlex.gt-xs="60" fxFlex="100">
+                  <div style="margin-left: 5px" fxLayout="column">
+                    <!--<span>S/. 150</span>-->
+                    S/.{{parseFloatCustom(entity.montoTotal - getMontoAmortizado())}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
-
         </form>
-        <!--<div class="p-10 text-right">-->
-          <!--<div class="button-row">-->
-            <!--<button mat-raised-button color="basic" class="bg-warning" (click)="previousState()">IMPRIMIR</button>-->
-            <!--<button mat-raised-button color="primary" (click)="previousState()">ACEPTAR</button>-->
-          <!--</div>-->
-        <!--</div>-->
-      </mat-card-content>
-
-      <mat-card-content class="row wrap">
-        <div fxLayout="row wrap" id= lblempleado>
-
-          <div class="d-flex align-items-center">
-
-            <div class="text-right ml-auto">
-              <h6 class="text-uppercase text-md ma-0 text-bold">Subtotal :</h6>
-              <h6 class="text-uppercase text-md ma-0 text-bold">Impuesto({{entity.impuesto}}%) :</h6>
-              <h6 class="text-uppercase text-sm ma-0 text-bold">Total :</h6>
-            </div>
-            <div class="m-l-10">
-              <h4 class="font-medium">{{parseFloatCustom(entity.subTotal)}}</h4>
-              <h4 class="font-medium">{{parseFloatCustom((entity.subTotal * entity.impuesto) / 100)}}</h4>
-              <h4 class="font-medium">{{parseFloatCustom(entity.montoTotal)}}</h4>
-            </div>
-          </div>
-        </div>
-
 
       </mat-card-content>
+
     </mat-card>
   </div>
 </div>
+
+
+<!--<div style="margin-left: 5px" fxLayout="column">-->
+  <!--<span class="title_sub_total">Sub Total S/.{{parseFloatCustom(entity.subTotal)}}</span>-->
+  <!--<span class="title_sub_total"></span>-->
+  <!--<span class="title_sub_total">Total:</span>-->
+  <!--<span class="title_sub_total">T Pagos:</span>-->
+  <!--<span class="title_sub_total">Saldo:</span>-->
+<!--</div>-->

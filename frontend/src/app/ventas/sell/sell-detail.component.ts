@@ -4,6 +4,7 @@ import {BaseVenta} from "./BaseVenta";
 import {MatTableDataSource} from "@angular/material";
 import {ProductoDetalle} from "../../models/producto-detalle.model";
 import {Amortizacion} from "../../models/amortizacion.model";
+import {Venta} from "../../models/venta.model";
 
 declare var require: any;
 
@@ -14,8 +15,8 @@ declare var require: any;
 })
 export class SellDetailComponent extends BaseVenta implements OnInit {
 
-  displayedColumnsProductosDetalles = ['cantidad', 'producto', 'precioVenta', 'precioTotal'];
-  displayedColumnsAmortizaciones = ['codigo', 'fecha', 'glosa', 'metodo', 'importe', 'comprobante', 'imprimir'];
+  displayedColumnsProductosDetalles = ['producto', 'cantidad', 'precioVenta', 'precioTotal'];
+  displayedColumnsAmortizaciones = ['comprobante', 'fecha', 'metodo', 'importe','img', 'imprimir'];
   dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(null);
   dataSourceAmortizaciones = new MatTableDataSource<Amortizacion>(null);
 
@@ -31,4 +32,7 @@ export class SellDetailComponent extends BaseVenta implements OnInit {
     });
   }
 
+  getMontoAmortizado(): number {
+    return this.entity.amortizacions.map(x => x.montoPagado).reduce((a, b) => a + b, 0)
+  }
 }

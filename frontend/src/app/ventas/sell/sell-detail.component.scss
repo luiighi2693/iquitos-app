@@ -1,3 +1,5 @@
+$gris_app: #A4ACB0;
+$label_gris: #a4acb0;
 .no-padding{
   padding: 0 !important;
 }
@@ -5,3 +7,64 @@
 .mat-header-row.mat-header-row.ng-star-inserted{
   background-color: #eee;
 }
+.content_header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  flex-wrap: wrap;
+}
+.content_header_name{
+
+}
+.header_name_detail{
+  font-weight: bold;
+}
+.content_header_button{
+
+}
+.content-body-detail{
+  padding: 10px !important;
+}
+.content-name-header{
+  background-color: $gris_app;
+}
+
+.title-name-header{
+  font-size: .8rem;
+  text-align: right;
+  padding-right: 5px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.title_amortizaciones{
+  font-size: .8rem;
+  text-align: left;
+  padding-left: 5px;
+  margin-bottom: 8px;
+  color: $label_gris ;
+}
+.title_amortizaciones_detail{
+  font-size: .8rem;
+  text-align: left;
+  padding-left: 5px;
+  margin-bottom: 8px;
+  margin-left: 10px;
+  color: $label_gris ;
+}
+.title_sub_total{
+  color: $label_gris ;
+}
+.table_header_name{
+  font-size: .8rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.table_datos{
+  font-size: .8rem;
+  font-weight: lighter;
+  margin-left: 10px;
+  font-style: italic;
+}
+
