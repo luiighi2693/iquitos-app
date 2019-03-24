@@ -150,4 +150,14 @@ public class ProductoDetalleResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/producto-detalles/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        productoDetalleService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*producto-detalles loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("producto-detalles loaded", HttpStatus.OK);
+    }
+
 }

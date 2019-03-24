@@ -145,4 +145,14 @@ public class TipoDePagoResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/tipo-de-pagos/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        tipoDePagoService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*tipo-de-pagos loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("tipo-de-pagos loaded", HttpStatus.OK);
+    }
+
 }

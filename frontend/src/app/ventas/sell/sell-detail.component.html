@@ -160,11 +160,12 @@
                       <mat-cell *matCellDef="let row;let i = index">
                         <span class="header-label">Imagen:</span>
                         <div *ngIf="row.fotoComprobante">
-                          <a [href]="'data:' + row.fotoComprobanteContentType + ';base64,' + row.fotoComprobante" *ngIf="row.fotoComprobante" target="_blank" class="table_datos text-primary">Ver Img</a>
+                          <!--<a [href]="'data:' + row.fotoComprobanteContentType + ';base64,' + row.fotoComprobante" *ngIf="row.fotoComprobante" target="_blank" class="table_datos text-primary">Ver Img</a>-->
+                          <a [href]="" *ngIf="row.fotoComprobante" (click)="showImage('data:' + row.fotoComprobanteContentType + ';base64,' + row.fotoComprobante)" class="table_datos text-primary">Ver Img</a>
                           <!--<img [src]="'data:' + row.fotoComprobanteContentType + ';base64,' + row.fotoComprobante" style="width: 100%;" *ngIf="row.fotoComprobante" alt="amortization image"/>-->
                         </div>
                         <div *ngIf="!row.fotoComprobante" class="table_datos text-warning">
-                          <a href="">Sin imagen</a>
+                          <a>Sin imagen</a>
                         </div>
                       </mat-cell>
                     </ng-container>

@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -110,5 +111,11 @@ public class TipoDeDocumentoDeVentaServiceImpl implements TipoDeDocumentoDeVenta
         log.debug("Request to search for a page of TipoDeDocumentoDeVentas for query {}", query);
         return tipoDeDocumentoDeVentaSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(tipoDeDocumentoDeVentaMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<TipoDeDocumentoDeVenta> list =  tipoDeDocumentoDeVentaRepository.findAll();
+        list.forEach(tipoDeDocumentoDeVentaSearchRepository::save);
     }
 }

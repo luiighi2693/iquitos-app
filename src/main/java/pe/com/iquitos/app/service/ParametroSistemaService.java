@@ -53,4 +53,6 @@ public interface ParametroSistemaService {
      * @return the list of entities
      */
     Page<ParametroSistemaDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

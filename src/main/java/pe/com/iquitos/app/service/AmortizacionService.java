@@ -58,4 +58,6 @@ public interface AmortizacionService {
     Page<AmortizacionDTO> search(String query, Pageable pageable);
 
     Optional<Long> countAmortizacionsByTipoDeDocumentoDeVentaId(Long tipoDeDocumentoDeVentaId);
+
+    void reload();
 }

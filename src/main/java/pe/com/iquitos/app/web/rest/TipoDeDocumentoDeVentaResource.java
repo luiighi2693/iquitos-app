@@ -145,4 +145,14 @@ public class TipoDeDocumentoDeVentaResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/tipo-de-documento-de-ventas/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        tipoDeDocumentoDeVentaService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*tipo-de-documento-de-ventas loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("tipo-de-documento-de-ventas loaded", HttpStatus.OK);
+    }
+
 }

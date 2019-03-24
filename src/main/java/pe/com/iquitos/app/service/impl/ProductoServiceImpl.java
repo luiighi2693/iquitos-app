@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.com.iquitos.app.service.mapper.VarianteMapper;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -161,5 +162,11 @@ public class ProductoServiceImpl implements ProductoService {
         log.debug("Request to search for a page of Productos for query {}", query);
         return productoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(productoMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<Producto> list =  productoRepository.findAll();
+        list.forEach(productoSearchRepository::save);
     }
 }

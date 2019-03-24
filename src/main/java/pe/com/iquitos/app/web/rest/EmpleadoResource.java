@@ -145,4 +145,14 @@ public class EmpleadoResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/empleados/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        empleadoService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*empleados loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("empleados loaded", HttpStatus.OK);
+    }
+
 }

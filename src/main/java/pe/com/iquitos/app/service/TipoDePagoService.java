@@ -53,4 +53,6 @@ public interface TipoDePagoService {
      * @return the list of entities
      */
     Page<TipoDePagoDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {BaseVenta} from "./BaseVenta";
-import {MatTableDataSource} from "@angular/material";
+import {MatDialog, MatTableDataSource} from "@angular/material";
 import {ProductoDetalle} from "../../models/producto-detalle.model";
 import {Amortizacion} from "../../models/amortizacion.model";
-import {Venta} from "../../models/venta.model";
+import {SellShowImageComponent} from "./sell-show-image.component";
 
 declare var require: any;
 
@@ -20,8 +20,8 @@ export class SellDetailComponent extends BaseVenta implements OnInit {
   dataSourceProductosDetalles = new MatTableDataSource<ProductoDetalle>(null);
   dataSourceAmortizaciones = new MatTableDataSource<Amortizacion>(null);
 
-  constructor(private activatedRoute: ActivatedRoute) {
-    super(null,null,null,null, null, null, require('../menu.json'), 'VENTAS');
+  constructor(private activatedRoute: ActivatedRoute, public dialog: MatDialog) {
+    super(null,null,null,dialog, null, null, require('../menu.json'), 'VENTAS');
   }
 
   ngOnInit() {
@@ -34,5 +34,17 @@ export class SellDetailComponent extends BaseVenta implements OnInit {
 
   getMontoAmortizado(): number {
     return this.entity.amortizacions.map(x => x.montoPagado).reduce((a, b) => a + b, 0)
+  }
+
+  showImage(s: string) {
+    console.log(s);
+
+    const dialogRef = this.dialog.open(SellShowImageComponent, {
+      width: '95%',
+      data: { image: s }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }

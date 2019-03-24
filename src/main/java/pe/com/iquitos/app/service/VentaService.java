@@ -1,10 +1,14 @@
 package pe.com.iquitos.app.service;
 
+import pe.com.iquitos.app.domain.Venta;
 import pe.com.iquitos.app.service.dto.VentaDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import pe.com.iquitos.app.service.dto.custom.VentaDTOCustom;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,14 +30,14 @@ public interface VentaService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<VentaDTO> findAll(Pageable pageable);
+    Page<VentaDTOCustom> findAll(Pageable pageable);
 
     /**
      * Get all the Venta with eager load of many-to-many relationships.
      *
      * @return the list of entities
      */
-    Page<VentaDTO> findAllWithEagerRelationships(Pageable pageable);
+    Page<VentaDTOCustom> findAllWithEagerRelationships(Pageable pageable);
     
     /**
      * Get the "id" venta.
@@ -59,4 +63,8 @@ public interface VentaService {
      * @return the list of entities
      */
     Page<VentaDTO> search(String query, Pageable pageable);
+
+    List<Venta> searchByDateRange(LocalDate start, LocalDate end);
+
+    void reload();
 }

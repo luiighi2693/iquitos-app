@@ -55,4 +55,6 @@ public interface UsuarioExternoService {
     Page<UsuarioExternoDTO> search(String query, Pageable pageable);
 
     Optional<UsuarioExternoDTO> findOneByDni(Integer dni);
+
+    void reload();
 }

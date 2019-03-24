@@ -1,0 +1,4 @@
+id;nombre;cantidad_digitos
+1;RUC;11
+2;DNI;8
+3;Pasaporte;8

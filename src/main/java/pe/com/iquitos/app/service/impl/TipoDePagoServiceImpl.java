@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -110,5 +111,11 @@ public class TipoDePagoServiceImpl implements TipoDePagoService {
         log.debug("Request to search for a page of TipoDePagos for query {}", query);
         return tipoDePagoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(tipoDePagoMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<TipoDePago> list =  tipoDePagoRepository.findAll();
+        list.forEach(tipoDePagoSearchRepository::save);
     }
 }

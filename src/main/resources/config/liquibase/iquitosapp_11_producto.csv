@@ -1,0 +1,10 @@
+id;codigo;nombre;descripcion;imagen;imagen_content_type;stock;notificacion_de_limite_de_stock;unidad_de_medida;precio_venta;precio_compra;categoria_id
+1;COD00000140;harina  san fernando de mais ;null;null;null;1666;null;KILO;3;2;null
+2;COD000002763;Aceitesss;null;null;null;1968;null;LITRO;2;0;null
+3;COD00000115;Azucar;null;null;null;0;250;KILO;2.6;0;null
+4;COD00000416;Cigarrillos;null;null;null;4827;null;UNIDAD;2;0;null
+5;COD000008854;Sal;null;null;null;92;null;KILO;1;0;null
+6;COD000009013;adobo;null;null;null;99;null;KILO;1;0;null
+7;COD000001893;vinagre;null;null;null;0;null;LITRO;2;0;null
+8;COD000001202;Leche Gloria ;null;null;null;1280;500;UNIDAD;3.3;0;null
+9;COD000002689;Condimentos  Azul;null;null;null;51;5000;KILO;2.5;0;null

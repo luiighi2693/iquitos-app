@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -119,5 +120,11 @@ public class VarianteServiceImpl implements VarianteService {
         log.debug("Request to search for a page of Variantes for query {}", query);
         return varianteSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(varianteMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<Variante> list =  varianteRepository.findAll();
+        list.forEach(varianteSearchRepository::save);
     }
 }

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Category.
+    -->
+    <changeSet id="20190305212208-1" author="jhipster">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_1_usuario_externo.csv"
+                  separator=";"
+                  tableName="usuario_externo"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_2_parametro_sistema.csv"
+                  separator=";"
+                  tableName="parametro_sistema"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_3_categoria.csv"
+                  separator=";"
+                  tableName="categoria"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_4_tipo_de_documento.csv"
+                  separator=";"
+                  tableName="tipo_de_documento"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_5_tipo_de_documento_de_compra.csv"
+                  separator=";"
+                  tableName="tipo_de_documento_de_compra"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_6_tipo_de_documento_de_venta.csv"
+                  separator=";"
+                  tableName="tipo_de_documento_de_venta"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_7_tipo_de_pago.csv"
+                  separator=";"
+                  tableName="tipo_de_pago"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_8_cliente.csv"
+                  separator=";"
+                  tableName="cliente"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_9_empleado.csv"
+                  separator=";"
+                  tableName="empleado"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_10_proveedor.csv"
+                  separator=";"
+                  tableName="proveedor"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_11_producto.csv"
+                  separator=";"
+                  tableName="producto"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_12_producto_detalle.csv"
+                  separator=";"
+                  tableName="producto_detalle"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_13_producto_detalle_productos.csv"
+                  separator=";"
+                  tableName="producto_detalle_productos"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_14_variante.csv"
+                  separator=";"
+                  tableName="variante"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_15_producto_detalle_variantes.csv"
+                  separator=";"
+                  tableName="producto_detalle_variantes"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_16_producto_variantes.csv"
+                  separator=";"
+                  tableName="producto_variantes"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_17_venta.csv"
+                  separator=";"
+                  tableName="venta"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_18_amortizacion.csv"
+                  separator=";"
+                  tableName="amortizacion"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_19_compra.csv"
+                  separator=";"
+                  tableName="compra"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_20_compra_productos.csv"
+                  separator=";"
+                  tableName="compra_productos"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/iquitosapp_21_venta_amortizacion.csv"
+                  separator=";"
+                  tableName="venta_amortizacion"/>
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

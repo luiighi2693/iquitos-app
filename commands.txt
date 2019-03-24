@@ -8,3 +8,7 @@ jhipster --with-entities --force
 jhipster import-jdl  jhipster-jdl.jh --force
 
 mvn install -DskipTests
+
+mvn clean install -DskipTests -Pdev,swagger,webpack
+
+docker-compose -f loadAll.yml stop && docker-compose -f loadAll.yml rm -f && docker-compose -f loadAll.yml up -d && docker-compose -f loadAll.yml logs -f

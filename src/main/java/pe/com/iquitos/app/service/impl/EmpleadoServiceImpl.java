@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -110,5 +111,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         log.debug("Request to search for a page of Empleados for query {}", query);
         return empleadoSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(empleadoMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<Empleado> list =  empleadoRepository.findAll();
+        list.forEach(empleadoSearchRepository::save);
     }
 }

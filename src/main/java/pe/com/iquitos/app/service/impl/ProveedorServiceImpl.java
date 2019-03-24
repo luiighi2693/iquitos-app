@@ -196,4 +196,10 @@ public class ProveedorServiceImpl implements ProveedorService {
         return proveedorSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(proveedorMapper::toDto);
     }
+
+    @Override
+    public void reload() {
+        List<Proveedor> list =  proveedorRepository.findAll();
+        list.forEach(proveedorSearchRepository::save);
+    }
 }

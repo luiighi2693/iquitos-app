@@ -59,4 +59,6 @@ public interface CompraService {
      * @return the list of entities
      */
     Page<CompraDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

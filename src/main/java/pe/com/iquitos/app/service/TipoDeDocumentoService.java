@@ -53,4 +53,6 @@ public interface TipoDeDocumentoService {
      * @return the list of entities
      */
     Page<TipoDeDocumentoDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

@@ -145,4 +145,14 @@ public class CategoriaResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/categorias/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        categoriaService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*categorias loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("categorias loaded", HttpStatus.OK);
+    }
+
 }

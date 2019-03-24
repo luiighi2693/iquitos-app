@@ -1,5 +1,6 @@
 package pe.com.iquitos.app.service.impl;
 
+import org.elasticsearch.index.query.QueryBuilders;
 import pe.com.iquitos.app.domain.Amortizacion;
 import pe.com.iquitos.app.domain.ProductoDetalle;
 import pe.com.iquitos.app.repository.AmortizacionRepository;
@@ -13,6 +14,7 @@ import pe.com.iquitos.app.repository.search.VentaSearchRepository;
 import pe.com.iquitos.app.service.dto.AmortizacionDTO;
 import pe.com.iquitos.app.service.dto.ProductoDetalleDTO;
 import pe.com.iquitos.app.service.dto.VentaDTO;
+import pe.com.iquitos.app.service.dto.custom.VentaDTOCustom;
 import pe.com.iquitos.app.service.mapper.AmortizacionMapper;
 import pe.com.iquitos.app.service.mapper.ProductoDetalleMapper;
 import pe.com.iquitos.app.service.mapper.VentaMapper;
@@ -24,9 +26,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -146,10 +147,10 @@ public class VentaServiceImpl implements VentaService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<VentaDTO> findAll(Pageable pageable) {
+    public Page<VentaDTOCustom> findAll(Pageable pageable) {
         log.debug("Request to get all Ventas");
         return ventaRepository.findAll(pageable)
-            .map(ventaMapper::toDto);
+            .map(ventaMapper::toDtoCustom);
     }
 
     /**
@@ -157,8 +158,8 @@ public class VentaServiceImpl implements VentaService {
      *
      * @return the list of entities
      */
-    public Page<VentaDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return ventaRepository.findAllWithEagerRelationships(pageable).map(ventaMapper::toDto);
+    public Page<VentaDTOCustom> findAllWithEagerRelationships(Pageable pageable) {
+        return ventaRepository.findAllWithEagerRelationships(pageable).map(ventaMapper::toDtoCustom);
     }
     
 
@@ -201,5 +202,19 @@ public class VentaServiceImpl implements VentaService {
         log.debug("Request to search for a page of Ventas for query {}", query);
         return ventaSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(ventaMapper::toDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Venta> searchByDateRange(LocalDate start, LocalDate end) {
+        List<Venta> result = new ArrayList<>();
+        ventaSearchRepository.search(QueryBuilders.rangeQuery("fecha").gte(start).lte(end)).forEach(result::add);
+        return result;
+    }
+
+    @Override
+    public void reload() {
+        List<Venta> list =  ventaRepository.findAll();
+        list.forEach(ventaSearchRepository::save);
     }
 }

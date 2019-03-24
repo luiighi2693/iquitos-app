@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -119,5 +120,11 @@ public class CompraServiceImpl implements CompraService {
         log.debug("Request to search for a page of Compras for query {}", query);
         return compraSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(compraMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<Compra> list =  compraRepository.findAll();
+        list.forEach(compraSearchRepository::save);
     }
 }

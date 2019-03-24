@@ -59,4 +59,6 @@ public interface VarianteService {
      * @return the list of entities
      */
     Page<VarianteDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

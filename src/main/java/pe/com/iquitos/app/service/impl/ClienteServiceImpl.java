@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -110,5 +111,11 @@ public class ClienteServiceImpl implements ClienteService {
         log.debug("Request to search for a page of Clientes for query {}", query);
         return clienteSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(clienteMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<Cliente> list =  clienteRepository.findAll();
+        list.forEach(clienteSearchRepository::save);
     }
 }

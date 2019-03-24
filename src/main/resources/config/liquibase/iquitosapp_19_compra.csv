@@ -1,0 +1,2 @@
+id;fecha;guia_remision;numero_de_documento;ubicacion;monto_total;correlativo;tipo_de_pago_de_compra;tipo_de_transaccion;estatus;meta_data;proveedor_id;tipo_de_documento_de_compra_id;estatus_de_compra_id;caja_id
+1;2019-01-06;4454545645654xcgdfxg;11223344;TIENDA;100;FEB-2019-00001;CREDITO;CREDITO;PENDIENTE;{};1;1;null;null

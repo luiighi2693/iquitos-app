@@ -18,6 +18,9 @@ import { SellVariantselectionComponent } from './sell-variantselection.component
 import { SellLimitStockErrorComponent } from "./sell-limit-stock-error.component";
 import { SellNotificationErrorComponent } from "./sell-notification-error.component";
 import { SellExtraInfoComponent } from "./sell-extra-info.component";
+import {SellShowImageComponent} from "./sell-show-image.component";
+import {SatDatepickerModule, SatNativeDateModule} from "saturn-datepicker";
+import {MatMomentDateModule} from "@angular/material-moment-adapter";
 
 @NgModule({
   imports: [
@@ -27,10 +30,12 @@ import { SellExtraInfoComponent } from "./sell-extra-info.component";
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
+    SatDatepickerModule, SatNativeDateModule,
     RouterModule.forChild(SellRoutes)
   ],
-  entryComponents: [SellDeleteComponent, SellVariantselectionComponent, SellLimitStockErrorComponent, SellExtraInfoComponent, SellNotificationErrorComponent],
+  entryComponents: [SellDeleteComponent, SellVariantselectionComponent, SellLimitStockErrorComponent, SellExtraInfoComponent, SellNotificationErrorComponent, SellShowImageComponent],
   declarations: [SellComponent, SellDetailComponent, SellUpdateComponent,
-    SellDeleteComponent, SellVariantselectionComponent, SellLimitStockErrorComponent, SellExtraInfoComponent, SellNotificationErrorComponent]
+    SellDeleteComponent, SellVariantselectionComponent, SellLimitStockErrorComponent, SellExtraInfoComponent, SellNotificationErrorComponent, SellShowImageComponent]
+
 })
 export class SellModule {}

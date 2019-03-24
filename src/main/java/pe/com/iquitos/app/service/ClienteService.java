@@ -53,4 +53,6 @@ public interface ClienteService {
      * @return the list of entities
      */
     Page<ClienteDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

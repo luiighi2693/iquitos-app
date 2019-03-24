@@ -1,0 +1,19 @@
+id;nombre;descripcion;precio_venta;precio_compra;cantidad
+1;SACO;null;0;150;50
+2;1/2 SACO;null;0;80;25
+3;1/2 SACO;null;0;50;12
+4;PACK;null;0;32;16
+5;SACO;null;0;150;50
+6;SACO;null;0;105;50
+7;1/2 SACO;null;0;55;25
+8;CAJA;null;0;75;48
+9;1/2 CAJA;null;0;38;24
+10;SACO;null;0;115;49
+11;1/2 SACO;null;0;58;24.5
+12;PACK;null;0;8500;6
+13;PACK;null;0;8500;6
+14;PACK;null;0;8500;6
+15;PACK;null;0;8500;6
+16;PACK;null;0;8500;6
+17;PACK;null;0;8500;6
+18;PACK;null;0;8500;6

@@ -151,4 +151,14 @@ public class CompraResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/compras/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        compraService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*compras loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("compras loaded", HttpStatus.OK);
+    }
+
 }

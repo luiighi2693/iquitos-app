@@ -155,4 +155,14 @@ public class AmortizacionResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/amortizacions/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        amortizacionService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*amortizacions loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("amortizacions loaded", HttpStatus.OK);
+    }
+
 }

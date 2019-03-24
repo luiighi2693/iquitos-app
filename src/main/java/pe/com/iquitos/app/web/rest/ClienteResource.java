@@ -145,4 +145,14 @@ public class ClienteResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/clientes/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        clienteService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*clientes loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("clientes loaded", HttpStatus.OK);
+    }
+
 }

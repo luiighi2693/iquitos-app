@@ -151,4 +151,14 @@ public class VarianteResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/variantes/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        varianteService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*variantes loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("variantes loaded", HttpStatus.OK);
+    }
+
 }

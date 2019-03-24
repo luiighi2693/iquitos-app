@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -117,5 +118,11 @@ public class UsuarioExternoServiceImpl implements UsuarioExternoService {
         log.debug("Request to get UsuarioExterno : {}", dni);
         return usuarioExternoRepository.findByDni(dni)
             .map(usuarioExternoMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<UsuarioExterno> list =  usuarioExternoRepository.findAll();
+        list.forEach(usuarioExternoSearchRepository::save);
     }
 }

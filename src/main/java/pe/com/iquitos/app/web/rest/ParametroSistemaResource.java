@@ -145,4 +145,12 @@ public class ParametroSistemaResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/parametro-sistemas/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        parametroSistemaService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*parametro-sistemas loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("parametro-sistemas loaded", HttpStatus.OK);
+    }
 }

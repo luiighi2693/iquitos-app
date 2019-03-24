@@ -59,4 +59,6 @@ public interface ProductoService {
      * @return the list of entities
      */
     Page<ProductoDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

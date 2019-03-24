@@ -151,4 +151,14 @@ public class ProveedorResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/proveedors/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        proveedorService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*proveedors loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("proveedors loaded", HttpStatus.OK);
+    }
+
 }

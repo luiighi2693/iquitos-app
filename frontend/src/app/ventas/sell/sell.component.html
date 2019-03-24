@@ -42,14 +42,28 @@
             <!--<mat-datepicker #picker></mat-datepicker>-->
             <!--</mat-form-field>-->
 
-            <!--<mat-form-field fxFlex.gt-sm="20" fxFlex="20">-->
-            <!--<mat-select placeholder="Tipo de transacción">-->
-            <!--<mat-option>-->
-            <!--<option value="Completado">Completado</option>-->
-            <!--<option value="Pendiente">Pendiente</option>-->
-            <!--</mat-option>-->
-            <!--</mat-select>-->
-            <!--</mat-form-field>-->
+          </div>
+
+          <div fxLayout="row wrap">
+            <mat-form-field fxFlex.gt-sm="40" fxFlex="40">
+              <input matInput
+                     placeholder="Elegir el rango de fechas"
+                     [satDatepicker]="picker"
+                     [value]="dateRange"
+                      [(ngModel)]="dateRange"
+                      (ngModelChange)="searchByRangeDates($event)">
+              <sat-datepicker #picker [rangeMode]="true"></sat-datepicker>
+              <sat-datepicker-toggle matSuffix [for]="picker"></sat-datepicker-toggle>
+            </mat-form-field>
+
+            <mat-form-field fxFlex.gt-sm="20" fxFlex="20" [fxFlexOffset]="10">
+              <mat-select placeholder="Tipo de transacción" name="transactionTypes" [(ngModel)]="statusSelected"
+                          (ngModelChange)="searchByStatus($event)">
+                <mat-option *ngFor="let status of status;" [value]="status.toUpperCase()">
+                  {{status}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
           </div>
 
@@ -78,7 +92,7 @@
               <mat-header-cell style="font-weight: bold; font-size:14px" *matHeaderCellDef> Cliente</mat-header-cell>
               <mat-cell *matCellDef="let element">
                 <span class="header-label">Cliente:</span>
-                {{element.clienteNombre}}
+                {{element.clienteNombre ? element.clienteNombre : 'Anónimo'}}
               </mat-cell>
             </ng-container>
 

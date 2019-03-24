@@ -153,4 +153,13 @@ public class UsuarioExternoResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/usuario-externos/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        usuarioExternoService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*usuario-externos loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("usuario-externos loaded", HttpStatus.OK);
+    }
 }

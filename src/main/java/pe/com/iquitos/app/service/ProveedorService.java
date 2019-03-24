@@ -59,4 +59,6 @@ public interface ProveedorService {
      * @return the list of entities
      */
     Page<ProveedorDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

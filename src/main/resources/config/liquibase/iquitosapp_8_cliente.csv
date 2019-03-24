@@ -1,0 +1,8 @@
+id;nombre;codigo;direccion;correo;telefono;fecha_de_nacimiento;sexo;estatus_civil;imagen;imagen_content_type;tipo_de_cliente;usuario_id;tipo_de_documento_id
+1;luis rodriguez;12345678999;naguanagua;luiscarvajal2693@gmail.com;4123418833;null;null;null;null;null;JURIDICO;null;1
+2;JOSE MAO;40787231;jr arica ;santos.silva144@gmail.com;949451724;1992-11-20;MASCULINO;SOLTERO;null;null;NATURAL;null;2
+3;juan;25242630;bfcgfcj;santos.silva@gmail.com;946232135;null;MASCULINO;CASADO;null;null;NATURAL;null;2
+4;fredy;452351351651;sajsjna  s;jose.silva@gmail.com;341357;null;MASCULINO;SOLTERO;null;null;NATURAL;null;2
+5;PEDRO PEREZ;121212112;ASASAS;fredferw@gmail.com;23232323232;null;MASCULINO;SOLTERO;null;null;NATURAL;null;2
+6;YURI JIMENES;40276602;JOSE GALVEZ;jimenes_0001@hotmail.com;949451725;1980-04-01;MASCULINO;SOLTERO;null;null;NATURAL;3;2
+7;SANTOS;47787230;AVR R DSD 3434 ;"";949451724;1992-11-27;MASCULINO;CASADO;null;null;NATURAL;null;2

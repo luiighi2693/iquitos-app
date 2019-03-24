@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -110,5 +111,11 @@ public class CategoriaServiceImpl implements CategoriaService {
         log.debug("Request to search for a page of Categorias for query {}", query);
         return categoriaSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(categoriaMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<Categoria> list =  categoriaRepository.findAll();
+        list.forEach(categoriaSearchRepository::save);
     }
 }

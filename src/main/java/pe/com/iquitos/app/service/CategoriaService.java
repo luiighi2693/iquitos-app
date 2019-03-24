@@ -53,4 +53,6 @@ public interface CategoriaService {
      * @return the list of entities
      */
     Page<CategoriaDTO> search(String query, Pageable pageable);
+
+    void reload();
 }

@@ -1,8 +1,11 @@
 package pe.com.iquitos.app.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import pe.com.iquitos.app.domain.Venta;
 import pe.com.iquitos.app.repository.ClienteRepository;
 import pe.com.iquitos.app.service.VentaService;
+import pe.com.iquitos.app.service.dto.custom.VentaDTOCustom;
+import pe.com.iquitos.app.service.dto.custom.VentaDateRangeRequest;
 import pe.com.iquitos.app.web.rest.errors.BadRequestAlertException;
 import pe.com.iquitos.app.web.rest.util.HeaderUtil;
 import pe.com.iquitos.app.web.rest.util.PaginationUtil;
@@ -67,6 +70,15 @@ public class VentaResource {
             .body(result);
     }
 
+    @PostMapping("/ventas/searchByDateRanges")
+    @Timed
+    public ResponseEntity<List<Venta>> searchByDateRanges(@Valid @RequestBody VentaDateRangeRequest ventaDateRangeRequest) throws URISyntaxException {
+        log.debug("REST request to searchByDateRanges : {}", ventaDateRangeRequest);
+
+        List<Venta> result = ventaService.searchByDateRange(ventaDateRangeRequest.getBegin(), ventaDateRangeRequest.getEnd());
+        return ResponseEntity.ok().body(result);
+    }
+
     /**
      * PUT  /ventas : Updates an existing venta.
      *
@@ -98,9 +110,9 @@ public class VentaResource {
      */
     @GetMapping("/ventas")
     @Timed
-    public ResponseEntity<List<VentaDTO>> getAllVentas(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<VentaDTOCustom>> getAllVentas(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Ventas");
-        Page<VentaDTO> page;
+        Page<VentaDTOCustom> page;
         if (eagerload) {
             page = ventaService.findAllWithEagerRelationships(pageable);
         } else {
@@ -159,6 +171,16 @@ public class VentaResource {
         });
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/ventas");
         return new ResponseEntity<>(result, headers, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/ventas/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        ventaService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*ventas loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("ventas loaded", HttpStatus.OK);
     }
 
 }

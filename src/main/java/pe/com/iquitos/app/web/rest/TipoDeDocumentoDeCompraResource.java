@@ -145,4 +145,14 @@ public class TipoDeDocumentoDeCompraResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/tipo-de-documento-de-compras/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        tipoDeDocumentoDeCompraService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*tipo-de-documento-de-compras loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("tipo-de-documento-de-compras loaded", HttpStatus.OK);
+    }
+
 }

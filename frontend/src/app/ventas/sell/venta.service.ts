@@ -20,6 +20,10 @@ export class VentaService {
         return this.http.post<IVenta>(this.resourceUrl, venta, { observe: 'response' });
     }
 
+  searchByDateRange(range: any): Observable<EntityArrayResponseType> {
+        return this.http.post<any>(this.resourceUrl + '/searchByDateRanges', range, { observe: 'response' });
+    }
+
     update(venta: IVenta): Observable<EntityResponseType> {
         return this.http.put<IVenta>(this.resourceUrl, venta, { observe: 'response' });
     }

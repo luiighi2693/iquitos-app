@@ -145,4 +145,13 @@ public class TipoDeDocumentoResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+
+    @GetMapping("/tipo-de-documentos/reload")
+    @Timed
+    public ResponseEntity<String> reload() {
+        log.debug("RELOAD ITEMS");
+        tipoDeDocumentoService.reload();
+        System.out.println("*/*/*/*/*/*/*/*/*/*/*/*tipo-de-documentos loaded*/*/*/*/*/*/*/*/*/");
+        return new ResponseEntity<>("tipo-de-documentos loaded", HttpStatus.OK);
+    }
 }

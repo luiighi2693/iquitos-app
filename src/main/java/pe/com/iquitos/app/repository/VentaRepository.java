@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,4 +28,5 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
     @Query("select venta from Venta venta left join fetch venta.productos left join fetch venta.productoDetalles left join fetch venta.amortizacions where venta.id =:id")
     Optional<Venta> findOneWithEagerRelationships(@Param("id") Long id);
 
+    List<Venta> findAllByFechaBetween(LocalDate start, LocalDate end);
 }

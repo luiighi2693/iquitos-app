@@ -15,10 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -120,5 +117,11 @@ public class AmortizacionServiceImpl implements AmortizacionService {
     public Optional<Long> countAmortizacionsByTipoDeDocumentoDeVentaId(Long tipoDeDocumentoDeVentaId) {
         log.debug("Request to countAmortizacionsByTipoDeDocumentoDeVenta : {}", tipoDeDocumentoDeVentaId);
         return amortizacionRepository.countAmortizacionsByTipoDeDocumentoDeVentaId(tipoDeDocumentoDeVentaId);
+    }
+
+    @Override
+    public void reload() {
+        List<Amortizacion> list =  amortizacionRepository.findAll();
+        list.forEach(amortizacionSearchRepository::save);
     }
 }

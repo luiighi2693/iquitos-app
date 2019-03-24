@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -110,5 +111,11 @@ public class ParametroSistemaServiceImpl implements ParametroSistemaService {
         log.debug("Request to search for a page of ParametroSistemas for query {}", query);
         return parametroSistemaSearchRepository.search(queryStringQuery("*"+query+"*"), pageable)
             .map(parametroSistemaMapper::toDto);
+    }
+
+    @Override
+    public void reload() {
+        List<ParametroSistema> list =  parametroSistemaRepository.findAll();
+        list.forEach(parametroSistemaSearchRepository::save);
     }
 }
