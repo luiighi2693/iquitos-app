@@ -10,7 +10,7 @@
               <button mat-icon-button color= "primary" (click)="search(currentSearch)"><mat-icon>search</mat-icon></button>
             <mat-form-field fxFlex.gt-sm="60" fxFlex="60">
               <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">-->
-              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar" (keyup.enter)="search(currentSearch)">
+              <input matInput [(ngModel)]="currentSearch" placeholder="Buscar cliente" (keyup.enter)="search(currentSearch)">
             </mat-form-field>
             
             <div fxFlex.gt-sm="35" fxFlex="35" id="newSection">
