@@ -40,7 +40,7 @@ export class SellDetailComponent extends BaseVenta implements OnInit {
     console.log(s);
 
     const dialogRef = this.dialog.open(SellShowImageComponent, {
-      width: '95%',
+      width: '99%',
       data: { image: s }
     });
 

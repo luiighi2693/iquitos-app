@@ -86,7 +86,7 @@ export class SellComponent extends BaseVenta implements OnInit, OnDestroy {
 
   paginate(data: Venta[], headers: HttpHeaders) {
     console.log(data);
-    data.sort((a, b) => a.id - b.id);
+    data.sort((a, b) =>  b.id - a.id);
     super.paginate(data, headers);
   }
 }

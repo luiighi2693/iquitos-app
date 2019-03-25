@@ -173,7 +173,7 @@
                     <ng-container matColumnDef="imprimir">
                       <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
                       <mat-cell *matCellDef="let row;let i = index">
-                        <a class="ng-star-inserted" [routerLink]="['/print/invoice2/' + entity.id + '/' + i ]">
+                        <a class="ng-star-inserted" [routerLink]="['/print/invoice'+ (i === 0 ? '2' : 'a5') +'/' + entity.id + '/' + i ]">
                           <i class="ti-printer text-info m-r-10"></i>
                         </a>
                       </mat-cell>

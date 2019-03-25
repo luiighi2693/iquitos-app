@@ -647,11 +647,15 @@ export class SellUpdateComponent extends BaseVenta implements OnInit {
   }
 
   refreshSell() {
-    this.entity.productoDetalles = [];
-    this.entity.subTotal = 0;
-    this.entity.montoTotal = 0;
-    this.refreshProductDetails();
-    this.removeCliente();
+    if (this.entity.id !== undefined){
+      this.router.navigate(['/ventas/sell']);
+    } else {
+      this.entity.productoDetalles = [];
+      this.entity.subTotal = 0;
+      this.entity.montoTotal = 0;
+      this.refreshProductDetails();
+      this.removeCliente();
+    }
   }
 
   validateClient() {
